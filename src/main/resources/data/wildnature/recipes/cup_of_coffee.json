@@ -1,0 +1,17 @@
+{
+    "result": {
+        "item": "wildnature:cup_of_coffee",
+        "count": 1
+    },
+    "pattern": [
+        "A",
+        "B",
+        "C"
+    ],
+    "type": "minecraft:crafting_shaped",
+    "key": {
+        "A": {"item": "wildnature:coffee_powder"},
+        "B": {"item": "wildnature:jug_water"},
+        "C": {"item": "wildnature:cup"}
+    }
+}

@@ -1,0 +1,315 @@
+package com.matez.wildnature.other;
+
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.feature.AbstractTreeFeature;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+
+public class Utilities {
+    public static int rint(int min, int max) {
+
+        if(min==max){
+            return min;
+        }
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+    public static int rint(int min, int max, Random rand) {
+
+        if(min==max){
+            return min;
+        }
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+
+        return rand.nextInt((max - min) + 1) + min;
+    }
+    public static double rdoub(double min, double max) {
+
+        if(min==max){
+            return min;
+        }
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return min + (max - min) * r.nextDouble();
+    }
+    public static double rdoub(double min, double max, Random rand) {
+
+        if(min==max){
+            return min;
+        }
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+
+        return min + (max - min) * rand.nextDouble();
+    }
+    public static boolean chance(double percentChance){
+        double x = rdoub(0,100);
+        //Crack.LOGGER.info("chance: " + percentChance+"/"+x);
+        return percentChance>=x;
+    }
+    public static boolean chance(double percentChance,Random rand){
+        double x = rdoub(0,100,rand);
+        return percentChance<=x;
+    }
+
+    public static BlockState getWeighBlock(BlockWeighList list){
+        if(!(list.size()==0)){
+            ArrayList<BlockState> blockStates = list.getNormalArrayList();
+            int block = rint(0,blockStates.size()-1);
+
+            return blockStates.get(block);
+
+
+        }
+
+        return null;
+    }
+
+    public static AbstractTreeFeature getWeighTree(TreeWeighList list){
+        if(!(list.size()==0)){
+            ArrayList<AbstractTreeFeature> trees = list.getNormalArrayList();
+            int block = rint(0,trees.size()-1);
+
+            return trees.get(block);
+
+
+        }
+
+        return null;
+    }
+
+    public static AbstractTreeFeature getWeighTree(TreeWeighList list,Random rand){
+        if(!(list.size()==0)){
+            ArrayList<AbstractTreeFeature> trees = list.getNormalArrayList();
+            int block = rint(0,trees.size()-1,rand);
+
+            return trees.get(block);
+
+
+        }
+
+
+        return null;
+    }
+
+    public static Biome getWeighBiome(BiomeWeighList list,Random rand){
+        if(!(list.size()==0)){
+            ArrayList<Biome> biomes = list.getNormalArrayList();
+            int biome = rint(0,biomes.size()-1,rand);
+
+            return biomes.get(biome);
+
+
+        }
+
+        return null;
+    }
+
+    public static Biome getWeighBiome(BiomeWeighList list){
+        if(!(list.size()==0)){
+            ArrayList<Biome> biomes = list.getNormalArrayList();
+            int biome = rint(0,biomes.size()-1);
+
+            return biomes.get(biome);
+
+
+        }
+
+        return null;
+    }
+
+    public static int blockDistance(BlockPos pos1, BlockPos pos2) {
+        return (int)Math.sqrt(Math.pow(pos2.getX()-pos1.getX(),2)+Math.pow(pos2.getY()-pos1.getY(),2)+Math.pow(pos2.getZ()-pos1.getZ(),2));
+    }
+
+    public static double blockDistanceDouble(BlockPos pos1, BlockPos pos2) {
+        return Math.sqrt(Math.pow(pos2.getX()-pos1.getX(),2)+Math.pow(pos2.getY()-pos1.getY(),2)+Math.pow(pos2.getZ()-pos1.getZ(),2));
+    }
+
+    @Nullable
+    public static PlayerEntity getClosestPlayer(World world, double x, double y, double z) {
+        PlayerEntity entity = null;
+        double closestDistance = -1D;
+        boolean nb = true;
+
+        for(PlayerEntity player : world.getPlayers()){
+            if(!player.isSpectator()){
+                double distance = blockDistanceDouble(new BlockPos(x,y,z),player.getPosition());;
+                if(nb){
+                    entity=player;
+                    closestDistance=distance;
+                    nb = false;
+                }else{
+                    if(closestDistance>distance){
+                        entity=player;
+                        closestDistance=distance;
+                    }
+                }
+            }
+        }
+
+        return entity;
+    }
+
+    public static int SumOfDigits(String str,
+                           int n)
+    {
+        int sum = 0;
+
+        for (int i = 0; i < n; i++)
+            sum += (int)(str.charAt(i) - '0');
+
+        return sum;
+    }
+
+    // function to Check if a large number
+// is divisible by 2, 3 and 5 or not
+    public static boolean isDivisible(String str,
+                             int n)
+    {
+        if (SumOfDigits(str, n) % 3 == 0 &&
+                str.charAt(n - 1) == '0')
+            return true;
+
+        return false;
+    }
+
+    public static boolean isStringEqual(String s, String... strings){
+        ArrayList sar = new ArrayList(Arrays.asList(strings));
+        for (int i = 0; i<sar.size(); i++){
+            if(s.equals(sar.get(i))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    // N
+    //W E   <---
+    // S
+    public static Direction rotateLeft(Direction old){
+        Direction newDir;
+        if(old==Direction.NORTH){
+            newDir=Direction.WEST;
+        }else if(old==Direction.WEST){
+            newDir=Direction.SOUTH;
+        }else if(old==Direction.SOUTH){
+            newDir=Direction.EAST;
+        }else{
+            newDir=Direction.NORTH;
+        }
+        return newDir;
+    }
+
+    // N
+    //W E   --->
+    // S
+    public static Direction rotateRight(Direction old){
+        Direction newDir;
+        if(old==Direction.NORTH){
+            newDir=Direction.EAST;
+        }else if(old==Direction.EAST){
+            newDir=Direction.SOUTH;
+        }else if(old==Direction.SOUTH){
+            newDir=Direction.WEST;
+        }else{
+            newDir=Direction.NORTH;
+        }
+        return newDir;
+    }
+
+    public static CompoundNBT saveItem(CompoundNBT nbt, ItemStack stack){
+        stack.write(nbt);
+        return nbt;
+    }
+    public static ItemStack loadItem(CompoundNBT nbt){
+        ItemStack stack = ItemStack.read(nbt);
+        return stack;
+    }
+
+    public static CompoundNBT saveItems(CompoundNBT nbt, ArrayList<ItemStack> stack){
+        if(nbt.contains("Items")){
+            nbt.remove("Items");
+        }
+
+        ListNBT l = new ListNBT();
+        for (ItemStack itemStack : stack) {
+            CompoundNBT n = new CompoundNBT();
+            itemStack.write(n);
+            l.add(n);
+        }
+
+        nbt.put("Items",l);
+
+        return nbt;
+    }
+    public static ArrayList<ItemStack> loadItems(CompoundNBT nbt){
+        if(nbt.contains("Items")) {
+            ListNBT l = (ListNBT) nbt.get("Items");
+            assert l!=null;
+            ArrayList<ItemStack> stacks = new ArrayList<>();
+            for (INBT inbt : l) {
+                ItemStack s = ItemStack.read((CompoundNBT) inbt);
+                stacks.add(s);
+            }
+            return stacks;
+        }
+        return new ArrayList<>();
+    }
+
+    public static Object getRandomEntry(ArrayList<?> array, Random rand){
+        return array.get(rint(0,array.size()-1,rand));
+    }
+
+    public static Object getWeightedEntry(WeightedList<?> list){
+        if(!(list.size()==0)){
+            ArrayList<?> objects = list.getSimplifedArray();
+            int x = rint(0,objects.size()-1);
+
+            return objects.get(x);
+        }
+        return null;
+    }
+
+    public static Object getWeightedEntry(WeightedList<?> list,Random rand){
+        if(!(list.size()==0)){
+            ArrayList<?> objects = list.getSimplifedArray();
+            int x = rint(0,objects.size()-1,rand);
+
+            return objects.get(x);
+        }
+        return null;
+    }
+
+
+}

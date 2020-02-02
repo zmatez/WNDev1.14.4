@@ -1,0 +1,8 @@
+{
+    "parent": "wildnature:block/cross_with_overlay",
+    "textures": {
+        "colored": "wildnature:blocks/flowers/blackberry_bush",
+        "greyscale": "wildnature:blocks/flowers/blackberry_bush_stalk",
+        "particle": "wildnature:blocks/flowers/blackberry_bush_stalk"
+    }
+}

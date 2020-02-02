@@ -1,0 +1,777 @@
+package com.matez.wildnature;
+
+import com.matez.wildnature.commands.BiomeArgument;
+import com.matez.wildnature.compatibility.WNMinecraftCopatibility;
+import com.matez.wildnature.entity.EntityRegistry;
+import com.matez.wildnature.entity.render.RenderRegistry;
+import com.matez.wildnature.event.*;
+import com.matez.wildnature.gui.container.PouchContainer;
+import com.matez.wildnature.gui.initGuis;
+import com.matez.wildnature.gui.tileEntities.DungeonCommanderTileEntity;
+import com.matez.wildnature.items.*;
+import com.matez.wildnature.items.recipes.PotCrafting;
+import com.matez.wildnature.items.tier.WNItemTier;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.lists.WNItems;
+import com.matez.wildnature.particles.GeyserParticle;
+import com.matez.wildnature.proxy.ClientProxy;
+import com.matez.wildnature.proxy.IProxy;
+import com.matez.wildnature.proxy.ServerProxy;
+import com.matez.wildnature.registry.*;
+import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorType;
+import com.matez.wildnature.world.gen.feature.RockGen;
+import com.matez.wildnature.world.gen.provider.WNBiomeProviderType;
+import com.matez.wildnature.world.gen.provider.WNWorldType;
+import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
+import com.matez.wildnature.blocks.colors.WNBlockColors;
+import com.matez.wildnature.blocks.colors.WNItemColors;
+import com.matez.wildnature.blocks.config.ConfigSettings;
+import com.matez.wildnature.commands.WNCommand;
+import com.matez.wildnature.customizable.CommonConfig;
+import com.matez.wildnature.customizable.WNConfig;
+import com.matez.wildnature.gui.tileEntities.CustomPistonTileEntity;
+import com.matez.wildnature.itemGroup.wnItemGroup;
+import com.matez.wildnature.itemGroup.wnItemGroupBuilding;
+import com.matez.wildnature.itemGroup.wnItemGroupDeco;
+import com.matez.wildnature.itemGroup.wnItemGroupUnderground;
+import com.matez.wildnature.items.recipes.DyeableRecipe;
+import com.matez.wildnature.items.recipes.GiftCrafting;
+import com.matez.wildnature.particles.CrystalSparkParticle;
+import com.matez.wildnature.particles.DungeonHeartParticle;
+import com.matez.wildnature.particles.SteamParticle;
+import com.matez.wildnature.sounds.SoundRegistry;
+import net.minecraft.block.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.command.arguments.ArgumentSerializer;
+import net.minecraft.command.arguments.ArgumentTypes;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.*;
+import net.minecraft.item.crafting.ICraftingRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.SpecialRecipeSerializer;
+import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.ParticleType;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.event.ClickEvent;
+import net.minecraft.util.text.event.HoverEvent;
+import net.minecraft.world.WorldType;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.extensions.IForgeContainerType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.fml.network.IContainerFactory;
+import net.minecraftforge.versions.forge.ForgeVersion;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.*;
+
+@Mod("wildnature")
+public class Main {
+    public static Main instance;
+    public static final String modid = "wildnature";
+    public static final String version = "2.1.4";
+    public static final Logger LOGGER = LogManager.getLogger(modid);
+    public static final wnItemGroup WILDNATURE_GROUP = new wnItemGroup();
+    public static final wnItemGroupUnderground WILDNATURE_UNDERGROUND_GROUP = new wnItemGroupUnderground();
+    public static final wnItemGroupDeco WILDNATURE_DECO_GROUP = new wnItemGroupDeco();
+    public static final wnItemGroupBuilding WILDNATURE_BUILDING_GROUP = new wnItemGroupBuilding();
+    public static final String WildNaturePrefix = TextFormatting.GOLD.toString()+TextFormatting.BOLD.toString()+"["+TextFormatting.GREEN.toString()+TextFormatting.BOLD.toString()+"WN"+TextFormatting.GOLD.toString()+TextFormatting.BOLD.toString()+"] "+TextFormatting.AQUA.toString();
+    public static WorldType WNWorldType = new WNWorldType("wildnature");;
+    private static WNChunkGeneratorType chunkGeneratorType = new WNChunkGeneratorType();
+    private static WNBiomeProviderType biomeProviderType = new WNBiomeProviderType();
+    public static ArrayList<SchemFeature> treesList = new ArrayList<>();
+    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+    public static boolean gotInfoAboutWorld = true, loadedNewVersion = false;
+    public ArrayList<String> supportedLanguages = new ArrayList<>();
+    public static boolean usesFancyGraphics = true;
+    public static StringTextComponent WNPrefix = new StringTextComponent(Main.WildNaturePrefix);
+    public Main(){
+        LOGGER.info("Initializing WildNature mod");
+        instance=this;
+        addSupportedLanguageses();
+
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientRegistries);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onServerStarting);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+
+        File f = new File(FMLPaths.GAMEDIR.get().resolve("wildnature/").toString());
+        if(!f.exists()){
+            new File(FMLPaths.GAMEDIR.get().resolve("wildnature/").toString()).mkdirs();
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        WNConfig.register(ModLoadingContext.get());
+        ConfigSettings.applyCfgs();
+        MinecraftForge.EVENT_BUS.register(this);
+
+        WNPrefix.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new StringTextComponent(TextFormatting.GOLD + "WildNature " + TextFormatting.LIGHT_PURPLE + version)));
+        WNPrefix.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://wildnature.matez.net"));
+    }
+
+
+    private void setup(final FMLCommonSetupEvent event){
+        LOGGER.info("Setup...");
+        RockGen.setupRocks();
+        MinecraftForge.EVENT_BUS.addListener(new ParticleFactoryEvent()::registerParticles);
+        ArgumentTypes.register("biome_argument", BiomeArgument.class, new ArgumentSerializer<>(BiomeArgument::createArgument));
+        Main.LOGGER.info("Using Version "+ CommonConfig.currentVersion+" / " + version);
+
+        if(!CommonConfig.currentVersion.get().equals(version)){
+            loadedNewVersion=true;
+            Main.LOGGER.info("Using new version! Current: " + version);
+            CommonConfig.currentVersion.set(version);
+        }
+        CommonConfig.compile();
+
+        com.matez.wildnature.world.gen.biomes.setup.WNBiomes.registerAll();
+
+        WNMinecraftCopatibility.init();
+
+
+        proxy.init();
+        wnInfo("Setup completed");
+    }
+
+    private void clientRegistries(final FMLClientSetupEvent event){
+        LOGGER.info("Client setup...");
+        WNBlockColors blockColors = new WNBlockColors();
+        WNItemColors itemColors = new WNItemColors();
+        MinecraftForge.EVENT_BUS.addListener(new GuiEvent()::guiScreenEvent);
+        //MinecraftForge.EVENT_BUS.addListener(new FogEvent()::fogEvent);
+        //MinecraftForge.EVENT_BUS.addListener(new ClientPlayerEventHandler()::onPlayerJoin);
+
+        RenderRegistry.registryEntityRenders();
+        //MinecraftForge.EVENT_BUS.addListener(new AmbientSoundPlayer(Minecraft.getInstance())::playerTick);
+
+        wnInfo("Client setup completed");
+    }
+
+    @SubscribeEvent
+    public void enqueueIMC(InterModEnqueueEvent event) {
+        proxy.enqueueIMC(event);
+    }
+
+    private void addSupportedLanguageses(){
+        supportedLanguages.add("en_us");
+    }
+
+    public ArrayList<String> getSupportedLanguages() {
+        return supportedLanguages;
+    }
+
+    @SubscribeEvent
+    public void registerParticles(final net.minecraftforge.client.event.ParticleFactoryRegisterEvent event){
+        LOGGER.info("Registering particle factories...");
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.DUNGEON_HEART, DungeonHeartParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.CRYSTAL_SPARK, CrystalSparkParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.GEYSER, GeyserParticle.GeyserParticleFactory::new);
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.STEAM, SteamParticle.Factory::new);
+    }
+
+    @SubscribeEvent
+    public void onServerStarting(FMLServerStartingEvent e)
+    {
+        Main.LOGGER.debug("Registering commands");
+        MinecraftForge.EVENT_BUS.addListener(new PlayerEventHandler()::onPlayerJoin);
+        MinecraftForge.EVENT_BUS.addListener(new PlayerEventHandler()::onPlayerExit);
+
+
+
+        WNCommand.register(e.getCommandDispatcher());
+
+
+        wnInfo("Successfully initialized server-side");
+    }
+
+
+
+    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+    public static class RegistryEvents{
+        public static RegistryEvent.Register<Item> itemEvent;
+        public static RegistryEvent.Register<Block> blockEvent;
+        public static RegistryEvent.Register<Biome> biomeEvent;
+        public static RockRegistry rockRegistry = new RockRegistry();
+        @SubscribeEvent
+        public static void registerItems(final RegistryEvent.Register<Item> event){
+            LOGGER.info("Registering items...");
+
+            EntityRegistry.registerSpawningEggs(event);
+
+            itemEvent=event;
+
+            int ib = 0;
+            while(ib< WNBlocks.ITEMBLOCKS.size()){
+                event.getRegistry().register(WNBlocks.ITEMBLOCKS.get(ib));
+                ib++;
+            }
+
+            Food CHERRY = (new Food.Builder()).hunger(2).saturation(0.6F).build();
+            Food PLUM = (new Food.Builder()).hunger(2).saturation(0.6F).build();
+            Food CORN = (new Food.Builder()).hunger(2).saturation(0.3F).build();
+            Food TOMATO = (new Food.Builder()).hunger(2).saturation(0.5F).build();
+            Food TOMATO_SOUP = (new Food.Builder()).hunger(16).saturation(1F).build();
+            Food CANDY_CANE = (new Food.Builder()).hunger(2).saturation(0.3F).build();
+            Food CANDY = (new Food.Builder()).hunger(2).saturation(0.3F).build();
+            Food DONUTS = (new Food.Builder()).hunger(2).saturation(0.3F).build();
+            Food CHOCOLATE = (new Food.Builder()).hunger(2).saturation(0.3F).build();
+            Food CARAMEL = (new Food.Builder()).hunger(1).saturation(0.2F).build();
+
+
+            event.getRegistry().registerAll(
+                    WNItems.ROSACEAE_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.ROSACEAE_SIGN, WNBlocks.ROSACEAE_WALL_SIGN).setRegistryName(location("rosaceae_sign")),
+                    WNItems.BAOBAB_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.BAOBAB_SIGN, WNBlocks.BAOBAB_WALL_SIGN).setRegistryName(location("baobab_sign")),
+                    WNItems.BEECH_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.BEECH_SIGN, WNBlocks.BEECH_WALL_SIGN).setRegistryName(location("beech_sign")),
+                    WNItems.CEDAR_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.CEDAR_SIGN, WNBlocks.CEDAR_WALL_SIGN).setRegistryName(location("cedar_sign")),
+                    WNItems.CHERRY_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.CHERRY_SIGN, WNBlocks.CHERRY_WALL_SIGN).setRegistryName(location("cherry_sign")),
+                    WNItems.EBONY_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.EBONY_SIGN, WNBlocks.EBONY_WALL_SIGN).setRegistryName(location("ebony_sign")),
+                    WNItems.JACARANDA_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.JACARANDA_SIGN, WNBlocks.JACARANDA_WALL_SIGN).setRegistryName(location("jacaranda_sign")),
+                    WNItems.LARCH_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.LARCH_SIGN, WNBlocks.LARCH_WALL_SIGN).setRegistryName(location("larch_sign")),
+                    WNItems.MAHOGANY_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.MAHOGANY_SIGN, WNBlocks.MAHOGANY_WALL_SIGN).setRegistryName(location("mahogany_sign")),
+                    WNItems.MANGROVE_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.MANGROVE_SIGN, WNBlocks.MANGROVE_WALL_SIGN).setRegistryName(location("mangrove_sign")),
+                    WNItems.MAPLE_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.MAPLE_SIGN, WNBlocks.MAPLE_WALL_SIGN).setRegistryName(location("maple_sign")),
+                    WNItems.PALM_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.PALM_SIGN, WNBlocks.PALM_WALL_SIGN).setRegistryName(location("palm_sign")),
+                    WNItems.PLUM_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.PLUM_SIGN, WNBlocks.PLUM_WALL_SIGN).setRegistryName(location("plum_sign")),
+                    WNItems.REDWOOD_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.REDWOOD_SIGN, WNBlocks.REDWOOD_WALL_SIGN).setRegistryName(location("redwood_sign")),
+                    WNItems.WILLOW_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.WILLOW_SIGN, WNBlocks.WILLOW_WALL_SIGN).setRegistryName(location("willow_sign"))
+
+            );
+
+
+
+            event.getRegistry().registerAll(
+                    //FRUITS
+                    WNItems.GREEN_APPLE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("green_apple")),
+                    WNItems.CHERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CHERRY)).setRegistryName(location("cherry")),
+                    WNItems.PEAR = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("pear")),
+                    WNItems.RASPBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("raspberry")),
+                    WNItems.BLUEBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("blueberry")),
+                    WNItems.LINGONBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("lingonberry")),
+                    WNItems.BLACKBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("blackberry")),
+                    WNItems.GOOSEBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("gooseberry")),
+                    WNItems.CHOKE_BERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("chokeberry")),
+                    WNItems.BLACK_CURRANT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("black_currant")),
+                    WNItems.RED_CURRANT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("red_currant")),
+                    WNItems.WHITE_CURRANT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("white_currant")),
+                    WNItems.HAWTHORN_BERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("hawthorn_berry")),
+                    WNItems.KAMCHATKA_BERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("kamchatka_berry")),
+                    WNItems.WILD_STRAWBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("wild_strawberry")),
+                    WNItems.QUINCE_FRUIT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("quince_fruit")),
+                    WNItems.BILBERRIES = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("bilberries")),
+                    WNItems.BLACK_LILAC_BERRIES = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("black_lilac_berries")),
+
+
+                    WNItems.PLUM = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("plum")),
+                    WNItems.ACORN = new Item(new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("acorn")),
+                    WNItems.GREEN_WATERLILY = new WaterlilyItem(getBlockByID("wildnature:green_waterlily"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("green_waterlily")),
+                    WNItems.RED_WATERLILY = new WaterlilyItem(getBlockByID("wildnature:red_waterlily"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("red_waterlily")),
+                    WNItems.GRAPES_PURPLE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("grapes_purple")),
+                    WNItems.GRAPES_YELLOW = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("grapes_yellow")),
+
+                    //CITRUS
+                    WNItems.LEMON = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("lemon")),
+                    WNItems.ORANGE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("orange")),
+                    WNItems.GRAPEFRUIT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("grapefruit")),
+
+
+                    //PLANTS
+                    WNItems.CORN = new BlockNamedItem(Main.getBlockByID("wildnature:corn_bush"),new Item.Properties().group(ItemGroup.FOOD).food(CORN)).setRegistryName(location("corn")),
+                    WNItems.TOMATO = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("tomato")),
+                    WNItems.TOMATO_SEEDS = new BlockNamedItem(Main.getBlockByID("wildnature:tomato_plant"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("tomato_seeds")),
+                    WNItems.GREEN_BEANS = new BlockNamedItem(Main.getBlockByID("wildnature:green_bean_bush"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("green_beans")),
+                    WNItems.LETTUCE = new BlockNamedItem(Main.getBlockByID("wildnature:lettuce_plant"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("lettuce")),
+                    WNItems.ONION = new BlockNamedItem(Main.getBlockByID("wildnature:onion_plant"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("onion")),
+                    WNItems.RED_ONION = new BlockNamedItem(Main.getBlockByID("wildnature:red_onion_plant"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("red_onion")),
+                    WNItems.CAULIFLOWER = new BlockNamedItem(Main.getBlockByID("wildnature:cauliflower_plant"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("cauliflower")),
+                    WNItems.CELERY = new BlockNamedItem(Main.getBlockByID("wildnature:celery_plant"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("celery")),
+                    WNItems.GARLIC = new BlockNamedItem(Main.getBlockByID("wildnature:garlic_plant"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("garlic")),
+                    WNItems.GINGER = new BlockNamedItem(Main.getBlockByID("wildnature:ginger_plant"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("ginger")),
+                    WNItems.GREEN_PEPPER = new BlockNamedItem(Main.getBlockByID("wildnature:green_pepper_plant"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("green_pepper")),
+                    WNItems.LEEK = new BlockNamedItem(Main.getBlockByID("wildnature:leek_plant"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("leek")),
+                    WNItems.RED_PEPPER = new BlockNamedItem(Main.getBlockByID("wildnature:red_pepper_plant"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("red_pepper")),
+                    WNItems.RHUBARB = new BlockNamedItem(Main.getBlockByID("wildnature:rhubarb_plant"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("rhubarb")),
+                    WNItems.RICE = new BlockNamedItem(Main.getBlockByID("wildnature:rice_plant"),new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("rice")),
+                    WNItems.TURNIP = new BlockNamedItem(Main.getBlockByID("wildnature:turnip_plant"),new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("turnip")),
+
+                    WNItems.BASIL = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("basil")),
+                    WNItems.DRIED_MARJORAM = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("dried_marjoram")),
+                    WNItems.DRIED_PARSLEY = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("dried_parsley")),
+                    WNItems.DRIED_SAGE = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("dried_sage")),
+                    WNItems.GARLIC_CLOVES = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("garlic_cloves")),
+                    WNItems.TURMERIC = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("turmeric")),
+
+                    WNItems.SALT = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("salt")),
+                    WNItems.PEPPER = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("pepper")),
+
+
+
+                    WNItems.COFFEE_LEAVES = new Item(new Item.Properties().group(Main.WILDNATURE_GROUP)).setRegistryName(location("coffee_leaves")),
+                    WNItems.COFFEE_BRANCH = new Item(new Item.Properties().group(Main.WILDNATURE_GROUP)).setRegistryName(location("coffee_branch")),
+                    WNItems.COFFEE_BERRY_GREEN = new Item(new Item.Properties().group(Main.WILDNATURE_GROUP)).setRegistryName(location("coffee_berry_green")),
+                    WNItems.COFFEE_BERRY = new Item(new Item.Properties().group(Main.WILDNATURE_GROUP)).setRegistryName(location("coffee_berry")),
+                    WNItems.COFFEE_BEAN = new Item(new Item.Properties().group(Main.WILDNATURE_GROUP)).setRegistryName(location("coffee_bean")),
+                    WNItems.COFFEE_POWDER = new Item(new Item.Properties().group(ItemGroup.MISC)).setRegistryName(location("coffee_powder")),
+                    WNItems.CUP = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("cup")),
+                    WNItems.CUP_OF_COFFEE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:cup")).setRegistryName(location("cup_of_coffee")),
+                    WNItems.JUG = new JugItem(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("jug")),
+                    WNItems.JUG_WATER = new WaterJugItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1)).setRegistryName(location("jug_water")),
+                    WNItems.GLASS = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CANDY_CANE)).setRegistryName(location("glass")),
+                    WNItems.CACAO = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:glass")).setRegistryName(location("cacao")),
+                    WNItems.JAR = new JarItem(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("jar")),
+                    WNItems.JAR_WATER = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD),getItemByID("wildnature:jar")).setRegistryName(location("jar_water")),
+                    WNItems.CARAMEL_JAR = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("caramel_jar")),
+
+                    //JAMS
+                    WNItems.JAM_CHOKE_BERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_choke_berry")),
+                    WNItems.JAM_HAWTHORN_BERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_hawthorn_berry")),
+                    WNItems.JAM_KAMCHATKA_BERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_kamchatka_berry")),
+                    WNItems.JAM_WILD_STRAWBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_wild_strawberry")),
+                    WNItems.JAM_BLUEBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_blueberry")),
+                    WNItems.JAM_QUINCE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_quince")),
+                    WNItems.JAM_RASPBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_raspberry")),
+
+
+                    WNItems.MAPLE_BOWL = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("maple_bowl")),
+                    WNItems.DEEP_BOWL = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("deep_bowl")),
+
+                    //MEAT
+                    WNItems.RAW_BACON = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.PORKCHOP)).setRegistryName(location("raw_bacon")),
+                    WNItems.COOKED_BACON = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.COOKED_PORKCHOP)).setRegistryName(location("cooked_bacon")),
+
+
+                    WNItems.WOODEN_HAMMER = new Item(new Item.Properties().group(ItemGroup.TOOLS)).setRegistryName(location("wooden_hammer")),
+                    WNItems.STONE_HAMMER = new Item(new Item.Properties().group(ItemGroup.TOOLS)).setRegistryName(location("stone_hammer")),
+                    WNItems.IRON_HAMMER = new Item(new Item.Properties().group(ItemGroup.TOOLS)).setRegistryName(location("iron_hammer")),
+
+                    WNItems.CHEF_KNIFE = new SwordItem(WNItemTier.KITCHEN_TOOLS,1,5,new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1)).setRegistryName(location("chef_knife")),
+                    WNItems.FRYING_PAN = new Item(new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1)).setRegistryName(location("frying_pan")),
+                    WNItems.POT_EMPTY = new PotEmptyItem(new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1)).setRegistryName(location("pot_empty")),
+                    WNItems.POT_WATER = new PotItem(new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1)).setRegistryName(location("pot_water")),
+
+
+                    //SOUPS
+                    WNItems.TOMATO_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("tomato_soup")),
+                    WNItems.ONION_SOUP = new DeepBowlSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("onion_soup")),
+                    WNItems.ONION_SALAD = new DeepBowlSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("onion_salad")),
+
+                    //MEALS
+                    WNItems.FRIED_EGG = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("fried_egg")),
+                    WNItems.SLICED_BREAD = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("sliced_bread")),
+                    WNItems.GARLIC_BREAD = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("garlic_bread")),
+                    WNItems.GRILLED_CAULIFLOWER = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("grilled_cauliflower")),
+                    WNItems.LEMON_WEDGE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("lemon_wedge")),
+
+
+                    //OTHER
+                    WNItems.BREAD_ROLL = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("bread_roll")),
+                    WNItems.CANDY_1 = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CANDY)).setRegistryName(location("candy_1")),
+                    WNItems.CANDY_2 = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CANDY)).setRegistryName(location("candy_2")),
+                    WNItems.CANDY_3 = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CANDY)).setRegistryName(location("candy_3")),
+                    WNItems.CANDY_CANE_1 = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CANDY_CANE)).setRegistryName(location("candy_cane_1")),
+                    WNItems.CANDY_CANE_2 = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CANDY_CANE)).setRegistryName(location("candy_cane_2")),
+                    WNItems.CARAMEL_CANDY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("caramel_candy")),
+                    WNItems.CREAM_CARAMEL = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("cream_caramel")),
+                    //ItemsList.DONUT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(DONUTS)).setRegistryName(location("donut")),
+                    //ItemsList.DONUT_2 = new Item(new Item.Properties().group(ItemGroup.FOOD).food(DONUTS)).setRegistryName(location("donut_2")),
+                    WNItems.EMPTY_BAG = new Item(new Item.Properties().group(ItemGroup.MISC)).setRegistryName(location("empty_bag")),
+                    //ItemsList.GINGERBREAD_1 = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("gingerbread_1")),
+                    //ItemsList.GINGERBREAD_2 = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("gingerbread_2")),
+                    //ItemsList.MARSHMALLOW_1 = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("marshmallow_1")),
+                    WNItems.CHOCOLATE_DARK = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CHOCOLATE)).setRegistryName(location("chocolate_dark")),
+                    WNItems.CHOCOLATE_MILK = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CHOCOLATE)).setRegistryName(location("chocolate_milk")),
+                    WNItems.CHOCOLATE_WHITE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CHOCOLATE)).setRegistryName(location("chocolate_white")),
+                    WNItems.CHOCOLATE_CARAMEL = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CHOCOLATE)).setRegistryName(location("chocolate_caramel")),
+
+                    WNItems.CARAMEL = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CANDY)).setRegistryName(location("caramel")),
+
+                    WNItems.FLOUR = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("flour")),
+                    WNItems.POPPY_SEED = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("poppy_seed")),
+                    WNItems.RICE_BAG = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("rice_bag")),
+                    WNItems.YEAST = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("yeast")),
+
+
+                    WNItems.GIFT_1 = new GiftItem(new Item.Properties().group(ItemGroup.DECORATIONS), GiftItem.GiftColor.CYAN_RED).setRegistryName(location("gift_1")),
+                    WNItems.GIFT_2 = new GiftItem(new Item.Properties().group(ItemGroup.DECORATIONS), GiftItem.GiftColor.RED_YELLOW).setRegistryName(location("gift_2")),
+                    WNItems.GIFT_3 = new GiftItem(new Item.Properties().group(ItemGroup.DECORATIONS), GiftItem.GiftColor.BLUE_PINK).setRegistryName(location("gift_3")),
+                    WNItems.XMAS_PAPER_1 = new WrappingPaperItem(new Item.Properties().group(ItemGroup.DECORATIONS), GiftItem.GiftColor.CYAN_RED).setRegistryName(location("xmas_paper_1")),
+                    WNItems.XMAS_PAPER_2 = new WrappingPaperItem(new Item.Properties().group(ItemGroup.DECORATIONS), GiftItem.GiftColor.RED_YELLOW).setRegistryName(location("xmas_paper_2")),
+                    WNItems.XMAS_PAPER_3 = new WrappingPaperItem(new Item.Properties().group(ItemGroup.DECORATIONS), GiftItem.GiftColor.BLUE_PINK).setRegistryName(location("xmas_paper_3")),
+                    WNItems.XMAS_SOCK = new Item(new Item.Properties().group(ItemGroup.DECORATIONS)).setRegistryName(location("xmas_sock")),
+
+                    WNItems.POUCH = new PouchItem(new Item.Properties().group(WILDNATURE_GROUP).maxStackSize(1)).setRegistryName(location("pouch"))
+
+
+
+
+
+                    );
+            GemRegistry gems = new GemRegistry();
+            event.getRegistry().registerAll(gems.getItem());
+
+
+            event.getRegistry().registerAll(
+                    WNItems.DUNGEON_TORCH = new WallOrFloorItem(getBlockByID("wildnature:dungeon_torch"), getBlockByID("wildnature:dungeon_torch_wall"), (new Item.Properties()).group(WILDNATURE_DECO_GROUP)).setRegistryName("wildnature:dungeon_torch"),
+                    WNItems.CRYSTAL_TORCH = new WallOrFloorItem(getBlockByID("wildnature:crystal_torch"), getBlockByID("wildnature:crystal_torch_wall"), (new Item.Properties()).group(WILDNATURE_DECO_GROUP)).setRegistryName("wildnature:crystal_torch"),
+                    WNItems.DUNGEON_REDSTONE_TORCH = new WallOrFloorItem(getBlockByID("wildnature:dungeon_redstone_torch"), getBlockByID("wildnature:dungeon_redstone_torch_wall"), (new Item.Properties()).group(ItemGroup.REDSTONE)).setRegistryName("wildnature:dungeon_redstone_torch"),
+                    WNItems.RS_PISTON1 = new BlockNamedItem(Main.getBlockByID("wildnature:rs_piston1"),new Item.Properties().group(ItemGroup.REDSTONE)).setRegistryName(location("rs_piston1")),
+                    WNItems.GEYSER_ESSENCE = new GeyserEssenceItem(new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("geyser_essence"))
+
+                    );
+
+        }
+
+
+
+        @SubscribeEvent
+        public static void registerRecipes(final RegistryEvent.Register<IRecipeSerializer<?>> event){
+            LOGGER.info("Registering recipes...");
+            event.getRegistry().register(new SpecialRecipeSerializer<>(GiftCrafting::new).setRegistryName("wildnature:gift_crafting"));
+            event.getRegistry().register(new SpecialRecipeSerializer<>(DyeableRecipe::new).setRegistryName("wildnature:dyeable_recipe"));
+            event.getRegistry().register(new SpecialRecipeSerializer<>(PotCrafting::new).setRegistryName("wildnature:pot_crafting"));
+
+        }
+
+        @SubscribeEvent
+        public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event){
+            LOGGER.info("Registering entities...");
+            event.getRegistry().registerAll(
+                    EntityRegistry.GOBLIN
+            );
+
+        }
+
+
+        @SubscribeEvent
+        public static void registerBlocks(final RegistryEvent.Register<Block> event){
+            LOGGER.info("Registering blocks...");
+            blockEvent=event;
+
+
+            WoodRegistry woodRegistry = new WoodRegistry();
+            FlowerRegistry flowerRegistry = new FlowerRegistry();
+            SaplingRegistry saplingRegistry = new SaplingRegistry();
+
+
+            BuildingRegistry rockAddonRegistry = new BuildingRegistry();
+            EngravedRegistry engravedRegistry = new EngravedRegistry();
+            SignRegistry signRegistry = new SignRegistry();
+            GrassRegistry grassRegistry = new GrassRegistry();
+            OtherRegistry otherRegistry = new OtherRegistry();
+            OreRegistry oreRegistry = new OreRegistry();
+
+
+            event.getRegistry().registerAll(
+                    woodRegistry.getWoods()
+
+            );
+            event.getRegistry().registerAll(
+                    signRegistry.getSign()
+
+            );
+            event.getRegistry().registerAll(
+                    saplingRegistry.getSaplings()
+
+            );
+            event.getRegistry().registerAll(
+                    rockRegistry.getRocks()
+
+            );
+            event.getRegistry().registerAll(
+                    oreRegistry.getOres()
+
+            );
+            event.getRegistry().registerAll(
+                    rockAddonRegistry.getRocks()
+
+            );
+            event.getRegistry().registerAll(
+                    engravedRegistry.getEngraved()
+
+            );
+            event.getRegistry().registerAll(
+                    flowerRegistry.getFlowers()
+            );
+            event.getRegistry().registerAll(
+                    grassRegistry.getGrass()
+            );
+            event.getRegistry().registerAll(
+                    otherRegistry.getBlock()
+            );
+
+        }
+
+
+        @SubscribeEvent
+        public static void registerBiomes(final RegistryEvent.Register<Biome> event){
+            LOGGER.info("Registering biomes...");
+
+            event.getRegistry().registerAll(
+                    com.matez.wildnature.world.gen.biomes.setup.WNBiomes.River,
+                    com.matez.wildnature.world.gen.biomes.setup.WNBiomes.FrozenRiver,
+                    com.matez.wildnature.world.gen.biomes.setup.WNBiomes.AmazonRiver,
+                    com.matez.wildnature.world.gen.biomes.setup.WNBiomes.NileRiver
+                    );
+
+
+
+            int x = 0;
+            while(x< com.matez.wildnature.world.gen.biomes.setup.WNBiomes.registerBiomes.size()){
+                Biome b = com.matez.wildnature.world.gen.biomes.setup.WNBiomes.registerBiomes.get(x);
+                event.getRegistry().register(b);
+                x++;
+            }
+
+            com.matez.wildnature.world.gen.biomes.setup.WNBiomes.registerBiomes();
+
+            //WNBiomeManager.removeAllBiomes("minecraft:");
+
+
+
+        }
+
+        @SubscribeEvent
+        public static void registerParticles(final RegistryEvent.Register<ParticleType<?>> event){
+            LOGGER.info("Registering particles...");
+            BasicParticleType type = ParticleRegistry.DUNGEON_HEART;
+            type = ParticleRegistry.CRYSTAL_SPARK;
+            type = ParticleRegistry.GEYSER;
+            type = ParticleRegistry.STEAM;
+
+
+        }
+
+        @SubscribeEvent
+        public static void registerTileEntities(RegistryEvent.Register<TileEntityType<?>> evt) {
+            LOGGER.info("Registering tileEntities...");
+            TileEntityType<CustomPistonTileEntity> piston_type = TileEntityType.Builder.create(CustomPistonTileEntity::new, WNBlocks.RS_PISTON1_MOVING).build(null);
+            piston_type.setRegistryName("wildnature", "rs_piston1");
+            evt.getRegistry().register(piston_type);
+            initGuis.PISTON_TYPE=piston_type;
+
+            TileEntityType<DungeonCommanderTileEntity> dungeonCommander = TileEntityType.Builder.create(DungeonCommanderTileEntity::new, WNBlocks.DUNGEON_COMMANDER).build(null);
+            dungeonCommander.setRegistryName("wildnature", "dungeon_commander");
+            evt.getRegistry().register(dungeonCommander);
+            initGuis.DUNGEON_COMMANDER=dungeonCommander;
+
+        }
+
+        private static final List<ContainerType<?>> CONTAINER_TYPES = new ArrayList<>();
+
+
+        @SubscribeEvent
+        public static void onContainerRegistry(final RegistryEvent.Register<ContainerType<?>> event) {
+            LOGGER.info("Registering containers...");
+            registerContainer("wildnature:pouch",PouchContainer::new);
+
+            CONTAINER_TYPES.forEach(container_type -> event.getRegistry().register(container_type));
+
+        }
+
+        private static <T extends Container> void registerContainer(String name, IContainerFactory<T> container)
+        {
+            ContainerType<T> type = IForgeContainerType.create(container);
+            type.setRegistryName(name);
+            CONTAINER_TYPES.add(type);
+        }
+
+
+        @SubscribeEvent
+        public static void registerSounds(final RegistryEvent.Register<SoundEvent> event){
+            LOGGER.info("Registering sounds...");
+            //event.getRegistry().register(new SoundEvent(new ResourceLocation("wildnature","block/piston/2s_open")));
+            event.getRegistry().registerAll(SoundRegistry.register());
+
+
+        }
+
+
+
+
+
+        public static ResourceLocation location(String name){
+            return new ResourceLocation(modid,name);
+        }
+
+    }
+
+    public static Block getBlockByID(String resLoc){
+        return Registry.BLOCK.getOrDefault(new ResourceLocation(resLoc));
+    }
+
+    public static Item getItemByID(String resLoc){
+        return Registry.ITEM.getOrDefault(new ResourceLocation(resLoc));
+    }
+
+    public static Biome getBiomeByID(String resLoc){
+        return Registry.BIOME.getOrDefault(new ResourceLocation(resLoc));
+    }
+    public static ParticleType getParticleByID(String resLoc){
+        return Registry.PARTICLE_TYPE.getOrDefault(new ResourceLocation(resLoc));
+    }
+    public static SoundEvent getSoundByID(String resLoc){
+        return Registry.SOUND_EVENT.getOrDefault(new ResourceLocation(resLoc));
+    }
+
+    public static String yesNoReturner(boolean bool){
+        return bool ? "y" : "n";
+    }
+
+    public static void sendServerChatMessage(MinecraftServer server, PlayerEntity playerEntity, String message){
+        if(hasEffect(playerEntity,Effects.INVISIBILITY)){
+            Main.LOGGER.debug("---> Player is invisible, message won't be send");
+            return;
+        }
+        if(server!=null) {
+            server.sendMessage(new StringTextComponent(message));
+            for (PlayerEntity p : server.getPlayerList().getPlayers()) {
+                if(p!=playerEntity){
+                    sendChatMessage(p, message);
+                }
+            }
+        }else{
+            Main.LOGGER.debug("---> Cannot send message. Server == null");
+        }
+    }
+    public static void sendServerChatMessage(MinecraftServer server, PlayerEntity playerEntity, ITextComponent message){
+        Main.LOGGER.debug("Sending Message to server");
+        if(hasEffect(playerEntity,Effects.INVISIBILITY)){
+            Main.LOGGER.debug("---> Player is invisible, message won't be send");
+            return;
+        }
+        if(server!=null) {
+            server.sendMessage(message);
+            for (PlayerEntity p : server.getPlayerList().getPlayers()) {
+                if(p!=playerEntity){
+                    sendChatMessage(p, message);
+                }
+
+            }
+        }else{
+            Main.LOGGER.debug("---> Cannot send message. Server == null");
+        }
+    }
+    public static void sendChatMessage(PlayerEntity entity, String message){
+        entity.sendMessage(new StringTextComponent(message));
+    }
+    public static void sendChatMessage(PlayerEntity entity, ITextComponent message){
+        entity.sendMessage((message));
+    }
+
+    public static boolean hasEffect(LivingEntity entity, Effect effect){
+        ArrayList<Object> effects = new ArrayList<>(Arrays.asList(entity.getActivePotionEffects().toArray()));
+        for(Object e : effects){
+            if(e instanceof EffectInstance) {
+                if (((EffectInstance)e).getPotion() == effect) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public static String readFromURL(String sURL){
+        if(!netIsAvailable()){
+            LOGGER.warn("Internet connection unavailable");
+            return null;
+        }
+
+        try{
+            URL url = new URL(sURL);
+            URLConnection con = url.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String line = in.readLine();
+            StringBuilder builder = new StringBuilder();
+        do {
+            builder.append(line+"\n");
+        } while ( (line = in.readLine()) != null);
+            in.close();
+            return builder.toString();
+        }catch (Exception e){
+            LOGGER.warn("Cannot connect! Is the server unreachable?");
+            return null;
+        }
+    }
+
+    private static boolean netIsAvailable() {
+        try {
+            final URL url = new URL("http://www.google.com");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            conn.getInputStream().close();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean is404(String url) {
+        LOGGER.debug("Testing " + url + " for 404 exception...");
+        if(netIsAvailable()) {
+            try {
+                URL u = new URL(url);
+                HttpURLConnection huc = (HttpURLConnection) u.openConnection();
+                huc.setRequestMethod("GET");  //OR  huc.setRequestMethod ("HEAD");
+                huc.connect();
+                int code = huc.getResponseCode();
+                LOGGER.debug("Response code: " + code);
+                return code==404;
+            } catch (Exception e) {
+                LOGGER.warn("Exception during 404 test: " + e.getLocalizedMessage());
+            }
+        }else{
+            LOGGER.debug("Internet not available");
+        }
+        return true;
+    }
+
+
+    public static void wnInfo(String data){
+        LOGGER.info(TextFormatting.AQUA+"---------------------------------");
+        LOGGER.info(TextFormatting.GREEN+" WildNature " + version + " // " + ForgeVersion.getVersion());
+        LOGGER.info(TextFormatting.GREEN+" https://wildnaturemod.com");
+        LOGGER.info(TextFormatting.DARK_AQUA+"---");
+        LOGGER.info(TextFormatting.YELLOW+data);
+        LOGGER.info(TextFormatting.DARK_AQUA+"---");
+        LOGGER.info(TextFormatting.AQUA+"---------------------------------");
+
+    }
+}

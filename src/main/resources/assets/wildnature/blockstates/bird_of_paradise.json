@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=lower": { "model": "wildnature:block/bird_of_paradise_bottom" },
+        "half=upper":    { "model": "wildnature:block/bird_of_paradise_top" }
+    }
+}

@@ -1,0 +1,59 @@
+package com.matez.wildnature.blocks;
+
+import com.matez.wildnature.lists.WNBlocks;
+import net.minecraft.block.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.storage.loot.LootContext;
+
+import java.util.List;
+
+public class MushroomBase extends MushroomBlock {
+    public Item item;
+
+    public MushroomBase(Properties properties, Item.Properties builder, ResourceLocation regName) {
+        super(properties.doesNotBlockMovement().sound(SoundType.PLANT).hardnessAndResistance(0.1F,0F).tickRandomly());
+
+        this.setRegistryName(regName);
+        item = new BlockItem(this,builder).setRegistryName(regName);
+
+        WNBlocks.MUSHROOMS.add(this);
+        WNBlocks.BLOCKS.add(this);
+        WNBlocks.ITEMBLOCKS.add(item);
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        boolean silkTouch = false;
+        List<ItemStack> list = super.getDrops(state, builder);
+        if(list.isEmpty() && !silkTouch){
+            list.add(new ItemStack(item, 1));
+        }
+
+        return list;
+    }
+
+    @Override
+    public boolean hasCustomBreakingProgress(BlockState state) {
+        return true;
+    }
+
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        BlockPos blockpos = pos.down();
+        BlockState blockstate = worldIn.getBlockState(blockpos);
+        Block block = blockstate.getBlock();
+        if (block != Blocks.MYCELIUM && block != Blocks.PODZOL && block != WNBlocks.BROWN_PODZOL&& block != WNBlocks.BROWN_MYCELIUM) {
+            return worldIn.getLightSubtracted(pos, 0) < 13 && blockstate.canSustainPlant(worldIn, blockpos, net.minecraft.util.Direction.UP, this);
+        } else {
+            return true;
+        }
+    }
+}

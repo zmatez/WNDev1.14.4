@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XAX",
+    "BEB",
+    "BCB"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:milk_bucket"
+    },
+    "B": {
+      "item": "minecraft:sugar"
+    },
+    "C": {
+      "item": "wildnature:flour"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    },
+    "X": {
+      "item": "wildnature:cherry"
+    }
+  },
+  "result": {
+    "item": "wildnature:cherry_cake"
+  }
+}
