@@ -45,7 +45,6 @@ public class CommonConfig {
 
     public static ArrayList<Biome> blacklistedBiomes = new ArrayList<>();
 
-
     public CommonConfig(ForgeConfigSpec.Builder builder) {
         instance = this;
 
