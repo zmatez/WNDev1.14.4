@@ -25,7 +25,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class WNBiomeFeatures extends DefaultBiomeFeatures {
+public class WNBiomeFeatures {
     public static void addGrass(Biome biomeIn) {
         biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Blocks.GRASS.getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(9)));
         biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Main.getBlockByID("wildnature:medium_grass").getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(3)));
@@ -299,13 +299,4 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
 
         biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:magma_shroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(4, 5, 0, 16)));
     }
-
-
-
-
-
-
-
-
-
 }

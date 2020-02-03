@@ -93,8 +93,8 @@ public class CommonConfig {
     {
         builder.push("generator");
         biomeSize = builder
-                .comment("Biome Size\nDefault: 15")
-                .defineInRange("biomeSize",15, 0, 500);
+                .comment("Biome Size\nDefault: 6")
+                .defineInRange("biomeSize",6, 0, 500);
 
         riverSize = builder
                 .comment("River Size\nDefault: 4")

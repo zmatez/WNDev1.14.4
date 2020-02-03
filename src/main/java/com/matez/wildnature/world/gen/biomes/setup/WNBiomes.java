@@ -272,8 +272,6 @@ public class WNBiomes {
         register(PrehistoricValley, BiomeManager.BiomeType.WARM,1, Type.PLAINS, Type.RARE);
         register(SeasonalTaiga, BiomeManager.BiomeType.COOL,8, Type.FOREST, Type.CONIFEROUS, Type.DENSE);
 
-
-
         BiomeGroups.register();
     }
 
@@ -283,11 +281,13 @@ public class WNBiomes {
         Main.LOGGER.info("Preparing for registering " + biome.getRegistryName() + " biome to generate naturally...");
         if(CommonConfig.generateBiomes.get()) {
             biomesToRegister.add(new BiomeToRegister(biome, type, weight, types));
+            // Add all biomes to weighted list
+            EnumBiomes.ALL.add(biome, weight);
         }
         generatorBiomes.add(biome);
     }
 
-    public static void registerAll(){//adds biome to biome list that have to spawn naturally.
+    public static void registerAll(){ //adds biome to biome list that have to spawn naturally.
         Main.LOGGER.info(" ----- Registering " + biomesToRegister.size() + " biomes ----- ");
         biomesToRegister.forEach(BiomeToRegister::registerIt);
         WNGlobalBiomeFeatures.setup();
