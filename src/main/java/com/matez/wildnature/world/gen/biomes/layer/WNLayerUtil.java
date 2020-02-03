@@ -2,6 +2,7 @@ package com.matez.wildnature.world.gen.biomes.layer;
 
 import com.google.common.collect.ImmutableList;
 import com.matez.wildnature.Main;
+import com.matez.wildnature.customizable.CommonConfig;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
@@ -67,8 +68,8 @@ public class WNLayerUtil extends LayerUtil {
         int i = 4;
         int j = i;
         if (settings != null) {
-            i = settings.getBiomeSize();
-            j = settings.getRiverSize();
+            i = CommonConfig.biomeSize.get();
+            j = CommonConfig.riverSize.get();
         }
 
         if (worldTypeIn == WorldType.LARGE_BIOMES) {
