@@ -25,7 +25,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class WNBiomeFeatures {
+public class WNBiomeFeatures extends DefaultBiomeFeatures {
     public static void addGrass(Biome biomeIn) {
         biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Blocks.GRASS.getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(9)));
         biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Main.getBlockByID("wildnature:medium_grass").getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(3)));

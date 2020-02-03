@@ -4,6 +4,7 @@ import com.matez.wildnature.Main;
 import com.matez.wildnature.world.gen.biomes.biomes.terrain.BiomeTerrain;
 import com.matez.wildnature.world.gen.biomes.layer.WNBiomeLayer;
 import com.matez.wildnature.world.gen.biomes.setup.WNGenSettings;
+import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorEarth;
 import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorOverworld;
 import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorType;
 import net.minecraft.block.Blocks;
@@ -36,6 +37,7 @@ public class WNWorldType extends WorldType {
             ChunkGeneratorType<WNGenSettings, WNChunkGeneratorOverworld> gen = WNChunkGeneratorType.WILDNATURE;
             ChunkGeneratorType<NetherGenSettings, NetherChunkGenerator> genNether = ChunkGeneratorType.CAVES;
             ChunkGeneratorType<EndGenerationSettings, EndChunkGenerator> genEnd = ChunkGeneratorType.FLOATING_ISLANDS;
+            ChunkGeneratorType<WNGenSettings, WNChunkGeneratorEarth> genTest = WNChunkGeneratorType.SIMPLEX_TEST;
 
 
             WNGenSettings overworldgensettings1 = gen.createSettings();
@@ -49,7 +51,7 @@ public class WNWorldType extends WorldType {
             BiomeProvider provider = bpt.create(overworldbiomeprovidersettings1);
 
 
-            return gen.create(world, provider, overworldgensettings1);
+            return genTest.create(world, provider, overworldgensettings1);
         }else{
             return world.getDimension().createChunkGenerator();
         }

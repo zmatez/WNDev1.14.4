@@ -8,9 +8,11 @@ import java.util.function.Supplier;
 
 public class WNChunkGeneratorType {
     public static ChunkGeneratorType<WNGenSettings, WNChunkGeneratorOverworld> WILDNATURE;
+    public static ChunkGeneratorType<WNGenSettings, WNChunkGeneratorEarth> SIMPLEX_TEST;
 
     public WNChunkGeneratorType(){
         WILDNATURE = register("wildnature", WNChunkGeneratorOverworld::new, WNGenSettings::new,true);
+        SIMPLEX_TEST = register("wildnature-simplex", WNChunkGeneratorEarth::new, WNGenSettings::new, true);
     }
 
     private static <C extends GenerationSettings, T extends ChunkGenerator<C>> ChunkGeneratorType<C, T> register(String key, IChunkGeneratorFactory<C, T> factoryIn, Supplier<C> settingsIn, boolean canUseForBuffet) {
