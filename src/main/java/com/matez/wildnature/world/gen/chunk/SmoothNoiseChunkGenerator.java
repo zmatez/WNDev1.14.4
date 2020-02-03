@@ -101,7 +101,7 @@ public abstract class SmoothNoiseChunkGenerator<T extends GenerationSettings> ex
      * @param b biome unused
      * @return good question
      */
-    private double useNoises(int chunkX, int chunkY, int chunkZ, double coordinateScale, double heightScale, double depthSize, double unk1, Biome b) {
+    private double useNoises(int chunkX, int chunkY, int chunkZ, double coordinateScale, double heightScale, double depthSize, double unk1) {
         double d0 = 0.0D;
         double d1 = 0.0D;
         double noiseY = 0.0D;
@@ -203,7 +203,7 @@ public abstract class SmoothNoiseChunkGenerator<T extends GenerationSettings> ex
         return adouble;
     }
 
-    protected void func_222546_a(double[] adoub, int chunkX, int chunkZ, double coordinateScale, double heightScale, double depthSize, double unk1, int unk2, int unk3, Biome b) {
+    protected void func_222546_a(double[] adoub, int chunkX, int chunkZ, double coordinateScale, double heightScale, double depthSize, double unk1, int unk2, int unk3) {
         double[] adouble = this.func_222549_a(chunkX, chunkZ);
         double d0 = adouble[0];
         double d1 = adouble[1];
@@ -211,7 +211,7 @@ public abstract class SmoothNoiseChunkGenerator<T extends GenerationSettings> ex
         double d3 = this.func_222553_h();
 
         for(int i = 0; i < this.getY(); ++i) {
-            double d4 = this.useNoises(chunkX, i, chunkZ, coordinateScale, heightScale, depthSize, unk1,b);
+            double d4 = this.useNoises(chunkX, i, chunkZ, coordinateScale, heightScale, depthSize, unk1);
             d4 = d4 - this.func_222545_a(d0, d1, i);
             if ((double)i > d2) {
                 d4 = MathHelper.clampedLerp(d4, (double)unk3, ((double)i - d2) / (double)unk2);

@@ -23,7 +23,7 @@ import net.minecraft.world.spawner.PatrolSpawner;
 import net.minecraft.world.spawner.PhantomSpawner;
 import net.minecraft.world.spawner.WorldEntitySpawner;
 
-public class WNChunkGeneratorEarth extends SimplexChunks<WNGenSettings> {
+public class WNChunkGeneratorEarth extends SmoothNoiseChunkGenerator<WNGenSettings> {
     private static final float[] biomeWeights = Util.make(new float[25], (p_222575_0_) -> {
         for(int i = -2; i <= 2; ++i) {
             for(int j = -2; j <= 2; ++j) {
@@ -184,5 +184,6 @@ public class WNChunkGeneratorEarth extends SimplexChunks<WNGenSettings> {
         return 0;
     }
 
-
+	@Override
+	protected void func_222548_a(double[] adouble, int chunkX, int chunkZ, Biome b) {}
 }

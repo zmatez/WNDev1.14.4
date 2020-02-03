@@ -299,16 +299,16 @@ public abstract class SimplexChunks<T extends GenerationSettings> extends ChunkG
         ObjectListIterator<AbstractVillagePiece> objectlistiterator = objectlist.iterator();
         ObjectListIterator<JigsawJunction> objectlistiterator1 = objectlist1.iterator();
 
-        for(int k5 = 0; k5 < this.noiseSizeX; ++k5) {
+        for(int k5 = 0; k5 < this.noiseSizeX; ++k5) { // X (base) position
             for(int l5 = 0; l5 < this.noiseSizeZ + 1; ++l5) {
                 this.func_222548_a(adouble[1][l5], j * this.noiseSizeX + k5 + 1, k * this.noiseSizeZ + l5);
             }
 
-            for(int i6 = 0; i6 < this.noiseSizeZ; ++i6) {
+            for(int i6 = 0; i6 < this.noiseSizeZ; ++i6) { // Z (base) position
                 ChunkSection chunksection = chunkprimer.func_217332_a(15);
                 chunksection.lock();
 
-                for(int j6 = this.noiseSizeY - 1; j6 >= 0; --j6) {
+                for(int j6 = this.noiseSizeY - 1; j6 >= 0; --j6) { // Y (base) position
                     double d16 = adouble[0][i6][j6];
                     double d17 = adouble[0][i6 + 1][j6];
                     double d18 = adouble[1][i6][j6];
@@ -319,7 +319,7 @@ public abstract class SimplexChunks<T extends GenerationSettings> extends ChunkG
                     double d4 = adouble[1][i6 + 1][j6 + 1];
 
                     for(int i2 = this.verticalNoiseGranularity - 1; i2 >= 0; --i2) {
-                        int j2 = j6 * this.verticalNoiseGranularity + i2;
+                        int j2 = j6 * this.verticalNoiseGranularity + i2; // Final y position
                         int k2 = j2 & 15;
                         int l2 = j2 >> 4;
                         if (chunksection.getYLocation() >> 4 != l2) {
@@ -336,14 +336,14 @@ public abstract class SimplexChunks<T extends GenerationSettings> extends ChunkG
 
                         for(int i3 = 0; i3 < this.horizontalNoiseGranularity; ++i3) {
                             int j3 = l + k5 * this.horizontalNoiseGranularity + i3;
-                            int k3 = j3 & 15;
+                            int k3 = j3 & 15; // Final x position
                             double d10 = (double)i3 / (double)this.horizontalNoiseGranularity;
                             double d11 = MathHelper.lerp(d10, d6, d7);
                             double d12 = MathHelper.lerp(d10, d8, d9);
 
                             for(int l3 = 0; l3 < this.horizontalNoiseGranularity; ++l3) {
                                 int i4 = i1 + i6 * this.horizontalNoiseGranularity + l3;
-                                int j4 = i4 & 15;
+                                int j4 = i4 & 15; // Final z position
                                 double d13 = (double)l3 / (double)this.horizontalNoiseGranularity;
                                 double d14 = MathHelper.lerp(d13, d11, d12);
                                 double d15 = MathHelper.clamp(d14 / 200.0D, -1.0D, 1.0D);

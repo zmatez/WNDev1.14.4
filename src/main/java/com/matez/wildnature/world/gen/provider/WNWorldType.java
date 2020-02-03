@@ -51,7 +51,7 @@ public class WNWorldType extends WorldType {
             BiomeProvider provider = bpt.create(overworldbiomeprovidersettings1);
 
 
-            return genTest.create(world, provider, overworldgensettings1);
+            return gen.create(world, provider, overworldgensettings1);
         }else{
             return world.getDimension().createChunkGenerator();
         }
