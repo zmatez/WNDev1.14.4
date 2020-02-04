@@ -23,7 +23,7 @@ import net.minecraft.world.spawner.PatrolSpawner;
 import net.minecraft.world.spawner.PhantomSpawner;
 import net.minecraft.world.spawner.WorldEntitySpawner;
 
-public class WNChunkGeneratorEarth extends SimplexChunks<WNGenSettings> {
+public class WNChunkGeneratorEarth extends SmoothChunkGenerator<WNGenSettings> {
     private static final float[] biomeWeights = Util.make(new float[25], (p_222575_0_) -> {
         for(int i = -2; i <= 2; ++i) {
             for(int j = -2; j <= 2; ++j) {
@@ -41,9 +41,8 @@ public class WNChunkGeneratorEarth extends SimplexChunks<WNGenSettings> {
     private final VillageSiege field_225495_n = new VillageSiege();
 
     public WNChunkGeneratorEarth(IWorld worldIn, BiomeProvider provider, WNGenSettings settingsIn) {
-        super(worldIn, provider, 4, 8, 256, settingsIn, true);
-        this.randomSeed.skip(2620);
-        this.depthNoise = new SimplexOctaveGenerator(this.randomSeed, 16);
+        super(worldIn, provider, settingsIn);
+        this.depthNoise = new SimplexOctaveGenerator(worldIn.getSeed(), 16);
         this.isAmplified = worldIn.getWorldInfo().getGenerator() == WorldType.AMPLIFIED;
     }
 
@@ -63,7 +62,7 @@ public class WNChunkGeneratorEarth extends SimplexChunks<WNGenSettings> {
         double unk1 = 4.277574920654297D;
         int unk3 = -10;
         int unk2 = 3;
-        this.func_222546_a(adouble, chunkX, chunkZ, coordinateScale, heightScale, depthSize, unk1, unk2, unk3);
+        // this.func_222546_a(adouble, chunkX, chunkZ, coordinateScale, heightScale, depthSize, unk1, unk2, unk3);
     }
 
     protected double func_222545_a(double p_222545_1_, double p_222545_3_, int p_222545_5_) {

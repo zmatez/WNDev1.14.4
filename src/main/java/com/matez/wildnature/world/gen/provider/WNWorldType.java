@@ -50,7 +50,7 @@ public class WNWorldType extends WorldType {
 
             BiomeProvider provider = bpt.create(overworldbiomeprovidersettings1);
 
-
+            // Change to genTest if you want the simplex generator (WNChunkGeneratorEarth + SmoothChunkGenerator)
             return gen.create(world, provider, overworldgensettings1);
         }else{
             return world.getDimension().createChunkGenerator();
