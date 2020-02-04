@@ -1,0 +1,14 @@
+{
+  "type": "wildnature:cooking",
+  "ingredient": [
+    {
+      "item": "wildnature:cauliflower"
+    },
+    {
+      "item": "wildnature:red_pepper"
+    }
+  ],
+  "result": "minecraft:cooked_beef",
+  "experience": 0.35,
+  "cookingtime": 100
+}

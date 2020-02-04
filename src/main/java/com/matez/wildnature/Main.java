@@ -10,6 +10,8 @@ import com.matez.wildnature.gui.initGuis;
 import com.matez.wildnature.gui.tileEntities.DungeonCommanderTileEntity;
 import com.matez.wildnature.items.*;
 import com.matez.wildnature.items.recipes.PotCrafting;
+import com.matez.wildnature.items.recipes.cooking.WNCookingRecipe;
+import com.matez.wildnature.items.recipes.cooking.WNCookingRecipeSerializer;
 import com.matez.wildnature.items.tier.WNItemTier;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.lists.WNItems;
@@ -50,7 +52,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.*;
-import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.particles.BasicParticleType;
@@ -120,7 +121,7 @@ public class Main {
     public Main(){
         LOGGER.info("Initializing WildNature mod");
         instance=this;
-        addSupportedLanguageses();
+        addSupportedLanguages();
 
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -190,7 +191,7 @@ public class Main {
         proxy.enqueueIMC(event);
     }
 
-    private void addSupportedLanguageses(){
+    private void addSupportedLanguages(){
         supportedLanguages.add("en_us");
     }
 
@@ -467,6 +468,9 @@ public class Main {
             event.getRegistry().register(new SpecialRecipeSerializer<>(DyeableRecipe::new).setRegistryName("wildnature:dyeable_recipe"));
             event.getRegistry().register(new SpecialRecipeSerializer<>(PotCrafting::new).setRegistryName("wildnature:pot_crafting"));
 
+            //CUSTOM
+            event.getRegistry().register(new WNCookingRecipeSerializer<>(WNCookingRecipe::new,200).setRegistryName("wildnature:cooking"));
+
         }
 
         @SubscribeEvent
@@ -477,6 +481,7 @@ public class Main {
             );
 
         }
+
 
 
         @SubscribeEvent

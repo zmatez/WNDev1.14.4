@@ -1,17 +1,19 @@
 package com.matez.wildnature.items;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.items.recipes.cooking.WNAbstractCookingRecipe;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.AbstractCookingRecipe;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.*;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -70,4 +72,9 @@ public class PotItem extends Item {
         stack.setTag(nbt);
         return new ActionResult<>(ActionResultType.SUCCESS, stack);
     }
+
+    /*public static ItemStack checkForRecipes(World world, ArrayList<ItemStack> items){
+        WNAbstractCookingRecipe recipe = world.getRecipeManager().getRecipe((IRecipeType<WNAbstractCookingRecipe>) Registry.RECIPE_SERIALIZER.getOrDefault(new ResourceLocation("wildnature:cooking")), null, world).orElse(null);
+        //TODO recipe
+    }*/
 }
