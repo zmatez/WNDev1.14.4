@@ -4,6 +4,7 @@ import com.matez.wildnature.world.gen.noise.OpenSimplexNoise;
 
 import java.util.Random;
 
+/*
 public class DuneNoise extends Noise {
     protected OpenSimplexNoise generator;
     protected double scale;
@@ -44,7 +45,7 @@ public class DuneNoise extends Noise {
      * @param b Second input
      * @param div Smoothing threshold in absolute value
      * @return The maximum value out of a and b, smoothed to avoid discontinuities
-     */
+     *\/
     public static double polymax(double a, double b, double div) {
         double h = clamp(0.5 + 0.5 * (b-a) / div, 0.0,1.0);
         return (b * h + a * (1.0-h)) + div * h * (1.0 - h);
@@ -55,3 +56,4 @@ public class DuneNoise extends Noise {
     }
 
 }
+*/

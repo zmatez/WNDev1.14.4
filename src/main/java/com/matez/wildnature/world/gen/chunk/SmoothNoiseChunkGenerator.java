@@ -2,7 +2,7 @@ package com.matez.wildnature.world.gen.chunk;
 
 import com.matez.wildnature.world.gen.noise.OpenSimplexNoise;
 import com.matez.wildnature.world.gen.noise.SimplexOctavesGenerator;
-import com.matez.wildnature.world.gen.noise.another.OctaveNoise;
+//import com.matez.wildnature.world.gen.noise.another.OctaveNoise;
 import com.matez.wildnature.world.gen.noise.bukkit.SimplexOctaveGenerator;
 import it.unimi.dsi.fastutil.longs.LongIterator;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -56,7 +56,7 @@ public abstract class SmoothNoiseChunkGenerator<T extends GenerationSettings> ex
     protected final SharedSeedRandom randomSeed;
     private final SimplexOctaveGenerator simplex1;
     private final OpenSimplexNoise openSimplex;
-    private final OctaveNoise octaveNoise;
+   // private final OctaveNoise octaveNoise;
     private final OpenSimplexNoise surfaceDepthNoise;
     protected final BlockState defaultBlock;
     protected final BlockState defaultFluid;
@@ -76,7 +76,7 @@ public abstract class SmoothNoiseChunkGenerator<T extends GenerationSettings> ex
         this.simplex1 = new SimplexOctaveGenerator(this.randomSeed,8);
         this.simplex1.setScale(1/512.0);
         this.openSimplex = new OpenSimplexNoise(worldIn.getSeed());
-        this.octaveNoise = new OctaveNoise(worldIn.getRandom(),1/64,16,0.5,0.5);
+        //this.octaveNoise = new OctaveNoise(worldIn.getRandom(),1/64,16,0.5,0.5);
         this.surfaceDepthNoise = new OpenSimplexNoise(worldIn.getSeed());
     }
 
@@ -112,9 +112,9 @@ public abstract class SmoothNoiseChunkGenerator<T extends GenerationSettings> ex
             double d4 = SimplexOctavesGenerator.maintainPrecision((double) chunkX * coordinateScale * modifier);
             double d5 = SimplexOctavesGenerator.maintainPrecision((double) 0.5*chunkY * heightScale * modifier);
             double d6 = SimplexOctavesGenerator.maintainPrecision((double) chunkZ * coordinateScale * modifier);
-            d0 += this.openSimplex.eval(d4, d5, d6) * modifier;
-            d1 += this.openSimplex.eval(d4, d5, d6) * modifier;
-            noiseY += this.openSimplex.eval(SimplexOctavesGenerator.maintainPrecision((double) chunkX * depthSize*modifier), SimplexOctavesGenerator.maintainPrecision((double) chunkY * unk1*modifier), SimplexOctavesGenerator.maintainPrecision((double) chunkZ * depthSize)*modifier) * modifier;
+            //d0 += this.openSimplex.eval(d4, d5, d6) * modifier;
+            //d1 += this.openSimplex.eval(d4, d5, d6) * modifier;
+            //noiseY += this.openSimplex.eval(SimplexOctavesGenerator.maintainPrecision((double) chunkX * depthSize*modifier), SimplexOctavesGenerator.maintainPrecision((double) chunkY * unk1*modifier), SimplexOctavesGenerator.maintainPrecision((double) chunkZ * depthSize)*modifier) * modifier;
 
             if (i < 8) {
             }
@@ -305,12 +305,12 @@ public abstract class SmoothNoiseChunkGenerator<T extends GenerationSettings> ex
                 int l1 = l + j1;
                 int i2 = chunkIn.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, i1, j1) + 1;
                 double multiplier = 0.0625D;
-                double d1 = this.surfaceDepthNoise.eval((double)k1 * multiplier, (double)l1 * multiplier);
+                //double d1 = this.surfaceDepthNoise.eval((double)k1 * multiplier, (double)l1 * multiplier);
 
 
 
 
-                abiome[j1 * 16 + i1].buildSurface(sharedseedrandom, chunkIn, k1, l1, i2, d1, this.getSettings().getDefaultBlock(), this.getSettings().getDefaultFluid(), this.getSeaLevel(), this.world.getSeed());
+                //abiome[j1 * 16 + i1].buildSurface(sharedseedrandom, chunkIn, k1, l1, i2, d1, this.getSettings().getDefaultBlock(), this.getSettings().getDefaultFluid(), this.getSeaLevel(), this.world.getSeed());
             }
         }
 

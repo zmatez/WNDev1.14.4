@@ -3,6 +3,8 @@ package com.matez.wildnature.world.gen.chunk;
 import java.util.HashMap;
 import java.util.Random;
 
+import com.matez.wildnature.world.gen.noise.OctaveNoiseSampler;
+import com.matez.wildnature.world.gen.noise.OpenSimplexNoise;
 import com.matez.wildnature.world.gen.noise.Sampler;
 import com.matez.wildnature.world.gen.noise.SuperSimplexNoise;
 import com.matez.wildnature.world.gen.noise.bukkit.SimplexOctaveGenerator;
@@ -41,6 +43,7 @@ public class SmoothChunkGenerator<T extends GenerationSettings> extends ChunkGen
 	private final SimplexOctaveGenerator scaleNoise;
 	
 	private T settings;
+	private final Random random;
 	
 	private final OctavesNoiseGenerator surfaceDepthNoise;
 	private Sampler noiseSampler;
@@ -57,10 +60,15 @@ public class SmoothChunkGenerator<T extends GenerationSettings> extends ChunkGen
 		this.scaleNoise = new SimplexOctaveGenerator(worldIn.getSeed(), 16);
 		
 		this.settings = generationSettingsIn;
+		this.random = new Random(world.getSeed());
 		this.randomSeed = new SharedSeedRandom(this.seed);
 		
 		this.surfaceDepthNoise = new OctavesNoiseGenerator(this.randomSeed, 4);
-		this.noiseSampler = new Sampler(new SuperSimplexNoise(worldIn.getSeed()));
+		
+		double amplitude = Math.pow(2, 11);
+		OctaveNoiseSampler samplerNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 11, 0.75 * amplitude, amplitude, amplitude);
+		
+		this.noiseSampler = new Sampler(new SuperSimplexNoise(worldIn.getSeed()), samplerNoise);
 	}
 
 	@Override
@@ -167,34 +175,36 @@ public class SmoothChunkGenerator<T extends GenerationSettings> extends ChunkGen
             }
         }
         
-        ChunkPrimer chunkprimer = (ChunkPrimer)chunkIn;
-        Heightmap heightmap = chunkprimer.func_217303_b(Heightmap.Type.OCEAN_FLOOR_WG);
-        Heightmap heightmap1 = chunkprimer.func_217303_b(Heightmap.Type.WORLD_SURFACE_WG);
-        BlockPos.MutableBlockPos posMutable = new BlockPos.MutableBlockPos();
-        ObjectListIterator<AbstractVillagePiece> objectlistiterator = objectlist.iterator();
-        ObjectListIterator<JigsawJunction> objectlistiterator1 = objectlist1.iterator();
-        
-        posMutable.setPos(chunkIn.getPos().x, 0, chunkIn.getPos().z);
-        int[] requestedVals = getHeightsInChunk(chunkIn.getPos());
-        
-        for(int a = 0; a < 16; ++a)
+        this.generateTerrain(chunkIn, this.getHeightsInChunk(chunkIn.getPos()));
+	}
+	
+	public void generateTerrain(IChunk chunk, int[] noise)
+	{
+		ChunkPos chunkPos = chunk.getPos();
+		
+		for(int x = 0; x < 16; x++)
         {
-        	posMutable.setPos(chunkIn.getPos().x + a, posMutable.getY(), posMutable.getZ());
-        	
-        	for(int b = 0; b < 16; ++b)
+        	for(int z = 0; z < 16; z++)
         	{
-        		posMutable.setPos(posMutable.getX(), posMutable.getY(), chunkIn.getPos().z + b);
+        		int height = (int) noise[x * 16 + z];
         		
-        		for(int y = 0; y < 256; ++y)
+        		for(int y = 0; y < 256; y++)
         		{
-        			posMutable.setPos(posMutable.getX(), y, posMutable.getZ());
-        			double height = requestedVals[(a * 16) + b];
-        			if (height >= y) {
-        				chunkIn.setBlockState(posMutable, this.settings.getDefaultBlock(), false);
-        			}
-        			else if (y < getSeaLevel())
+        			BlockPos pos = new BlockPos(chunkPos.x + x, y, chunkPos.z + z);
+        			if (y > height)
         			{
-        				chunkIn.setBlockState(posMutable, this.settings.getDefaultFluid(), false);
+        				if (y < this.getSeaLevel())
+        				{
+        					chunk.setBlockState(pos, this.settings.getDefaultFluid(), false);
+        				}
+        				else
+        				{
+        					chunk.setBlockState(pos, Blocks.AIR.getDefaultState(), false);
+        				}
+        			}
+        			else
+        			{
+        				chunk.setBlockState(pos, this.settings.getDefaultBlock(), false);
         			}
         		}
         	}
@@ -275,9 +285,9 @@ public class SmoothChunkGenerator<T extends GenerationSettings> extends ChunkGen
 	private double sampleNoiseBase(int x, int z)
 	{
 		double amplitudeSample = this.noiseSampler.sample(x, z);
-		// Will add more stuff here in future
+		double noise = this.noiseSampler.sampleCustom(x, z, 1, amplitudeSample, 11);
 		
-		return amplitudeSample;
+		return noise;
 	}
 
 	@Override
