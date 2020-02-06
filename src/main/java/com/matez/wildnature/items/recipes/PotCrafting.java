@@ -65,13 +65,11 @@ public class PotCrafting extends SpecialRecipe {
 
         CompoundNBT nbt = pot.copy().getOrCreateTag();
         ArrayList<ItemStack> ingredients = Utilities.loadItems(nbt);
-        Main.LOGGER.debug("Craft Result " + ingredients.size());
 
         ArrayList<SimpleItemStack> s = SimpleItemStack.sumLists(ingredients,newIngredients);
 
         ArrayList<ItemStack> resultIngredients = new ArrayList<>();
         for (SimpleItemStack simpleItemStack : s) {
-            Main.LOGGER.debug("s: " + simpleItemStack.getItem() + ":"+simpleItemStack.getCount());
             resultIngredients.add(new ItemStack(simpleItemStack.getItem(),simpleItemStack.getCount()));
         }
 

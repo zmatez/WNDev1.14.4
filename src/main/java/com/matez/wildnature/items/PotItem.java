@@ -5,6 +5,8 @@ import com.matez.wildnature.items.recipes.cooking.WNAbstractCookingRecipe;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -35,7 +37,18 @@ public class PotItem extends Item {
         int i = 0;
         int j = 0;
 
-        for(ItemStack itemstack : items) {
+        if(worldIn!=null) {
+            WNAbstractCookingRecipe recipe = checkForRecipes(worldIn, items);
+            if(recipe!=null) {
+                ItemStack output = recipe.getRecipeOutput();
+                tooltip.add((new StringTextComponent(TextFormatting.GOLD + "Cook now to get " + TextFormatting.YELLOW + output.getDisplayName().getFormattedText() + " x" + output.getCount())));
+            }
+        }else{
+            tooltip.add((new StringTextComponent(TextFormatting.RED+"Cannot get recipes for this world")));
+        }
+
+
+            for(ItemStack itemstack : items) {
             if (!itemstack.isEmpty()) {
                 ++j;
                 if (i <= 4) {
@@ -73,8 +86,17 @@ public class PotItem extends Item {
         return new ActionResult<>(ActionResultType.SUCCESS, stack);
     }
 
-    /*public static ItemStack checkForRecipes(World world, ArrayList<ItemStack> items){
-        WNAbstractCookingRecipe recipe = world.getRecipeManager().getRecipe((IRecipeType<WNAbstractCookingRecipe>) Registry.RECIPE_SERIALIZER.getOrDefault(new ResourceLocation("wildnature:cooking")), null, world).orElse(null);
-        //TODO recipe
-    }*/
+    public static WNAbstractCookingRecipe checkForRecipes(World world, ArrayList<ItemStack> items){
+        ItemStack[] itemStacks = new ItemStack[items.size()];
+        items.toArray(itemStacks);
+        Inventory i = new Inventory(itemStacks);
+        WNAbstractCookingRecipe recipe = world.getRecipeManager().getRecipe((IRecipeType<WNAbstractCookingRecipe>) Registry.RECIPE_TYPE.getOrDefault(new ResourceLocation("wildnature:cooking")), i, world).orElse(null);
+        assert recipe != null && recipe.getRecipeOutput() != null;
+        try {
+            Main.LOGGER.debug("Recipe: " + recipe.getRecipeOutput().getDisplayName());
+        }catch (Exception e){
+            return null;
+        };
+        return recipe;
+    }
 }

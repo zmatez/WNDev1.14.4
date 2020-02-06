@@ -14,9 +14,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class Utilities {
     public static int rint(int min, int max) {
@@ -311,5 +309,8 @@ public class Utilities {
         return null;
     }
 
+    public static int countDuplicates(ArrayList<?> list, Object obj){
+        return Collections.frequency(list,obj);
+    }
 
 }

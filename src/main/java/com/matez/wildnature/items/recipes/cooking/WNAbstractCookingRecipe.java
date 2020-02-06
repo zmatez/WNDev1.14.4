@@ -1,13 +1,22 @@
 package com.matez.wildnature.items.recipes.cooking;
 
+import com.matez.wildnature.Main;
+import com.matez.wildnature.other.Utilities;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
    protected final IRecipeType<?> type;
@@ -29,10 +38,84 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
    }
 
    public boolean matches(IInventory inv, World worldIn) {
-      return this.ingredient.test(inv.getStackInSlot(0));
+      Main.LOGGER.debug("Checking maching");
+      return checkMatching(new ArrayList<ItemStack>(((Inventory)inv).inventoryContents),ingredient);
+   }
+   private int duplicate = 0;
+   public boolean checkMatching(ArrayList<ItemStack> stacks, Ingredient i){
+      boolean ok = true;
+      int matching = 0;
+      if(stacks.isEmpty()){
+         return false;
+      }
+
+      int d = 0;
+      for (ItemStack stack : stacks) {
+         duplicate=0;
+         if(!checkForMatch(stack,i,stacks)){
+            ok=false;
+         }else{
+            matching++;
+         }
+         d=d+duplicate;
+      }
+      //Main.LOGGER.debug("SIZE: " + matching + " x " + stacks.size());
+
+      Main.LOGGER.debug("Dup: " + d);
+      if(i.matchingStacks.length!=stacks.size()){
+         return false;
+      }
+
+
+
+      Main.LOGGER.debug(ok);
+      return ok;
+   }
+
+   public boolean checkForMatch(@Nullable ItemStack itemStack, Ingredient i, ArrayList<ItemStack> stacks) {
+      if (itemStack == null) {
+         return false;
+      } else if (i.acceptedItems.length == 0) {
+         return itemStack.isEmpty();
+      } else {
+         determineMatchingStacks(i);
+
+         boolean ok = true;
+
+         if(i.matchingStacks.length==0){
+            return false;
+         }
+
+
+         for(ItemStack itemstack : i.matchingStacks) {
+            int x = Utilities.countDuplicates(new ArrayList<ItemStack>(Arrays.asList(i.matchingStacks)),itemStack);
+            
+            Main.LOGGER.debug("M : " + itemStack.getDisplayName().getFormattedText() + itemStack.getCount() + " x " + itemstack.getDisplayName().getFormattedText()+itemstack.getCount());
+            if (itemstack.getItem() == itemStack.getItem() && (itemStack.getCount())==itemstack.getCount()-x) {
+               Main.LOGGER.debug("OKL " + x);
+               return ok;
+            }
+
+         }
+
+         return false;
+
+      }
+   }
+
+   private void determineMatchingStacks(Ingredient i) {
+      if (i.matchingStacks == null) {
+         i.matchingStacks = Arrays.stream(i.acceptedItems).flatMap((p_209359_0_) -> {
+            return p_209359_0_.getStacks().stream();
+         }).distinct().toArray((p_209358_0_) -> {
+            return new ItemStack[p_209358_0_];
+         });
+      }
+
    }
 
    public ItemStack getCraftingResult(IInventory inv) {
+      Main.LOGGER.debug("Crafting result: " + this.result.copy().getTranslationKey());
       return this.result.copy();
    }
 

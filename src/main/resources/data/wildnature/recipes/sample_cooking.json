@@ -5,10 +5,16 @@
       "item": "wildnature:cauliflower"
     },
     {
+      "item": "wildnature:cauliflower"
+    },
+    {
       "item": "wildnature:red_pepper"
     }
   ],
-  "result": "minecraft:cooked_beef",
+  "result": {
+    "item": "wildnature:hangingshelf",
+    "count": 2
+  },
   "experience": 0.35,
   "cookingtime": 100
 }

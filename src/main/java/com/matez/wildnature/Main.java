@@ -53,6 +53,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleType;
@@ -462,8 +463,8 @@ public class Main {
 
 
         @SubscribeEvent
-        public static void registerRecipes(final RegistryEvent.Register<IRecipeSerializer<?>> event){
-            LOGGER.info("Registering recipes...");
+        public static void registerRecipeSerializers(final RegistryEvent.Register<IRecipeSerializer<?>> event){
+            LOGGER.info("Registering recipe serializers...");
             event.getRegistry().register(new SpecialRecipeSerializer<>(GiftCrafting::new).setRegistryName("wildnature:gift_crafting"));
             event.getRegistry().register(new SpecialRecipeSerializer<>(DyeableRecipe::new).setRegistryName("wildnature:dyeable_recipe"));
             event.getRegistry().register(new SpecialRecipeSerializer<>(PotCrafting::new).setRegistryName("wildnature:pot_crafting"));
@@ -472,6 +473,7 @@ public class Main {
             event.getRegistry().register(new WNCookingRecipeSerializer<>(WNCookingRecipe::new,200).setRegistryName("wildnature:cooking"));
 
         }
+
 
         @SubscribeEvent
         public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event){
