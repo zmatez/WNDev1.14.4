@@ -11,13 +11,13 @@ public class Sampler
 	protected HashMap<Long, Double> cache = new HashMap<>();
 	protected HashMap<Long, Double> customCache = new HashMap<>();
 	
-	protected final SuperSimplexNoise sampler;
-	protected final OctaveNoiseSampler customSampler;
+	protected final OctaveNoiseSampler scaleSampler;
+	protected final OctaveNoiseSampler heightSampler;
 	
-	public Sampler(SuperSimplexNoise sampler, OctaveNoiseSampler customSampler)
+	public Sampler(OctaveNoiseSampler sampler, OctaveNoiseSampler customSampler)
 	{
-		this.sampler = sampler;
-		this.customSampler = customSampler;
+		this.scaleSampler = sampler;
+		this.heightSampler = customSampler;
 	}
 	
 	public double sample(int x, int z)
@@ -26,7 +26,7 @@ public class Sampler
 		if (val != null) return val;
 		
 		// Not in cache
-		val = sampler.noise2(x, z);
+		val = scaleSampler.sample(x, z);
 		cache.put(BlockPos.pack(x, 0, z), val);
 		return val;
 	}
@@ -36,10 +36,8 @@ public class Sampler
 		Double val = customCache.get(BlockPos.pack(x, 0, z));
 		if (val != null) return val;
 		
-		Main.LOGGER.debug("Custom sampling...");
-		
 		// Not in cache
-		val = customSampler.sampleCustom(x, z, samplingFrequency, amplitude, amplitude, octaves);
+		val = heightSampler.sampleCustom(x, z, samplingFrequency, amplitude, amplitude, octaves);
 		customCache.put(BlockPos.pack(x, 0, z), val);
 		return val;
 	}

@@ -3,6 +3,7 @@ package com.matez.wildnature.world.gen.chunk;
 import java.util.HashMap;
 import java.util.Random;
 
+import com.matez.wildnature.world.gen.biomes.setup.WNGenSettings;
 import com.matez.wildnature.world.gen.noise.OctaveNoiseSampler;
 import com.matez.wildnature.world.gen.noise.OpenSimplexNoise;
 import com.matez.wildnature.world.gen.noise.Sampler;
@@ -36,13 +37,13 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 
-public class SmoothChunkGenerator<T extends GenerationSettings> extends ChunkGenerator<T> 
+public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings> 
 {
 	private final SimplexOctaveGenerator heightNoise;
 	private final SimplexOctaveGenerator detailNoise;
 	private final SimplexOctaveGenerator scaleNoise;
 	
-	private T settings;
+	private WNGenSettings settings;
 	private final Random random;
 	
 	private final OctavesNoiseGenerator surfaceDepthNoise;
@@ -51,7 +52,7 @@ public class SmoothChunkGenerator<T extends GenerationSettings> extends ChunkGen
 	protected HashMap<Long, int[]> noiseCache = new HashMap<>();
 	private SharedSeedRandom randomSeed;
 	
-	public SmoothChunkGenerator(IWorld worldIn, BiomeProvider biomeProviderIn, T generationSettingsIn) 
+	public SmoothChunkGenerator(IWorld worldIn, BiomeProvider biomeProviderIn, WNGenSettings generationSettingsIn) 
 	{
 		super(worldIn, biomeProviderIn, generationSettingsIn);
 		
@@ -66,9 +67,10 @@ public class SmoothChunkGenerator<T extends GenerationSettings> extends ChunkGen
 		this.surfaceDepthNoise = new OctavesNoiseGenerator(this.randomSeed, 4);
 		
 		double amplitude = Math.pow(2, 11);
-		OctaveNoiseSampler samplerNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 11, 0.75 * amplitude, amplitude, amplitude);
+		OctaveNoiseSampler heightNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 11, 0.75 * amplitude, amplitude, amplitude);
+		OctaveNoiseSampler scaleNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 2, Math.pow(2, 10), 0.2, 0.09);
 		
-		this.noiseSampler = new Sampler(new SuperSimplexNoise(worldIn.getSeed()), samplerNoise);
+		this.noiseSampler = new Sampler(scaleNoise, heightNoise);
 	}
 
 	@Override
@@ -102,7 +104,7 @@ public class SmoothChunkGenerator<T extends GenerationSettings> extends ChunkGen
         BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
         int i = chunkIn.getPos().getXStart();
         int j = chunkIn.getPos().getZStart();
-        T t = this.getSettings();
+        WNGenSettings t = this.getSettings();
         int k = t.getBedrockFloorHeight();
         int l = t.getBedrockRoofHeight();
 
@@ -175,31 +177,25 @@ public class SmoothChunkGenerator<T extends GenerationSettings> extends ChunkGen
             }
         }
         
-        this.generateTerrain(chunkIn, this.getHeightsInChunk(chunkIn.getPos()));
+        this.generateTerrain(chunkIn, this.getHeightsInChunk(chunkpos));
 	}
 	
 	public void generateTerrain(IChunk chunk, int[] noise)
 	{
-		ChunkPos chunkPos = chunk.getPos();
-		
 		for(int x = 0; x < 16; x++)
         {
         	for(int z = 0; z < 16; z++)
         	{
-        		int height = (int) noise[x * 16 + z];
+        		int height = (int) noise[(x * 16) + z];
         		
         		for(int y = 0; y < 256; y++)
         		{
-        			BlockPos pos = new BlockPos(chunkPos.x + x, y, chunkPos.z + z);
+        			BlockPos pos = new BlockPos(x, y, z);
         			if (y > height)
         			{
         				if (y < this.getSeaLevel())
         				{
         					chunk.setBlockState(pos, this.settings.getDefaultFluid(), false);
-        				}
-        				else
-        				{
-        					chunk.setBlockState(pos, Blocks.AIR.getDefaultState(), false);
         				}
         			}
         			else
@@ -270,6 +266,7 @@ public class SmoothChunkGenerator<T extends GenerationSettings> extends ChunkGen
 	
 	private double sampleNoise(int x, int z)
 	{
+		// I think the issue is here, since most noise stuff takes place in this section
 		double noise = sampleNoiseBase(x, z);
 		noise += sampleNoiseBase(x + 4, z);
 		noise += sampleNoiseBase(x - 4, z);
@@ -277,23 +274,22 @@ public class SmoothChunkGenerator<T extends GenerationSettings> extends ChunkGen
 		noise += sampleNoiseBase(x, z - 4);
 		noise *= 0.2;
 		
-		noise += 80;
+		noise += 100;
 		
 		return noise;
 	}
 	
 	private double sampleNoiseBase(int x, int z)
 	{
-		double amplitudeSample = this.noiseSampler.sample(x, z);
+		double amplitudeSample = this.noiseSampler.sample(x, z) + 0.09;
 		double noise = this.noiseSampler.sampleCustom(x, z, 1, amplitudeSample, 11);
 		
 		return noise;
 	}
 
 	@Override
-	public int func_222529_a(int p_222529_1_, int p_222529_2_, Type p_222529_3_)
+	public int func_222529_a(int x, int z, Type p_222529_3_)
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return getHeight(x, z);
 	}
 }

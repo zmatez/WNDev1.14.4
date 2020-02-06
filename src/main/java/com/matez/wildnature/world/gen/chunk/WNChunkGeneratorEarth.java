@@ -23,7 +23,7 @@ import net.minecraft.world.spawner.PatrolSpawner;
 import net.minecraft.world.spawner.PhantomSpawner;
 import net.minecraft.world.spawner.WorldEntitySpawner;
 
-public class WNChunkGeneratorEarth extends SmoothChunkGenerator<WNGenSettings> {
+public class WNChunkGeneratorEarth extends SmoothChunkGenerator {
     private static final float[] biomeWeights = Util.make(new float[25], (p_222575_0_) -> {
         for(int i = -2; i <= 2; ++i) {
             for(int j = -2; j <= 2; ++j) {
