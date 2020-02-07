@@ -16,10 +16,12 @@ import it.unimi.dsi.fastutil.objects.ObjectList;
 import it.unimi.dsi.fastutil.objects.ObjectListIterator;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.SharedSeedRandom;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.ChunkPrimer;
@@ -39,15 +41,26 @@ import net.minecraft.world.gen.feature.structure.StructureStart;
 
 public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings> 
 {
-	private final SimplexOctaveGenerator heightNoise;
-	private final SimplexOctaveGenerator detailNoise;
-	private final SimplexOctaveGenerator scaleNoise;
+	private static final float[] biomeData = Util.make(new float[25], (data) -> {
+        for(int i = -2; i <= 2; ++i) {
+            for(int j = -2; j <= 2; ++j) {
+                float f = 10.0F / MathHelper.sqrt((float)(i * i + j * j) + 0.2F);
+                data[i + 2 + (j + 2) * 5] = f;
+            }
+        }
+
+    });
+	
+	private final OctaveNoiseSampler heightNoise;
+	private final OctaveNoiseSampler scaleNoise;
 	
 	private WNGenSettings settings;
 	private final Random random;
 	
 	private final OctavesNoiseGenerator surfaceDepthNoise;
 	private Sampler noiseSampler;
+	
+	private boolean amplified;
 	
 	protected HashMap<Long, int[]> noiseCache = new HashMap<>();
 	private SharedSeedRandom randomSeed;
@@ -56,21 +69,21 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 	{
 		super(worldIn, biomeProviderIn, generationSettingsIn);
 		
-		this.heightNoise = new SimplexOctaveGenerator(worldIn.getSeed(), 8);
-		this.detailNoise = new SimplexOctaveGenerator(worldIn.getSeed(), 16);
-		this.scaleNoise = new SimplexOctaveGenerator(worldIn.getSeed(), 16);
+		this.random = new Random(world.getSeed());
+		double amplitude = Math.pow(2, 11);
+		
+		this.heightNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 11, 0.75 * amplitude, amplitude, amplitude);
+		this.scaleNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 2, Math.pow(2, 10), 0.2, 0.09);
 		
 		this.settings = generationSettingsIn;
-		this.random = new Random(world.getSeed());
+		
 		this.randomSeed = new SharedSeedRandom(this.seed);
 		
 		this.surfaceDepthNoise = new OctavesNoiseGenerator(this.randomSeed, 4);
 		
-		double amplitude = Math.pow(2, 11);
-		OctaveNoiseSampler heightNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 11, 0.75 * amplitude, amplitude, amplitude);
-		OctaveNoiseSampler scaleNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 2, Math.pow(2, 10), 0.2, 0.09);
+		this.noiseSampler = new Sampler(this.scaleNoise, this.heightNoise);
 		
-		this.noiseSampler = new Sampler(scaleNoise, heightNoise);
+		this.amplified = worldIn.getWorldInfo().getGenerator() == WorldType.AMPLIFIED;
 	}
 
 	@Override
@@ -84,7 +97,7 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
         ChunkPos chunkpos1 = chunkIn.getPos();
         int k = chunkpos1.getXStart();
         int l = chunkpos1.getZStart();
-        double d0 = 0.0625D;
+        double noise = 0.0625D;
         Biome[] abiome = chunkIn.getBiomes();
 
         for(int i1 = 0; i1 < 16; ++i1) {
@@ -261,12 +274,13 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 						MathHelper.lerp(xProgress, samples[0], samples[1]),
 						MathHelper.lerp(xProgress, samples[2], samples[3]));
 		
+		sample = applyBiomeData(x, z, sample);
+		
 		return (int)(sigmoid(sample));
 	}
 	
 	private double sampleNoise(int x, int z)
 	{
-		// I think the issue is here, since most noise stuff takes place in this section
 		double noise = sampleNoiseBase(x, z);
 		noise += sampleNoiseBase(x + 4, z);
 		noise += sampleNoiseBase(x - 4, z);
@@ -284,6 +298,30 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 		double amplitudeSample = this.noiseSampler.sample(x, z) + 0.09;
 		double noise = this.noiseSampler.sampleCustom(x, z, 1, amplitudeSample, 11);
 		
+		return noise;
+	}
+	
+	private double applyBiomeData(int x, int z, double sample)
+	{
+		double noise = sample;
+		Biome biome = this.biomeProvider.func_222366_b(x, z);
+		
+		float depth = biome.getDepth();
+		float scale = biome.getScale();
+		float seaLevel = (float) this.getSeaLevel();
+		float count = 0;
+		
+		noise = Math.max(noise, seaLevel + 10 * depth);
+		for (int j = -2; j <= 2; j++)
+		{
+			for (int i = -2; i <= 2; i++)
+			{
+				float data = biomeData[j + 2 + (i + 2) * 5] / (depth + 2.0F);
+				count += (data > depth ? data / 6 : data) * scale;
+			}
+		}
+		
+		noise /= count;
 		return noise;
 	}
 
