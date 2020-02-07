@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.inventory.container.WorkbenchContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
@@ -68,22 +69,37 @@ public class PotItem extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
-        ArrayList<ItemStack> items = Utilities.loadItems(stack.getOrCreateTag());
         CompoundNBT nbt = stack.getOrCreateTag();
-        if(nbt.contains("Items")){
-            nbt.remove("Items");
-        }
-        if(nbt.contains("Slot")){
-            nbt.remove("Slot");
+
+        if(nbt.contains("cooked") && nbt.getBoolean("cooked")){
+            ItemStack result = Utilities.loadItem(nbt);
+            if(result!=null && !result.isEmpty()) {
+                player.addItemStackToInventory(result);
+
+                nbt.remove("cooked");
+                stack.setTag(nbt);
+                return new ActionResult<>(ActionResultType.SUCCESS, stack);
+            }
+        }else {
+            ArrayList<ItemStack> items = Utilities.loadItems(nbt);
+
+            if (nbt.contains("Items")) {
+                nbt.remove("Items");
+            }
+            if (nbt.contains("Slot")) {
+                nbt.remove("Slot");
+            }
+
+            for (ItemStack itemStack : items) {
+                Main.LOGGER.debug("s: " + itemStack.getItem() + ":" + itemStack.getCount());
+
+                player.addItemStackToInventory(itemStack);
+            }
+            stack.setTag(nbt);
+            return new ActionResult<>(ActionResultType.SUCCESS, stack);
         }
 
-        for (ItemStack itemStack : items) {
-            Main.LOGGER.debug("s: " + itemStack.getItem() + ":"+itemStack.getCount());
-
-            player.addItemStackToInventory(itemStack);
-        }
-        stack.setTag(nbt);
-        return new ActionResult<>(ActionResultType.SUCCESS, stack);
+        return new ActionResult<>(ActionResultType.PASS, stack);
     }
 
     public static WNAbstractCookingRecipe checkForRecipes(World world, ArrayList<ItemStack> items){
@@ -93,10 +109,11 @@ public class PotItem extends Item {
         WNAbstractCookingRecipe recipe = world.getRecipeManager().getRecipe((IRecipeType<WNAbstractCookingRecipe>) Registry.RECIPE_TYPE.getOrDefault(new ResourceLocation("wildnature:cooking")), i, world).orElse(null);
         assert recipe != null && recipe.getRecipeOutput() != null;
         try {
-            Main.LOGGER.debug("Recipe: " + recipe.getRecipeOutput().getDisplayName());
+            Main.LOGGER.debug("Recipe: " + recipe.getRecipeOutput().getDisplayName().getFormattedText());
         }catch (Exception e){
             return null;
         };
         return recipe;
     }
+
 }

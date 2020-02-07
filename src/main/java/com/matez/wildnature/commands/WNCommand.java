@@ -14,8 +14,10 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.BlockPosArgument;
 import net.minecraft.command.arguments.BlockStateArgument;
+import net.minecraft.command.arguments.ItemArgument;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -28,7 +30,10 @@ public class WNCommand {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(Commands.literal("wn").then(Commands.literal("info").executes((context -> {
             return info(context);
-        }))).then(Commands.literal("biome").then(Commands.literal("locate").requires((perm) -> {
+        }))).then(Commands.literal("recipe").then(Commands.argument("item", ItemArgument.item()).then(Commands.argument("count",IntegerArgumentType.integer(1)).executes((context -> {
+            ServerPlayerEntity player = context.getSource().asPlayer();
+            return new RecipeCommand().recipe(player,new ItemStack(ItemArgument.getItem(context,"item").getItem(),IntegerArgumentType.getInteger(context,"count")));
+        }))))).then(Commands.literal("biome").then(Commands.literal("locate").requires((perm) -> {
             return perm.hasPermissionLevel(2);
         }).then(Commands.argument("biome",new BiomeArgument()).executes((context -> {
             ServerPlayerEntity player = context.getSource().asPlayer();
@@ -66,6 +71,8 @@ public class WNCommand {
                             return new GetFiles((PlayerEntity)context.getSource().getEntity()).showPage(IntegerArgumentType.getInteger(context,"page"));
                         }))))));
     }
+
+
 
     private static int info(CommandContext<CommandSource> context){
         boolean console = false;

@@ -12,6 +12,7 @@ import com.matez.wildnature.items.*;
 import com.matez.wildnature.items.recipes.PotCrafting;
 import com.matez.wildnature.items.recipes.cooking.WNCookingRecipe;
 import com.matez.wildnature.items.recipes.cooking.WNCookingRecipeSerializer;
+import com.matez.wildnature.items.recipes.cooking.WNCookingSmelting;
 import com.matez.wildnature.items.tier.WNItemTier;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.lists.WNItems;
@@ -52,6 +53,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.*;
+import net.minecraft.item.crafting.FurnaceRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
@@ -471,6 +473,7 @@ public class Main {
 
             //CUSTOM
             event.getRegistry().register(new WNCookingRecipeSerializer<>(WNCookingRecipe::new,200).setRegistryName("wildnature:cooking"));
+            event.getRegistry().register(new SpecialRecipeSerializer<>(WNCookingSmelting::new).setRegistryName("wildnature:furnace_cooking"));
 
         }
 

@@ -1,6 +1,7 @@
 package com.matez.wildnature.items.recipes.cooking;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.items.recipes.PotCrafting;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
@@ -41,7 +42,7 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
       Main.LOGGER.debug("Checking maching");
       return checkMatching(new ArrayList<ItemStack>(((Inventory)inv).inventoryContents),ingredient);
    }
-   private int duplicate = 0;
+
    public boolean checkMatching(ArrayList<ItemStack> stacks, Ingredient i){
       boolean ok = true;
       int matching = 0;
@@ -51,17 +52,16 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
 
       int d = 0;
       for (ItemStack stack : stacks) {
-         duplicate=0;
+
          if(!checkForMatch(stack,i,stacks)){
             ok=false;
          }else{
             matching++;
          }
-         d=d+duplicate;
+
       }
       //Main.LOGGER.debug("SIZE: " + matching + " x " + stacks.size());
 
-      Main.LOGGER.debug("Dup: " + d);
       if(i.matchingStacks.length!=stacks.size()){
          return false;
       }
@@ -87,16 +87,23 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
          }
 
 
-         for(ItemStack itemstack : i.matchingStacks) {
-            int x = Utilities.countDuplicates(new ArrayList<ItemStack>(Arrays.asList(i.matchingStacks)),itemStack);
-            
+         ArrayList<PotCrafting.SimpleItemStack> s = PotCrafting.SimpleItemStack.sumLists(new ArrayList<>(Arrays.asList(i.matchingStacks)),new ArrayList<>());
+
+         ArrayList<ItemStack> resultIngredients = new ArrayList<>();
+         for (PotCrafting.SimpleItemStack simpleItemStack : s) {
+            resultIngredients.add(new ItemStack(simpleItemStack.getItem(),simpleItemStack.getCount()));
+         }
+
+         for(ItemStack itemstack : resultIngredients) {
             Main.LOGGER.debug("M : " + itemStack.getDisplayName().getFormattedText() + itemStack.getCount() + " x " + itemstack.getDisplayName().getFormattedText()+itemstack.getCount());
-            if (itemstack.getItem() == itemStack.getItem() && (itemStack.getCount())==itemstack.getCount()-x) {
-               Main.LOGGER.debug("OKL " + x);
+            if (itemstack.getItem() == itemStack.getItem() && (itemStack.getCount())==itemstack.getCount()) {
                return ok;
             }
 
          }
+
+         i.matchingStacks=resultIngredients.toArray(new ItemStack[resultIngredients.size()]);
+
 
          return false;
 
