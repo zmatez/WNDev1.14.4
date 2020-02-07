@@ -38,31 +38,43 @@ public class PotItem extends Item {
         int i = 0;
         int j = 0;
 
-        if(worldIn!=null) {
-            WNAbstractCookingRecipe recipe = checkForRecipes(worldIn, items);
-            if(recipe!=null) {
-                ItemStack output = recipe.getRecipeOutput();
-                tooltip.add((new StringTextComponent(TextFormatting.GOLD + "Cook now to get " + TextFormatting.YELLOW + output.getDisplayName().getFormattedText() + " x" + output.getCount())));
+        CompoundNBT nbt = stack.getOrCreateTag();
+        if(nbt.contains("cooked") && nbt.getBoolean("cooked")){
+            ItemStack result = Utilities.loadItem(nbt);
+            if(result!=null && !result.isEmpty()) {
+                tooltip.add((new StringTextComponent(TextFormatting.GOLD + "Cooked " + TextFormatting.YELLOW + result.getDisplayName().getFormattedText() + " x" + result.getCount())));
+                tooltip.add((new StringTextComponent(TextFormatting.GREEN + "Right click to get it")));
+
             }
-        }else{
-            tooltip.add((new StringTextComponent(TextFormatting.RED+"Cannot get recipes for this world")));
-        }
+        }else {
+
+            if (worldIn != null) {
+                WNAbstractCookingRecipe recipe = checkForRecipes(worldIn, items);
+                if (recipe != null) {
+                    ItemStack output = recipe.getRecipeOutput();
+                    tooltip.add((new StringTextComponent(TextFormatting.GOLD + "Cook now to get " + TextFormatting.YELLOW + output.getDisplayName().getFormattedText() + " x" + output.getCount())));
+                }
+            } else {
+                tooltip.add((new StringTextComponent(TextFormatting.RED + "Cannot get recipes for this world")));
+            }
 
 
-            for(ItemStack itemstack : items) {
-            if (!itemstack.isEmpty()) {
-                ++j;
-                if (i <= 4) {
-                    ++i;
-                    ITextComponent itextcomponent = itemstack.getDisplayName().deepCopy().applyTextStyle(TextFormatting.DARK_GREEN);
-                    ITextComponent itextcomponent2 = new StringTextComponent("").appendText(" x").appendText(String.valueOf(itemstack.getCount())).applyTextStyle(TextFormatting.GRAY);
-                    tooltip.add(itextcomponent.appendSibling(itextcomponent2));
+            for (ItemStack itemstack : items) {
+                if (!itemstack.isEmpty()) {
+                    ++j;
+                    if (i <= 4) {
+                        ++i;
+                        ITextComponent itextcomponent = itemstack.getDisplayName().deepCopy().applyTextStyle(TextFormatting.DARK_GREEN);
+                        ITextComponent itextcomponent2 = new StringTextComponent("").appendText(" x").appendText(String.valueOf(itemstack.getCount())).applyTextStyle(TextFormatting.GRAY);
+                        tooltip.add(itextcomponent.appendSibling(itextcomponent2));
+                    }
                 }
             }
-        }
 
-        if (j - i > 0) {
-            tooltip.add((new TranslationTextComponent("container.shulkerBox.more", j - i)).applyTextStyle(TextFormatting.GRAY).applyTextStyle(TextFormatting.ITALIC));
+
+            if (j - i > 0) {
+                tooltip.add((new TranslationTextComponent("container.shulkerBox.more", j - i)).applyTextStyle(TextFormatting.GRAY).applyTextStyle(TextFormatting.ITALIC));
+            }
         }
     }
 
@@ -77,7 +89,8 @@ public class PotItem extends Item {
                 player.addItemStackToInventory(result);
 
                 nbt.remove("cooked");
-                stack.setTag(nbt);
+                Main.LOGGER.debug("----------------------------- CLOICKED");
+                stack.setTag(new CompoundNBT());
                 return new ActionResult<>(ActionResultType.SUCCESS, stack);
             }
         }else {

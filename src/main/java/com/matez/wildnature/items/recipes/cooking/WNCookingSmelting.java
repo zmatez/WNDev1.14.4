@@ -21,13 +21,12 @@ import java.util.ArrayList;
 
 public class WNCookingSmelting extends SpecialSmelting {
     public WNCookingSmelting(ResourceLocation p_i48715_1_) {
-        super(p_i48715_1_, "cooking",Ingredient.fromItems(WNItems.POT_WATER),new ItemStack(WNItems.POT_WATER,1),1f,300);
+        super(p_i48715_1_, "cooking",Ingredient.fromItems(WNItems.POT_WATER),new ItemStack(WNItems.POT_EMPTY,1),1f,300);
     }
     private World w;
 
     @Override
     public boolean matches(IInventory inventory, World world) {
-
         Main.LOGGER.debug("Checking furnace");
         if(inventory.getStackInSlot(0).getItem() instanceof PotItem) {
             WNAbstractCookingRecipe recipe = PotItem.checkForRecipes(world, Utilities.loadItems(inventory.getStackInSlot(0).getOrCreateTag()));
@@ -35,8 +34,9 @@ public class WNCookingSmelting extends SpecialSmelting {
             Main.LOGGER.debug("Checking furnace success");
             if(recipe!=null && recipe.ingredient!=null && recipe.result!=null) {
                 Main.LOGGER.debug("SET RESULTS");
-                ingredient = recipe.ingredient;
-                result = getCraftingResult(inventory);
+                //ingredient = recipe.ingredient;
+                //result = getCraftingResult(inventory).copy();
+
             }
             return recipe != null && recipe.getRecipeOutput() != null;
         }else{

@@ -60,7 +60,7 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
          }
 
       }
-      //Main.LOGGER.debug("SIZE: " + matching + " x " + stacks.size());
+      Main.LOGGER.debug("SIZE: " + matching + " x " + stacks.size() + " z " + i.matchingStacks.length);
 
       if(i.matchingStacks.length!=stacks.size()){
          return false;

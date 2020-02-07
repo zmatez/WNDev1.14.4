@@ -1,0 +1,29 @@
+{
+  "type": "wildnature:cooking",
+  "ingredient": [
+    {
+      "item": "wildnature:onion"
+    },
+    {
+      "item": "wildnature:onion"
+    },
+    {
+      "item": "wildnature:red_onion"
+    },
+    {
+      "item": "wildnature:celery"
+    },
+    {
+      "item": "wildnature:red_pepper"
+    },
+    {
+      "item": "wildnature:garlic"
+    }
+  ],
+  "result": {
+    "item": "wildnature:onion_soup",
+    "count": 1
+  },
+  "experience": 0.35,
+  "cookingtime": 100
+}
