@@ -3,6 +3,7 @@ package com.matez.wildnature.world.gen.chunk;
 import java.util.HashMap;
 import java.util.Random;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.world.gen.biomes.setup.WNGenSettings;
 import com.matez.wildnature.world.gen.noise.OctaveNoiseSampler;
 import com.matez.wildnature.world.gen.noise.OpenSimplexNoise;
@@ -247,7 +248,7 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 	
 	private double sigmoid(double val)
 	{
-		return 256 / (Math.exp(8/3f - val/48) + 1);
+		return 256 / (Math.exp(8 / 3f - val / 48) + 1);
 	}
 	
 	public int getHeight(int x, int z)
@@ -274,9 +275,7 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 						MathHelper.lerp(xProgress, samples[0], samples[1]),
 						MathHelper.lerp(xProgress, samples[2], samples[3]));
 		
-		sample = applyBiomeData(x, z, sample);
-		
-		return (int)(sigmoid(sample));
+		return (int) sigmoid(sample);
 	}
 	
 	private double sampleNoise(int x, int z)
@@ -301,6 +300,8 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 		return noise;
 	}
 	
+	// I removed all mentions of this, so feel free to delete this and try to apply biome depth and scale yourself... unfortunately I didn't have much luck today, and can't find any references that would
+	// actually be useful ;-;
 	private double applyBiomeData(int x, int z, double sample)
 	{
 		double noise = sample;
