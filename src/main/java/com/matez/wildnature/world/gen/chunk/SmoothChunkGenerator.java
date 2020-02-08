@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.matez.wildnature.Main;
 import com.matez.wildnature.world.gen.biomes.setup.WNGenSettings;
+import com.matez.wildnature.world.gen.chunk.landscape.ChunkLandscape;
 import com.matez.wildnature.world.gen.noise.OctaveNoiseSampler;
 import com.matez.wildnature.world.gen.noise.OpenSimplexNoise;
 import com.matez.wildnature.world.gen.noise.Sampler;
@@ -42,6 +43,7 @@ import net.minecraft.world.gen.feature.structure.StructureStart;
 
 public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings> 
 {
+	protected IChunk chunk = null;
 	private static final float[] biomeData = Util.make(new float[25], (data) -> {
         for(int i = -2; i <= 2; ++i) {
             for(int j = -2; j <= 2; ++j) {
@@ -70,7 +72,7 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 	{
 		super(worldIn, biomeProviderIn, generationSettingsIn);
 		
-		this.random = new Random(world.getSeed());
+		this.random = new Random(this.seed);
 		double amplitude = Math.pow(2, 11);
 		
 		this.heightNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 11, 0.75 * amplitude, amplitude, amplitude);
@@ -151,7 +153,7 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 	@Override
 	public void makeBase(IWorld worldIn, IChunk chunkIn) 
 	{
-		int i = this.getSeaLevel();
+		this.chunk = chunkIn;
         ObjectList<AbstractVillagePiece> objectlist = new ObjectArrayList<>(10);
         ObjectList<JigsawJunction> objectlist1 = new ObjectArrayList<>(32);
         ChunkPos chunkpos = chunkIn.getPos();
@@ -241,7 +243,7 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 		{
 			for(int z = 0; z < 16; z++)
 			{
-				noise[(x * 16) + z] = getHeight((pos.x * 16) + x, (pos.z * 16) + z);
+				noise[(x * 16) + z] = getTerrainHeight((pos.x * 16) + x, (pos.z * 16) + z);
 			}
 		}
 	}
@@ -249,6 +251,14 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 	private double sigmoid(double val)
 	{
 		return 256 / (Math.exp(8 / 3f - val / 48) + 1);
+	}
+	
+	public int getTerrainHeight(int x, int z)
+	{
+		Biome biome = this.biomeProvider.func_222366_b(x, z);
+		ChunkLandscape landscape = ChunkLandscape.getOrCreate(x, z, this.seed, biome, this.chunk);
+		
+		return (int) landscape.generateHeightmap();
 	}
 	
 	public int getHeight(int x, int z)
