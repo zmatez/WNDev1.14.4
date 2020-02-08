@@ -1,6 +1,6 @@
 {
-    "parent": "block/cross",
+    "parent": "block/crop",
     "textures": {
-        "cross": "wildnature:blocks/crops/rice/rice_stage_5"
+        "crop": "wildnature:blocks/crops/rice/rice_stage_5"
     }
 }

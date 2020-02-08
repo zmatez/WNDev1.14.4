@@ -1,5 +1,6 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
@@ -16,6 +17,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.storage.loot.LootContext;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BushBase extends BushBlock {
@@ -32,19 +35,53 @@ public class BushBase extends BushBlock {
         WNBlocks.ITEMBLOCKS.add(item);
     }
 
+    private String drop;
+    private int min = 1;
+    private int max = 1;
+    private int exp = 0;
+
+    public BushBase(Properties properties, @Nullable Item.Properties builder, String drop, int min, int max, int exp, ResourceLocation regName) {
+        super(properties.doesNotBlockMovement().sound(SoundType.SWEET_BERRY_BUSH));
+
+        this.setRegistryName(regName);
+        if(builder!=null) {
+            item = new BlockItem(this, builder).setRegistryName(regName);
+
+        }
+
+        this.drop=drop;
+        this.min=min;
+        this.max=max;
+        this.exp = exp;
+
+        WNBlocks.PLANTS.add(this);
+        WNBlocks.BLOCKS.add(this);
+        if(builder!=null) {
+            WNBlocks.ITEMBLOCKS.add(item);
+        }
+
+    }
+
     public Item getItem() {
         return item;
     }
 
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        boolean silkTouch = false;
-        List<ItemStack> list = super.getDrops(state, builder);
-        if(list.isEmpty() && !silkTouch && Utilities.rint(0, CommonConfig.flowerDropChance.get())==0){
-            list.add(new ItemStack(item, 1));
-        }
+        if(drop!=null){
+            List<ItemStack> list = new ArrayList<>();
+            list.add(new ItemStack(Main.getItemByID(drop), Utilities.rint(min,max)));
 
-        return list;
+            return list;
+        }else {
+            boolean silkTouch = false;
+            List<ItemStack> list = super.getDrops(state, builder);
+            if(list.isEmpty() && !silkTouch && Utilities.rint(0, CommonConfig.flowerDropChance.get())==0){
+                list.add(new ItemStack(item, 1));
+            }
+
+            return list;
+        }
     }
 
     @Override

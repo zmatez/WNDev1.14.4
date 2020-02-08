@@ -1,6 +1,6 @@
 {
-    "parent": "block/cross",
+    "parent": "block/crop",
     "textures": {
-        "cross": "wildnature:blocks/crops/garlic/garlic_stage_2"
+        "crop": "wildnature:blocks/crops/garlic/garlic_stage_2"
     }
 }

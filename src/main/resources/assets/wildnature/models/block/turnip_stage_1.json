@@ -1,6 +1,6 @@
 {
-    "parent": "block/cross",
+    "parent": "block/crop",
     "textures": {
-        "cross": "wildnature:blocks/crops/turnip/turnip_stage_1"
+        "crop": "wildnature:blocks/crops/turnip/turnip_stage_1"
     }
 }

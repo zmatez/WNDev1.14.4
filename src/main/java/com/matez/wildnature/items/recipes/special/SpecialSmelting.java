@@ -20,7 +20,4 @@ public abstract class SpecialSmelting extends FurnaceRecipe {
         return true;
     }
 
-    public ItemStack getRecipeOutput() {
-        return ItemStack.EMPTY;
-    }
 }
