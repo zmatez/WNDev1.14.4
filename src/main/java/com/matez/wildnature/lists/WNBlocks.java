@@ -781,7 +781,18 @@ public class WNBlocks {
     public static Block RHUBARB_PLANT;
     public static Block RICE_PLANT;
     public static Block TURNIP_PLANT;
-    
+    public static Block BROCCOLI_PLANT;
+    public static Block CABBAGE_PLANT;
+    public static Block CHIVES_PLANT;
+    public static Block CUCUMBER_PLANT;
+    public static Block EGGPLANT_PLANT;
+    public static Block HORSE_RADISH_PLANT;
+    public static Block PEA_PLANT;
+    public static Block PEANUT_PLANT;
+
+    public static Block COTTON_PLANT;
+    public static Block PINEAPPLE_PLANT;
+
     //SPICES
     public static Block BASIL_PLANT;
     public static Block MARJORAM_PLANT;
@@ -789,6 +800,15 @@ public class WNBlocks {
     public static Block SAGE_PLANT;
     public static Block PEPPER_PLANT;
     public static Block TURMERIC_PLANT;
+    public static Block CURRY_PLANT;
+    public static Block ROSEMARY_PLANT;
+
+    //TEAS
+    public static Block BLACK_TEA_PLANT;
+    public static Block GREEN_TEA_PLANT;
+    public static Block MELISSA_PLANT;
+    public static Block MINT_PLANT;
+    public static Block WHITE_TEA;
     
     ///////////////////MUSHROOMS
     public static Block MUSHROOM1_PORCINO;

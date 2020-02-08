@@ -1,6 +1,6 @@
 {
-    "parent": "block/cross",
+    "parent": "block/crop",
     "textures": {
-        "cross": "wildnature:blocks/crops/ginger/ginger_stage_4"
+        "crop": "wildnature:blocks/crops/ginger/ginger_stage_4"
     }
 }

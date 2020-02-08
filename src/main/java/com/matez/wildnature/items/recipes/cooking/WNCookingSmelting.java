@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class WNCookingSmelting extends SpecialSmelting {
     public WNCookingSmelting(ResourceLocation p_i48715_1_) {
-        super(p_i48715_1_, "cooking",Ingredient.fromItems(WNItems.POT_WATER),new ItemStack(WNItems.POT_EMPTY,1),1f,300);
+        super(p_i48715_1_, "smelting",Ingredient.fromItems(WNItems.POT_WATER),new ItemStack(WNItems.POT_EMPTY,1),1f,300);
     }
     private World w;
 
@@ -35,7 +35,7 @@ public class WNCookingSmelting extends SpecialSmelting {
             if(recipe!=null && recipe.ingredient!=null && recipe.result!=null) {
                 Main.LOGGER.debug("SET RESULTS");
                 //ingredient = recipe.ingredient;
-                //result = getCraftingResult(inventory).copy();
+                result = getCraftingResult(inventory).copy();
 
             }
             return recipe != null && recipe.getRecipeOutput() != null;
@@ -47,13 +47,13 @@ public class WNCookingSmelting extends SpecialSmelting {
     @Override
     public ItemStack getCraftingResult(IInventory inventory) {
         Main.LOGGER.debug("GETTING RESULT");
-        ItemStack s = inventory.getStackInSlot(0);
+        ItemStack s = inventory.getStackInSlot(0).copy();
         if(s.getItem() instanceof PotItem) {
             WNAbstractCookingRecipe recipe = PotItem.checkForRecipes(w, Utilities.loadItems(inventory.getStackInSlot(0).getOrCreateTag()));
             if (recipe == null) {
                 return ItemStack.EMPTY;
             } else {
-                ItemStack output = recipe.getRecipeOutput();
+                ItemStack output = recipe.getRecipeOutput().copy();
                 CompoundNBT nbt = s.getOrCreateTag();
 
                 if (nbt.contains("Items")) {
@@ -79,4 +79,6 @@ public class WNCookingSmelting extends SpecialSmelting {
     public IRecipeSerializer<?> getSerializer() {
         return Registry.RECIPE_SERIALIZER.getOrDefault(new ResourceLocation("wildnature:furnace_cooking"));
     }
+
+
 }

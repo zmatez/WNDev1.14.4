@@ -1,6 +1,6 @@
 {
-    "parent": "block/cross",
+    "parent": "block/crop",
     "textures": {
-        "cross": "wildnature:blocks/crops/red_pepper/red_pepper_stage_2"
+        "crop": "wildnature:blocks/crops/red_pepper/red_pepper_stage_2"
     }
 }

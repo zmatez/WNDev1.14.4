@@ -1,6 +1,6 @@
 {
-    "parent": "block/cross",
+    "parent": "block/crop",
     "textures": {
-        "cross": "wildnature:blocks/crops/parsley/parsley_stage_3"
+        "crop": "wildnature:blocks/crops/parsley/parsley_stage_3"
     }
 }

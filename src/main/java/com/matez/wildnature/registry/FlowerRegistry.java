@@ -168,14 +168,35 @@ public class FlowerRegistry {
                 WNBlocks.GINGER_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("ginger_plant"),"wildnature:ginger"),
                 WNBlocks.GREEN_PEPPER_PLANT = new Age6Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("green_pepper_plant"),"wildnature:green_pepper"),
                 WNBlocks.LEEK_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("leek_plant"),"wildnature:leek"),
-                WNBlocks.PARSLEY_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("parsley_plant"),"wildnature:parsley"),
+                WNBlocks.PARSLEY_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("parsley_plant"),"wildnature:fresh_parsley"),
                 WNBlocks.RED_PEPPER_PLANT = new Age6Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("red_pepper_plant"),"wildnature:red_pepper"),
                 WNBlocks.RHUBARB_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("rhubarb_plant"),"wildnature:rhubarb"),
                 WNBlocks.RICE_PLANT = new Age5Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("rice_plant"),"wildnature:rice"),
-                WNBlocks.SAGE_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("sage_plant"),"wildnature:sage"),
+                WNBlocks.SAGE_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("sage_plant"),"wildnature:dried_sage"),
                 WNBlocks.TURMERIC_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("turmeric_plant"),"wildnature:turmeric"),
                 WNBlocks.TURNIP_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("turnip_plant"),"wildnature:turnip"),
+                WNBlocks.BROCCOLI_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("broccoli_plant"),"wildnature:broccoli"),
+                WNBlocks.CABBAGE_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("cabbage_plant"),"wildnature:cabbage"),
+                WNBlocks.CHIVES_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("chives_plant"),"wildnature:chives"),
+                WNBlocks.CUCUMBER_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("cucumber_plant"),"wildnature:cucumber"),
+                WNBlocks.EGGPLANT_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("eggplant_plant"),"wildnature:eggplant"),
+                WNBlocks.CURRY_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("curry_plant"),"wildnature:curry_leaf"),
+                WNBlocks.MARJORAM_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("marjoram_plant"),"wildnature:fresh_marjoram"),
+                WNBlocks.ROSEMARY_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("rosemary_plant"),"wildnature:fresh_rosemary"),
+                WNBlocks.PEA_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("pea_plant"),"wildnature:peas"),
+                WNBlocks.PEANUT_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("peanut_plant"),"wildnature:peanut"),
+                WNBlocks.HORSE_RADISH_PLANT = new BushBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),null, "wildnature:horse_radish", 1,2,0,Main.RegistryEvents.location("horse_radish_plant")),
 
+
+                WNBlocks.COTTON_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("cotton_plant"),"wildnature:cotton"),
+                WNBlocks.PINEAPPLE_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("pineapple_plant"),"wildnature:pineapple"),
+
+
+                WNBlocks.BLACK_TEA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("black_tea_plant"),"wildnature:black_tea_leaf"),
+                WNBlocks.GREEN_TEA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("green_tea_plant"),"wildnature:green_tea_leaf"),
+                WNBlocks.MELISSA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("melissa_tea_plant"),"wildnature:melissa_tea_leaf"),
+                WNBlocks.MINT_PLANT = new BushBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),null, "wildnature:mint", 1,2,0,Main.RegistryEvents.location("mint_plant")),
+                WNBlocks.WHITE_TEA = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("white_tea_plant"),"wildnature:white_tea_leaf"),
 
 
 

@@ -89,7 +89,7 @@ public class PotItem extends Item {
                 player.addItemStackToInventory(result);
 
                 nbt.remove("cooked");
-                Main.LOGGER.debug("----------------------------- CLOICKED");
+                //Main.LOGGER.debug("----------------------------- CLOICKED");
                 stack.setTag(new CompoundNBT());
                 return new ActionResult<>(ActionResultType.SUCCESS, stack);
             }
@@ -122,7 +122,7 @@ public class PotItem extends Item {
         WNAbstractCookingRecipe recipe = world.getRecipeManager().getRecipe((IRecipeType<WNAbstractCookingRecipe>) Registry.RECIPE_TYPE.getOrDefault(new ResourceLocation("wildnature:cooking")), i, world).orElse(null);
         assert recipe != null && recipe.getRecipeOutput() != null;
         try {
-            Main.LOGGER.debug("Recipe: " + recipe.getRecipeOutput().getDisplayName().getFormattedText());
+            //Main.LOGGER.debug("Recipe: " + recipe.getRecipeOutput().getDisplayName().getFormattedText());
         }catch (Exception e){
             return null;
         };

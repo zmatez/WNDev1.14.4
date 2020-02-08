@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "wildnature:items/jam_kamchatka_berry"
+        "layer0": "wildnature:items/eatables/jam_kamchatka_berry"
     }
 }

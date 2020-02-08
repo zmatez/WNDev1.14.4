@@ -1,6 +1,7 @@
 package com.matez.wildnature.items.recipes.cooking;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.commands.RecipeCommand;
 import com.matez.wildnature.items.recipes.PotCrafting;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.inventory.IInventory;
@@ -40,10 +41,10 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
 
    public boolean matches(IInventory inv, World worldIn) {
       Main.LOGGER.debug("Checking maching");
-      return checkMatching(new ArrayList<ItemStack>(((Inventory)inv).inventoryContents),ingredient);
+      return checkMatching(new ArrayList<ItemStack>(((Inventory)inv).inventoryContents),ingredient,worldIn);
    }
 
-   public boolean checkMatching(ArrayList<ItemStack> stacks, Ingredient i){
+   public boolean checkMatching(ArrayList<ItemStack> stacks, Ingredient i, World world){
       boolean ok = true;
       int matching = 0;
       if(stacks.isEmpty()){
@@ -52,7 +53,6 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
 
       int d = 0;
       for (ItemStack stack : stacks) {
-
          if(!checkForMatch(stack,i,stacks)){
             ok=false;
          }else{
@@ -62,9 +62,17 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
       }
       Main.LOGGER.debug("SIZE: " + matching + " x " + stacks.size() + " z " + i.matchingStacks.length);
 
-      if(i.matchingStacks.length!=stacks.size()){
+      if(i.matchingStacks.length!=matching){
          return false;
       }
+
+      /*ArrayList<ArrayList<ItemStack>> sc = RecipeCommand.checkIngredients(world,this.result.copy());
+      for (ArrayList<ItemStack> itemStacks : sc) {
+         for (ItemStack itemStack : itemStacks) {
+            if(itemStack.getItem()==)
+         }
+      }*/
+
 
 
 
