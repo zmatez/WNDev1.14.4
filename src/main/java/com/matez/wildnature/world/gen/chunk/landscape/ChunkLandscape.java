@@ -25,6 +25,7 @@ public class ChunkLandscape
 	
 	protected float depth;
 	protected float scale;
+	protected int octaves = 11;
 	
 	protected OctaveNoiseSampler<OpenSimplexNoise> heightNoise;
 	protected OctaveNoiseSampler<OpenSimplexNoise> scaleNoise;
@@ -41,10 +42,10 @@ public class ChunkLandscape
 		this.scale = biome.getScale();
 		this.random = new Random(seed);
 		
-		double amplitude = Math.pow(2, 11);
+		double amplitude = Math.pow(2, octaves);
 		
 		// You can modify how this is set too, since I am pretty sure the sampler is good spot to change how terrain is generated
-		this.heightNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 11, 0.75 * amplitude, amplitude, amplitude);
+		this.heightNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, octaves, 0.75 * amplitude, amplitude, amplitude);
 		this.scaleNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 2, Math.pow(2, 10), 0.2, 0.09);
 	}
 	
@@ -74,9 +75,9 @@ public class ChunkLandscape
 		samples[2] = sampleArea(xLow, zUpper);
 		samples[3] = sampleArea(xUpper, zUpper);
 		
-		double sample = MathHelper.lerp(zProgress,
+		double sample = MathHelper.lerp(zProgress < 63 + 10 * this.depth ? 63 + 10 * this.depth : zProgress,
 						MathHelper.lerp(xProgress, samples[0], samples[1]),
-						MathHelper.lerp(xProgress, samples[2], samples[3]));
+						MathHelper.lerp(xProgress, samples[2], samples[3]) * this.scale);
 		
 		return 256 / (Math.exp(8 / 3f - sample / 48) + 1);
 	}
@@ -97,8 +98,8 @@ public class ChunkLandscape
 	
 	private double sampleNoise(int x, int z)
 	{
-		double frequency = this.scaleNoise.sample(x, z);
-		return this.heightNoise.sampleCustom(x, z, 1, frequency, frequency, 11);
+		double frequency = this.scaleNoise.sample(x, z) * this.scale;
+		return this.heightNoise.sampleCustom(x, z, 1, frequency, frequency, octaves);
 	}
 	
 	public ChunkLandscape applyValues(int x, int z, Long seed, Biome biome, IChunk chunkIn)
