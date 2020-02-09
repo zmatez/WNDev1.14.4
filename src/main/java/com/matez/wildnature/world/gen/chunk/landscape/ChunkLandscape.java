@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Random;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.world.gen.noise.OctaveNoiseSampler;
 import com.matez.wildnature.world.gen.noise.OpenSimplexNoise;
 
@@ -26,6 +27,8 @@ public class ChunkLandscape
 	protected float scale;
 	
 	protected OctaveNoiseSampler sampler;
+
+	protected int octaves = 8;
 	
 	public ChunkLandscape(int x, int z, Long seed, Biome biome, IChunk chunkIn)
 	{
@@ -41,7 +44,7 @@ public class ChunkLandscape
 		
 		double amplitude = Math.pow(2, 11);
 		// You can modify how this is set too, since I am pretty sure the sampler is good spot to change how terrain is generated
-		this.sampler = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 11, 0.75 * amplitude, amplitude, amplitude);
+		this.sampler = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, octaves, 0.75 * amplitude, amplitude, amplitude);
 	}
 	
 	public static void addLandscape(Biome biome, Class<? extends ChunkLandscape> landscape)
@@ -56,31 +59,51 @@ public class ChunkLandscape
 		int zLow = ((z >> 2) << 2);
 		int xUpper = xLow + 4;
 		int zUpper = zLow + 4;
-		
+
 		double xProgress = (double)(x - xLow) * 0.25;
 		double zProgress = (double)(z - zLow) * 0.25;
-		
+
 		xProgress = xProgress * xProgress * (3 - (xProgress * 2));
 		zProgress = zProgress * zProgress * (3 - (zProgress * 2));
-		
+
 		// Start of sample
 		final double[] samples = new double[4];
-		samples[0] = sampleArea(xLow, zLow);
-		samples[1] = sampleArea(xUpper, zLow);
-		samples[2] = sampleArea(xLow, zUpper);
-		samples[3] = sampleArea(xUpper, zUpper);
-		
+		samples[0] = sampleNoise(xLow, zLow);
+		samples[1] = sampleNoise(xUpper, zLow);
+		samples[2] = sampleNoise(xLow, zUpper);
+		samples[3] = sampleNoise(xUpper, zUpper);
+
 		double sample = MathHelper.lerp(zProgress,
-						MathHelper.lerp(xProgress, samples[0] * this.depth, samples[1]) * this.depth,
+						MathHelper.lerp(xProgress, samples[0], samples[1]),
 						MathHelper.lerp(xProgress, samples[2], samples[3]));
-		
-		return 256 / (Math.exp(8 / 3f - sample / 48) + 1);
+
+		Main.LOGGER.debug("DOUBLE: " + (double)sigmoid(sample) + " INT: " + (int)sigmoid(sample));
+		return (int) sigmoid(sample);
 	}
-	
+
+	private double sigmoid(double val)
+	{
+		return 256 / (Math.exp(8 / 3f - val / 48) + 1);
+	}
+
+	private double sampleNoise(int x, int z)
+	{
+		double noise = sampleArea(x, z);
+		noise += sampleArea(x + 4, z);
+		noise += sampleArea(x - 4, z);
+		noise += sampleArea(x, z + 4);
+		noise += sampleArea(x, z - 4);
+		noise *= 0.2;
+
+		noise += 100;
+
+		return noise;
+	}
+
 	private double sampleArea(int x, int z)
 	{
-		double frequency = this.sampler.sample(x, z) * this.scale;
-		return this.sampler.sampleCustom(x, z, frequency, this.scale, (this.scale / this.depth), 11);
+		double frequency = this.sampler.sample(x, z) * this.scale +1;
+		return this.sampler.sampleCustom(x, z, frequency, this.scale, (this.scale / this.depth), octaves);
 	}
 	
 	public ChunkLandscape applyValues(int x, int z, Long seed, Biome biome, IChunk chunkIn)
@@ -88,10 +111,10 @@ public class ChunkLandscape
 		this.x = x;
 		this.z = z;
 		this.random.setSeed(seed);
-		
+
 		this.biome = biome;
 		this.chunk = chunkIn;
-		
+
 		return this;
 	}
 	
@@ -110,7 +133,7 @@ public class ChunkLandscape
 				e.printStackTrace();
 			}
 		}
-		
+
 		return new ChunkLandscape(x, z, seed, biome, chunkIn);
 	}
 }
