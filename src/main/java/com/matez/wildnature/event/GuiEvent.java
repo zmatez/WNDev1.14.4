@@ -1,6 +1,7 @@
 package com.matez.wildnature.event;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.gui.screen.WNWorldLoadProgressScreen;
 import com.matez.wildnature.gui.screen.WildNatureScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;
@@ -52,6 +53,10 @@ public class GuiEvent {
         }
         if(event.getGui().getClass()== WorldLoadProgressScreen.class){
             Main.gotInfoAboutWorld = false;
+        }
+
+        if(event.getGui().getClass()==WorldLoadProgressScreen.class){
+            //Minecraft.getInstance().displayGuiScreen(new WNWorldLoadProgressScreen(((WorldLoadProgressScreen)event.getGui()).field_213040_a));
         }
 
     }
