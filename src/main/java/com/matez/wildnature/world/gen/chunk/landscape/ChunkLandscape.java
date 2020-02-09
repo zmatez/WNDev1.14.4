@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Random;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.world.gen.noise.OctaveNoiseSampler;
 import com.matez.wildnature.world.gen.noise.OpenSimplexNoise;
 
@@ -25,7 +26,8 @@ public class ChunkLandscape
 	protected float depth;
 	protected float scale;
 	
-	protected OctaveNoiseSampler sampler;
+	protected OctaveNoiseSampler<OpenSimplexNoise> heightNoise;
+	protected OctaveNoiseSampler<OpenSimplexNoise> scaleNoise;
 	
 	public ChunkLandscape(int x, int z, Long seed, Biome biome, IChunk chunkIn)
 	{
@@ -40,8 +42,10 @@ public class ChunkLandscape
 		this.random = new Random(seed);
 		
 		double amplitude = Math.pow(2, 11);
+		
 		// You can modify how this is set too, since I am pretty sure the sampler is good spot to change how terrain is generated
-		this.sampler = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 11, 0.75 * amplitude, amplitude, amplitude);
+		this.heightNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 11, 0.75 * amplitude, amplitude, amplitude);
+		this.scaleNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 2, Math.pow(2, 10), 0.2, 0.09);
 	}
 	
 	public static void addLandscape(Biome biome, Class<? extends ChunkLandscape> landscape)
@@ -71,7 +75,7 @@ public class ChunkLandscape
 		samples[3] = sampleArea(xUpper, zUpper);
 		
 		double sample = MathHelper.lerp(zProgress,
-						MathHelper.lerp(xProgress, samples[0] * this.depth, samples[1]) * this.depth,
+						MathHelper.lerp(xProgress, samples[0], samples[1]),
 						MathHelper.lerp(xProgress, samples[2], samples[3]));
 		
 		return 256 / (Math.exp(8 / 3f - sample / 48) + 1);
@@ -79,8 +83,22 @@ public class ChunkLandscape
 	
 	private double sampleArea(int x, int z)
 	{
-		double frequency = this.sampler.sample(x, z) * this.scale;
-		return this.sampler.sampleCustom(x, z, frequency, this.scale, (this.scale / this.depth), 11);
+		double noise = sampleNoise(x, z);
+		noise += sampleNoise(x + 4, z);
+		noise += sampleNoise(x - 4, z);
+		noise += sampleNoise(x, z - 4);
+		noise += sampleNoise(x, z + 4);
+		noise *= 0.2;
+		
+		noise += 100;
+		
+		return noise;
+	}
+	
+	private double sampleNoise(int x, int z)
+	{
+		double frequency = this.scaleNoise.sample(x, z);
+		return this.heightNoise.sampleCustom(x, z, 1, frequency, frequency, 11);
 	}
 	
 	public ChunkLandscape applyValues(int x, int z, Long seed, Biome biome, IChunk chunkIn)
@@ -95,7 +113,7 @@ public class ChunkLandscape
 		return this;
 	}
 	
-	// This way, if we have a biome that would require different terrain we can create a class that extends ChunkLandscape and add it by calling "ChunkLandscape.add(WNBiomes.THE_BIOME, THE_CHUNK_LANDSCAPE.class);"
+	// This way, if we have a biome that would require different terrain we can create a class that extends ChunkLandscape and add it by calling "ChunkLandscape.addLandscape(WNBiomes.THE_BIOME, THE_CHUNK_LANDSCAPE.class);"
 	public static ChunkLandscape getOrCreate(int x, int z, Long seed, Biome biome, IChunk chunkIn)
 	{
 		Class<? extends ChunkLandscape> landscape = landscapeCache.get(biome.getRegistryName().getPath());

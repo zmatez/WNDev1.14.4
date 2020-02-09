@@ -248,66 +248,12 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 		}
 	}
 	
-	private double sigmoid(double val)
-	{
-		return 256 / (Math.exp(8 / 3f - val / 48) + 1);
-	}
-	
 	public int getTerrainHeight(int x, int z)
 	{
 		Biome biome = this.biomeProvider.func_222366_b(x, z);
 		ChunkLandscape landscape = ChunkLandscape.getOrCreate(x, z, this.seed, biome, this.chunk);
 		
 		return (int) landscape.generateHeightmap();
-	}
-	
-	public int getHeight(int x, int z)
-	{
-		int xLow = ((x >> 2) << 2);
-		int zLow = ((z >> 2) << 2);
-		int xUpper = xLow + 4;
-		int zUpper = zLow + 4;
-		
-		double xProgress = (double)(x - xLow) * 0.25;
-		double zProgress = (double)(z - zLow) * 0.25;
-		
-		xProgress = xProgress * xProgress * (3 - (xProgress * 2));
-		zProgress = zProgress * zProgress * (3 - (zProgress * 2));
-		
-		// Start of sample
-		final double[] samples = new double[4];
-		samples[0] = sampleNoise(xLow, zLow);
-		samples[1] = sampleNoise(xUpper, zLow);
-		samples[2] = sampleNoise(xLow, zUpper);
-		samples[3] = sampleNoise(xUpper, zUpper);
-		
-		double sample = MathHelper.lerp(zProgress,
-						MathHelper.lerp(xProgress, samples[0], samples[1]),
-						MathHelper.lerp(xProgress, samples[2], samples[3]));
-		
-		return (int) sigmoid(sample);
-	}
-	
-	private double sampleNoise(int x, int z)
-	{
-		double noise = sampleNoiseBase(x, z);
-		noise += sampleNoiseBase(x + 4, z);
-		noise += sampleNoiseBase(x - 4, z);
-		noise += sampleNoiseBase(x, z + 4);
-		noise += sampleNoiseBase(x, z - 4);
-		noise *= 0.2;
-		
-		noise += 100;
-		
-		return noise;
-	}
-	
-	private double sampleNoiseBase(int x, int z)
-	{
-		double amplitudeSample = this.noiseSampler.sample(x, z) + 0.09;
-		double noise = this.noiseSampler.sampleCustom(x, z, 1, amplitudeSample, 11);
-		
-		return noise;
 	}
 	
 	// I removed all mentions of this, so feel free to delete this and try to apply biome depth and scale yourself... unfortunately I didn't have much luck today, and can't find any references that would
@@ -339,6 +285,6 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 	@Override
 	public int func_222529_a(int x, int z, Type p_222529_3_)
 	{
-		return getHeight(x, z);
+		return getTerrainHeight(x, z);
 	}
 }
