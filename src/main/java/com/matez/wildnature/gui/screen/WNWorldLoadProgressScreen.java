@@ -1,43 +1,47 @@
 package com.matez.wildnature.gui.screen;
 
+import com.matez.wildnature.Main;
+import com.matez.wildnature.other.Utilities;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.material.MaterialColor;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraft.world.chunk.ChunkStatus;
+import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.chunk.listener.TrackingChunkStatusListener;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
+
 @OnlyIn(Dist.CLIENT)
 public class WNWorldLoadProgressScreen extends Screen {
+    public static World world;
     private final TrackingChunkStatusListener progress;
     private long field_213041_b = -1L;
-    private static final Object2IntMap<ChunkStatus> COLORS = (Object2IntMap) Util.make(new Object2IntOpenHashMap(), (p_213039_0_) -> {
-        p_213039_0_.defaultReturnValue(0);
-        p_213039_0_.put(ChunkStatus.EMPTY, 0xffffff);
-        p_213039_0_.put(ChunkStatus.STRUCTURE_STARTS, 0x123321);
-        p_213039_0_.put(ChunkStatus.STRUCTURE_REFERENCES, 0x332244);
-        p_213039_0_.put(ChunkStatus.BIOMES, 0xff0000);
-        p_213039_0_.put(ChunkStatus.NOISE, 0x00ff00);
-        p_213039_0_.put(ChunkStatus.SURFACE, 0xff22ff);
-        p_213039_0_.put(ChunkStatus.CARVERS, 0xabcdef);
-        p_213039_0_.put(ChunkStatus.LIQUID_CARVERS, 3159410);
-        p_213039_0_.put(ChunkStatus.FEATURES, 0x987654);
-        p_213039_0_.put(ChunkStatus.LIGHT, 0xbb11bb);
-        p_213039_0_.put(ChunkStatus.SPAWN, 0x987123);
-        p_213039_0_.put(ChunkStatus.HEIGHTMAPS, 0x654987);
-        p_213039_0_.put(ChunkStatus.FULL, 0xfb05ba);
-    });
+    public int color;
+    public ArrayList<BlockPoint> blockPoints;
+    public ChunkStatus currentChunkStatus = null;
 
     public WNWorldLoadProgressScreen(TrackingChunkStatusListener p_i51113_1_) {
         super(NarratorChatListener.field_216868_a);
         this.progress = p_i51113_1_;
+        this.blockPoints = new ArrayList<>();
     }
 
     public boolean shouldCloseOnEsc() {
@@ -50,6 +54,7 @@ public class WNWorldLoadProgressScreen extends Screen {
 
     public void render(int mouseX, int mouseY, float partialTicks) {
         this.renderBackground();
+
         String lvt_4_1_ = MathHelper.clamp(this.progress.getPercentDone(), 0, 100) + "%";
         long lvt_5_1_ = Util.milliTime();
         if (lvt_5_1_ - this.field_213041_b > 2000L) {
@@ -57,40 +62,209 @@ public class WNWorldLoadProgressScreen extends Screen {
             NarratorChatListener.INSTANCE.func_216864_a((new TranslationTextComponent("narrator.loading", new Object[]{lvt_4_1_})).getString());
         }
 
-        int lvt_7_1_ = this.width / 2;
-        int lvt_8_1_ = this.height / 2;
-        //int lvt_9_1_ = true;
-        func_213038_a(this.progress, lvt_7_1_, lvt_8_1_ + 30, 2, 0);
+        int centerWidth = this.width / 2;
+        int centerHeight = this.height / 2;
+        
+
+        renderChunks(this.progress, centerWidth, centerHeight + 30,this.width,this.height);
         FontRenderer var10001 = this.font;
-        this.font.getClass();
-        this.drawCenteredString(var10001, lvt_4_1_, lvt_7_1_, lvt_8_1_ - 9 / 2 - 30, 16777215);
+        this.drawCenteredString(var10001, lvt_4_1_, centerWidth, centerHeight - 9 / 2 + 30, 16777215);
+        drawLoading(centerWidth,centerHeight);
+
     }
 
-    public static void func_213038_a(TrackingChunkStatusListener progress, int p_213038_1_, int p_213038_2_, int p_213038_3_, int p_213038_4_) {
-        int lvt_5_1_ = p_213038_3_ + p_213038_4_;
-        int lvt_6_1_ = progress.getDiameter();
-        int lvt_7_1_ = lvt_6_1_ * lvt_5_1_ - p_213038_4_;
-        int lvt_8_1_ = progress.func_219523_d();
-        int lvt_9_1_ = lvt_8_1_ * lvt_5_1_ - p_213038_4_;
-        int lvt_10_1_ = p_213038_1_ - lvt_9_1_ / 2;
-        int lvt_11_1_ = p_213038_2_ - lvt_9_1_ / 2;
-        int lvt_12_1_ = lvt_7_1_ / 2 + 1;
-        int lvt_13_1_ = -16772609;
-        if (p_213038_4_ != 0) {
-            fill(p_213038_1_ - lvt_12_1_, p_213038_2_ - lvt_12_1_, p_213038_1_ - lvt_12_1_ + 1, p_213038_2_ + lvt_12_1_, -16772609);
-            fill(p_213038_1_ + lvt_12_1_ - 1, p_213038_2_ - lvt_12_1_, p_213038_1_ + lvt_12_1_, p_213038_2_ + lvt_12_1_, -16772609);
-            fill(p_213038_1_ - lvt_12_1_, p_213038_2_ - lvt_12_1_, p_213038_1_ + lvt_12_1_, p_213038_2_ - lvt_12_1_ + 1, -16772609);
-            fill(p_213038_1_ - lvt_12_1_, p_213038_2_ + lvt_12_1_ - 1, p_213038_1_ + lvt_12_1_, p_213038_2_ + lvt_12_1_, -16772609);
+    private int points = 0;
+    public void drawLoading(int centerWidth, int centerHeight){
+        points++;
+        String sp = "";
+        if(points>=0 && points<30){
+            sp = "";
+        }else if(points>=30 && points<60){
+            sp = ".";
+        }else if(points>=60 && points<90){
+            sp = "..";
+        }else if(points>=90 && points<120){
+            sp = "...";
+        }else{
+            points=0;
         }
+        this.drawCenteredString(this.font, "Loading world"+sp, centerWidth, centerHeight - 9 / 2, 16777215);
 
-        for(int lvt_14_1_ = 0; lvt_14_1_ < lvt_8_1_; ++lvt_14_1_) {
-            for(int lvt_15_1_ = 0; lvt_15_1_ < lvt_8_1_; ++lvt_15_1_) {
-                ChunkStatus lvt_16_1_ = progress.func_219525_a(lvt_14_1_, lvt_15_1_);
-                int lvt_17_1_ = lvt_10_1_ + lvt_14_1_ * lvt_5_1_;
-                int lvt_18_1_ = lvt_11_1_ + lvt_15_1_ * lvt_5_1_;
-                fill(lvt_17_1_, lvt_18_1_, lvt_17_1_ + p_213038_3_, lvt_18_1_ + p_213038_3_, COLORS.getInt(lvt_16_1_) | -16777216);
+    }
+
+
+
+    public void renderChunks(TrackingChunkStatusListener progress, int centerX, int centerY,int maxX,int maxY) {
+        if(world!=null && world.getDimension()!=null) {
+            try {
+                BlockPos center = world.getSpawnPoint();
+                int blockSize = 2;
+
+                if(currentChunkStatus==null || currentChunkStatus!=progress.func_219525_a(world.getChunkAt(center).getPos().x,world.getChunkAt(center).getPos().z)){
+                    Main.LOGGER.debug("Drawing background");
+                    drawBackground(centerX,centerY,maxX,maxY,blockSize,center.getX(),center.getZ());
+                }
+
+
+
+                for (BlockPoint blockPoint : blockPoints) {
+                    fillWithColor(blockPoint.getStartX(),blockPoint.getStartY(),blockPoint.getEndX(),blockPoint.getEndY(),blockPoint.getPosX(),blockPoint.getPosZ());
+                }
+
+
+            }catch (Exception e){
+            }
+
+        }
+    }
+
+
+    public void fillWithColor(int startX, int startY, int endX, int endY, int posX, int posZ){
+        getColorV(posX,posZ);
+        int c;
+        if(color==0){
+            c=Utilities.getColorValue(0x313131);
+        }else{
+            c=color;
+        }
+        fill(startX,startY,endX,endY,c);
+    }
+
+    public void fillWithColor(int startX, int startY, int endX, int endY, int color){
+        fill(startX,startY,endX,endY,color);
+    }
+
+
+    public int getHeight(int x, int z, World world){
+        for(int i = world.getHeight(); i>1; i--){
+            Block b = world.getBlockState(new BlockPos(x,i,z)).getBlock();
+            if(b!=null && b!= Blocks.AIR && b!= Blocks.VOID_AIR && b!=Blocks.CAVE_AIR){
+                return i;
             }
         }
+        return 1;
+    }
+
+
+    public void drawBackground(int centerWidth, int centerHeight, int maxWidth, int maxHeight, int size, int posX, int posZ){
+        blockPoints = new ArrayList<>();
+        int x =centerWidth;//horiz
+        int y =centerHeight;//vert
+
+        int pX = posX;
+        int pZ = posZ;
+
+        while(x>0){
+            x=x-size;
+            pX=pX-1;
+            drawVertical(x,y,maxWidth,maxHeight,size,pX,pZ);
+        }
+
+        x =centerWidth;//horiz
+        y =centerHeight;//vert
+
+        pX = posX;
+        pZ = posZ;
+
+
+        while(x<maxWidth+size){
+            x=x+size;
+            pX=pX+1;
+            drawVertical(x,y,maxWidth,maxHeight,size,pX,pZ);
+        }
 
     }
+
+    private void drawVertical(int centerWidth, int centerHeight, int maxWidth, int maxHeight, int size, int posX, int posZ){
+        int x =centerWidth;//horiz
+        int y =centerHeight;//vert
+
+        int pX = posX;
+        int pZ = posZ;
+
+        //down
+        while (y>0){
+            y=y-size;
+            pZ=pZ-1;
+            blockPoints.add(new BlockPoint(x + size, y + size, x - size, y - size, pX, pZ));
+
+        }
+        x =centerWidth;//horiz
+        y =centerHeight;//vert
+
+        pX = posX;
+        pZ = posZ;
+
+        //up
+        while (y<maxHeight+size){
+            y=y+size;
+            pZ=pZ+1;
+            blockPoints.add(new BlockPoint(x + size, y + size, x - size, y - size, pX, pZ));
+
+        }
+
+    }
+
+    public void getColorV(int posX, int posZ){
+        WNWorldLoadProgressScreen self = this;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+        self.color = Utilities.getColorValue(WNWorldLoadProgressScreen.world.getBlockState(new BlockPos(posX, self.getHeight(posX, posZ, WNWorldLoadProgressScreen.world), posZ)).getBlock().getMaterialColor(null, null, null).colorValue);
+
+    }
+
+    public int getColor(int posX, int posZ){
+        return Utilities.getColorValue(WNWorldLoadProgressScreen.world.getBlockState(new BlockPos(posX,getHeight(posX,posZ,WNWorldLoadProgressScreen.world),posZ)).getBlock().getMaterialColor(null,null,null).colorValue);
+    }
+
+
+    public static class BlockPoint{
+        private int startX, startY, endX, endY, posX, posZ;
+        public BlockPoint(int startX, int startY, int endX, int endY, int posX, int posZ){
+            this.startX=startX;
+            this.startY=startY;
+            this.endX=endX;
+            this.endY=endY;
+            this.posX=posX;
+            this.posZ=posZ;
+        }
+
+        public int getEndX() {
+            return endX;
+        }
+
+        public int getEndY() {
+            return endY;
+        }
+
+        public int getPosX() {
+            return posX;
+        }
+
+        public int getPosZ() {
+            return posZ;
+        }
+
+        public int getStartX() {
+            return startX;
+        }
+
+        public int getStartY() {
+            return startY;
+        }
+    }
+
+    /*CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(new Supplier<Integer>() {
+                    @Override
+                    public Integer get() {
+                        return getColor(center.getX(),center.getZ());
+                    }
+                });
+
+                fillWithColor(centerX+blockSize,centerY+blockSize,centerX-blockSize,centerY-blockSize,completableFuture.get());*/
+    //fillWithColor(centerX+blockSize,centerY+blockSize,centerX-blockSize,centerY-blockSize,center.getX(),center.getZ());
 }

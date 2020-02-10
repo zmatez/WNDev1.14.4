@@ -313,4 +313,7 @@ public class Utilities {
         return Collections.frequency(list,obj);
     }
 
+    public static int getColorValue(int hex){
+        return hex | -16777216;
+    }
 }

@@ -44,6 +44,7 @@ public class WNChunkGeneratorOverworld extends NoiseChunkGenerator<WNGenSettings
         this.randomSeed.skip(2620);
         this.depthNoise = new SimplexOctaveGenerator(this.randomSeed, 16);
         this.field_222577_j = worldIn.getWorldInfo().getGenerator() == WorldType.AMPLIFIED;
+
     }
 
 
@@ -77,17 +78,17 @@ public class WNChunkGeneratorOverworld extends NoiseChunkGenerator<WNGenSettings
         return d1;
     }
 
-    protected double[] func_222549_a(int p_222549_1_, int p_222549_2_) {
+    protected double[] func_222549_a(int x, int z) {
         double[] adouble = new double[2];
         float f = 0.0F;
         float f1 = 0.0F;
         float f2 = 0.0F;
         int i = 2;
-        float f3 = this.biomeProvider.func_222366_b(p_222549_1_, p_222549_2_).getDepth();
+        float depth = this.biomeProvider.func_222366_b(x, z).getDepth();
 
         for(int j = -2; j <= 2; ++j) {
             for(int k = -2; k <= 2; ++k) {
-                Biome biome = this.biomeProvider.func_222366_b(p_222549_1_ + j, p_222549_2_ + k);
+                Biome biome = this.biomeProvider.func_222366_b(x + j, z + k);
                 float f4 = biome.getDepth();
                 float f5 = biome.getScale();
                 if (this.field_222577_j && f4 > 0.0F) {
@@ -96,7 +97,7 @@ public class WNChunkGeneratorOverworld extends NoiseChunkGenerator<WNGenSettings
                 }
 
                 float f6 = field_222576_h[j + 2 + (k + 2) * 5] / (f4 + 2.0F);
-                if (biome.getDepth() > f3) {
+                if (biome.getDepth() > depth) {
                     f6 /= 2.0F;
                 }
 
@@ -110,14 +111,14 @@ public class WNChunkGeneratorOverworld extends NoiseChunkGenerator<WNGenSettings
         f1 = f1 / f2;
         f = f * 0.9F + 0.1F;
         f1 = (f1 * 4.0F - 1.0F) / 8.0F;
-        adouble[0] = (double)f1 + this.func_222574_c(p_222549_1_, p_222549_2_);
+        adouble[0] = (double)f1 + this.func_222574_c(x, z);
         adouble[1] = (double)f;
         return adouble;
     }
 
-    private double func_222574_c(int p_222574_1_, int p_222574_2_) {
+    private double func_222574_c(int x, int z) {
         depthNoise.setScale(1/16000);
-        double d0 = depthNoise.noise((double)(p_222574_1_ * 200), 10.0D, (double)(p_222574_2_ * 200), 1.0D, 0.0D, true);
+        double d0 = depthNoise.noise((double)(x * 200), 10.0D, (double)(z * 200), 1.0D, 0.0D, true);
         if (d0 < 0.0D) {
             d0 = -d0 * 0.3D;
         }

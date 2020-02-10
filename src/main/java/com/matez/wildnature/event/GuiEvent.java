@@ -56,7 +56,8 @@ public class GuiEvent {
         }
 
         if(event.getGui().getClass()==WorldLoadProgressScreen.class){
-            //Minecraft.getInstance().displayGuiScreen(new WNWorldLoadProgressScreen(((WorldLoadProgressScreen)event.getGui()).field_213040_a));
+            Minecraft.getInstance().displayGuiScreen(new WNWorldLoadProgressScreen(Minecraft.getInstance().field_213277_ad.get()));
+
         }
 
     }

@@ -1,6 +1,7 @@
 package com.matez.wildnature.world.gen.provider;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.gui.screen.WNWorldLoadProgressScreen;
 import com.matez.wildnature.world.gen.biomes.biomes.terrain.BiomeTerrain;
 import com.matez.wildnature.world.gen.biomes.layer.WNBiomeLayer;
 import com.matez.wildnature.world.gen.biomes.setup.WNGenSettings;
@@ -35,6 +36,7 @@ public class WNWorldType extends WorldType {
 
         if(world.getDimension().getType()==DimensionType.OVERWORLD) {
             Main.wnInfo("Generating WildNature World");
+            WNWorldLoadProgressScreen.world=world;
             ChunkGeneratorType<WNGenSettings, WNChunkGeneratorOverworld> gen = WNChunkGeneratorType.WILDNATURE;
             ChunkGeneratorType<NetherGenSettings, NetherChunkGenerator> genNether = ChunkGeneratorType.CAVES;
             ChunkGeneratorType<EndGenerationSettings, EndChunkGenerator> genEnd = ChunkGeneratorType.FLOATING_ISLANDS;
