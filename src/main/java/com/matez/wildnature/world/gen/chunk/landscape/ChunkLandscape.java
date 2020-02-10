@@ -44,8 +44,7 @@ public class ChunkLandscape
 		
 		double amplitude = Math.pow(2, octaves);
 		
-		// You can modify how this is set too, since I am pretty sure the sampler is good spot to change how terrain is generated
-		this.heightNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, octaves, 0.75 * amplitude, amplitude, amplitude);
+		this.heightNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, this.octaves, 0.75 * amplitude, amplitude, amplitude);
 		this.scaleNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 2, Math.pow(2, 10), 0.2, 0.09);
 	}
 	
@@ -54,7 +53,6 @@ public class ChunkLandscape
 		ChunkLandscape.landscapeCache.put(biome.getRegistryName().getPath(), landscape);
 	}
 	
-	// Feel free to mess with this, sampleArea, and this.sampler's creation, this is the key to getting terrain to listen to depth and scale. The old functions are still in SmoothChunkGenerator for reference
 	public double generateHeightmap()
 	{
 		int xLow = ((x >> 2) << 2);
@@ -75,9 +73,9 @@ public class ChunkLandscape
 		samples[2] = sampleArea(xLow, zUpper);
 		samples[3] = sampleArea(xUpper, zUpper);
 		
-		double sample = MathHelper.lerp(zProgress < 63 + 10 * this.depth ? 63 + 10 * this.depth : zProgress,
+		double sample = MathHelper.lerp(zProgress,
 						MathHelper.lerp(xProgress, samples[0], samples[1]),
-						MathHelper.lerp(xProgress, samples[2], samples[3]) * this.scale);
+						MathHelper.lerp(xProgress, samples[2], samples[3]));
 		
 		return 256 / (Math.exp(8 / 3f - sample / 48) + 1);
 	}
@@ -87,8 +85,8 @@ public class ChunkLandscape
 		double noise = sampleNoise(x, z);
 		noise += sampleNoise(x + 4, z);
 		noise += sampleNoise(x - 4, z);
-		noise += sampleNoise(x, z - 4);
 		noise += sampleNoise(x, z + 4);
+		noise += sampleNoise(x, z - 4);
 		noise *= 0.2;
 		
 		noise += 100;
@@ -98,7 +96,7 @@ public class ChunkLandscape
 	
 	private double sampleNoise(int x, int z)
 	{
-		double frequency = this.scaleNoise.sample(x, z) * this.scale;
+		double frequency = this.scaleNoise.sample(x, z);
 		return this.heightNoise.sampleCustom(x, z, 1, frequency, frequency, octaves);
 	}
 	

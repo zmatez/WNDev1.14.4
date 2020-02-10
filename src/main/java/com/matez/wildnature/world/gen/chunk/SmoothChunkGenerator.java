@@ -2,6 +2,7 @@ package com.matez.wildnature.world.gen.chunk;
 
 import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 import com.matez.wildnature.Main;
 import com.matez.wildnature.world.gen.biomes.setup.WNGenSettings;
@@ -54,17 +55,9 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 
     });
 	
-	private final OctaveNoiseSampler heightNoise;
-	private final OctaveNoiseSampler scaleNoise;
-	
 	private WNGenSettings settings;
-	private final Random random;
 	
 	private final OctavesNoiseGenerator surfaceDepthNoise;
-	private Sampler noiseSampler;
-	
-	private boolean amplified;
-	
 	protected HashMap<Long, int[]> noiseCache = new HashMap<>();
 	private SharedSeedRandom randomSeed;
 	
@@ -72,21 +65,10 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 	{
 		super(worldIn, biomeProviderIn, generationSettingsIn);
 		
-		this.random = new Random(this.seed);
-		double amplitude = Math.pow(2, 11);
-		
-		this.heightNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 11, 0.75 * amplitude, amplitude, amplitude);
-		this.scaleNoise = new OctaveNoiseSampler<>(OpenSimplexNoise.class, this.random, 2, Math.pow(2, 10), 0.2, 0.09);
-		
 		this.settings = generationSettingsIn;
-		
 		this.randomSeed = new SharedSeedRandom(this.seed);
 		
 		this.surfaceDepthNoise = new OctavesNoiseGenerator(this.randomSeed, 4);
-		
-		this.noiseSampler = new Sampler(this.scaleNoise, this.heightNoise);
-		
-		this.amplified = worldIn.getWorldInfo().getGenerator() == WorldType.AMPLIFIED;
 	}
 
 	@Override
@@ -230,7 +212,20 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 		
 		int[] vals = new int[256];
 		
-		useNoise(vals, pos, 0, 16);
+		// useNoise(vals, pos, 0, 16);
+		int threads = 2;
+		
+		CompletableFuture<?>[] futures = new CompletableFuture[threads];
+		for (int i = 0; i < threads; i++)
+		{
+			int position = i;
+			futures[i] = CompletableFuture.runAsync(() -> useNoise(vals, pos, position * 16 / threads, 16 / threads));
+		}
+		
+		for (int i = 0; i < futures.length; i++)
+		{
+			futures[i].join();
+		}
 		
 		noiseCache.put(pos.asLong(), vals);
 		
