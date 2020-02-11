@@ -14,6 +14,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.*;
 
 public class Utilities {
@@ -316,4 +317,26 @@ public class Utilities {
     public static int getColorValue(int hex){
         return hex | -16777216;
     }
+
+    public static String blendColors(Color clOne, Color clTwo, float fAmount) {
+        float fInverse = (float)1.0 - fAmount;
+
+        // I had to look up getting colour components in java.  Google is good :)
+        float afOne[] = new float[3];
+        clOne.getColorComponents(afOne);
+        float afTwo[] = new float[3];
+        clTwo.getColorComponents(afTwo);
+
+        float afResult[] = new float[3];
+        afResult[0] = afOne[0] * fAmount + afTwo[0] * fInverse;
+        afResult[1] = afOne[1] * fAmount + afTwo[1] * fInverse;
+        afResult[2] = afOne[2] * fAmount + afTwo[2] * fInverse;
+
+        Color c = new Color(afResult[0], afResult[1], afResult[2]);
+
+        String hex = String.format("%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue());
+
+        return hex;
+    }
+
 }

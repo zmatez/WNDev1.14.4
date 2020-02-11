@@ -2,6 +2,7 @@ package com.matez.wildnature.commands;
 
 import com.matez.wildnature.Main;
 import com.matez.wildnature.event.PlayerEventHandler;
+import com.matez.wildnature.other.Utilities;
 import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,7 +16,6 @@ public class TestCommand {
         if(checkPlayer(entity)){
             try {
                 //Minecraft.getInstance().getSoundHandler().play(SimpleSound.music(Main.getSoundByID("wildnature:ambient/denseforest_day_0")));
-
 
                 StringTextComponent s2 = new StringTextComponent(TextFormatting.GREEN + "Execution successful!");
                 Main.sendChatMessage(entity, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s2));

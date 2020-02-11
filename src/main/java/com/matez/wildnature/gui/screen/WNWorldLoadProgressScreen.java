@@ -25,7 +25,11 @@ import net.minecraft.world.chunk.listener.TrackingChunkStatusListener;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
@@ -35,13 +39,14 @@ public class WNWorldLoadProgressScreen extends Screen {
     private final TrackingChunkStatusListener progress;
     private long field_213041_b = -1L;
     public int color;
-    public ArrayList<BlockPoint> blockPoints;
+    public ArrayList<BlockPoint> blockPoints,coloredPoints;
     public ChunkStatus currentChunkStatus = null;
 
     public WNWorldLoadProgressScreen(TrackingChunkStatusListener p_i51113_1_) {
         super(NarratorChatListener.field_216868_a);
         this.progress = p_i51113_1_;
         this.blockPoints = new ArrayList<>();
+        this.coloredPoints = new ArrayList<>();
     }
 
     public boolean shouldCloseOnEsc() {
@@ -74,6 +79,7 @@ public class WNWorldLoadProgressScreen extends Screen {
     }
 
     private int points = 0;
+    private String loadText = "Loading world";
     public void drawLoading(int centerWidth, int centerHeight){
         points++;
         String sp = "";
@@ -88,28 +94,125 @@ public class WNWorldLoadProgressScreen extends Screen {
         }else{
             points=0;
         }
-        this.drawCenteredString(this.font, "Loading world"+sp, centerWidth, centerHeight - 9 / 2, 16777215);
+        this.drawCenteredString(this.font, loadText+sp, centerWidth, centerHeight - 9 / 2, 16777215);
 
     }
 
 
+    @Override
+    public void resize(Minecraft p_resize_1_, int p_resize_2_, int p_resize_3_) {
+        super.resize(p_resize_1_, p_resize_2_, p_resize_3_);
+        coloredPoints.clear();
+        drawn=false;
+        building=false;
+        joining=false;
+    }
 
+    private boolean drawn = false, rendered = false, building = false,joining=false;
     public void renderChunks(TrackingChunkStatusListener progress, int centerX, int centerY,int maxX,int maxY) {
         if(world!=null && world.getDimension()!=null) {
             try {
                 BlockPos center = world.getSpawnPoint();
-                int blockSize = 2;
-
-                if(currentChunkStatus==null || currentChunkStatus!=progress.func_219525_a(world.getChunkAt(center).getPos().x,world.getChunkAt(center).getPos().z)){
-                    Main.LOGGER.debug("Drawing background");
+                int blockSize = 15;
+                if(!drawn){
+                    loadText="Rendering terrain";
+                    points=0;
                     drawBackground(centerX,centerY,maxX,maxY,blockSize,center.getX(),center.getZ());
+                    drawn=true;
+                }
+                if(currentChunkStatus==null || currentChunkStatus.getName()!=progress.func_219525_a(world.getChunkAt(center).getPos().x,world.getChunkAt(center).getPos().z).getName()){
+
+                    if(true) {
+                        //Main.LOGGER.debug("Drawing background");
+                        WNWorldLoadProgressScreen self = this;
+                        Thread t = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Main.LOGGER.debug("Entries: " + self.blockPoints.size());
+                                    int i = 0;
+                                    for (BlockPoint blockPoint : self.blockPoints) {
+                                        if(blockPoint.isColorProper()){
+                                            continue;
+                                        }
+                                        if(self.joining){
+                                            break;
+                                        }
+                                        Main.LOGGER.debug("Getting color : " + i + "/"+self.blockPoints.size());
+                                        try {
+                                            if(world.isAreaLoaded(new BlockPos(blockPoint.getPosX(),63, blockPoint.getPosZ()),1)) {
+                                                blockPoint.setColorProper(true);
+                                                self.coloredPoints.add(blockPoint.withColor(getColor(blockPoint.getPosX(), blockPoint.getPosZ())));
+                                            }else{
+                                                Main.LOGGER.debug("Area isn't loaded ! ");
+                                                blockPoint.setColorProper(false);
+                                                Main.LOGGER.debug("c: " + Integer.decode("0x"+Utilities.blendColors(new Color(50,45,30),Color.WHITE,0.2F)));
+                                                self.coloredPoints.add(blockPoint.withColor(Utilities.getColorValue(Integer.decode("0x"+Utilities.blendColors(new Color(50,45,30),Color.WHITE,(float)Utilities.rdoub(0.9,1))))));
+
+                                            }
+
+                                        }catch (Exception e){
+                                            Main.LOGGER.debug("Exception color: " + Arrays.toString(e.getStackTrace()));
+                                        }
+                                        i++;
+                                    }
+
+                                    Main.LOGGER.debug("E: " + self.blockPoints.size() + " / " + self.coloredPoints.size());
+
+                                    if(!building){
+                                        loadText="Building terrain";
+                                        points=0;
+                                        building=true;
+                                    }
+
+                                } catch (Exception e) {
+                                    Main.LOGGER.debug("Exception " + Arrays.toString(e.getStackTrace()));
+                                }
+                            }
+                        });
+
+
+                        t.start();
+                        rendered=true;
+                    }
                 }
 
+                if(MathHelper.clamp(this.progress.getPercentDone(), 0, 100)==100){
+                    if(!joining){
+                        loadText="Joining world";
+                        points=0;
+                        joining=true;
+                    }
+                }
 
+                ArrayList<BlockPoint> cp = new ArrayList<>(coloredPoints);
 
                 for (BlockPoint blockPoint : blockPoints) {
-                    fillWithColor(blockPoint.getStartX(),blockPoint.getStartY(),blockPoint.getEndX(),blockPoint.getEndY(),blockPoint.getPosX(),blockPoint.getPosZ());
+                    BlockPoint p = blockPoint;
+                    for (BlockPoint coloredPoint : cp) {
+                        if (blockPoint.getPosX() == coloredPoint.getPosX() && blockPoint.getPosZ() == coloredPoint.getPosZ()) {
+                            if(coloredPoint.getColor()!=0 || !coloredPoint.isColorProper()){
+                                p.setColor(coloredPoint.getColor());
+                                break;
+                            }else{
+                                p.setColor(Utilities.getColorValue(0x554639));
+                            }
+                        }
+                    }
+                    if(p.checkColor()){
+                        fill(p.getStartX(),p.getStartY(),p.getEndX(),p.getEndY(),p.getColor());
+                    }else{
+                        //fill(p.getStartX(),p.getStartY(),p.getEndX(),p.getEndY(),Utilities.getColorValue(0xC3AD88));
+                    }
                 }
+
+                /*for (BlockPoint blockPoint : coloredPoints) {
+                    if(blockPoint.checkColor()){
+                        fill(blockPoint.getStartX(),blockPoint.getStartY(),blockPoint.getEndX(),blockPoint.getEndY(),blockPoint.getColor());
+                    }else{
+                        fill(blockPoint.getStartX(),blockPoint.getStartY(),blockPoint.getEndX(),blockPoint.getEndY(),Utilities.getColorValue(0x675640));
+                    }
+                }*/
 
 
             }catch (Exception e){
@@ -186,8 +289,17 @@ public class WNWorldLoadProgressScreen extends Screen {
         while (y>0){
             y=y-size;
             pZ=pZ-1;
-            blockPoints.add(new BlockPoint(x + size, y + size, x - size, y - size, pX, pZ));
-
+            BlockPoint b = new BlockPoint(x + size, y + size, x - size, y - size, pX, pZ);
+            /*boolean contains = false;
+            for (BlockPoint blockPoint : blockPoints) {
+                if(blockPoint.getPosX()==b.getPosX() && blockPoint.getPosZ()==b.getPosZ()){
+                    contains=true;
+                }
+            }
+            if(!contains) {
+                blockPoints.add(b);
+            }*/
+            blockPoints.add(b);
         }
         x =centerWidth;//horiz
         y =centerHeight;//vert
@@ -199,31 +311,42 @@ public class WNWorldLoadProgressScreen extends Screen {
         while (y<maxHeight+size){
             y=y+size;
             pZ=pZ+1;
-            blockPoints.add(new BlockPoint(x + size, y + size, x - size, y - size, pX, pZ));
-
+            BlockPoint b = new BlockPoint(x + size, y + size, x - size, y - size, pX, pZ);
+            /*boolean contains = false;
+            for (BlockPoint blockPoint : blockPoints) {
+                if(blockPoint.getPosX()==b.getPosX() && blockPoint.getPosZ()==b.getPosZ()){
+                    contains=true;
+                }
+            }
+            if(!contains) {
+                blockPoints.add(b);
+            }*/
+            blockPoints.add(b);
         }
 
     }
 
     public void getColorV(int posX, int posZ){
-        WNWorldLoadProgressScreen self = this;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        color = Utilities.getColorValue(world.getBlockState(new BlockPos(posX, getHeight(posX, posZ, world), posZ)).getBlock().getMaterialColor(null, null, null).colorValue);
 
-            }
-        });
-        self.color = Utilities.getColorValue(WNWorldLoadProgressScreen.world.getBlockState(new BlockPos(posX, self.getHeight(posX, posZ, WNWorldLoadProgressScreen.world), posZ)).getBlock().getMaterialColor(null, null, null).colorValue);
 
     }
 
     public int getColor(int posX, int posZ){
-        return Utilities.getColorValue(WNWorldLoadProgressScreen.world.getBlockState(new BlockPos(posX,getHeight(posX,posZ,WNWorldLoadProgressScreen.world),posZ)).getBlock().getMaterialColor(null,null,null).colorValue);
+        Main.LOGGER.debug("getting color");
+        Block b = (WNWorldLoadProgressScreen.world.getBlockState(new BlockPos(posX,getHeight(posX,posZ,WNWorldLoadProgressScreen.world),posZ)).getBlock());
+        try{
+            return Utilities.getColorValue(b.getMaterialColor(null,null,null).colorValue);
+        }catch (Exception e){
+            Main.LOGGER.debug("Cannot get " + b.getNameTextComponent().toString());
+        }
+        return 0;
     }
 
 
     public static class BlockPoint{
-        private int startX, startY, endX, endY, posX, posZ;
+        private int startX, startY, endX, endY, posX, posZ, color;
+        private boolean colorProper = false;
         public BlockPoint(int startX, int startY, int endX, int endY, int posX, int posZ){
             this.startX=startX;
             this.startY=startY;
@@ -255,6 +378,31 @@ public class WNWorldLoadProgressScreen extends Screen {
 
         public int getStartY() {
             return startY;
+        }
+
+        public int getColor() {
+            return color;
+        }
+
+        public void setColor(int color) {
+            this.color = color;
+        }
+
+        public BlockPoint withColor(int color) {
+            this.color = color;
+            return this;
+        }
+
+        public boolean checkColor(){
+            return color!=0;
+        }
+
+        public boolean isColorProper(){
+            return colorProper;
+        }
+
+        public void setColorProper(boolean colorProper) {
+            this.colorProper = colorProper;
         }
     }
 
