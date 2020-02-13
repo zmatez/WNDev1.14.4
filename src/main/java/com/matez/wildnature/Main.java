@@ -23,7 +23,6 @@ import com.matez.wildnature.proxy.ServerProxy;
 import com.matez.wildnature.registry.*;
 import com.matez.wildnature.world.gen.chunk.SmoothChunkGenerator;
 import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorType;
-import com.matez.wildnature.world.gen.chunk.landscape.modifier.BiomeNoiseModifier;
 import com.matez.wildnature.world.gen.feature.RockGen;
 import com.matez.wildnature.world.gen.provider.WNBiomeProviderType;
 import com.matez.wildnature.world.gen.provider.WNWorldType;
@@ -151,8 +150,6 @@ public class Main {
 
         WNPrefix.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new StringTextComponent(TextFormatting.GOLD + "WildNature " + TextFormatting.LIGHT_PURPLE + version)));
         WNPrefix.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://wildnature.matez.net"));
-        
-        SmoothChunkGenerator.addNoiseModifier(new BiomeNoiseModifier()); // Add noise modifiers here
     }
 
 
