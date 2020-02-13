@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Random;
 
-import com.matez.wildnature.Main;
 import com.matez.wildnature.world.gen.noise.OctaveNoiseSampler;
 import com.matez.wildnature.world.gen.noise.OpenSimplexNoise;
 
@@ -53,6 +52,11 @@ public class ChunkLandscape
 		ChunkLandscape.landscapeCache.put(biome.getRegistryName().getPath(), landscape);
 	}
 	
+	private double sigmoid(double noise)
+	{
+		return 256 / (Math.exp(8 / 3f - noise / 48) + 1);
+	}
+	
 	public double generateHeightmap()
 	{
 		int xLow = ((x >> 2) << 2);
@@ -77,7 +81,7 @@ public class ChunkLandscape
 						MathHelper.lerp(xProgress, samples[0], samples[1]),
 						MathHelper.lerp(xProgress, samples[2], samples[3]));
 		
-		return 256 / (Math.exp(8 / 3f - sample / 48) + 1);
+		return sigmoid(sample);
 	}
 	
 	private double sampleArea(int x, int z)
@@ -97,7 +101,9 @@ public class ChunkLandscape
 	private double sampleNoise(int x, int z)
 	{
 		double frequency = this.scaleNoise.sample(x, z);
-		return this.heightNoise.sampleCustom(x, z, 1, frequency, frequency, octaves);
+		double noise = this.heightNoise.sampleCustom(x, z, 1, frequency, frequency, octaves);
+		
+		return noise;
 	}
 	
 	public ChunkLandscape applyValues(int x, int z, Long seed, Biome biome, IChunk chunkIn)
