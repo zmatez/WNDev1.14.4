@@ -29,7 +29,7 @@ public class ChunkLandscape
 	protected OctaveNoiseSampler<OpenSimplexNoise> heightNoise;
 	protected OctaveNoiseSampler<OpenSimplexNoise> scaleNoise;
 	
-	public ChunkLandscape(int x, int z, Long seed, Biome biome, IChunk chunkIn)
+	public ChunkLandscape(int x, int z, long seed, Biome biome, IChunk chunkIn)
 	{
 		this.x = x;
 		this.z = z;
@@ -119,14 +119,14 @@ public class ChunkLandscape
 	}
 	
 	// This way, if we have a biome that would require different terrain we can create a class that extends ChunkLandscape and add it by calling "ChunkLandscape.addLandscape(WNBiomes.THE_BIOME, THE_CHUNK_LANDSCAPE.class);"
-	public static ChunkLandscape getOrCreate(int x, int z, Long seed, Biome biome, IChunk chunkIn)
+	public static ChunkLandscape getOrCreate(int x, int z, long seed, int sealevel, Biome biome, IChunk chunkIn)
 	{
 		Class<? extends ChunkLandscape> landscape = landscapeCache.get(biome.getRegistryName().getPath());
 		if (landscape != null)
 		{
 			try
 			{
-				return landscape.getDeclaredConstructor(int.class, int.class, Long.class, Biome.class, IChunk.class).newInstance(x, z, seed, biome, chunkIn);
+				return landscape.getDeclaredConstructor(int.class, int.class, long.class, Biome.class, IChunk.class).newInstance(x, z, seed, biome, chunkIn);
 			}
 			catch (NoSuchMethodException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 			{
