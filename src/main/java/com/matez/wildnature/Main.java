@@ -22,6 +22,7 @@ import com.matez.wildnature.proxy.ClientProxy;
 import com.matez.wildnature.proxy.IProxy;
 import com.matez.wildnature.proxy.ServerProxy;
 import com.matez.wildnature.registry.*;
+import com.matez.wildnature.world.gen.chunk.SmoothChunkGenerator;
 import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorType;
 import com.matez.wildnature.world.gen.feature.RockGen;
 import com.matez.wildnature.world.gen.provider.WNBiomeProviderType;

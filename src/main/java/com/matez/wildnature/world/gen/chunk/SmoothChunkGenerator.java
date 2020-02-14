@@ -1,5 +1,6 @@
 package com.matez.wildnature.world.gen.chunk;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
@@ -59,6 +60,7 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 	
 	private final OctavesNoiseGenerator surfaceDepthNoise;
 	protected HashMap<Long, int[]> noiseCache = new HashMap<>();
+	
 	private SharedSeedRandom randomSeed;
 	
 	public SmoothChunkGenerator(IWorld worldIn, BiomeProvider biomeProviderIn, WNGenSettings generationSettingsIn) 
@@ -70,6 +72,7 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 		
 		this.surfaceDepthNoise = new OctavesNoiseGenerator(this.randomSeed, 4);
 	}
+
 
 	@Override
 	public void generateSurface(IChunk chunkIn) 

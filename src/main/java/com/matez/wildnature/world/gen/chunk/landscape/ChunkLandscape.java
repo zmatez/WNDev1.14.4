@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Random;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.chunk.SmoothChunkGenerator;
 import com.matez.wildnature.world.gen.noise.OctaveNoiseSampler;
 import com.matez.wildnature.world.gen.noise.OpenSimplexNoise;
 
@@ -23,41 +21,18 @@ public class ChunkLandscape
 	protected IChunk chunk;
 	protected Biome biome;
 	protected Random random;
-
-
-	/**
-	 * --- DEPTH REFERENCE ---
-	 * depth - biome ground elevation
-	 * 0 - flat terrain (plains biome)
-	 * 1 - sharp terrain (mountains biome)
-	 * -1 - reverse of sharp terrain (ocean biome)
-	 */
+	
 	protected float depth;
-
-	/**
-	 * --- SCALE REFERENCE ---
-	 * scale - biome height
-	 * 0 - sea level(63)
-	 * 1 - medium mountains
-	 * 2 - high mountain
-	 * -0.6 - rivers
-	 * -1.4 - oceans
-	 */
 	protected float scale;
-
-
 	protected int octaves = 11;
-
-	protected int seaLevel;
 	
 	protected OctaveNoiseSampler<OpenSimplexNoise> heightNoise;
 	protected OctaveNoiseSampler<OpenSimplexNoise> scaleNoise;
 	
-	public ChunkLandscape(int x, int z, Long seed, int seaLevel, Biome biome, IChunk chunkIn)
+	public ChunkLandscape(int x, int z, Long seed, Biome biome, IChunk chunkIn)
 	{
 		this.x = x;
 		this.z = z;
-		this.seaLevel=seaLevel;
 		this.biome = biome;
 		
 		this.chunk = chunkIn;
@@ -76,14 +51,18 @@ public class ChunkLandscape
 	{
 		ChunkLandscape.landscapeCache.put(biome.getRegistryName().getPath(), landscape);
 	}
-
-	private int size = 4;
+	
+	private double sigmoid(double noise)
+	{
+		return 256 / (Math.exp(8 / 3f - noise / 48) + 1);
+	}
+	
 	public double generateHeightmap()
 	{
 		int xLow = ((x >> 2) << 2);
 		int zLow = ((z >> 2) << 2);
-		int xUpper = xLow + size;
-		int zUpper = zLow + size;
+		int xUpper = xLow + 4;
+		int zUpper = zLow + 4;
 		
 		double xProgress = (double)(x - xLow) * 0.25;
 		double zProgress = (double)(z - zLow) * 0.25;
@@ -102,18 +81,16 @@ public class ChunkLandscape
 						MathHelper.lerp(xProgress, samples[0], samples[1]),
 						MathHelper.lerp(xProgress, samples[2], samples[3]));
 		
-		double height =  256 / (Math.exp(8 / 3f - sample / 48) + 1);
-
-		return height;
+		return sigmoid(sample);
 	}
 	
 	private double sampleArea(int x, int z)
 	{
 		double noise = sampleNoise(x, z);
-		noise += sampleNoise(x + size, z);
-		noise += sampleNoise(x - size, z);
-		noise += sampleNoise(x, z + size);
-		noise += sampleNoise(x, z - size);
+		noise += sampleNoise(x + 4, z);
+		noise += sampleNoise(x - 4, z);
+		noise += sampleNoise(x, z + 4);
+		noise += sampleNoise(x, z - 4);
 		noise *= 0.2;
 		
 		noise += 100;
@@ -124,30 +101,8 @@ public class ChunkLandscape
 	private double sampleNoise(int x, int z)
 	{
 		double frequency = this.scaleNoise.sample(x, z);
-		return this.heightNoise.sampleCustom(x, z, 1, frequency, frequency, octaves);
-	}
-
-	// I removed all mentions of this, so feel free to delete this and try to apply biome depth and scale yourself... unfortunately I didn't have much luck today, and can't find any references that would
-	// actually be useful ;-;
-	public double applyBiomeData(Biome biome, double sample)
-	{
-		double noise = sample;
-
-		float depth = biome.getDepth();
-		float scale = biome.getScale();
-		float count = 0;
-
-		noise = Math.max(noise, (float)seaLevel + 10 * depth);
-		for (int j = -2; j <= 2; j++)
-		{
-			for (int i = -2; i <= 2; i++)
-			{
-				float data = SmoothChunkGenerator.biomeData[j + 2 + (i + 2) * 5] / (depth + 2.0F);
-				count += (data > depth ? data / 6 : data) * scale;
-			}
-		}
-
-		noise /= count;
+		double noise = this.heightNoise.sampleCustom(x, z, 1, frequency, frequency, octaves);
+		
 		return noise;
 	}
 	
@@ -162,17 +117,16 @@ public class ChunkLandscape
 		
 		return this;
 	}
-
 	
 	// This way, if we have a biome that would require different terrain we can create a class that extends ChunkLandscape and add it by calling "ChunkLandscape.addLandscape(WNBiomes.THE_BIOME, THE_CHUNK_LANDSCAPE.class);"
-	public static ChunkLandscape getOrCreate(int x, int z, Long seed, int seaLevel, Biome biome, IChunk chunkIn)
+	public static ChunkLandscape getOrCreate(int x, int z, Long seed, Biome biome, IChunk chunkIn)
 	{
 		Class<? extends ChunkLandscape> landscape = landscapeCache.get(biome.getRegistryName().getPath());
 		if (landscape != null)
 		{
 			try
 			{
-				return landscape.getDeclaredConstructor(int.class, int.class, Long.class, int.class, Biome.class, IChunk.class).newInstance(x, z, seed, seaLevel, biome, chunkIn);
+				return landscape.getDeclaredConstructor(int.class, int.class, Long.class, Biome.class, IChunk.class).newInstance(x, z, seed, biome, chunkIn);
 			}
 			catch (NoSuchMethodException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
 			{
@@ -180,6 +134,6 @@ public class ChunkLandscape
 			}
 		}
 		
-		return new ChunkLandscape(x, z, seed, seaLevel, biome, chunkIn);
+		return new ChunkLandscape(x, z, seed, biome, chunkIn);
 	}
 }
