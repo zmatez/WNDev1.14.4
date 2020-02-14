@@ -1,10 +1,9 @@
 {
     "textures": {
         "particle": "wildnature:blocks/cakes/yeast_dough_side",
-        "bottom": "wildnature:blocks/cakes/yeast_dough_bottom",
+        "bottom": "block/cake_bottom",
         "top": "wildnature:blocks/cakes/yeast_dough_top",
-        "side": "wildnature:blocks/cakes/yeast_dough_side",
-	"inside": "wildnature:blocks/cakes/yeast_dough_inner"
+        "side": "wildnature:blocks/cakes/yeast_dough_side"
     },
     "elements": [
         {   "from": [ 5, 0, 1 ],

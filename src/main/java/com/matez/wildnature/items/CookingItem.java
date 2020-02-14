@@ -1,6 +1,7 @@
 package com.matez.wildnature.items;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.items.recipes.cooking.CookingToolType;
 import com.matez.wildnature.items.recipes.cooking.WNAbstractCookingRecipe;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.client.util.ITooltipFlag;
@@ -27,9 +28,11 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PotItem extends Item {
-    public PotItem(Properties p_i48487_1_) {
+public class CookingItem extends Item {
+    private CookingToolType toolType;
+    public CookingItem(Properties p_i48487_1_, CookingToolType toolType) {
         super(p_i48487_1_);
+        this.toolType=toolType;
     }
 
     @Override
@@ -49,7 +52,7 @@ public class PotItem extends Item {
         }else {
 
             if (worldIn != null) {
-                WNAbstractCookingRecipe recipe = checkForRecipes(worldIn, items);
+                WNAbstractCookingRecipe recipe = checkForRecipes(worldIn, items,getToolType());
                 if (recipe != null) {
                     ItemStack output = recipe.getRecipeOutput();
                     tooltip.add((new StringTextComponent(TextFormatting.GOLD + "Cook now to get " + TextFormatting.YELLOW + output.getDisplayName().getFormattedText() + " x" + output.getCount())));
@@ -115,14 +118,21 @@ public class PotItem extends Item {
         return new ActionResult<>(ActionResultType.PASS, stack);
     }
 
-    public static WNAbstractCookingRecipe checkForRecipes(World world, ArrayList<ItemStack> items){
+    public CookingToolType getToolType() {
+        return toolType;
+    }
+
+    public static WNAbstractCookingRecipe checkForRecipes(World world, ArrayList<ItemStack> items, CookingToolType type){
         ItemStack[] itemStacks = new ItemStack[items.size()];
         items.toArray(itemStacks);
         Inventory i = new Inventory(itemStacks);
         WNAbstractCookingRecipe recipe = world.getRecipeManager().getRecipe((IRecipeType<WNAbstractCookingRecipe>) Registry.RECIPE_TYPE.getOrDefault(new ResourceLocation("wildnature:cooking")), i, world).orElse(null);
         assert recipe != null && recipe.getRecipeOutput() != null;
         try {
-            //Main.LOGGER.debug("Recipe: " + recipe.getRecipeOutput().getDisplayName().getFormattedText());
+            Main.LOGGER.debug("Getting recipe: " + recipe.getGroup() + " | " + type.getName());
+            if(!recipe.getGroup().equals(type.getName())){
+                return null;
+            }
         }catch (Exception e){
             return null;
         };

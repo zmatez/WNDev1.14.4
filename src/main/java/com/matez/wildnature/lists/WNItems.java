@@ -129,13 +129,16 @@ public class WNItems {
     public static Item BORSCHT;
     public static Item CABBAGE_SOUP;
     public static Item CHICKEN_SOUP;
+    public static Item CREAM_OF_BROCCOLI_SOUP;
+    public static Item CREAM_OF_MUSHROOM_SOUP;
     public static Item CUCUMBER_SOUP;
     public static Item CURRY_SOUP;
+    public static Item GARLIC_MUSHROOM_GRAVY;
     public static Item ONION_SOUP;
     public static Item PEA_SOUP;
+    public static Item RED_WINE_REDUCTION_SAUCE;
     public static Item SAUERKRAUT_SOUP;
     public static Item TOMATO_SOUP;
-
 
     //MEALS
     public static Item ASIAGO_CHEESE;
@@ -185,11 +188,15 @@ public class WNItems {
     //PLATE MEALS
     public static Item BREAKFAST_MEAL;
     public static Item BROCCOLI_AND_CHEESE;
-    public static Item OMELET_BREAKFAST;//TODO OMELETTE
+    public static Item MUTTON_DINNER_WITH_REDWINE_SAUCE;
+    public static Item OMELET_BREAKFAST;
     public static Item PANCAKES;
     public static Item PIEROGIES;
     public static Item ROAST_CHICKEN_DINNER;
     public static Item ROASTED_VEGGIES;
+    public static Item SAUTEED_VEGGIES_WITH_GRAVY;
+    public static Item STEAK_DINNER_WITH_GRAVY;
+    public static Item STEAK_DINNER_WITH_REDWINE_SAUCE;
 
     //DRINKS
     public static Item BEER;

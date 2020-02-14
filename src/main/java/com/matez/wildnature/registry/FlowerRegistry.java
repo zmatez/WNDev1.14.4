@@ -16,6 +16,11 @@ public class FlowerRegistry {
     private ArrayList<FruitableLeaves.StageFruit> lemonFruits = new ArrayList<>();
     private ArrayList<FruitableLeaves.StageFruit> orangeFruits = new ArrayList<>();
     private ArrayList<FruitableLeaves.StageFruit> grapeFruitFruits = new ArrayList<>();
+    private ArrayList<FruitableLeaves.StageFruit> bananaFruits = new ArrayList<>();
+    private ArrayList<FruitableLeaves.StageFruit> limeFruits = new ArrayList<>();
+    private ArrayList<FruitableLeaves.StageFruit> oliveFruits = new ArrayList<>();
+    private ArrayList<FruitableLeaves.StageFruit> peachFruits = new ArrayList<>();
+    private ArrayList<FruitableLeaves.StageFruit> pomegranateFruits = new ArrayList<>();
     public FlowerRegistry(){
         lemonFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
         lemonFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("",0,0)));
@@ -44,6 +49,52 @@ public class FlowerRegistry {
         grapeFruitFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:grapefruit",1,1)));
         grapeFruitFruits.add(new FruitableLeaves.StageFruit(7, new FruitableLeaves.ItemPortion("wildnature:grapefruit",1,1)));
 
+        bananaFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
+        bananaFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("",0,0)));
+        bananaFruits.add(new FruitableLeaves.StageFruit(2, new FruitableLeaves.ItemPortion("wildnature:banana",1,1)));
+        bananaFruits.add(new FruitableLeaves.StageFruit(3, new FruitableLeaves.ItemPortion("wildnature:banana",1,1)));
+        bananaFruits.add(new FruitableLeaves.StageFruit(4, new FruitableLeaves.ItemPortion("wildnature:banana",1,1)));
+        bananaFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:banana",1,1)));
+        bananaFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:banana",1,1)));
+        bananaFruits.add(new FruitableLeaves.StageFruit(7, new FruitableLeaves.ItemPortion("wildnature:banana",1,1)));
+
+        limeFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
+        limeFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("",0,0)));
+        limeFruits.add(new FruitableLeaves.StageFruit(2, new FruitableLeaves.ItemPortion("wildnature:lime",1,1)));
+        limeFruits.add(new FruitableLeaves.StageFruit(3, new FruitableLeaves.ItemPortion("wildnature:lime",1,1)));
+        limeFruits.add(new FruitableLeaves.StageFruit(4, new FruitableLeaves.ItemPortion("wildnature:lime",1,1)));
+        limeFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:lime",1,1)));
+        limeFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:lime",1,1)));
+        limeFruits.add(new FruitableLeaves.StageFruit(7, new FruitableLeaves.ItemPortion("wildnature:lime",1,1)));
+
+        oliveFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("",0,0)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(2, new FruitableLeaves.ItemPortion("wildnature:olive",1,1)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(3, new FruitableLeaves.ItemPortion("wildnature:olive",1,1)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(4, new FruitableLeaves.ItemPortion("wildnature:olive",1,1)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:olive",1,1)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:olive",1,1)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(7, new FruitableLeaves.ItemPortion("wildnature:olive",1,1)));
+
+        peachFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
+        peachFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("",0,0)));
+        peachFruits.add(new FruitableLeaves.StageFruit(2, new FruitableLeaves.ItemPortion("wildnature:peach",1,1)));
+        peachFruits.add(new FruitableLeaves.StageFruit(3, new FruitableLeaves.ItemPortion("wildnature:peach",1,1)));
+        peachFruits.add(new FruitableLeaves.StageFruit(4, new FruitableLeaves.ItemPortion("wildnature:peach",1,1)));
+        peachFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:peach",1,1)));
+        peachFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:peach",1,1)));
+        peachFruits.add(new FruitableLeaves.StageFruit(7, new FruitableLeaves.ItemPortion("wildnature:peach",1,1)));
+
+        pomegranateFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
+        pomegranateFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("",0,0)));
+        pomegranateFruits.add(new FruitableLeaves.StageFruit(2, new FruitableLeaves.ItemPortion("wildnature:pomegranate",1,1)));
+        pomegranateFruits.add(new FruitableLeaves.StageFruit(3, new FruitableLeaves.ItemPortion("wildnature:pomegranate",1,1)));
+        pomegranateFruits.add(new FruitableLeaves.StageFruit(4, new FruitableLeaves.ItemPortion("wildnature:pomegranate",1,1)));
+        pomegranateFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:pomegranate",1,1)));
+        pomegranateFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:pomegranate",1,1)));
+        pomegranateFruits.add(new FruitableLeaves.StageFruit(7, new FruitableLeaves.ItemPortion("wildnature:pomegranate",1,1)));
+        
+        
         flowers = new Block[]{
                 WNBlocks.CHERRY_FLOWER = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("cherry_flower")),
                 WNBlocks.JACARANDA_FLOWER = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("jacaranda_flower")),
@@ -91,10 +142,13 @@ public class FlowerRegistry {
                 WNBlocks.RADISSIUM_PINK = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("radissium_pink")),
                 WNBlocks.RADISSIUM_RED = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("radissium_red")),
                 WNBlocks.LAVENDER = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lavender")),
-
-
-
-
+                WNBlocks.ANTHURIUM_PINK = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("anthurium_pink")),
+                WNBlocks.ANTHURIUM_RED = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("anthurium_red")),
+                WNBlocks.ANTHURIUM_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("anthurium_white")),
+                WNBlocks.ORCHIS_PURPLE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("orchis_purple")),
+                WNBlocks.ORCHIS_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("orchis_white")),
+                WNBlocks.PEACE_LILY = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("peace_lily")),
+                WNBlocks.WILD_ROSE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("wild_rose")),
 
 
                 WNBlocks.GRASS_FERNSPROUT = new BushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grass_fernsprout")),
@@ -145,9 +199,14 @@ public class FlowerRegistry {
                 WNBlocks.BUSH_BLACK_LILAC = new BlackLilacPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_black_lilac")),
 
                 //CITRUS
-                WNBlocks.LEMON_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lemon_leaves"),lemonFruits),
-                WNBlocks.ORANGE_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("orange_leaves"),orangeFruits),
+                WNBlocks.BANANA_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("banana_leaves"),bananaFruits),
                 WNBlocks.GRAPE_FRUIT_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grape_fruit_leaves"),grapeFruitFruits),
+                WNBlocks.LEMON_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lemon_leaves"),lemonFruits),
+                WNBlocks.LIME_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lime_leaves"),limeFruits),
+                WNBlocks.OLIVE_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("olive_leaves"),oliveFruits),
+                WNBlocks.ORANGE_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("orange_leaves"),orangeFruits),
+                WNBlocks.PEACH_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("peach_leaves"),peachFruits),
+                WNBlocks.POMEGRANATE_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("pomegranate_leaves"),pomegranateFruits),
 
 
 

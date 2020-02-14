@@ -1,10 +1,9 @@
 {
     "textures": {
         "particle": "wildnature:blocks/cakes/mazurek_side",
-        "bottom": "wildnature:blocks/cakes/mazurek_bottom",
+        "bottom": "block/cake_bottom",
         "top": "wildnature:blocks/cakes/mazurek_top",
-        "side": "wildnature:blocks/cakes/mazurek_side",
-	"inside": "wildnature:blocks/cakes/mazurek_inner"
+        "side": "wildnature:blocks/cakes/mazurek_side"
     },
     "elements": [
         {   "from": [ 9, 0, 1 ],

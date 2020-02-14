@@ -1,10 +1,10 @@
 package com.matez.wildnature.items;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.items.recipes.cooking.CookingToolType;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.PotionUtils;
@@ -20,9 +20,9 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class PotEmptyItem extends PotItem {
+public class PotEmptyItem extends CookingItem {
    public PotEmptyItem(Properties builder) {
-      super(builder);
+      super(builder, CookingToolType.NONE);
    }
 
    /**

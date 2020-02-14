@@ -25,7 +25,7 @@ public class CommonConfig {
     public static ForgeConfigSpec.BooleanValue replaceOakTrees;
     public static ForgeConfigSpec.BooleanValue generateUndergroundPlants;
     public static ForgeConfigSpec.BooleanValue generateRiverCanes;
-    public static ForgeConfigSpec.BooleanValue generatePoisonIves,generateCrystals,generateStalagmites,generatePebbles,generateCobweb,generateRockFormations,generateFruitBushes,generateVines,generateSmallCacti;
+    public static ForgeConfigSpec.BooleanValue generatePoisonIves,generateCrystals,generateStalagmites,generatePebbles,generateCobweb,generateRockFormations,generateFruitBushes,generateVegeCrops,generateVines,generateSmallCacti;
     public static ForgeConfigSpec.DoubleValue ambientSoundsVolume;
 
     public static ForgeConfigSpec.IntValue biomeSize,riverSize;
@@ -40,10 +40,12 @@ public class CommonConfig {
     public static ForgeConfigSpec.BooleanValue poisonIvyHurts;
     public static ForgeConfigSpec.BooleanValue poisonIvyPoisons;
     public static ForgeConfigSpec.DoubleValue poisonIvyDamage;
-    public static ForgeConfigSpec.IntValue leafFruitChance, flowerBloomChance, flowerDropChance,fruitBushRarity,riverCaneRarity,smallCactiRarity,poisonIvyRarity,riverCaneDensity;
+    public static ForgeConfigSpec.IntValue leafFruitChance, flowerBloomChance, flowerDropChance,fruitBushRarity,vegeCropRarity,riverCaneRarity,smallCactiRarity,poisonIvyRarity,riverCaneDensity;
     public static ForgeConfigSpec.IntValue tinRarity,copperRarity,amethystRarity,sapphireRarity,malachiteRarity,silverRarity,amberRarity,rubyRarity;
 
     public static ArrayList<Biome> blacklistedBiomes = new ArrayList<>();
+
+    public static ForgeConfigSpec.ConfigValue<String> generatorType;
 
     public CommonConfig(ForgeConfigSpec.Builder builder) {
         instance = this;
@@ -91,7 +93,13 @@ public class CommonConfig {
 
     private void generator()
     {
+
         builder.push("generator");
+
+        generatorType = builder
+                .comment("Generator version. \nAccepted Values: wildnature | wildnature-simplex").define("generatorType", "wildnature");
+
+
         biomeSize = builder
                 .comment("Biome Size\nDefault: 6")
                 .defineInRange("biomeSize",6, 0, 500);
@@ -235,6 +243,10 @@ public class CommonConfig {
                 .comment("Should generate fruit bushes?\nDefault: true")
                 .define("biome.feature.fruit_bushes",true);
 
+        generateVegeCrops = builder
+                .comment("Should generate vege crops?\nDefault: true")
+                .define("biome.feature.vege_crops",true);
+
         generateVines = builder
             .comment("Should generate vines?\nDefault: true")
             .define("biome.feature.vines",true);
@@ -248,8 +260,12 @@ public class CommonConfig {
                 .define("biome.feature.small_cacti",true);
 
         fruitBushRarity = builder
-                .comment("Fruit bushes spawn rarity\nSmaller = more rare\nDefault: 10")
-                .defineInRange("biome.feature.fruit_bushes_rarity",10, 0, 500);
+                .comment("Fruit bushes spawn rarity\nSmaller = more rare\nDefault: 6")
+                .defineInRange("biome.feature.fruit_bushes_rarity",6, 0, 500);
+
+        vegeCropRarity = builder
+                .comment("Vegetable crops spawn rarity\nSmaller = more rare\nDefault: 8")
+                .defineInRange("biome.feature.vege_crops_rarity",8, 0, 500);
 
         poisonIvyRarity = builder
                 .comment("Posion ivy & spidergrass rarity\nSmaller = more rare\nDefault: 2")

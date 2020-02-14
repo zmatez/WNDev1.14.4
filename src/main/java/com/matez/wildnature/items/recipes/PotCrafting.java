@@ -1,6 +1,7 @@
 package com.matez.wildnature.items.recipes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.items.CookingItem;
 import com.matez.wildnature.items.GiftItem;
 import com.matez.wildnature.lists.WNItems;
 import com.matez.wildnature.other.Utilities;
@@ -32,7 +33,7 @@ public class PotCrafting extends SpecialRecipe {
         for(int k = 0; k < inv.getSizeInventory(); ++k) {
             ItemStack itemstack = inv.getStackInSlot(k);
             if (!itemstack.isEmpty()) {
-                if (itemstack.getItem()== WNItems.POT_WATER || itemstack.getItem()== WNItems.POT_EMPTY) {
+                if (itemstack.getItem() instanceof CookingItem) {
                     ++i;
                 } else {
                     ++j;
@@ -55,7 +56,7 @@ public class PotCrafting extends SpecialRecipe {
             ItemStack itemstack1 = inv.getStackInSlot(i);
             if (!itemstack1.isEmpty()) {
                 Item item = itemstack1.getItem();
-                if (item==WNItems.POT_WATER) {
+                if (item instanceof CookingItem) {
                     pot = itemstack1;
                 } else {
                     newIngredients.add(itemstack1);

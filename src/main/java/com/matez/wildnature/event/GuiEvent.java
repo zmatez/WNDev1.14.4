@@ -18,7 +18,7 @@ public class GuiEvent {
     private static final ResourceLocation WNLOGO = new ResourceLocation("wildnature","textures/gui/wnlogo.png");
     public GuiEvent(){}
     private boolean shown = false;
-
+    private WNWorldLoadProgressScreen worldRender = null;
 
     @SubscribeEvent
     public void guiScreenEvent(GuiScreenEvent.InitGuiEvent event){
@@ -56,8 +56,12 @@ public class GuiEvent {
         }
 
         if(event.getGui().getClass()==WorldLoadProgressScreen.class){
-            Minecraft.getInstance().displayGuiScreen(new WNWorldLoadProgressScreen(Minecraft.getInstance().field_213277_ad.get()));
-
+            worldRender = new WNWorldLoadProgressScreen(Minecraft.getInstance().field_213277_ad.get());
+            Minecraft.getInstance().displayGuiScreen(worldRender);
+        }else{
+            if(worldRender!=null && event.getGui().getClass()!=WNWorldLoadProgressScreen.class){
+                worldRender.onClose();
+            }
         }
 
     }

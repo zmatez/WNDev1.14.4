@@ -1,27 +1,23 @@
 package com.matez.wildnature.commands;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.items.PotItem;
+import com.matez.wildnature.items.CookingItem;
 import com.matez.wildnature.items.recipes.PotCrafting;
 import com.matez.wildnature.items.recipes.cooking.WNAbstractCookingRecipe;
 import com.matez.wildnature.items.recipes.cooking.WNCookingRecipe;
 import com.matez.wildnature.lists.WNItems;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.World;
 
-import javax.xml.soap.Text;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,7 +39,7 @@ public class RecipeCommand {
             int i = 0;
             ItemStack tool = ItemStack.EMPTY;
             for (ItemStack itemStack : stack) {
-                if(itemStack.getItem() instanceof PotItem){
+                if(itemStack.getItem() instanceof CookingItem){
                     tool=itemStack.copy();
                 }else {
                     i++;
@@ -56,7 +52,11 @@ public class RecipeCommand {
             }
             if(!tool.isEmpty()) {
                 StringTextComponent st = new StringTextComponent(TextFormatting.GOLD + tool.getDisplayName().getFormattedText());
-                st.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM,new StringTextComponent(tool.write(new CompoundNBT()).toString())));
+                if(tool.getItem()==Item.getItemFromBlock(Blocks.STONE) || tool.isEmpty()){
+                    st = new StringTextComponent(TextFormatting.RED+"unknown");
+                }else {
+                    st.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new StringTextComponent(tool.write(new CompoundNBT()).toString())));
+                }
                 Main.sendChatMessage(p, new StringTextComponent(TextFormatting.GREEN + "Cook it using ").appendSibling(st));
             }
 
@@ -71,10 +71,11 @@ public class RecipeCommand {
 
         return x!=0? 0 : 1;
     }
-
+    private static Item item;
     public static ArrayList<ArrayList<ItemStack>> checkIngredients(World world, ItemStack result){
         ArrayList<IRecipe<?>> recipe = new ArrayList<>(world.getRecipeManager().getRecipes());
         ArrayList<ArrayList<ItemStack>> stacks = new ArrayList<>();
+        item = null;
         for (IRecipe<?> iRecipe : recipe) {
             if(iRecipe instanceof WNAbstractCookingRecipe){
                 WNAbstractCookingRecipe r = (WNAbstractCookingRecipe) iRecipe;
@@ -90,7 +91,18 @@ public class RecipeCommand {
                     }
 
                     if(iRecipe instanceof WNCookingRecipe){
-                        fromSimple.add(new ItemStack(WNItems.POT_WATER,1));
+
+                        if(r.getGroup().equals("pot")){
+                            item=WNItems.POT_WATER;
+                        }else if(r.getGroup().equals("frying_pan")){
+                            item=WNItems.FRYING_PAN;
+                        }else if(r.getGroup().equals("cake_pan")){
+                            item=WNItems.CAKE_PAN;
+                        }else{
+                            item=Item.getItemFromBlock(Blocks.STONE);
+                        }
+
+                        fromSimple.add(new ItemStack(item,1));
                     }
                     stacks.add(fromSimple);
 

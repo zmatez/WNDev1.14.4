@@ -1,10 +1,9 @@
 {
     "textures": {
         "particle": "wildnature:blocks/cakes/choco_cake_side",
-        "bottom": "wildnature:blocks/cakes/choco_cake_bottom",
+        "bottom": "block/cake_bottom",
         "top": "wildnature:blocks/cakes/choco_cake_top",
-        "side": "wildnature:blocks/cakes/choco_cake_side",
-	"inside": "wildnature:blocks/cakes/choco_cake_inner"
+        "side": "wildnature:blocks/cakes/choco_cake_side"
     },
     "elements": [
         {   "from": [ 11, 0, 1 ],

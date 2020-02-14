@@ -108,7 +108,17 @@ public class WNWorldLoadProgressScreen extends Screen {
         joining=false;
     }
 
-    private boolean drawn = false, rendered = false, building = false,joining=false;
+    @Override
+    public void onClose() {
+        //super.onClose();
+        closing=true;
+        if(t!=null){
+            t.stop();
+        }
+    }
+
+    private boolean drawn = false, rendered = false, building = false,joining=false,closing=false;
+    private Thread t;
     public void renderChunks(TrackingChunkStatusListener progress, int centerX, int centerY,int maxX,int maxY) {
         if(world!=null && world.getDimension()!=null) {
             try {
@@ -125,7 +135,7 @@ public class WNWorldLoadProgressScreen extends Screen {
                     if(true) {
                         //Main.LOGGER.debug("Drawing background");
                         WNWorldLoadProgressScreen self = this;
-                        Thread t = new Thread(new Runnable() {
+                        t = new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 try {
@@ -135,7 +145,7 @@ public class WNWorldLoadProgressScreen extends Screen {
                                         if(blockPoint.isColorProper()){
                                             continue;
                                         }
-                                        if(self.joining){
+                                        if(self.closing){
                                             break;
                                         }
                                         Main.LOGGER.debug("Getting color : " + i + "/"+self.blockPoints.size());

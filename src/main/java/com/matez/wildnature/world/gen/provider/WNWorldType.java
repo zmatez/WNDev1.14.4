@@ -1,6 +1,7 @@
 package com.matez.wildnature.world.gen.provider;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.gui.screen.WNWorldLoadProgressScreen;
 import com.matez.wildnature.world.gen.biomes.biomes.terrain.BiomeTerrain;
 import com.matez.wildnature.world.gen.biomes.layer.WNBiomeLayer;
@@ -54,7 +55,11 @@ public class WNWorldType extends WorldType {
             BiomeProvider provider = bpt.create(overworldbiomeprovidersettings1);
 
             // Change to genTest if you want the simplex generator (WNChunkGeneratorEarth + SmoothChunkGenerator)
-            return genTest.create(world, provider, overworldgensettings1);
+            if(CommonConfig.generatorType.get().equals("wildnature")){
+                return gen.create(world, provider, overworldgensettings1);
+            }else {
+                return genTest.create(world, provider, overworldgensettings1);
+            }
         }else{
             return world.getDimension().createChunkGenerator();
         }

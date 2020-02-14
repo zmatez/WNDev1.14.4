@@ -235,9 +235,13 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
     }
 
     public static void addFruits(Biome biomeIn){
-        if(BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.FOREST)){
-            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new WNFruitFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.fruitBushRarity.get(),64,0,100)));
-        }
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new WNFruitFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.fruitBushRarity.get(),64,0,100)));
+
+    }
+
+    public static void addVeggies(Biome biomeIn){
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new WNVegeFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.vegeCropRarity.get(),64,0,100)));
+
     }
 
     public static void addPoisonIves(Biome biomeIn){

@@ -311,6 +311,36 @@ public class SaplingRegistry {
         weighList.add(new cherry4(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
         Tree grapefruitTrees= new SchemTree(weighList);
 
+        weighList.add(new cherry1(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry2(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry3(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry4(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        Tree bananaTrees= new SchemTree(weighList);
+
+        weighList.add(new cherry1(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry2(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry3(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry4(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        Tree limeTrees= new SchemTree(weighList);
+
+        weighList.add(new cherry1(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry2(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry3(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry4(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        Tree oliveTrees= new SchemTree(weighList);
+
+        weighList.add(new cherry1(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry2(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry3(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry4(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        Tree peachTrees= new SchemTree(weighList);
+
+        weighList.add(new cherry1(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry2(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry3(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new cherry4(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        Tree pomegranateTrees= new SchemTree(weighList);
+
         saplings = new Block[]{
                 WNBlocks.APPLE_SAPLING = new SaplingBase(appleTrees, Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("apple_sapling")),
                 WNBlocks.ASPEN_SAPLING = new SaplingBase(aspenTrees, Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("aspen_sapling")),
@@ -345,7 +375,12 @@ public class SaplingRegistry {
                 WNBlocks.WILLOW_SAPLING = new SaplingBase(willowTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("willow_sapling")),
                 WNBlocks.LEMON_SAPLING = new SaplingBase(lemonTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lemon_sapling")),
                 WNBlocks.ORANGE_SAPLING = new SaplingBase(orangeTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("orange_sapling")),
-                WNBlocks.GRAPE_FRUIT_SAPLING = new SaplingBase(grapefruitTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grape_fruit_sapling"))
+                WNBlocks.GRAPE_FRUIT_SAPLING = new SaplingBase(grapefruitTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grape_fruit_sapling")),
+                WNBlocks.BANANA_SAPLING = new SaplingBase(bananaTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("banana_sapling")),
+                WNBlocks.LIME_SAPLING = new SaplingBase(limeTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lime_sapling")),
+                WNBlocks.OLIVE_SAPLING = new SaplingBase(oliveTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("olive_sapling")),
+                WNBlocks.PEACH_SAPLING = new SaplingBase(peachTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("peach_sapling")),
+                WNBlocks.POMEGRANATE_SAPLING = new SaplingBase(pomegranateTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("pomegranate_sapling"))
 
 
         };

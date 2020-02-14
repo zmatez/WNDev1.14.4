@@ -45,7 +45,7 @@ import net.minecraft.world.gen.feature.structure.StructureStart;
 public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings> 
 {
 	protected IChunk chunk = null;
-	private static final float[] biomeData = Util.make(new float[25], (data) -> {
+	public static final float[] biomeData = Util.make(new float[25], (data) -> {
         for(int i = -2; i <= 2; ++i) {
             for(int j = -2; j <= 2; ++j) {
                 float f = 10.0F / MathHelper.sqrt((float)(i * i + j * j) + 0.2F);
@@ -246,36 +246,12 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 	public int getTerrainHeight(int x, int z)
 	{
 		Biome biome = this.biomeProvider.func_222366_b(x, z);
-		ChunkLandscape landscape = ChunkLandscape.getOrCreate(x, z, this.seed, biome, this.chunk);
+		ChunkLandscape landscape = ChunkLandscape.getOrCreate(x, z, this.seed, this.getSeaLevel(), biome, this.chunk);
 		
 		return (int) landscape.generateHeightmap();
 	}
 	
-	// I removed all mentions of this, so feel free to delete this and try to apply biome depth and scale yourself... unfortunately I didn't have much luck today, and can't find any references that would
-	// actually be useful ;-;
-	private double applyBiomeData(int x, int z, double sample)
-	{
-		double noise = sample;
-		Biome biome = this.biomeProvider.func_222366_b(x, z);
-		
-		float depth = biome.getDepth();
-		float scale = biome.getScale();
-		float seaLevel = (float) this.getSeaLevel();
-		float count = 0;
-		
-		noise = Math.max(noise, seaLevel + 10 * depth);
-		for (int j = -2; j <= 2; j++)
-		{
-			for (int i = -2; i <= 2; i++)
-			{
-				float data = biomeData[j + 2 + (i + 2) * 5] / (depth + 2.0F);
-				count += (data > depth ? data / 6 : data) * scale;
-			}
-		}
-		
-		noise /= count;
-		return noise;
-	}
+
 
 	@Override
 	public int func_222529_a(int x, int z, Type p_222529_3_)

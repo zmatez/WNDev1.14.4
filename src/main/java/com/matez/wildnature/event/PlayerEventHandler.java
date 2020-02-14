@@ -226,7 +226,7 @@ public class PlayerEventHandler {
     }
 
     public static ArrayList<Patron> readPatrons(){
-        String s = Main.readFromURL("https://wildnature.matez.net/data/wildnature-uuids.json");
+        String s = Main.readFromURL("https://wildnaturemod.com/data/wildnature-uuids.json");
         if(s==null){
             return null;
         }
@@ -235,7 +235,7 @@ public class PlayerEventHandler {
     }
 
     public static Motd readMOTD(PlayerEntity entity){
-        String s = Main.readFromURL("https://wildnature.matez.net/data/wildnature-motd.json");
+        String s = Main.readFromURL("https://wildnaturemod.com/data/wildnature-motd.json");
         if(s==null){
             return null;
         }

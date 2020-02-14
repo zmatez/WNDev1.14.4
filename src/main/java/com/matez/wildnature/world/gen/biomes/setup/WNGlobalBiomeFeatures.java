@@ -2,6 +2,7 @@ package com.matez.wildnature.world.gen.biomes.setup;
 
 import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.world.gen.feature.WNFruitFeature;
+import com.matez.wildnature.world.gen.feature.WNVegeFeature;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
@@ -14,6 +15,7 @@ public class WNGlobalBiomeFeatures {
 
     public static void setup(){
         WNFruitFeature.init();
+        WNVegeFeature.init();
 
         Registry.BIOME.forEach(biome -> {
             if(CommonConfig.generateVines.get()){
@@ -36,6 +38,9 @@ public class WNGlobalBiomeFeatures {
             }
             if(CommonConfig.generateFruitBushes.get()){
                 WNBiomeFeatures.addFruits(biome);
+            }
+            if(CommonConfig.generateVegeCrops.get()){
+                WNBiomeFeatures.addVeggies(biome);
             }
             if(CommonConfig.generatePoisonIves.get()){
                 WNBiomeFeatures.addPoisonIves(biome);

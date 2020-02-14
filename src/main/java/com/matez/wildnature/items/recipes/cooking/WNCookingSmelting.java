@@ -1,23 +1,18 @@
 package com.matez.wildnature.items.recipes.cooking;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.items.PotItem;
+import com.matez.wildnature.items.CookingItem;
 import com.matez.wildnature.items.recipes.special.SpecialSmelting;
 import com.matez.wildnature.lists.WNItems;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
 
 public class WNCookingSmelting extends SpecialSmelting {
     public WNCookingSmelting(ResourceLocation p_i48715_1_) {
@@ -28,8 +23,8 @@ public class WNCookingSmelting extends SpecialSmelting {
     @Override
     public boolean matches(IInventory inventory, World world) {
         Main.LOGGER.debug("Checking furnace");
-        if(inventory.getStackInSlot(0).getItem() instanceof PotItem) {
-            WNAbstractCookingRecipe recipe = PotItem.checkForRecipes(world, Utilities.loadItems(inventory.getStackInSlot(0).getOrCreateTag()));
+        if(inventory.getStackInSlot(0).getItem() instanceof CookingItem) {
+            WNAbstractCookingRecipe recipe = CookingItem.checkForRecipes(world, Utilities.loadItems(inventory.getStackInSlot(0).getOrCreateTag()),((CookingItem)inventory.getStackInSlot(0).getItem()).getToolType());
             w = world;
             Main.LOGGER.debug("Checking furnace success");
             if(recipe!=null && recipe.ingredient!=null && recipe.result!=null) {
@@ -48,8 +43,8 @@ public class WNCookingSmelting extends SpecialSmelting {
     public ItemStack getCraftingResult(IInventory inventory) {
         Main.LOGGER.debug("GETTING RESULT");
         ItemStack s = inventory.getStackInSlot(0).copy();
-        if(s.getItem() instanceof PotItem) {
-            WNAbstractCookingRecipe recipe = PotItem.checkForRecipes(w, Utilities.loadItems(inventory.getStackInSlot(0).getOrCreateTag()));
+        if(s.getItem() instanceof CookingItem) {
+            WNAbstractCookingRecipe recipe = CookingItem.checkForRecipes(w, Utilities.loadItems(inventory.getStackInSlot(0).getOrCreateTag()),((CookingItem)inventory.getStackInSlot(0).getItem()).getToolType());
             if (recipe == null) {
                 return ItemStack.EMPTY;
             } else {

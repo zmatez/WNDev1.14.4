@@ -728,6 +728,13 @@ public class WNBlocks {
     public static Block RADISSIUM_PINK;
     public static Block RADISSIUM_RED;
     public static Block LAVENDER;
+    public static Block ANTHURIUM_PINK;
+    public static Block ANTHURIUM_RED;
+    public static Block ANTHURIUM_WHITE;
+    public static Block ORCHIS_PURPLE;
+    public static Block ORCHIS_WHITE;
+    public static Block PEACE_LILY;
+    public static Block WILD_ROSE;
 
     ///////////////////BUSHES
     public static Block YEW_BUSH;
@@ -770,7 +777,7 @@ public class WNBlocks {
     public static Block LETTUCE_PLANT;
     public static Block ONION_PLANT;
     public static Block RED_ONION_PLANT;
-    public static Block GREEN_BEANS_BUSH;
+    public static Block GREEN_BEANS_BUSH;//not added
     public static Block CAULIFLOWER_PLANT;
     public static Block CELERY_PLANT;
     public static Block GARLIC_PLANT;
@@ -785,7 +792,7 @@ public class WNBlocks {
     public static Block CABBAGE_PLANT;
     public static Block CHIVES_PLANT;
     public static Block CUCUMBER_PLANT;
-    public static Block EGGPLANT_PLANT;
+    public static Block EGGPLANT_PLANT;//not added
     public static Block HORSE_RADISH_PLANT;
     public static Block PEA_PLANT;
     public static Block PEANUT_PLANT;
@@ -845,6 +852,13 @@ public class WNBlocks {
     public static Block LEMON_LEAVES, LEMON_SAPLING;
     public static Block ORANGE_LEAVES, ORANGE_SAPLING;
     public static Block GRAPE_FRUIT_LEAVES, GRAPE_FRUIT_SAPLING;
+    public static Block BANANA_LEAVES, BANANA_SAPLING;
+    public static Block LIME_LEAVES, LIME_SAPLING;
+    public static Block OLIVE_LEAVES, OLIVE_SAPLING;
+    public static Block PEACH_LEAVES, PEACH_SAPLING;
+    public static Block POMEGRANATE_LEAVES, POMEGRANATE_SAPLING;
+
+
 
     ///////////////////GRASSES
 
@@ -2769,7 +2783,7 @@ public class WNBlocks {
 
 
     //EATABLES
-    public static Block CANDY_CAKE, CHERRY_CAKE, CHOCO_CAKE, MAZUREK, YEAST_DOUGH;
+    public static Block BLACK_CURRANT_CAKE,CANDY_CAKE,CARROT_CAKE,CHERRY_CAKE,CHOCO_CAKE,CHOKEBERRY_CAKE,DARK_CHOCOLATE_CAKE,GRAPEFRUIT_CAKE,HAWTHORN_CAKE,KAMCHATKA_CAKE,LEMON_CAKE,MAZUREK,MILK_CHOCOLATE_CAKE,MINT_GOOSEBERRY_CAKE,ORANGE_CAKE,PINEAPPLE_CAKE,QUINCE_CAKE,RASPBERRY_CAKE,STRAWBERRY_CAKE,WHITE_CHOCOLATE_CAKE,YEAST_DOUGH;
 
     public static Block TIN_ORE,TIN_BLOCK;
     public static Block COPPER_ORE,COPPER_BLOCK;
