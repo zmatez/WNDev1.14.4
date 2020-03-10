@@ -1,7 +1,9 @@
 package com.matez.wildnature;
 
+import com.matez.wildnature.blocks.GrassBase;
 import com.matez.wildnature.commands.BiomeArgument;
 import com.matez.wildnature.compatibility.WNMinecraftCopatibility;
+import com.matez.wildnature.compatibility.WNMobSpawnFix;
 import com.matez.wildnature.entity.EntityRegistry;
 import com.matez.wildnature.entity.render.RenderRegistry;
 import com.matez.wildnature.event.*;
@@ -49,8 +51,12 @@ import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.arguments.ArgumentSerializer;
 import net.minecraft.command.arguments.ArgumentTypes;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
@@ -66,12 +72,14 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
@@ -121,6 +129,7 @@ public class Main {
     public ArrayList<String> supportedLanguages = new ArrayList<>();
     public static boolean usesFancyGraphics = true;
     public static StringTextComponent WNPrefix = new StringTextComponent(Main.WildNaturePrefix);
+
     public Main(){
         LOGGER.info("Initializing WildNature mod");
         instance=this;
@@ -169,6 +178,15 @@ public class Main {
         com.matez.wildnature.world.gen.biomes.setup.WNBiomes.registerAll();
 
         WNMinecraftCopatibility.init();
+
+
+        Main.LOGGER.info("Re-registering entity spawns. Found " + EntitySpawnPlacementRegistry.REGISTRY.size());
+        /*EntitySpawnPlacementRegistry.REGISTRY.forEach((entity,entry) -> {
+            EntitySpawnPlacementRegistry.Entry e = EntitySpawnPlacementRegistry.REGISTRY.get(entity);
+            entrySpawnType=e;
+            EntitySpawnPlacementRegistry.REGISTRY.replace(entity,e, new EntitySpawnPlacementRegistry.Entry(e.type,e.placementType,Main::getEntitySpawnPlacementPredicate));
+        });*/
+        WNMobSpawnFix.fixAll();
 
 
         proxy.init();
@@ -247,6 +265,7 @@ public class Main {
                 event.getRegistry().register(WNBlocks.ITEMBLOCKS.get(ib));
                 ib++;
             }
+            Food smallFruit = (new Food.Builder()).hunger(2).saturation(0.6F).fastToEat().build();
 
             Food CHERRY = (new Food.Builder()).hunger(2).saturation(0.6F).build();
             Food PLUM = (new Food.Builder()).hunger(2).saturation(0.6F).build();
@@ -286,21 +305,22 @@ public class Main {
                     WNItems.GREEN_APPLE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("green_apple")),
                     WNItems.CHERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CHERRY)).setRegistryName(location("cherry")),
                     WNItems.PEAR = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("pear")),
-                    WNItems.RASPBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("raspberry")),
-                    WNItems.BLUEBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("blueberry")),
-                    WNItems.LINGONBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("lingonberry")),
-                    WNItems.BLACKBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("blackberry")),
-                    WNItems.GOOSEBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("gooseberry")),
-                    WNItems.CHOKE_BERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("chokeberry")),
-                    WNItems.BLACK_CURRANT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("black_currant")),
-                    WNItems.RED_CURRANT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("red_currant")),
-                    WNItems.WHITE_CURRANT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("white_currant")),
-                    WNItems.HAWTHORN_BERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("hawthorn_berry")),
-                    WNItems.KAMCHATKA_BERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("kamchatka_berry")),
-                    WNItems.WILD_STRAWBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("wild_strawberry")),
-                    WNItems.QUINCE_FRUIT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("quince_fruit")),
-                    WNItems.BILBERRIES = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("bilberries")),
-                    WNItems.BLACK_LILAC_BERRIES = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("black_lilac_berries")),
+                    WNItems.RASPBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("raspberry")),
+                    WNItems.BLUEBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("blueberry")),
+                    WNItems.LINGONBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("lingonberry")),
+                    WNItems.BLACKBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("blackberry")),
+                    WNItems.GOOSEBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("gooseberry")),
+                    WNItems.CHOKE_BERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("chokeberry")),
+                    WNItems.BLACK_CURRANT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("black_currant")),
+                    WNItems.RED_CURRANT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("red_currant")),
+                    WNItems.WHITE_CURRANT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("white_currant")),
+                    WNItems.HAWTHORN_BERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("hawthorn_berry")),
+                    WNItems.KAMCHATKA_BERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("kamchatka_berry")),
+                    WNItems.WILD_STRAWBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("wild_strawberry")),
+                    WNItems.QUINCE_FRUIT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("quince_fruit")),
+                    WNItems.BILBERRIES = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("bilberries")),
+                    WNItems.BLACK_LILAC_BERRIES = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("black_lilac_berries")),
+                    WNItems.CRANBERRIES = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("cranberries")),
 
 
                     WNItems.PLUM = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("plum")),
@@ -320,6 +340,8 @@ public class Main {
                     WNItems.PEACH = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("peach")),
                     WNItems.PINEAPPLE = new BlockNamedItem(Main.getBlockByID("wildnature:pineapple_plant"),new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("pineapple")),
                     WNItems.POMEGRANATE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("pomegranate")),
+                    WNItems.MANGO = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("mango")),
+
                     WNItems.LEMON_WEDGE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("lemon_wedge")),
 
 
@@ -561,6 +583,7 @@ public class Main {
                     WNItems.COMPOT_BLACKBERRY_GOOSEBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_blackberry_gooseberry")),
                     WNItems.COMPOT_CHERRY_BLUEBERRY_RASPBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_cherry_blueberry_raspberry")),
                     WNItems.COMPOT_CHOKEBERRY_BLACKBERRY_LINGONBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_chokeberry_blackberry_lingonberry")),
+                    WNItems.COMPOT_CRANBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_cranberry")),
                     WNItems.COMPOT_PLUM_APPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_plum_apple")),
                     WNItems.COMPOT_WHITE_CURRANT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_white_currant")),
 
@@ -568,6 +591,7 @@ public class Main {
                     WNItems.JUICE_GRAPE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_grape")),
                     WNItems.JUICE_GRAPEFRUIT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_grapefruit")),
                     WNItems.JUICE_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_lemon")),
+                    WNItems.JUICE_MANGO_PINEAPPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_mango_pineapple")),
                     WNItems.JUICE_ORANGE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_orange")),
                     WNItems.JUICE_PEACH = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_peach")),
                     WNItems.JUICE_PINEAPPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_pineapple")),
@@ -600,7 +624,10 @@ public class Main {
 
 
                     WNItems.MAPLE_SYRUP = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("maple_syrup")),
-                    WNItems.PEANUT_BUTTER = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("peanut_butter"))
+                    WNItems.PEANUT_BUTTER = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("peanut_butter")),
+
+                    WNItems.CHISEL = new Item(new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1)).setRegistryName(location("chisel"))
+
                     );
             GemRegistry gems = new GemRegistry();
             event.getRegistry().registerAll(gems.getItem());
@@ -636,6 +663,9 @@ public class Main {
         @SubscribeEvent
         public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event){
             LOGGER.info("Registering entities...");
+
+
+
             event.getRegistry().registerAll(
                     EntityRegistry.GOBLIN
             );
@@ -939,4 +969,12 @@ public class Main {
         LOGGER.info(TextFormatting.AQUA+"---------------------------------");
 
     }
+
+    /*public static boolean getEntitySpawnPlacementPredicate(EntityType<?> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
+        return entrySpawnType.placementType== EntitySpawnPlacementRegistry.PlacementType.ON_GROUND ? onGroundEntity(entity,world,reason,pos,random) : (entrySpawnType.field_223513_c.test((EntityType)entity,world,reason,pos,random) ? entrySpawnType.field_223513_c.test((EntityType)entity,world,reason,pos,random) : onGroundEntity(entity,world,reason,pos,random));
+    }
+
+    private static boolean onGroundEntity(EntityType<?> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
+        return world.getBlockState(pos.down()).getBlock() instanceof GrassBlock && world.getLightSubtracted(pos, 0) > 8;
+    }*/
 }

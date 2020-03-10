@@ -23,7 +23,7 @@ public class WNFlowerField extends WNBiome {
         super(name,(new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
-                .category(Category.FOREST)
+                .category(Category.PLAINS)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
                 .climate(WNBiomeBuilder.Climate.CONTINENTAL_WARM)
                 .depth(0.15F)

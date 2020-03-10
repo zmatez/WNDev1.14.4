@@ -23,6 +23,9 @@ public class WNScatteredPlantFeature extends Feature<NoFeatureConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+      if(!worldIn.getDimension().isSurfaceWorld()){
+         return false;
+      }
       int i = 0;
 
       for(int j = 0; j < 64; ++j) {

@@ -27,6 +27,9 @@ public class CropFeature extends Feature<NoFeatureConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+       if(!worldIn.getDimension().isSurfaceWorld()){
+           return false;
+       }
        if(worldIn.getBlockState(pos).canSustainPlant(worldIn,pos.down(), Direction.UP,(IPlantable)Blocks.OAK_SAPLING)) {
             BlockPos waterPos = water(pos.down(),worldIn,rand);
             if(waterPos==null){

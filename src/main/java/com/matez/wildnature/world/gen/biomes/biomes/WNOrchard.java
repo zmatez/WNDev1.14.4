@@ -2,12 +2,16 @@ package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
 import com.matez.wildnature.world.gen.structures.nature.woods.def.BigTree;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak1;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak2;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak3;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak5;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.structures.nature.woods.orchard.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -62,9 +66,18 @@ public class WNOrchard extends WNBiome {
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:pasque_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
 
 
-        WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:apple_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pear_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_oak5(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:oak_leaves"))),1);
+        //WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:apple_leaves"))),2);
+        //WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pear_leaves"))),2);
+        WNBiomeFeatures.addTree(this,new oak1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new oak2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new oak3(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new tree_oak5(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:oak_leaves"))),4);
+        WNBiomeFeatures.addTree(this,new apple1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new apple2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new apple3(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new pear1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new pear2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new pear3(NoFeatureConfig::deserialize,true),1);
 
         /*
          WNBiomeFeatures.addTree(this,new tree_oak2(NoFeatureConfig::deserialize,true,Crack.getBlockByID("wildnature:apple_log").getDefaultState(),tree_birch1.notDecayingLeaf(Crack.getBlockByID("wildnature:apple_leaves"))),2);

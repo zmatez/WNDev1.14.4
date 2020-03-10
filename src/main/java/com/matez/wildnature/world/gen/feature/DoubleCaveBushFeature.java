@@ -24,6 +24,9 @@ public class DoubleCaveBushFeature extends Feature<BushConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, BushConfig config) {
+      if(!worldIn.getDimension().isSurfaceWorld()){
+         return false;
+      }
       int i = 0;
       BlockState blockstate = config.state;
 

@@ -57,7 +57,6 @@ public class WNPoplarForestHills extends WNBiome {
 
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:blackberry_bush").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:yew_bush").getDefaultState(),4);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:pasque_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
 
@@ -70,10 +69,10 @@ public class WNPoplarForestHills extends WNBiome {
         applyPlants();
         applyTrees();
         this.addSpawn(EntityClassification.CREATURE, new WNBiome.SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
-        this.addSpawn(EntityClassification.CREATURE, new WNBiome.SpawnListEntry(EntityType.PIG, 10, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new WNBiome.SpawnListEntry(EntityType.CHICKEN, 10, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new WNBiome.SpawnListEntry(EntityType.COW, 8, 4, 4));
-        this.addSpawn(EntityClassification.CREATURE, new WNBiome.SpawnListEntry(EntityType.WOLF, 5, 4, 4));
+        this.addSpawn(EntityClassification.CREATURE, new WNBiome.SpawnListEntry(EntityType.WOLF, 3, 4, 4));
+        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.FOX, 2, 4, 4));
         this.addSpawn(EntityClassification.AMBIENT, new WNBiome.SpawnListEntry(EntityType.BAT, 10, 8, 8));
         this.addSpawn(EntityClassification.MONSTER, new WNBiome.SpawnListEntry(EntityType.SPIDER, 100, 4, 4));
         this.addSpawn(EntityClassification.MONSTER, new WNBiome.SpawnListEntry(EntityType.ZOMBIE, 95, 4, 4));

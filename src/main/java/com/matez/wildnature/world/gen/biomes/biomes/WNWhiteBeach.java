@@ -52,6 +52,8 @@ public final class WNWhiteBeach extends WNBiome {
       WNBiomeFeatures.addSprings(this);
       WNBiomeFeatures.addFreezeTopLayer(this);
       this.addSpawn(EntityClassification.CREATURE, new WNBiome.SpawnListEntry(EntityType.TURTLE, 7, 2, 5));
+      this.addSpawn(EntityClassification.WATER_CREATURE, new SpawnListEntry(EntityType.TROPICAL_FISH, 5, 1, 5));
+      this.addSpawn(EntityClassification.WATER_CREATURE, new SpawnListEntry(EntityType.PUFFERFISH, 3, 1, 5));
       this.addSpawn(EntityClassification.AMBIENT, new WNBiome.SpawnListEntry(EntityType.BAT, 10, 8, 8));
       this.addSpawn(EntityClassification.MONSTER, new WNBiome.SpawnListEntry(EntityType.SPIDER, 100, 4, 4));
       this.addSpawn(EntityClassification.MONSTER, new WNBiome.SpawnListEntry(EntityType.ZOMBIE, 95, 4, 4));

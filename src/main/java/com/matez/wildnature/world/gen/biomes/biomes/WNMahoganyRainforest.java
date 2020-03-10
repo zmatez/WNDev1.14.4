@@ -2,12 +2,17 @@ package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.CoffeeBush;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.biomes.surface.NormalPodzolSurfaceBuilder;
 import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
+import com.matez.wildnature.world.gen.structures.nature.woods.citrus.citrus1;
+import com.matez.wildnature.world.gen.structures.nature.woods.citrus.citrus2;
+import com.matez.wildnature.world.gen.structures.nature.woods.citrus.citrus3;
+import com.matez.wildnature.world.gen.structures.nature.woods.citrus.citrus4;
 import com.matez.wildnature.world.gen.structures.nature.woods.mahogany.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.matez.wildnature.world.gen.structures.nature.woods.mahogany.*;
@@ -66,16 +71,18 @@ public class WNMahoganyRainforest extends WNBiome {
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DOUBLE_PLANT,new DoublePlantConfig(Main.getBlockByID("wildnature:coffee_bush").getDefaultState().with(CoffeeBush.STAGE,1)), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(2)));
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DOUBLE_PLANT,new DoublePlantConfig(Main.getBlockByID("wildnature:coffee_bush").getDefaultState().with(CoffeeBush.STAGE,2)), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(1)));
 
-        WNBiomeFeatures.addTree(this,new mahogany1(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new mahogany2(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new mahogany3(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new mahogany4(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new mahoganyshrub1(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new mahoganyshrub2(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),3);
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BAMBOO, new ProbabilityConfig(0.0F), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(16)));
-
-
+        WNBiomeFeatures.addTree(this,new mahogany1(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),3);
+        WNBiomeFeatures.addTree(this,new mahogany2(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),3);
+        WNBiomeFeatures.addTree(this,new mahogany3(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),3);
+        WNBiomeFeatures.addTree(this,new mahogany4(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),2);
+        WNBiomeFeatures.addTree(this,new mahoganyshrub1(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),3);
+        WNBiomeFeatures.addTree(this,new mahoganyshrub2(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),3);
+        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:mahogany_log").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("minecraft:mahogany_leaves"))),4);
+        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BAMBOO, new ProbabilityConfig(0.0F), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(18)));
+        WNBiomeFeatures.addTree(this,new citrus1(NoFeatureConfig::deserialize,true, WNBlocks.CITRUS_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new citrus2(NoFeatureConfig::deserialize,true, WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new citrus3(NoFeatureConfig::deserialize,true, WNBlocks.CITRUS_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.ORANGE_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new citrus4(NoFeatureConfig::deserialize,true, WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.ORANGE_LEAVES)),1);
         plantRate=2;
         treeRate=15;
 

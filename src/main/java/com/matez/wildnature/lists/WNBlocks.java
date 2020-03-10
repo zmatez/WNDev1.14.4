@@ -184,6 +184,30 @@ public class WNBlocks {
     public static Block CHERRY_BRANCH;
     public static Block CHERRY_BRANCH_SMALL;
 
+    public static Block CITRUS_LOG;
+    public static Block CITRUS_WOOD;
+    public static Block CITRUS_STRIPPED_LOG;
+    public static Block CITRUS_STRIPPED_WOOD;
+    public static Block CITRUS_PLANKS;
+    public static Block CITRUS_PARQUET;
+    public static Block CITRUS_STAIRS_PLANKS;
+    public static Block CITRUS_STAIRS_PARQUET;
+    public static Block CITRUS_SLABS_PLANKS;
+    public static Block CITRUS_SLABS_PARQUET;
+    public static Block CITRUS_FENCE;
+    public static Block CITRUS_FENCE_GATE;
+    public static Block CITRUS_LOG_FENCE;
+    public static Block CITRUS_LOG_FENCE_GATE;
+    public static Block CITRUS_BUTTON;
+    public static Block CITRUS_LOG_BUTTON;
+    public static Block CITRUS_PRESSURE_PLATE;
+    public static Block CITRUS_LOG_PRESSURE_PLATE;
+    public static Block CITRUS_TRAPDOOR;
+    public static Block CITRUS_DOOR;
+    public static Block CITRUS_SIGN;
+    public static Block CITRUS_WALL_SIGN;
+    public static Block CITRUS_BRANCH;
+
     public static Block EBONY_LOG;
     public static Block EBONY_WOOD;
     public static Block EBONY_STRIPPED_LOG;
@@ -461,6 +485,9 @@ public class WNBlocks {
     public static Block MAPLE_WALL_SIGN;
     public static Block MAPLE_BRANCH;
     public static Block MAPLE_BRANCH_SMALL;
+
+    public static Block NUYTSIA_LEAVES;
+    public static Block NUYTSIA_SAPLING;
     
     public static Block PALM_LOG;
     public static Block PALM_WOOD;
@@ -760,6 +787,8 @@ public class WNBlocks {
     public static Block POISON_IVY;
     public static Block LAMPGRASS;
     public static Block SPIDERGRASS;
+    public static Block MOSS;
+    public static Block LICHEN;
 
     ///////////////////DOUBLE PLANTS
     public static Block CATTAIL;
@@ -796,6 +825,7 @@ public class WNBlocks {
     public static Block HORSE_RADISH_PLANT;
     public static Block PEA_PLANT;
     public static Block PEANUT_PLANT;
+    public static Block BLACK_PEPPER_PLANT;
 
     public static Block COTTON_PLANT;
     public static Block PINEAPPLE_PLANT;
@@ -847,16 +877,23 @@ public class WNBlocks {
 
     public static Block BUSH_BILBERRY;
     public static Block BUSH_BLACK_LILAC;
+    public static Block BUSH_BLACKBERRY;
+    public static Block BUSH_CRANBERRY;
+
+    //VINES
+    public static Block GRAPE_VINE_YELLOW;
+    public static Block GRAPE_VINE_PURPLE;
 
     //CITRUS
     public static Block LEMON_LEAVES, LEMON_SAPLING;
     public static Block ORANGE_LEAVES, ORANGE_SAPLING;
     public static Block GRAPE_FRUIT_LEAVES, GRAPE_FRUIT_SAPLING;
-    public static Block BANANA_LEAVES, BANANA_SAPLING;
+    public static Block BANANA_LEAVES, BANANA_SAPLING, BANANA_FRUIT;
     public static Block LIME_LEAVES, LIME_SAPLING;
     public static Block OLIVE_LEAVES, OLIVE_SAPLING;
     public static Block PEACH_LEAVES, PEACH_SAPLING;
     public static Block POMEGRANATE_LEAVES, POMEGRANATE_SAPLING;
+    public static Block MANGO_LEAVES, MANGO_SAPLING;
 
 
 
@@ -890,7 +927,7 @@ public class WNBlocks {
     public static Block DESERT_FARMLAND;
     public static Block DRIED_FARMLAND;
 
-
+    public static Block MUD;
     ///////////////////ROCKS
 
     public static Block BASALT_ROCK;
@@ -2704,12 +2741,21 @@ public class WNBlocks {
     public static Block RED_HARDENED_SANDSTONE_ROOF_4_STAIRS;
 
 
+    public static Block BEAMS;
+    public static Block BRICKS_ARROWSLIT;
+    public static Block BRICKS_MACHICOLATIONS;
+    public static Block HALFARCH;
+    public static Block SLAB_CORNER;
+    public static Block SLAB_VERTICAL;
 
 
 
 
 
-    
+
+
+
+
     public static Block GLOWING_CRYSTAL_BLUE;
     public static Block GLOWING_CRYSTAL_ORANGE;
     public static Block GLOWING_CRYSTAL_RED;
@@ -2821,4 +2867,11 @@ public class WNBlocks {
     public static Block LARGE_STALAGMITE;
 
     public static Block GLOW_VINE;
+
+    //SHELLS
+    public static Block COCKLESHELL;
+    public static Block HORN_SHELL;
+    public static Block LIONS_PAW;
+    public static Block SAND_DOLLAR;
+    public static Block STAR_FISH;
 }

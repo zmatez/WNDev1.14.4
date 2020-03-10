@@ -1,0 +1,20 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "wildnature:blocks/block/frame_block",
+    "material": "wildnature:blocks/block/frame_block"
+  },
+  "elements": [
+    {   "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 8 ],
+      "faces": {
+        "down":  { "uv": [ 0, 8, 16, 16 ], "texture": "#material"},
+        "up":    { "uv": [ 0, 0, 16, 8 ], "texture": "#material"},
+        "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#material"},
+        "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#material" },
+        "west":  { "uv": [ 0, 0, 8, 16 ], "texture": "#material"},
+        "east":  { "uv": [ 8, 0, 16, 16 ], "texture": "#material"}
+      }
+    }
+  ]
+}

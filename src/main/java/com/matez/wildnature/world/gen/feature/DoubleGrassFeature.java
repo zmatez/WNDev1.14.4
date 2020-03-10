@@ -20,6 +20,9 @@ public class DoubleGrassFeature extends Feature<DoublePlantConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, DoublePlantConfig config) {
+      if(!worldIn.getDimension().isSurfaceWorld()){
+         return false;
+      }
       boolean flag = false;
 
       for(int i = 0; i < 128; ++i) {

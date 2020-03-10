@@ -1,6 +1,7 @@
 package com.matez.wildnature.world.gen.feature;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.blocks.BushBase;
 import com.matez.wildnature.blocks.BushBerryBase;
 import com.matez.wildnature.blocks.CropBase;
 import com.matez.wildnature.lists.WNBlocks;
@@ -31,6 +32,9 @@ public class WNVegeFeature extends Feature<NoFeatureConfig> {
     }
 
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+        if(!worldIn.getDimension().isSurfaceWorld()){
+            return false;
+        }
         WeightedList<BushEntry> available = new WeightedList<>();
 
         entries.forEach(e -> {
@@ -46,14 +50,18 @@ public class WNVegeFeature extends Feature<NoFeatureConfig> {
             assert b != null;
             try {
                 if (b.needsFarmland()) {
-                    new CropFeature(NoFeatureConfig::deserialize, b.getBush().with(((CropBase) b.getBush().getBlock()).getAgeProperty(), Utilities.rint(((CropBase) b.getBush().getBlock()).getMaxAge() - 1, ((CropBase) b.getBush().getBlock()).getMaxAge()))).place(worldIn, generator, rand, pos, new NoFeatureConfig());
+                    new WNWildFarmFeature(NoFeatureConfig::deserialize, b.getBush()).place(worldIn, generator, rand, pos, config);
 
                 } else {
-                    new BushFeature(BushConfig::deserialize).place(worldIn, generator, rand, pos, new BushConfig(b.getBush().with(((CropBase) b.getBush().getBlock()).getAgeProperty(), Utilities.rint(((CropBase) b.getBush().getBlock()).getMaxAge() - 1, ((CropBase) b.getBush().getBlock()).getMaxAge()))));
+                    new BushFeature(BushConfig::deserialize).place(worldIn, generator, rand, pos, new BushConfig(b.getBush()));
 
                 }
+                //Main.LOGGER.debug("Spawned " + b.getBush().getBlock().getNameTextComponent().toString() + " at " + pos.toString());
+
+                //Main.LOGGER.debug("Spawned at " + pos.toString());
+
             }catch (Exception e){
-                Main.LOGGER.debug("Cannot spawn " + b.getBush().getBlock().getNameTextComponent().toString() + " " + e.getLocalizedMessage());
+                //Main.LOGGER.debug("Cannot spawn " + b.getBush().getBlock().getNameTextComponent().toString() + " " + e.getLocalizedMessage());
             }
 
             return true;
@@ -93,11 +101,11 @@ public class WNVegeFeature extends Feature<NoFeatureConfig> {
         new BushEntry(WNBlocks.ROSEMARY_PLANT.getDefaultState(), Biome.TempCategory.WARM,1, BiomeDictionary.Type.JUNGLE);
 
 
-        new BushEntry(WNBlocks.BLACK_TEA_PLANT.getDefaultState(), Biome.TempCategory.WARM,3, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.GREEN_TEA_PLANT.getDefaultState(), Biome.TempCategory.WARM,2, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.MELISSA_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,3, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.BLACK_TEA_PLANT.getDefaultState(), Biome.TempCategory.WARM,3,false, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.GREEN_TEA_PLANT.getDefaultState(), Biome.TempCategory.WARM,2,false, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.MELISSA_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,3,false, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.MINT_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,4,false, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.WHITE_TEA.getDefaultState(), Biome.TempCategory.WARM,1, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.WHITE_TEA.getDefaultState(), Biome.TempCategory.WARM,1,false, BiomeDictionary.Type.PLAINS);
 
 
     }
@@ -147,7 +155,7 @@ public class WNVegeFeature extends Feature<NoFeatureConfig> {
 
         public boolean canSpawnHere(BlockPos pos, IWorld world){
             Biome b = world.getBiome(pos);
-            if(b.getTempCategory()==category){
+            if(getTempCategory(b)==category){
                 for(BiomeDictionary.Type t : types){
                     if(BiomeDictionary.getTypes(b).contains(t)){
                         return true;
@@ -155,6 +163,16 @@ public class WNVegeFeature extends Feature<NoFeatureConfig> {
                 }
             }
             return false;
+        }
+
+        public Biome.TempCategory getTempCategory(Biome b) {
+            if (b.getCategory() == Biome.Category.OCEAN) {
+                return Biome.TempCategory.OCEAN;
+            } else if ((double)b.getDefaultTemperature() < 0.2D) {
+                return Biome.TempCategory.COLD;
+            } else {
+                return (double)b.getDefaultTemperature() < 0.5D ? Biome.TempCategory.MEDIUM : Biome.TempCategory.WARM;
+            }
         }
     }
 

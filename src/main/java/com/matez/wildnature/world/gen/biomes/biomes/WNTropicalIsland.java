@@ -2,6 +2,7 @@ package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.CoffeeBush;
+import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.biomes.surface.NormalPodzolSurfaceBuilder;
 import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
@@ -62,7 +63,11 @@ public class WNTropicalIsland extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("minecraft:blue_orchid").getDefaultState(),10);
+        WNBiomeFeatures.addPlant(this, Main.getBlockByID("minecraft:blue_orchid").getDefaultState(),5);
+        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:peace_lily").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:orchis_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:orchis_purple").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DOUBLE_PLANT,new DoublePlantConfig(Main.getBlockByID("wildnature:bird_of_paradise").getDefaultState()), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(3)));
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DOUBLE_PLANT,new DoublePlantConfig(Main.getBlockByID("wildnature:bird_of_paradise").getDefaultState()), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(2)));
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DOUBLE_PLANT,new DoublePlantConfig(Main.getBlockByID("wildnature:bird_of_paradise").getDefaultState()), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(1)));

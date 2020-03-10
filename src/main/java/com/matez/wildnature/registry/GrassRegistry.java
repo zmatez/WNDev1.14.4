@@ -19,7 +19,7 @@ public class GrassRegistry {
                 WNBlocks.TROPICAL_GRASS_BLOCK = new GrassBase(Block.Properties.create(Material.ORGANIC).sound(SoundType.PLANT).hardnessAndResistance(0.6F).harvestTool(ToolType.SHOVEL), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("tropical_grass_block"),"wildnature:tropical_dirt"),
                 WNBlocks.DESERT_GRASS_BLOCK = new GrassBase(Block.Properties.create(Material.EARTH).sound(SoundType.PLANT).hardnessAndResistance(0.6F).harvestTool(ToolType.SHOVEL), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("desert_grass_block"),"wildnature:desert_dirt"),
                 WNBlocks.DRIED_GRASS_BLOCK = new GrassBase(Block.Properties.create(Material.ORGANIC).sound(SoundType.PLANT).hardnessAndResistance(0.6F).harvestTool(ToolType.SHOVEL), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("dried_grass_block"),"wildnature:dried_dirt"),
-                WNBlocks.OVERGROWN_STONE = new GrassBase(Block.Properties.create(Material.ORGANIC).sound(SoundType.STONE).hardnessAndResistance(1.5F, 6.0F), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("overgrown_stone"),"minecraft:cobblestone"),
+                WNBlocks.OVERGROWN_STONE = new GrassBase(Block.Properties.create(Material.ORGANIC).sound(SoundType.STONE).hardnessAndResistance(1.5F, 6.0F).harvestTool(ToolType.PICKAXE), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("overgrown_stone"),"minecraft:cobblestone"),
 
                 WNBlocks.BROWN_PODZOL = new PodzolBase(Block.Properties.create(Material.ORGANIC).sound(SoundType.PLANT).hardnessAndResistance(0.5F).harvestTool(ToolType.SHOVEL), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("brown_podzol"),"wildnature:brown_dirt"),
                 WNBlocks.BROWN_MYCELIUM = new MyceliumBase(Block.Properties.create(Material.ORGANIC).sound(SoundType.PLANT).hardnessAndResistance(0.6F).harvestTool(ToolType.SHOVEL), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("brown_mycelium"),"wildnature:brown_dirt"),
@@ -55,6 +55,7 @@ public class GrassRegistry {
                 WNBlocks.CRACKED_SANDSTONE = new BlockBase(Block.Properties.create(Material.ROCK).hardnessAndResistance(0.8F,0.5F), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("cracked_sandstone")),
                 WNBlocks.SALT_BLOCK = new BlockBase(Block.Properties.create(Material.ROCK).hardnessAndResistance(0.8F,0.5F), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("salt_block")),
 
+                WNBlocks.MUD = new MudBlock(Block.Properties.create(Material.EARTH).sound(SoundType.SLIME).hardnessAndResistance(1.2F,0.3F).harvestTool(ToolType.SHOVEL).doesNotBlockMovement(), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("mud")),
 
 
 

@@ -1,5 +1,6 @@
 package com.matez.wildnature.world.gen.biomes.layer;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomes;
 import net.minecraft.util.registry.Registry;
@@ -16,12 +17,14 @@ public enum WNIslandLayer implements IAreaTransformer1, IDimOffset1Transformer {
 
    private static final int EASTER_ISLAND = Registry.BIOME.getId(WNBiomes.EasterIsland);
    private static final int TROPICAL_ISLAND = Registry.BIOME.getId(WNBiomes.TropicalIsland);
+   private static final int MADAGASCAR = Registry.BIOME.getId(WNBiomes.Madagascar);
    private static final int CHRISTMAS_ISLAND = Registry.BIOME.getId(WNBiomes.ChristmasIsland);
    public static ArrayList<Island> islands = new ArrayList<>();
 
    public static void applyIslands(){
       islands.add(new Island(EASTER_ISLAND,70));
       islands.add(new Island(TROPICAL_ISLAND,40));
+      islands.add(new Island(MADAGASCAR,30));
       islands.add(new Island(CHRISTMAS_ISLAND,50));
    }
 

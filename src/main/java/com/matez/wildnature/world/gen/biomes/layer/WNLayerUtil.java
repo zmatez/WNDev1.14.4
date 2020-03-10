@@ -91,11 +91,11 @@ public class WNLayerUtil extends LayerUtil {
 
         IAreaFactory<T> lvt_7_1_ = repeat(1000L, ZoomLayer.NORMAL, iareafactory, 0, contextFactory);
         lvt_7_1_ = StartRiverLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply(100L), lvt_7_1_);
-        
-        // IAreaFactory<T> lvt_8_1_ = worldTypeIn.getBiomeLayer(iareafactory, settings, contextFactory);
-        IAreaFactory<T> lvt_8_1_ = createBiomeFactory(contextFactory, lvt_7_1_);
+
+        IAreaFactory<T> lvt_8_1_ = worldTypeIn.getBiomeLayer(iareafactory, settings, contextFactory);
+        //IAreaFactory<T> lvt_8_1_ = createBiomeFactory(contextFactory, lvt_7_1_);
         IAreaFactory<T> lvt_9_1_ = repeat(1000L, ZoomLayer.NORMAL, lvt_7_1_, 2, contextFactory);
-        
+
         lvt_8_1_ = GroupLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply(1000L), lvt_8_1_, lvt_9_1_);
         lvt_8_1_ = HillsLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply(1000L), lvt_8_1_, lvt_9_1_);
 
@@ -105,7 +105,12 @@ public class WNLayerUtil extends LayerUtil {
         lvt_7_1_ = SmoothLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply(1000L), lvt_7_1_);
         lvt_8_1_ = RareBiomeLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply(1001L), lvt_8_1_);
 
-        for(int k = 0; k < i; ++k) {
+        for(int k = 0; k < i - (i>4 ? 4 : 0); ++k) {
+            lvt_8_1_ = ZoomLayer.NORMAL.apply((IExtendedNoiseRandom)contextFactory.apply((long)(1000 + k)), lvt_8_1_);
+
+        }
+
+        for(int k = 0; k < (i>4 ? 4 : 4-i); ++k) {
             lvt_8_1_ = ZoomLayer.NORMAL.apply((IExtendedNoiseRandom)contextFactory.apply((long)(1000 + k)), lvt_8_1_);
             if (k == 0) {
                 lvt_8_1_ = AddIslandLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply(3L), lvt_8_1_);

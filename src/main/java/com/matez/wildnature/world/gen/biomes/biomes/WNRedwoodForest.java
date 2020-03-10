@@ -1,7 +1,5 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
-import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga1;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
@@ -11,6 +9,9 @@ import com.matez.wildnature.world.gen.structures.nature.woods.redwood.tree_redwo
 import com.matez.wildnature.world.gen.structures.nature.woods.redwood.tree_redwood2;
 import com.matez.wildnature.world.gen.structures.nature.woods.redwood.tree_redwood3;
 import com.matez.wildnature.world.gen.structures.nature.woods.redwood.tree_redwood4;
+import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
+import com.matez.wildnature.world.gen.structures.nature.woods.small_redwood.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga1;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -58,24 +59,27 @@ public class WNRedwoodForest extends WNBiome {
 
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:blackberry_bush").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:yew_bush").getDefaultState(),4);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:clover").getDefaultState(),3);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:leaf_pile").getDefaultState(),3);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:pasque_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+
+        WNBiomeFeatures.addTree(this,new small_redwood1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new small_redwood2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new small_redwood3(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new small_redwood4(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new small_redwood5(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new small_redwood6(NoFeatureConfig::deserialize,true),1);
+
         BlockState redwoodLog = Main.getBlockByID("wildnature:redwood_log").getDefaultState();
         BlockState redwoodLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("wildnature:redwood_leaves"));
-        WNBiomeFeatures.addTree(this,new tree_redwood1(NoFeatureConfig::deserialize,true,redwoodLog,redwoodLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_redwood2(NoFeatureConfig::deserialize,true,redwoodLog,redwoodLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_redwood3(NoFeatureConfig::deserialize,true,redwoodLog,redwoodLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_redwood4(NoFeatureConfig::deserialize,true,redwoodLog,redwoodLeaves),1);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true,redwoodLog,redwoodLeaves),8);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),8);
+        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true,redwoodLog,redwoodLeaves),3);
+        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),3);
 
         plantRate=4;
-        treeRate=20;
+        treeRate=15;
 
         applyPlants();
         applyTrees();
@@ -83,7 +87,6 @@ public class WNRedwoodForest extends WNBiome {
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.PIG, 10, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.CHICKEN, 10, 4, 4));
-        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.COW, 8, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.WOLF, 5, 4, 4));
         this.addSpawn(EntityClassification.AMBIENT, new SpawnListEntry(EntityType.BAT, 10, 8, 8));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SPIDER, 100, 4, 4));

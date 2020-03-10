@@ -124,6 +124,11 @@ public class OtherRegistry {
                 WNBlocks.WHITE_CHOCOLATE_CAKE = new CakeBase(Block.Properties.create(Material.CAKE).hardnessAndResistance(0.5F).sound(SoundType.CLOTH),new Item.Properties().group(ItemGroup.FOOD), Main.RegistryEvents.location("white_chocolate_cake")),
                 WNBlocks.YEAST_DOUGH = new CakeBase(Block.Properties.create(Material.CAKE).hardnessAndResistance(0.5F).sound(SoundType.CLOTH),new Item.Properties().group(ItemGroup.FOOD), Main.RegistryEvents.location("yeast_dough")),
 
+                WNBlocks.COCKLESHELL = new ShellBlock(Block.Properties.create(Material.CORAL),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("cockleshell")),
+                WNBlocks.HORN_SHELL = new ShellBlock(Block.Properties.create(Material.CORAL),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("horn_shell")),
+                WNBlocks.LIONS_PAW = new ShellBlock(Block.Properties.create(Material.CORAL),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lions_paw")),
+                WNBlocks.SAND_DOLLAR = new ShellBlock(Block.Properties.create(Material.CORAL),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("sand_dollar")),
+                WNBlocks.STAR_FISH = new ShellBlock(Block.Properties.create(Material.CORAL),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("star_fish")),
 
 
 

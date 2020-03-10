@@ -24,6 +24,9 @@ public class CornGrassFeature extends Feature<NoFeatureConfig> {
     }
 
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+        if(!worldIn.getDimension().isSurfaceWorld()){
+            return false;
+        }
         boolean flag = false;
 
         for(int i = 0; i < 128; ++i) {

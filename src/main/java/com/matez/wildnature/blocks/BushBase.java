@@ -35,6 +35,16 @@ public class BushBase extends BushBlock {
         WNBlocks.ITEMBLOCKS.add(item);
     }
 
+    public BushBase(Properties properties, Item.Properties builder, ResourceLocation regName, boolean newProperties) {
+        super(properties);
+        this.setRegistryName(regName);
+        item = new BlockItem(this,builder).setRegistryName(regName);
+
+        WNBlocks.PLANTS.add(this);
+        WNBlocks.BLOCKS.add(this);
+        WNBlocks.ITEMBLOCKS.add(item);
+    }
+
     private String drop;
     private int min = 1;
     private int max = 1;

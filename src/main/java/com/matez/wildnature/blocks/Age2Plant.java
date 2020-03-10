@@ -28,11 +28,19 @@ public class Age2Plant extends CropBase {
     public static final IntegerProperty AGE = BlockStateProperties.AGE_0_1;
     private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D), Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D)};
 
+    private boolean needsFarmland = true;
     private String drop;
     public Age2Plant(Properties properties, ResourceLocation regName, String drop) {
         super(properties, null, regName);
         this.drop=drop;
     }
+
+    public Age2Plant(Properties properties, ResourceLocation regName, String drop, boolean needsFarmland) {
+        super(properties, null, regName);
+        this.drop=drop;
+        this.needsFarmland=needsFarmland;
+    }
+
     @Override
     protected IItemProvider getSeedsItem() {
         return Main.getItemByID(drop);
@@ -96,7 +104,11 @@ public class Age2Plant extends CropBase {
 
     public boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block == Blocks.FARMLAND;
+        if(needsFarmland) {
+            return block == Blocks.FARMLAND;
+        }else{
+            return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.PODZOL || block == Blocks.FARMLAND;
+        }
     }
 
 }

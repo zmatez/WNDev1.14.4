@@ -18,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.DecoratedFeatureConfig;
@@ -52,6 +53,13 @@ public class GrassBase extends GrassBlock {
     public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
         BlockState plant = plantable.getPlant(world, pos.offset(facing));
         net.minecraftforge.common.PlantType type = plantable.getPlantType(world, pos.offset(facing));
+        try {
+            Main.LOGGER.debug("Placing sth");
+            if (plant.getBlock().isValidPosition(Blocks.GRASS_BLOCK.getDefaultState(), (IWorldReader) world, pos)) {
+                Main.LOGGER.debug("Pled sth");
+                return true;
+            }
+        }catch (Exception e){Main.LOGGER.debug("Not sth");}
 
         if (plant.getBlock() == Blocks.CACTUS)
             return this.getBlock() == Blocks.CACTUS || this.getBlock() == Blocks.SAND || this.getBlock() == Blocks.RED_SAND;
@@ -77,6 +85,9 @@ public class GrassBase extends GrassBlock {
                         world.getBlockState(pos.south()).getMaterial() == Material.WATER);
                 return isBeach && hasWater;
         }
+
+
+
         return false;
     }
 

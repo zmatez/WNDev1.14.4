@@ -1,9 +1,7 @@
 package com.matez.wildnature.world.gen.feature;
 
-import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.BushBerryBase;
 import com.matez.wildnature.blocks.CropBase;
-import com.matez.wildnature.blocks.FruitableLeaves;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.other.WeightedList;
@@ -11,23 +9,14 @@ import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CropsBlock;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.placement.CountRangeConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.function.Function;
 
@@ -38,6 +27,9 @@ public class WNFruitFeature extends Feature<NoFeatureConfig> {
     }
 
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+        if(!worldIn.getDimension().isSurfaceWorld()){
+            return false;
+        }
         WeightedList<BushEntry> available = new WeightedList<>();
 
         entries.forEach(e -> {
@@ -84,6 +76,9 @@ public class WNFruitFeature extends Feature<NoFeatureConfig> {
         new BushEntry(WNBlocks.BUSH_BILBERRY.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.FOREST);
         new BushEntry(WNBlocks.BUSH_BLACK_LILAC.getDefaultState(), Biome.TempCategory.MEDIUM,4,true, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.BUSH_BLACK_LILAC.getDefaultState(), Biome.TempCategory.MEDIUM,4,true, BiomeDictionary.Type.FOREST);
+        new BushEntry(WNBlocks.BUSH_BLACKBERRY.getDefaultState(), Biome.TempCategory.MEDIUM,6,true, BiomeDictionary.Type.FOREST);
+        new BushEntry(WNBlocks.BUSH_CRANBERRY.getDefaultState(), Biome.TempCategory.MEDIUM,4,true, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.BUSH_CRANBERRY.getDefaultState(), Biome.TempCategory.COLD,4,true, BiomeDictionary.Type.PLAINS);
 
 
 
@@ -135,7 +130,7 @@ public class WNFruitFeature extends Feature<NoFeatureConfig> {
 
         public boolean canSpawnHere(BlockPos pos, IWorld world){
             Biome b = world.getBiome(pos);
-            if(b.getTempCategory()==category){
+            if(getTempCategory(b)==category){
                 for(BiomeDictionary.Type t : types){
                     if(BiomeDictionary.getTypes(b).contains(t)){
                         return true;
@@ -143,6 +138,16 @@ public class WNFruitFeature extends Feature<NoFeatureConfig> {
                 }
             }
             return false;
+        }
+
+        public Biome.TempCategory getTempCategory(Biome b) {
+            if (b.getCategory() == Biome.Category.OCEAN) {
+                return Biome.TempCategory.OCEAN;
+            } else if ((double)b.getDefaultTemperature() < 0.2D) {
+                return Biome.TempCategory.COLD;
+            } else {
+                return (double)b.getDefaultTemperature() < 0.5D ? Biome.TempCategory.MEDIUM : Biome.TempCategory.WARM;
+            }
         }
     }
 

@@ -1,0 +1,21 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"particle": "wildnature:blocks/block/frame_block",
+		"material": "wildnature:blocks/block/frame_block"
+	},
+	"elements": [
+		{
+			"from": [4, 0, 12],
+			"to": [12, 16, 16],
+			"faces": {
+				"north": {"uv": [4, 0, 12, 16], "texture": "#material"},
+				"east": {"uv": [0, 0, 4, 16], "texture": "#material"},
+				"south": {"uv": [4, 0, 12, 16], "texture": "#material"},
+				"west": {"uv": [12, 0, 16, 16], "texture": "#material"},
+				"up": {"uv": [4, 6, 12, 10], "texture": "#material"},
+				"down": {"uv": [4, 6, 12, 10], "texture": "#material"}
+			}
+		}
+	]
+}

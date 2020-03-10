@@ -94,7 +94,7 @@ public class BranchBase extends VWallBlock {
     }
 
     @Override
-    public BlockState rotate(BlockState state, IWorld world, BlockPos pos, Rotation direction) {
+    public BlockState rotate(BlockState state, Rotation direction) {
         BlockState b = this.getDefaultState().with(WATERLOGGED,state.get(WATERLOGGED));
         if(direction.equals(Rotation.CLOCKWISE_90)){
             b=b.with(EAST,state.get(NORTH));
@@ -120,6 +120,7 @@ public class BranchBase extends VWallBlock {
             b=b.with(WEST,b1.get(SOUTH));
             b=b.with(NORTH,b1.get(WEST));
         }
+        b = b.with(UP,state.get(UP)).with(DOWN,state.get(DOWN));
         return b;
     }
 

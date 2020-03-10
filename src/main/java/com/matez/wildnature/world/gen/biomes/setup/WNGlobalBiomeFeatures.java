@@ -1,5 +1,6 @@
 package com.matez.wildnature.world.gen.biomes.setup;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.world.gen.feature.WNFruitFeature;
 import com.matez.wildnature.world.gen.feature.WNVegeFeature;
@@ -51,17 +52,29 @@ public class WNGlobalBiomeFeatures {
             if(CommonConfig.generateUndergroundPlants.get()){
                 WNBiomeFeatures.addCavePlants(biome);
             }
-
             if(CommonConfig.generateRiverCanes.get()){
                 WNBiomeFeatures.addRiverCane(biome);
             }
-
             if(CommonConfig.generateSmallCacti.get()){
                 WNBiomeFeatures.addSmallCacti(biome);
             }
+            if(CommonConfig.replaceDefaultTrees.get()){
+                replaceDefaultFeatures(biome);
+            }
+            if(CommonConfig.generateShells.get()){
+                WNBiomeFeatures.addShells(biome);
+            }
+
         });
+    }
 
-
+    private static void replaceDefaultFeatures(Biome biome){
+        for (ConfiguredFeature<?> feature : biome.getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION)) {
+            //Main.LOGGER.info("B " +biome.getRegistryName() + " | " + ((DecoratedFeatureConfig)feature.config).feature.feature.getClass());
+            if(((DecoratedFeatureConfig)feature.config).feature.feature.getClass()==Feature.BIRCH_TREE.getClass()){
+                //Main.LOGGER.info("--> Found same feature on biome " + biome.getRegistryName());
+            }
+        }
     }
 
 

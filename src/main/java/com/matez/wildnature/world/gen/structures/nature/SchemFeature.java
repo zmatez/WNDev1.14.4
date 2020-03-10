@@ -1,6 +1,7 @@
 package com.matez.wildnature.world.gen.structures.nature;
 
 import com.google.common.collect.Sets;
+import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.BranchBase;
 import com.matez.wildnature.other.Utilities;
 import com.mojang.brigadier.StringReader;
@@ -71,6 +72,9 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
     private int rotation;
     public int terrainIncrease = 0;
 
+    private boolean canGenerate = true;
+    private boolean virtualPlace = false;
+
     @Override
     protected boolean place(Set<BlockPos> changedBlocks, IWorldGenerationReader worldIn, Random rand, BlockPos position, MutableBoundingBox p_208519_5_) {
         if(!canGrowTree(worldIn, position.down(), getSapling())){
@@ -87,11 +91,18 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
         }
 
         this.world=(IWorld)worldIn;
-        this.startBlockPos=soilPos;
+        this.startBlockPos=soilPos.up(terrainIncrease);
         this.random=rand;
         rotation= Utilities.rint(1,4,rand);
+        canGenerate=true;
+        addedBlocks.clear();
+        virtualPlace=true;
         setBlocks();
-        //setAddionalBlocks();
+        collaborateWithTerrain();
+        virtualPlace=false;
+        if(canGenerate) {
+            setBlocks();
+        }
         return true;
     }
 
@@ -101,14 +112,6 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
     public Set<BlockPos> setBlocks(){
         return Sets.newHashSet(addedBlocks);
-    }
-
-    public void setAddionalBlocks(){
-        for(BlockStatePos stps : addionalBlocks){
-            if(stps.getState().getBlock() instanceof BranchBase){
-                ((BranchBase)stps.getState().getBlock()).neighborChanged(stps.getState(),world,stps.getPos(),stps.getState().getBlock(),stps.getPos(),false);
-            }
-        }
     }
 
     public void Block(int x, int y, int z, BlockState state){
@@ -139,8 +142,15 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
         if(world.getBlockState(pos).getBlock()==Blocks.WATER && state.getBlock() instanceof IWaterLoggable){
             state=state.with(BlockStateProperties.WATERLOGGED,true);
         }
-        world.setBlockState(pos,state,19);
-        addedBlocks.add(pos);
+        if(!virtualPlace) {
+            if((isLeaf(state.getBlock()) && !world.getBlockState(pos).isSolid()) || !isLeaf(state.getBlock())) {
+                world.setBlockState(pos, state, 19);
+            }
+        }
+        if((isLeaf(state.getBlock()) && !world.getBlockState(pos).isSolid()) || !isLeaf(state.getBlock())) {
+            addedBlocks.add(pos);
+        }
+
     }
 
 
@@ -156,7 +166,7 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
         }
     }
 
-    public void generatePlatform(IWorldGenerationReader world){
+    public void collaborateWithTerrain(){
         if(bottomBlocks==null){
             return;
         }
@@ -180,35 +190,26 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
             }
             x++;
         }
-        x = 0;
-        int loop = 0;
-        int done = 0;
 
-        while(true){
-            try {
-                if (world.hasBlockState(downBlock(bottomBlocks.get(x), loop), new Predicate<BlockState>() {
-                    @Override
-                    public boolean test(BlockState state) {
-                        return state.isSolid();
+        //Main.LOGGER.debug("BottomBlocks: " + bottomBlocks.size() + " \n " + bottomBlocks.toString());
+
+        if(bottomBlocks.size()!=0 && bottomBlocks.size()!=1) {
+            for (int i = 0; i < 10; i++) {
+                boolean allSolid = true;
+                for (int a = 0; a < bottomBlocks.size(); a++) {
+                    BlockState state = world.getBlockState(bottomBlocks.get(a).down(i));
+                    if (!state.isSolid()) {
+                        allSolid = false;
+                        startBlockPos = startBlockPos.down();
+                        break;
                     }
-                })) {
-                    setBlockState(world, downBlock(bottomBlocks.get(x), loop), LOG);
-
-                } else {
-                    done++;
                 }
-
-                if ((bottomBlocks.size() - 1) == x) {
-                    x = 0;
-                    loop++;
-                    done = 0;
-                }
-                if (loop == 10) {
+                if (allSolid) {
                     break;
                 }
-                x++;
-            }catch(Exception e){
-                break;
+                if (i == 9 && !allSolid) {
+                    canGenerate = false;
+                }
             }
         }
 
@@ -235,6 +236,10 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
         public BlockState getState() {
             return state;
         }
+    }
+
+    private boolean isLeaf(Block b){
+        return b instanceof LeavesBlock;
     }
 
 }

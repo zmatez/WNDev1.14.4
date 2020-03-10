@@ -5,6 +5,7 @@ import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
+import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,14 +37,26 @@ public class BiomeGroups {
         groups.add(new BiomeGroup("tropical_island",new BiomeWeight(WNBiomes.TropicalIsland,5,true,true),new BiomeWeight(WNBiomes.TropicalCliffs,2)));
         groups.add(new BiomeGroup("tuchola_forest",new BiomeWeight(WNBiomes.TucholaForest,5,true,true),new BiomeWeight(WNBiomes.ColdLake,8),new BiomeWeight(WNBiomes.TucholaValley,8),new BiomeWeight(WNBiomes.TucholaForestHill,8)));
         groups.add(new BiomeGroup("snowy_tuchola_forest",new BiomeWeight(WNBiomes.SnowyTucholaForest,5,true,true),new BiomeWeight(WNBiomes.ColdLake,8),new BiomeWeight(WNBiomes.SnowyTucholaValley,8),new BiomeWeight(WNBiomes.SnowyTucholaForestHill,8)));
-        groups.add(new BiomeGroup("dense_tuchola_forest",new BiomeWeight(WNBiomes.DenseTucholaForest,5,true,true),new BiomeWeight(WNBiomes.ColdLake,8),new BiomeWeight(WNBiomes.TucholaForestHill,8)));
+        groups.add(new BiomeGroup("dense_tuchola_forest",new BiomeWeight(WNBiomes.DenseTucholaForest,5,true,true),new BiomeWeight(WNBiomes.ColdLake,8),new BiomeWeight(WNBiomes.SnowyTucholaForestHill,8)));
         groups.add(new BiomeGroup("snowy_dense_tuchola_forest",new BiomeWeight(WNBiomes.SnowyDenseTucholaForest,5,true,true),new BiomeWeight(WNBiomes.ColdLake,8),new BiomeWeight(WNBiomes.SnowyTucholaForestHill,8)));
+        groups.add(new BiomeGroup("olive",new BiomeWeight(WNBiomes.OliveGarden,5,true,true),new BiomeWeight(WNBiomes.TropicalLake,5),new BiomeWeight(WNBiomes.OliveHills,8)));
+        groups.add(new BiomeGroup("mirkwood",new BiomeWeight(WNBiomes.Mirkwood,5,true,true),new BiomeWeight(WNBiomes.DarkMirkwood,3)));
+        groups.add(new BiomeGroup("outback",new BiomeWeight(WNBiomes.Outback,9,true,true),new BiomeWeight(WNBiomes.WoodedOutback,2)));
+        groups.add(new BiomeGroup("madagascar",new BiomeWeight(WNBiomes.Madagascar,5,true,true),new BiomeWeight(WNBiomes.MadagascarValley,5)));
+        groups.add(new BiomeGroup("daintree",new BiomeWeight(WNBiomes.DaintreeForest,2,true,true),new BiomeWeight(WNBiomes.TropicalLake,5),new BiomeWeight(WNBiomes.DaintreePlateau,12)));
 
 
         groups.add(new BiomeGroup("oasis_desert",new BiomeWeight(Biomes.DESERT,16,true,true),new BiomeWeight(WNBiomes.Oasis,1)));
         groups.add(new BiomeGroup("oasis_sahara",new BiomeWeight(WNBiomes.Sahara,16,true,true),new BiomeWeight(WNBiomes.Oasis,1)));
 
 
+        groups.forEach(biomeGroup -> {
+            biomeGroup.biomes.forEach(biome -> {
+                if(BiomeDictionary.getTypes(biome.biome).isEmpty()){
+                    WNBiomes.registerNonSpawn(biome.biome,(BiomeDictionary.Type[])BiomeDictionary.getTypes(biome.defaultBiome).toArray());
+                }
+            });
+        });
     }
 
 

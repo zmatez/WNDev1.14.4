@@ -22,6 +22,9 @@ public class RiverCaneFeature extends Feature<NoFeatureConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+      if(!worldIn.getDimension().isSurfaceWorld()){
+         return false;
+      }
       int i = 0;
       int xzDiff = 8;
       int yDiff = 6;

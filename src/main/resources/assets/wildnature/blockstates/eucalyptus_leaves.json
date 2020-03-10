@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "": { "model": "wildnature:block/eucalyptus_leaves" }
-    }
+  "variants": {
+    "": { "model": "wildnature:block/eucalyptus_leaves" }
+  }
 }

@@ -22,14 +22,14 @@ public class CommonConfig {
     public static ForgeConfigSpec.BooleanValue effectOnJoin;
     public static ForgeConfigSpec.BooleanValue renderCapes;
     public static ForgeConfigSpec.BooleanValue playAmbientSounds;
-    public static ForgeConfigSpec.BooleanValue replaceOakTrees;
+    public static ForgeConfigSpec.BooleanValue replaceDefaultTrees;
     public static ForgeConfigSpec.BooleanValue generateUndergroundPlants;
     public static ForgeConfigSpec.BooleanValue generateRiverCanes;
-    public static ForgeConfigSpec.BooleanValue generatePoisonIves,generateCrystals,generateStalagmites,generatePebbles,generateCobweb,generateRockFormations,generateFruitBushes,generateVegeCrops,generateVines,generateSmallCacti;
+    public static ForgeConfigSpec.BooleanValue generatePoisonIves,generateCrystals,generateStalagmites,generatePebbles,generateCobweb,generateRockFormations,generateFruitBushes,generateVegeCrops,generateVines,generateSmallCacti,generateShells;
     public static ForgeConfigSpec.DoubleValue ambientSoundsVolume;
 
     public static ForgeConfigSpec.IntValue biomeSize,riverSize;
-    public static ForgeConfigSpec.IntValue maxTpLoop,biomeGroupSpawningSize, biomeGroupChance;
+    public static ForgeConfigSpec.IntValue maxSearchRadius,biomeGroupSpawningSize, biomeGroupChance;
     public static ForgeConfigSpec.IntValue rockFormationChance;
     public static ForgeConfigSpec.BooleanValue generateOres, generateRocks, genBasalt, genConglomerate, genGneiss, genLimestone, genMarble, genPegmatite, genSlate;
     public static ForgeConfigSpec.IntValue rockChance, rockSize;
@@ -40,7 +40,7 @@ public class CommonConfig {
     public static ForgeConfigSpec.BooleanValue poisonIvyHurts;
     public static ForgeConfigSpec.BooleanValue poisonIvyPoisons;
     public static ForgeConfigSpec.DoubleValue poisonIvyDamage;
-    public static ForgeConfigSpec.IntValue leafFruitChance, flowerBloomChance, flowerDropChance,fruitBushRarity,vegeCropRarity,riverCaneRarity,smallCactiRarity,poisonIvyRarity,riverCaneDensity;
+    public static ForgeConfigSpec.IntValue leafFruitChance, flowerBloomChance, flowerDropChance,fruitBushRarity,vegeCropRarity,riverCaneRarity,smallCactiRarity,poisonIvyRarity,riverCaneDensity,shellRarity;
     public static ForgeConfigSpec.IntValue tinRarity,copperRarity,amethystRarity,sapphireRarity,malachiteRarity,silverRarity,amberRarity,rubyRarity;
 
     public static ArrayList<Biome> blacklistedBiomes = new ArrayList<>();
@@ -72,9 +72,9 @@ public class CommonConfig {
 
         currentVersion = builder
                 .comment("Installed mod version. Please do not change this.").define("system.version", "");
-        maxTpLoop = builder
-                .comment("Max value of loop when finding biome (/wn biome tp)\nDefault: 10000")
-                .defineInRange("system.max_tp_time", 10000,0,99999999);
+        maxSearchRadius = builder
+                .comment("Max biome search radius\nDefault: 100000")
+                .defineInRange("system.max_search_radius", 100000,0,99999999);
         //runWorldOnServer = builder
         // .comment("Use WildNature World Generator on servers?")
         // .define("system.generate_on_server",true);
@@ -102,11 +102,11 @@ public class CommonConfig {
 
         biomeSize = builder
                 .comment("Biome Size\nDefault: 6")
-                .defineInRange("biomeSize",6, 0, 500);
+                .defineInRange("biomeSize",6, 1, 20);
 
         riverSize = builder
                 .comment("River Size\nDefault: 4")
-                .defineInRange("riverSize",4, 0, 500);
+                .defineInRange("riverSize",4, 1, 20);
 
         generateOres = builder
                 .comment("Generate Ores?\nDefault: true")
@@ -169,36 +169,36 @@ public class CommonConfig {
                 .defineInRange("rocks.formation_chance",7, 0, 10000);
 
         tinRarity = builder
-                .comment("Tin ore rarity\nSmaller = more rare\nDefault: 10")
-                .defineInRange("ores.tin_rarity",10, 0, 500);
+                .comment("Tin ore rarity\nSmaller = more rare\nDefault: 8")
+                .defineInRange("ores.tin_rarity",8, 0, 500);
 
         copperRarity = builder
-                .comment("Copper ore rarity\nSmaller = more rare\nDefault: 10")
-                .defineInRange("ores.copper_rarity",10, 0, 500);
+                .comment("Copper ore rarity\nSmaller = more rare\nDefault: 8")
+                .defineInRange("ores.copper_rarity",8, 0, 500);
 
         amethystRarity = builder
-                .comment("Amethyst ore rarity\nSmaller = more rare\nDefault: 5")
-                .defineInRange("ores.amethyst_rarity",5, 0, 500);
+                .comment("Amethyst ore rarity\nSmaller = more rare\nDefault: 4")
+                .defineInRange("ores.amethyst_rarity",4, 0, 500);
 
         sapphireRarity = builder
-                .comment("Sapphire ore rarity\nSmaller = more rare\nDefault: 4")
-                .defineInRange("ores.sapphire_rarity",4, 0, 500);
+                .comment("Sapphire ore rarity\nSmaller = more rare\nDefault: 3")
+                .defineInRange("ores.sapphire_rarity",3, 0, 500);
 
         malachiteRarity = builder
-                .comment("Malachite ore rarity\nSmaller = more rare\nDefault: 3")
-                .defineInRange("ores.malachite_rarity",3, 0, 500);
+                .comment("Malachite ore rarity\nSmaller = more rare\nDefault: 2")
+                .defineInRange("ores.malachite_rarity",2, 0, 500);
 
         silverRarity = builder
-                .comment("Silver ore rarity\nSmaller = more rare\nDefault: 5")
-                .defineInRange("ores.silver_rarity",5, 0, 500);
+                .comment("Silver ore rarity\nSmaller = more rare\nDefault: 1")
+                .defineInRange("ores.silver_rarity",1, 0, 500);
 
         amberRarity = builder
                 .comment("Amber ore rarity\nSmaller = more rare\nDefault: 3")
                 .defineInRange("ores.amber_rarity",3, 0, 500);
 
         rubyRarity = builder
-                .comment("Ruby ore rarity\nSmaller = more rare\nDefault: 1")
-                .defineInRange("ores.ruby_rarity",1, 0, 500);
+                .comment("Ruby ore rarity\nWarning - rubies are rare because they're generated only under oceans.\nSmaller = more rare\nDefault: 3")
+                .defineInRange("ores.ruby_rarity",3, 0, 500);
 
         generateBiomes = builder
                 .comment("Generate Biomes?\nDefault: true")
@@ -207,9 +207,9 @@ public class CommonConfig {
         blacklistBiome = builder
                 .comment("Insert biome ids that shouldn't generate naturally. Example - wildnature:grasslands,wildnature:bog").define("biome.blacklist", "");
 
-        replaceOakTrees = builder
-                .comment("[W.I.P] Replace oak trees with WildNature ones?\nDefault: true")
-                .define("biome.feature.replaceOakTrees",true);
+        replaceDefaultTrees = builder
+                .comment("Replace vanilla trees with WildNature ones?\nDefault: true")
+                .define("biome.feature.replaceDefaultTrees",true);
 
         generateUndergroundPlants = builder
             .comment("Should generate cave plants like glowing mushrooms\nDefault: true")
@@ -259,13 +259,17 @@ public class CommonConfig {
                 .comment("Should generate small cacti?\nDefault: true")
                 .define("biome.feature.small_cacti",true);
 
+        generateShells = builder
+                .comment("Should generate shells?\nDefault: true")
+                .define("biome.feature.shells",true);
+
         fruitBushRarity = builder
-                .comment("Fruit bushes spawn rarity\nSmaller = more rare\nDefault: 6")
-                .defineInRange("biome.feature.fruit_bushes_rarity",6, 0, 500);
+                .comment("Fruit bushes spawn rarity\nSmaller = more rare\nDefault: 3")
+                .defineInRange("biome.feature.fruit_bushes_rarity",3, 0, 500);
 
         vegeCropRarity = builder
-                .comment("Vegetable crops spawn rarity\nSmaller = more rare\nDefault: 8")
-                .defineInRange("biome.feature.vege_crops_rarity",8, 0, 500);
+                .comment("Vegetable crops spawn rarity\nSmaller = more rare\nDefault: 2")
+                .defineInRange("biome.feature.vege_crops_rarity",2, 0, 500);
 
         poisonIvyRarity = builder
                 .comment("Posion ivy & spidergrass rarity\nSmaller = more rare\nDefault: 2")
@@ -282,6 +286,9 @@ public class CommonConfig {
         smallCactiRarity = builder
                 .comment("Small cacti rarity\nSmaller = more rare\nDefault: 5")
                 .defineInRange("biome.feature.small_cacti_rarity",5, 0, 500);
+        shellRarity = builder
+                .comment("Shell generation rarity\nSmaller = more rare\nDefault: 6")
+                .defineInRange("biome.feature.shell_rarity",6, 0, 500);
 
         builder.pop();
     }
@@ -332,8 +339,8 @@ public class CommonConfig {
                 .defineInRange("flowerBloomChance",10,0,1000);
 
         flowerDropChance = builder
-                .comment("Flower drop chance\nDefault: 10")
-                .defineInRange("flowerDropChance",10,0,1000);
+                .comment("Flower drop chance\nDefault: 2")
+                .defineInRange("flowerDropChance",2,0,1000);
 
 
         builder.pop();

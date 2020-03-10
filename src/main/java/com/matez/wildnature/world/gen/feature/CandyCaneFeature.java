@@ -24,9 +24,13 @@ public class CandyCaneFeature extends Feature<NoFeatureConfig> {
     }
 
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+        if(!worldIn.getDimension().isSurfaceWorld()){
+            return false;
+        }
         if(worldIn.isAirBlock(pos.down())){
             return false;
         }
+
         if(worldIn.getBlockState(pos.down()).isSolid()){
             BlockState oldBlock = null;
             BlockPos posBlock = pos;

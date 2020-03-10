@@ -21,6 +21,9 @@ public class LavenderFeature extends Feature<NoFeatureConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+      if(!worldIn.getDimension().isSurfaceWorld()){
+         return false;
+      }
       BlockState blockstate = this.getRandomFlower(rand, pos);
       int i = 0;
 

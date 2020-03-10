@@ -1,5 +1,6 @@
 package com.matez.wildnature.other;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.ItemStackHelper;
@@ -9,6 +10,8 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
@@ -339,4 +342,29 @@ public class Utilities {
         return hex;
     }
 
+    public static float getDistance(BlockPos pos1, BlockPos pos2) {
+        float f = (float)(pos1.getX() - pos2.getX());
+        float f1 = (float)(pos1.getY() - pos2.getY());
+        float f2 = (float)(pos1.getZ() - pos2.getZ());
+        return MathHelper.sqrt(f * f + f1 * f1 + f2 * f2);
+    }
+
+    public static boolean isBlockNear(IWorld world, BlockPos pos, Block... blocks){
+        for (Block block : blocks) {
+            if(world.getBlockState(pos.offset(Direction.NORTH)).getBlock()==block){
+                return true;
+            }
+            if(world.getBlockState(pos.offset(Direction.SOUTH)).getBlock()==block){
+                return true;
+            }
+            if(world.getBlockState(pos.offset(Direction.EAST)).getBlock()==block){
+                return true;
+            }
+            if(world.getBlockState(pos.offset(Direction.WEST)).getBlock()==block){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

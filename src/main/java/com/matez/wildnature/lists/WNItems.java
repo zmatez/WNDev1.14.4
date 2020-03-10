@@ -47,6 +47,7 @@ public class WNItems {
     public static Item QUINCE_FRUIT;
     public static Item BILBERRIES;
     public static Item BLACK_LILAC_BERRIES;
+    public static Item CRANBERRIES;
     public static Item BLACKBERRY;
 
 
@@ -60,7 +61,7 @@ public class WNItems {
     public static Item PEACH;
     public static Item PINEAPPLE;
     public static Item POMEGRANATE;
-
+    public static Item MANGO;
 
     //TEA
     public static Item BLACK_TEA_LEAVES;
@@ -209,6 +210,7 @@ public class WNItems {
     public static Item COMPOT_BLACKBERRY_GOOSEBERRY;
     public static Item COMPOT_CHERRY_BLUEBERRY_RASPBERRY;
     public static Item COMPOT_CHOKEBERRY_BLACKBERRY_LINGONBERRY;
+    public static Item COMPOT_CRANBERRY;
     public static Item COMPOT_PLUM_APPLE;
     public static Item COMPOT_WHITE_CURRANT;
 
@@ -216,6 +218,7 @@ public class WNItems {
     public static Item JUICE_GRAPE;
     public static Item JUICE_GRAPEFRUIT;
     public static Item JUICE_LEMON;
+    public static Item JUICE_MANGO_PINEAPPLE;
     public static Item JUICE_ORANGE;
     public static Item JUICE_PEACH;
     public static Item JUICE_PINEAPPLE;
@@ -279,6 +282,8 @@ public class WNItems {
 
     public static Item POUCH;
 
+    //
+    public static Item CHISEL;
 
     //EGGS
     public static Item GOBLIN_EGG;

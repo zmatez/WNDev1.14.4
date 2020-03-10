@@ -22,6 +22,9 @@ public class WaterlilyFeature extends Feature<NoFeatureConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+      if(!worldIn.getDimension().isSurfaceWorld()){
+         return false;
+      }
       BlockPos blockpos1;
       for(BlockPos blockpos = pos; blockpos.getY() > 0; blockpos = blockpos1) {
          blockpos1 = blockpos.down();

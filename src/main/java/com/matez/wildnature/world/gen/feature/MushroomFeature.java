@@ -22,6 +22,9 @@ public class MushroomFeature extends Feature<NoFeatureConfig> {
     }
 
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+        if(!worldIn.getDimension().isSurfaceWorld()){
+            return false;
+        }
         BlockState state = Utilities.getWeighBlock(list);
         for(BlockState blockstate = worldIn.getBlockState(pos); (blockstate.isAir() || pos.getY() > 0); blockstate = worldIn.getBlockState(pos)) {
             pos = pos.down();

@@ -21,6 +21,9 @@ public class CobwebFeature extends Feature<NoFeatureConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+       if(!worldIn.getDimension().isSurfaceWorld()){
+           return false;
+       }
        if(worldIn.getBlockState(pos).isAir() && (worldIn.getBlockState(pos.down()).isSolid() || worldIn.getBlockState(pos.up()).isSolid())) {
            worldIn.setBlockState(pos, Blocks.COBWEB.getDefaultState(), 2);
 

@@ -21,6 +21,9 @@ public class SurfaceBlobFeature extends Feature<FeatureRadiusConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, FeatureRadiusConfig config) {
+      if(!worldIn.getDimension().isSurfaceWorld()){
+         return false;
+      }
       while(worldIn.isAirBlock(pos) && pos.getY() > 2) {
          pos = pos.down();
       }

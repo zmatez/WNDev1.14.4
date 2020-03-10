@@ -3,6 +3,7 @@ package com.matez.wildnature.world.gen.chunk;
 import java.util.List;
 
 import com.matez.wildnature.world.gen.biomes.setup.WNGenSettings;
+import com.matez.wildnature.world.gen.biomes.setup.WNWorldEntitySpawner;
 import com.matez.wildnature.world.gen.noise.bukkit.SimplexOctaveGenerator;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.SharedSeedRandom;
@@ -55,7 +56,7 @@ public class WNChunkGeneratorOverworld extends NoiseChunkGenerator<WNGenSettings
         Biome biome = region.getChunk(i, j).getBiomes()[0];
         SharedSeedRandom sharedseedrandom = new SharedSeedRandom();
         sharedseedrandom.setDecorationSeed(region.getSeed(), i << 4, j << 4);
-        WorldEntitySpawner.performWorldGenSpawning(region, biome, i, j, sharedseedrandom);
+        WNWorldEntitySpawner.performWorldGenSpawning(region, biome, i, j, sharedseedrandom);
     }
 
     protected void func_222548_a(double[] adouble, int chunkX, int chunkZ) {

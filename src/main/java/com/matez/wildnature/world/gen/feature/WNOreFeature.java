@@ -19,6 +19,7 @@ public class WNOreFeature extends Feature<WNOreFeatureConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, WNOreFeatureConfig config) {
+
       float f = rand.nextFloat() * (float)Math.PI;
       float f1 = (float)config.size / 8.0F;
       int i = MathHelper.ceil(((float)config.size / 16.0F * 2.0F + 1.0F) / 2.0F);

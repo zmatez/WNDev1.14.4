@@ -20,6 +20,9 @@ public class PebbleFeature extends Feature<NoFeatureConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+       if(!worldIn.getDimension().isSurfaceWorld()){
+           return false;
+       }
        if(worldIn.getBlockState(pos).isAir()) {
            if (worldIn.getBlockState(pos.down()).isSolid()) {
                worldIn.setBlockState(pos, Main.getBlockByID("wildnature:pebble").getDefaultState(), 2);

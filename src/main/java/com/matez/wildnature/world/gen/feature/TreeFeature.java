@@ -22,6 +22,9 @@ public class TreeFeature extends Feature<NoFeatureConfig> {
     }
 
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+        if(!worldIn.getDimension().isSurfaceWorld()){
+            return false;
+        }
         AbstractTreeFeature feature = Utilities.getWeighTree(list);
         return feature ==null ? false : feature.place(worldIn,generator,rand,pos,config);
     }

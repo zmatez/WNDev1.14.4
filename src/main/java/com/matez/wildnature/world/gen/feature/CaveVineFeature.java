@@ -1,5 +1,6 @@
 package com.matez.wildnature.world.gen.feature;
 
+import com.matez.wildnature.lists.WNBlocks;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.VineBlock;
@@ -21,10 +22,13 @@ public class CaveVineFeature extends Feature<NoFeatureConfig> {
     private static final Direction[] DIRECTIONS = Direction.values();
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+       if(!worldIn.getDimension().isSurfaceWorld()){
+           return false;
+       }
        if(worldIn.getBlockState(pos).isAir()) {
            for(Direction direction : DIRECTIONS) {
                if (direction != Direction.DOWN && VineBlock.canAttachTo(worldIn, pos, direction)) {
-                   worldIn.setBlockState(pos, Blocks.VINE.getDefaultState().with(VineBlock.getPropertyFor(direction), Boolean.valueOf(true)), 2);
+                   worldIn.setBlockState(pos, WNBlocks.GLOW_VINE.getDefaultState().with(VineBlock.getPropertyFor(direction), Boolean.valueOf(true)), 2);
                    break;
                }
            }

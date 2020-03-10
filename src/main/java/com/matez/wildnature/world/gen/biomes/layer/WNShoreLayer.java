@@ -35,6 +35,7 @@ public enum WNShoreLayer implements ICastleTransformer {
    private static final int WHITE_BEACH = Registry.BIOME.getId(WNBiomes.WhiteBeach);
    private static final int MAHOGANY_RAINFOREST = Registry.BIOME.getId(WNBiomes.MahoganyRainforest);
    private static final int TROPICAL_ISLAND = Registry.BIOME.getId(WNBiomes.TropicalIsland);
+   private static final int MADAGASCAR = Registry.BIOME.getId(WNBiomes.Madagascar);
    private static final int TROPICAL_CLIFFS = Registry.BIOME.getId(WNBiomes.TropicalCliffs);
 
    public int apply(INoiseRandom context, int north, int west, int south, int east, int center) {
@@ -43,7 +44,7 @@ public enum WNShoreLayer implements ICastleTransformer {
          if (WNLayerUtil.isShallowOcean(north) || WNLayerUtil.isShallowOcean(west) || WNLayerUtil.isShallowOcean(south) || WNLayerUtil.isShallowOcean(east)) {
             return MUSHROOM_FIELD_SHORE;
          }
-      }else if (center == MAHOGANY_RAINFOREST || center == TROPICAL_ISLAND || center == TROPICAL_CLIFFS) {
+      }else if (center == MAHOGANY_RAINFOREST || center == TROPICAL_ISLAND || center == TROPICAL_CLIFFS || center == MADAGASCAR) {
          if (WNLayerUtil.isShallowOcean(north) || WNLayerUtil.isShallowOcean(west) || WNLayerUtil.isShallowOcean(south) || WNLayerUtil.isShallowOcean(east)) {
             return WHITE_BEACH;
          }

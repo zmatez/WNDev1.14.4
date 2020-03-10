@@ -31,6 +31,7 @@ public class WNBiomeLayer implements IC0Transformer {
     private static final int TROPICAL_ISLAND = Registry.BIOME.getId(WNBiomes.TropicalIsland);
 
 
+
     @SuppressWarnings("unchecked")
     private java.util.List<net.minecraftforge.common.BiomeManager.BiomeEntry>[] biomes = new java.util.ArrayList[net.minecraftforge.common.BiomeManager.BiomeType.values().length];
     private final OverworldGenSettings settings;

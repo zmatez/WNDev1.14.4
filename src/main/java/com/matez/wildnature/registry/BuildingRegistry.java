@@ -338,6 +338,12 @@ public class BuildingRegistry {
                 WNBlocks.SLATE_COBBLE_FENCE= new FenceBase(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.3F, 4.5F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("slate_cobble_fence")),
 
 
+                WNBlocks.BEAMS = new BlockBeams(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.0F), new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("beams")),
+                WNBlocks.BRICKS_ARROWSLIT = new BlockArrowSlit(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.0F), new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("bricks_arrowslit")),
+                WNBlocks.BRICKS_MACHICOLATIONS = new BlockMachicolations(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.0F), new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("bricks_machicolations")),
+                WNBlocks.HALFARCH = new BlockHalfArch(Blocks.STONE.getDefaultState(),Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.0F), new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("halfarch")),
+                WNBlocks.SLAB_CORNER = new BlockSlabCorner(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.0F), new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("slab_corner")),
+                WNBlocks.SLAB_VERTICAL = new BlockSlabVertical(Block.Properties.create(Material.ROCK).hardnessAndResistance(1.5F, 6.0F), new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("slab_vertical")),
 
 
         };

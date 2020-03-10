@@ -1,10 +1,12 @@
 package com.matez.wildnature.world.gen.biomes.setup;
 
+import com.matez.wildnature.blocks.BananaFruitBlock;
 import com.matez.wildnature.world.gen.biomes.biomes.*;
 import com.matez.wildnature.world.gen.manager.WNBiomeManager;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
@@ -37,6 +39,7 @@ public class WNBiomes {
     public static Biome Orchard = new WNOrchard("orchard");
     public static Biome OrchardPlum = new WNOrchardPlum("orchard_plum");
     public static Biome CherryParadise = new WNCherryParadise("cherry_paradise");
+    public static Biome CitrusOrchard = new WNCitrusOrchard("citrus_orchard");
 
     //MAPLE
     public static Biome MapleForest = new WNMapleForest("maple_forest");
@@ -61,6 +64,7 @@ public class WNBiomes {
 
     //OUTBACK
     public static Biome Outback = new WNOutback("outback");
+    public static Biome WoodedOutback = new WNWoodedOutback("wooded_outback");
 
     //TATRA
     public static Biome TatraMountains = new WNTatraMountains("tatra_mountains");
@@ -98,10 +102,10 @@ public class WNBiomes {
     public static Biome DenseTucholaForest = new WNDenseTucholaForest("dense_tuchola_forest");
     public static Biome TucholaForestHill = new WNTucholaForestHill("tuchola_forest_hill");
     public static Biome TucholaValley = new WNTucholaValley("tuchola_valley");
-    public static Biome SnowyTucholaForest = new WNTucholaForest("snowy_tuchola_forest");
-    public static Biome SnowyDenseTucholaForest = new WNDenseTucholaForest("snowy_dense_tuchola_forest");
-    public static Biome SnowyTucholaForestHill = new WNTucholaForestHill("snowy_tuchola_forest_hill");
-    public static Biome SnowyTucholaValley = new WNTucholaValley("snowy_tuchola_valley");
+    public static Biome SnowyTucholaForest = new WNSnowyTucholaForest("snowy_tuchola_forest");
+    public static Biome SnowyDenseTucholaForest = new WNSnowyDenseTucholaForest("snowy_dense_tuchola_forest");
+    public static Biome SnowyTucholaForestHill = new WNSnowyTucholaForestHill("snowy_tuchola_forest_hill");
+    public static Biome SnowyTucholaValley = new WNSnowyTucholaValley("snowy_tuchola_valley");
 
 
     //HIGHLANDS
@@ -115,9 +119,14 @@ public class WNBiomes {
     //SAFARI
     public static Biome Safari = new WNSafari("safari");
     public static Biome SafariHills = new WNSafariHills("safari_hills");
+    public static Biome BaobabSavanna = new WNBaobabSavanna("baobab_savanna");
 
     //REDWOOD
     public static Biome RedwoodForest = new WNRedwoodForest("redwood_forest");
+    public static Biome OldRedwoodForest = new WNOldRedwoodForest("old_redwood_forest");
+    public static Biome CedarForest = new WNCedarForest("cedar_fields");
+    public static Biome SnowyCedarForest = new WNCedarForest("snowy_cedar_fields");
+
 
     //CHRISTMAS
     public static Biome ChristmasDream = new WNChristmasDream("christmas_dream");
@@ -132,7 +141,7 @@ public class WNBiomes {
     //BIRCH_GROVE
     public static Biome BirchGrove = new WNBirchGrove("birch_grove");
     public static Biome SnowyBirchGrove = new WNSnowyBirchGrove("snowy_birch_grove");
-
+    public static Biome WeepingBirchForest = new WNWeepingBirchForest("weeping_birch_forest");
 
     //FLOWER FIELD
     public static Biome FlowerField = new WNFlowerField("flower_field");
@@ -147,6 +156,7 @@ public class WNBiomes {
     public static Biome TintedDesert = new WNTintedDesert("tinted_desert");
     public static Biome TintedDesertHills = new WNTintedDesertHills("tinted_desert_hills");
     public static Biome Badlands = new WNBadlands("badlands");
+    public static Biome DeadDesolation = new WNDeadDesolation("dead_desolation");
 
 
     //DENSE FOREST
@@ -184,6 +194,20 @@ public class WNBiomes {
     public static Biome Wetlands = new WNWetlands("wetlands");
     public static Biome MangroveForest = new WNMangroveBayou("mangrove_bayou");
 
+    //TROPICAL
+    public static Biome EucalyptusForest = new WNEucalyptusForest("eucalyptus_forest");
+    public static Biome DaintreeForest = new WNDaintreeForest("daintree_forest");
+    public static Biome DaintreePlateau = new WNDaintreePlateau("daintree_plateau");
+    public static Biome BananaThicket = new WNBananaThicket("banana_thicket");
+
+    //CITRUS
+    public static Biome OliveGarden = new WNOliveGarden("olive_grove");
+    public static Biome OliveHills = new WNOliveHills("olive_hills");
+
+    //SPOOKY
+    public static Biome Mirkwood = new WNMirkwood("mirkwood");
+    public static Biome DarkMirkwood = new WNDarkMirkwood("dark_mirkwood");
+
 
     //LAKES
     public static Biome WarmLake = new WNWarmLake("warm_lake");
@@ -198,7 +222,8 @@ public class WNBiomes {
     public static Biome TropicalIsland = new WNTropicalIsland("tropical_island");
     public static Biome TropicalCliffs = new WNTropicalCliffs("tropical_cliffs");
     public static Biome ChristmasIsland = new WNChristmasIsland("christmas_island");
-
+    public static Biome Madagascar = new WNMadagascar("madagascar");
+    public static Biome MadagascarValley = new WNMadagascarValley("madagascar_valley");
 
     //BEACHES
     public static Biome WhiteBeach = new WNWhiteBeach("white_beach");
@@ -218,8 +243,9 @@ public class WNBiomes {
         register(SnowyTucholaForest, BiomeManager.BiomeType.ICY,5, Type.FOREST, Type.DENSE, Type.COLD, Type.SNOWY, Type.CONIFEROUS);
         register(SnowyDenseTucholaForest, BiomeManager.BiomeType.ICY,3, Type.FOREST, Type.DENSE, Type.COLD, Type.SNOWY, Type.CONIFEROUS);
         register(RockyTaiga, BiomeManager.BiomeType.COOL,8, Type.FOREST, Type.MOUNTAIN, Type.HILLS, Type.COLD, Type.CONIFEROUS);
-        register(Orchard, BiomeManager.BiomeType.WARM,7, Type.FOREST, Type.PLAINS);
-        register(CherryParadise, BiomeManager.BiomeType.WARM,5, Type.FOREST, Type.PLAINS, Type.RARE);
+        register(Orchard, BiomeManager.BiomeType.WARM,4, Type.FOREST, Type.PLAINS);
+        register(CitrusOrchard, BiomeManager.BiomeType.WARM,3, Type.FOREST, Type.PLAINS, Type.JUNGLE, Type.HOT);
+        register(CherryParadise, BiomeManager.BiomeType.WARM,4, Type.FOREST, Type.PLAINS, Type.RARE);
         register(GoldenWoods, BiomeManager.BiomeType.WARM,7, Type.FOREST, Type.PLAINS);
         register(Steppe, BiomeManager.BiomeType.WARM,7, Type.DEAD, Type.DRY, Type.WASTELAND, Type.PLAINS);
         register(MapleForest, BiomeManager.BiomeType.WARM,7, Type.FOREST, Type.DENSE);
@@ -253,12 +279,14 @@ public class WNBiomes {
         register(Rainforest, BiomeManager.BiomeType.WARM,7, Type.FOREST, Type.JUNGLE);
         register(MahoganyRainforest, BiomeManager.BiomeType.WARM,7, Type.FOREST, Type.JUNGLE);
         register(Safari, BiomeManager.BiomeType.DESERT,10, Type.SAVANNA);
-        register(RedwoodForest, BiomeManager.BiomeType.WARM,10, Type.FOREST, Type.DENSE);
+        register(RedwoodForest, BiomeManager.BiomeType.WARM,9, Type.FOREST, Type.DENSE);
+        register(OldRedwoodForest, BiomeManager.BiomeType.WARM,4, Type.FOREST, Type.DENSE, Type.RARE);
         register(GiantConiferousForest, BiomeManager.BiomeType.COOL,8, Type.FOREST, Type.CONIFEROUS, Type.DENSE);
         register(SnowyGiantConiferousForest, BiomeManager.BiomeType.ICY,8, Type.FOREST, Type.CONIFEROUS, Type.SNOWY, Type.DENSE);
         register(ChristmasDream, BiomeManager.BiomeType.ICY,5, Type.PLAINS, Type.CONIFEROUS, Type.SNOWY, Type.COLD);
         register(AutumnalSpruceForest, BiomeManager.BiomeType.COOL,10, Type.PLAINS, Type.CONIFEROUS, Type.SNOWY, Type.COLD);
         register(BirchGrove, BiomeManager.BiomeType.WARM,10, Type.FOREST, Type.WET, Type.DENSE);
+        register(WeepingBirchForest, BiomeManager.BiomeType.WARM,10, Type.FOREST, Type.WET, Type.DENSE);
         register(SnowyBirchGrove, BiomeManager.BiomeType.COOL,10, Type.FOREST, Type.SNOWY, Type.COLD);
         register(FlowerField, BiomeManager.BiomeType.WARM,7, Type.PLAINS, Type.DENSE, Type.LUSH);
         register(Sahara, BiomeManager.BiomeType.DESERT,10, Type.DEAD, Type.DRY, Type.SANDY);
@@ -271,6 +299,33 @@ public class WNBiomes {
         register(MangroveForest, BiomeManager.BiomeType.WARM,5, Type.FOREST, Type.SWAMP, Type.JUNGLE);
         register(PrehistoricValley, BiomeManager.BiomeType.WARM,1, Type.PLAINS, Type.RARE);
         register(SeasonalTaiga, BiomeManager.BiomeType.COOL,8, Type.FOREST, Type.CONIFEROUS, Type.DENSE);
+        register(BaobabSavanna, BiomeManager.BiomeType.DESERT,5, Type.SAVANNA);
+        register(DeadDesolation, BiomeManager.BiomeType.DESERT,6, Type.DEAD);
+        register(CedarForest, BiomeManager.BiomeType.COOL,9, Type.FOREST, Type.DENSE, Type.COLD);
+        register(SnowyCedarForest, BiomeManager.BiomeType.ICY,9, Type.FOREST, Type.DENSE, Type.COLD, Type.SNOWY);
+        register(EucalyptusForest, BiomeManager.BiomeType.WARM,5, Type.FOREST, Type.DENSE, Type.JUNGLE, Type.HOT);
+        register(OliveGarden, BiomeManager.BiomeType.WARM,5, Type.FOREST, Type.HILLS, Type.JUNGLE, Type.HOT);
+        register(Mirkwood, BiomeManager.BiomeType.COOL,3, Type.FOREST, Type.DENSE, Type.SPOOKY, Type.RARE);
+        register(DaintreeForest, BiomeManager.BiomeType.WARM,2, Type.FOREST, Type.HILLS, Type.JUNGLE, Type.HOT, Type.DENSE, Type.WET, Type.RARE);
+        register(BananaThicket, BiomeManager.BiomeType.WARM,3, Type.FOREST, Type.JUNGLE, Type.HOT, Type.DENSE, Type.WET);
+
+        //DICTIONARY
+        registerNonSpawn(River,Type.RIVER,Type.WET,Type.WATER);
+        registerNonSpawn(FrozenRiver,Type.RIVER,Type.WET,Type.COLD, Type.SNOWY,Type.WATER);
+        registerNonSpawn(NileRiver,Type.RIVER,Type.WET,Type.DRY,Type.HOT,Type.WATER,Type.SANDY);
+        registerNonSpawn(AmazonRiver,Type.RIVER,Type.WET,Type.JUNGLE,Type.WATER);
+
+        registerNonSpawn(WarmLake,Type.RIVER,Type.WET,Type.WATER);
+        registerNonSpawn(TropicalLake,Type.RIVER,Type.WET,Type.JUNGLE,Type.WATER);
+        registerNonSpawn(FrozenLake,Type.RIVER,Type.WET,Type.COLD, Type.SNOWY,Type.WATER);
+        registerNonSpawn(ColdLake,Type.RIVER,Type.WET,Type.COLD,Type.WATER);
+
+        //islands
+        registerNonSpawn(ChristmasIsland,Type.SNOWY,Type.COLD,Type.MAGICAL,Type.RARE);
+        registerNonSpawn(EasterIsland,Type.PLAINS,Type.WASTELAND,Type.MAGICAL,Type.RARE);
+        registerNonSpawn(TropicalIsland,Type.HOT,Type.WET,Type.FOREST,Type.RARE);
+        registerNonSpawn(Madagascar,Type.HOT,Type.WET,Type.FOREST,Type.RARE);
+        registerNonSpawn(MadagascarValley,Type.HOT,Type.WET,Type.PLAINS,Type.RARE);
 
         BiomeGroups.register();
     }
@@ -287,11 +342,20 @@ public class WNBiomes {
         generatorBiomes.add(biome);
     }
 
+    public static void registerNonSpawn(Biome biome, Type... types){//adds biome to biome list that have to spawn naturally.
+        if(CommonConfig.generateBiomes.get()) {
+            Main.LOGGER.info("Registering dictionary for unusual biome: " + biome.getRegistryName());
+
+            BiomeDictionary.addTypes(biome, types);
+        }
+        generatorBiomes.add(biome);
+    }
+
     public static void registerAll(){ //adds biome to biome list that have to spawn naturally.
         Main.LOGGER.info(" ----- Registering " + biomesToRegister.size() + " biomes ----- ");
         biomesToRegister.forEach(BiomeToRegister::registerIt);
         WNGlobalBiomeFeatures.setup();
-        if(CommonConfig.generateBiomes.get()){
+        if(!CommonConfig.generateBiomes.get()){
             Main.LOGGER.info("Biome generation is not active");
         }
         Main.LOGGER.info(" -------------------------------------------------------------- ");

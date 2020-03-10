@@ -15,8 +15,8 @@ public class WNRiverLayer implements ICastleTransformer {
         return i == riverFilter(east) && i == riverFilter(north) && i == riverFilter(west) && i == riverFilter(south) ? -1 : RIVER;
     }
 
-    private static int riverFilter(int p_151630_0_) {
+    private static int riverFilter(int i) {
         int size = 2;
-        return p_151630_0_ >= size ? size + (p_151630_0_ & 1) : p_151630_0_;
+        return i >= size ? size + (i & 1) : i;
     }
 }

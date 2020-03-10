@@ -171,9 +171,10 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
     }
 
     public static void addCaveVines(Biome biomeIn) {
-        if (biomeIn.getTempCategory() == Biome.TempCategory.WARM) {
-            if(biomeIn!= com.matez.wildnature.world.gen.biomes.setup.WNBiomes.Polders)
+        if (biomeIn.getTempCategory() == Biome.TempCategory.WARM && BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.JUNGLE)) {
+            if (biomeIn != WNBiomes.Polders) {
                 biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveVineFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(50, 10, 0, 35)));
+            }
         }
     }
 
@@ -302,5 +303,12 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new DoubleCaveBushFeature(BushConfig::deserialize,true), new BushConfig(Main.getBlockByID("wildnature:large_root").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(10, 55, 0, 52)));
 
         biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:magma_shroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(4, 5, 0, 16)));
+    }
+
+
+    public static void addShells(Biome biomeIn){
+	    if(biomeIn==Biomes.BEACH || biomeIn==WNBiomes.WhiteBeach) {
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new ShellFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.shellRarity.get(), 50, 0, 69)));
+        }
     }
 }

@@ -21,6 +21,7 @@ public class FlowerRegistry {
     private ArrayList<FruitableLeaves.StageFruit> oliveFruits = new ArrayList<>();
     private ArrayList<FruitableLeaves.StageFruit> peachFruits = new ArrayList<>();
     private ArrayList<FruitableLeaves.StageFruit> pomegranateFruits = new ArrayList<>();
+    private ArrayList<FruitableLeaves.StageFruit> mangoFruits = new ArrayList<>();
     public FlowerRegistry(){
         lemonFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
         lemonFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("",0,0)));
@@ -48,15 +49,6 @@ public class FlowerRegistry {
         grapeFruitFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:grapefruit",1,1)));
         grapeFruitFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:grapefruit",1,1)));
         grapeFruitFruits.add(new FruitableLeaves.StageFruit(7, new FruitableLeaves.ItemPortion("wildnature:grapefruit",1,1)));
-
-        bananaFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
-        bananaFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("",0,0)));
-        bananaFruits.add(new FruitableLeaves.StageFruit(2, new FruitableLeaves.ItemPortion("wildnature:banana",1,1)));
-        bananaFruits.add(new FruitableLeaves.StageFruit(3, new FruitableLeaves.ItemPortion("wildnature:banana",1,1)));
-        bananaFruits.add(new FruitableLeaves.StageFruit(4, new FruitableLeaves.ItemPortion("wildnature:banana",1,1)));
-        bananaFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:banana",1,1)));
-        bananaFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:banana",1,1)));
-        bananaFruits.add(new FruitableLeaves.StageFruit(7, new FruitableLeaves.ItemPortion("wildnature:banana",1,1)));
 
         limeFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
         limeFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("",0,0)));
@@ -93,8 +85,17 @@ public class FlowerRegistry {
         pomegranateFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:pomegranate",1,1)));
         pomegranateFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:pomegranate",1,1)));
         pomegranateFruits.add(new FruitableLeaves.StageFruit(7, new FruitableLeaves.ItemPortion("wildnature:pomegranate",1,1)));
-        
-        
+
+        mangoFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
+        mangoFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("",0,0)));
+        mangoFruits.add(new FruitableLeaves.StageFruit(2, new FruitableLeaves.ItemPortion("wildnature:mango",1,1)));
+        mangoFruits.add(new FruitableLeaves.StageFruit(3, new FruitableLeaves.ItemPortion("wildnature:mango",1,1)));
+        mangoFruits.add(new FruitableLeaves.StageFruit(4, new FruitableLeaves.ItemPortion("wildnature:mango",1,1)));
+        mangoFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:mango",1,1)));
+        mangoFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:mango",1,1)));
+        mangoFruits.add(new FruitableLeaves.StageFruit(7, new FruitableLeaves.ItemPortion("wildnature:mango",1,1)));
+
+
         flowers = new Block[]{
                 WNBlocks.CHERRY_FLOWER = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("cherry_flower")),
                 WNBlocks.JACARANDA_FLOWER = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("jacaranda_flower")),
@@ -148,7 +149,7 @@ public class FlowerRegistry {
                 WNBlocks.ORCHIS_PURPLE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("orchis_purple")),
                 WNBlocks.ORCHIS_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("orchis_white")),
                 WNBlocks.PEACE_LILY = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("peace_lily")),
-                WNBlocks.WILD_ROSE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("wild_rose")),
+                WNBlocks.WILD_ROSE = new WildRosePlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("wild_rose")),
 
 
                 WNBlocks.GRASS_FERNSPROUT = new BushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grass_fernsprout")),
@@ -166,9 +167,10 @@ public class FlowerRegistry {
                 WNBlocks.POISON_IVY = new PoisonIvyBlock(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("poison_ivy")),
                 WNBlocks.LAMPGRASS = new FloweringBushBase(Block.Properties.create(Material.TALL_PLANTS).lightValue(4),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lampgrass")),
                 WNBlocks.SPIDERGRASS = new SpidergrassBlock(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("spidergrass")),
+                WNBlocks.MOSS = new MossBlock(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("moss")),
+                WNBlocks.LICHEN = new LichenBlock(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().sound(SoundType.SWEET_BERRY_BUSH),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lichen")),
 
                 WNBlocks.YEW_BUSH = new BushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("yew_bush")),
-                WNBlocks.BLACKBERRY_BUSH = new FloweringBushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("blackberry_bush")),
                 WNBlocks.CATTAIL = new CattailBlock(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("cattail")),
                 WNBlocks.BIRD_OF_PARADISE = new DoubleBushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bird_of_paradise")),
                 WNBlocks.RAPESEED = new DoubleBushBaseFlowering(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("rapeseed")),
@@ -197,9 +199,16 @@ public class FlowerRegistry {
                 WNBlocks.BUSH_WILD_STRAWBERRY = new WildStrawberryPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_wild_strawberry")),
                 WNBlocks.BUSH_QUINCE = new QuincePlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_quince")),
                 WNBlocks.BUSH_BLACK_LILAC = new BlackLilacPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_black_lilac")),
+                WNBlocks.BUSH_BLACKBERRY = new BlackberryPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_blackberry")),
+                WNBlocks.BUSH_CRANBERRY = new CranberryPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_cranberry")),
+
+                //VINES
+                WNBlocks.GRAPE_VINE_PURPLE = new GrapeVine(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grape_vine_purple"), GrapeVine.VineType.PURPLE),
+                WNBlocks.GRAPE_VINE_YELLOW = new GrapeVine(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grape_vine_yellow"), GrapeVine.VineType.YELLOW),
+
 
                 //CITRUS
-                WNBlocks.BANANA_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("banana_leaves"),bananaFruits),
+                WNBlocks.BANANA_LEAVES = new BananaLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("banana_leaves")),
                 WNBlocks.GRAPE_FRUIT_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grape_fruit_leaves"),grapeFruitFruits),
                 WNBlocks.LEMON_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lemon_leaves"),lemonFruits),
                 WNBlocks.LIME_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lime_leaves"),limeFruits),
@@ -207,14 +216,13 @@ public class FlowerRegistry {
                 WNBlocks.ORANGE_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("orange_leaves"),orangeFruits),
                 WNBlocks.PEACH_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("peach_leaves"),peachFruits),
                 WNBlocks.POMEGRANATE_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("pomegranate_leaves"),pomegranateFruits),
+                WNBlocks.MANGO_LEAVES = new CitrusLeavesBlock(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("mango_leaves"),mangoFruits),
 
+                WNBlocks.BANANA_FRUIT = new BananaFruitBlock(Block.Properties.create(Material.PLANTS).hardnessAndResistance(0.4F,0.1F).sound(SoundType.STEM)).setRegistryName(Main.RegistryEvents.location("banana_fruit")),
 
 
 
                 //PLANTS
-
-
-
                 WNBlocks.TOMATO_PLANT = new TomatoPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("tomato_plant")),
                 WNBlocks.LETTUCE_PLANT = new LettucePlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("lettuce_plant")),
                 WNBlocks.ONION_PLANT = new OnionPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("onion_plant")),
@@ -245,17 +253,18 @@ public class FlowerRegistry {
                 WNBlocks.PEA_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("pea_plant"),"wildnature:peas"),
                 WNBlocks.PEANUT_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("peanut_plant"),"wildnature:peanut"),
                 WNBlocks.HORSE_RADISH_PLANT = new BushBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),null, "wildnature:horse_radish", 1,2,0,Main.RegistryEvents.location("horse_radish_plant")),
+                WNBlocks.BLACK_PEPPER_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("black_pepper_plant"),"wildnature:black_pepper"),
 
 
-                WNBlocks.COTTON_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("cotton_plant"),"wildnature:cotton"),
-                WNBlocks.PINEAPPLE_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("pineapple_plant"),"wildnature:pineapple"),
+                WNBlocks.COTTON_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("cotton_plant"),"wildnature:cotton",false),
+                WNBlocks.PINEAPPLE_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("pineapple_plant"),"wildnature:pineapple",false),
 
 
-                WNBlocks.BLACK_TEA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("black_tea_plant"),"wildnature:black_tea_leaf"),
-                WNBlocks.GREEN_TEA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("green_tea_plant"),"wildnature:green_tea_leaf"),
-                WNBlocks.MELISSA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("melissa_tea_plant"),"wildnature:melissa_tea_leaf"),
+                WNBlocks.BLACK_TEA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("black_tea_plant"),"wildnature:black_tea_leaf",false),
+                WNBlocks.GREEN_TEA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("green_tea_plant"),"wildnature:green_tea_leaf",false),
+                WNBlocks.MELISSA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("melissa_tea_plant"),"wildnature:melissa_tea_leaf",false),
                 WNBlocks.MINT_PLANT = new BushBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),null, "wildnature:mint", 1,2,0,Main.RegistryEvents.location("mint_plant")),
-                WNBlocks.WHITE_TEA = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("white_tea_plant"),"wildnature:white_tea_leaf"),
+                WNBlocks.WHITE_TEA = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("white_tea_plant"),"wildnature:white_tea_leaf",false),
 
 
 

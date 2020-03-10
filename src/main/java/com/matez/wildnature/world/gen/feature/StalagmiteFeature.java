@@ -24,6 +24,9 @@ public class StalagmiteFeature extends Feature<NoFeatureConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+       if(!worldIn.getDimension().isSurfaceWorld()){
+           return false;
+       }
        if(worldIn.getBlockState(pos).isAir()) {
            if (worldIn.getBlockState(pos.down()).isSolid()) {
                worldIn.setBlockState(pos, Main.getBlockByID("wildnature:stone_spike").getDefaultState().with(StoneSpikeBlock.type, StoneSpikeType.STALAGMITE), 2);
