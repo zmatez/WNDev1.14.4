@@ -16,12 +16,13 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.storage.loot.LootContext;
+import net.minecraftforge.common.IShearable;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BushBase extends BushBlock {
+public class BushBase extends BushBlock implements IShearable {
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
     private Item item;
 

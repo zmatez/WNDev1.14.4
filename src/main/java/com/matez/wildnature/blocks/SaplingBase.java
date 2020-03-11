@@ -1,10 +1,13 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.*;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -15,7 +18,9 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
 
+import java.util.List;
 import java.util.Random;
 
 public class SaplingBase extends BushBlock implements IGrowable {
@@ -42,6 +47,17 @@ public class SaplingBase extends BushBlock implements IGrowable {
 
     public Tree getTrees() {
         return tree;
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        boolean silkTouch = false;
+        List<ItemStack> list = super.getDrops(state, builder);
+        if(list.isEmpty() && !silkTouch){
+            list.add(new ItemStack(item, 1));
+        }
+
+        return list;
     }
 
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {

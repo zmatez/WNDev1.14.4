@@ -82,7 +82,7 @@ public class WNVegeFeature extends Feature<NoFeatureConfig> {
         new BushEntry(WNBlocks.LEEK_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.RED_PEPPER_PLANT.getDefaultState(), Biome.TempCategory.WARM,3, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.RHUBARB_PLANT.getDefaultState(), Biome.TempCategory.WARM,5, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.RICE_PLANT.getDefaultState(), Biome.TempCategory.WARM,5, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.RICE_PLANT.getDefaultState(), Biome.TempCategory.WARM,5, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.WET);
         new BushEntry(WNBlocks.TURNIP_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,4, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.BROCCOLI_PLANT.getDefaultState(), Biome.TempCategory.WARM,3, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.CABBAGE_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);

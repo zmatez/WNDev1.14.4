@@ -1,5 +1,6 @@
 package com.matez.wildnature.blocks;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -54,12 +55,11 @@ public class GrassBase extends GrassBlock {
         BlockState plant = plantable.getPlant(world, pos.offset(facing));
         net.minecraftforge.common.PlantType type = plantable.getPlantType(world, pos.offset(facing));
         try {
-            Main.LOGGER.debug("Placing sth");
-            if (plant.getBlock().isValidPosition(Blocks.GRASS_BLOCK.getDefaultState(), (IWorldReader) world, pos)) {
-                Main.LOGGER.debug("Pled sth");
+            if (plant.getBlock() instanceof BushBlock && Utilities.isValidGroundFor(plant,Blocks.GRASS_BLOCK.getDefaultState(), world, pos)) {
                 return true;
             }
-        }catch (Exception e){Main.LOGGER.debug("Not sth");}
+        }catch (Exception e){
+        }
 
         if (plant.getBlock() == Blocks.CACTUS)
             return this.getBlock() == Blocks.CACTUS || this.getBlock() == Blocks.SAND || this.getBlock() == Blocks.RED_SAND;

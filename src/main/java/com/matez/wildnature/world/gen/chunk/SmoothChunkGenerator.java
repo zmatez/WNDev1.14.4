@@ -249,7 +249,7 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 	public int getTerrainHeight(int x, int z)
 	{
 		Biome biome = this.biomeProvider.func_222366_b(x, z);
-		ChunkLandscape landscape = ChunkLandscape.getOrCreate(x, z, this.seed, biome, this.chunk);
+		ChunkLandscape landscape = ChunkLandscape.getOrCreate(x, z, this.seed,this.getSeaLevel(), biome, this.chunk);
 		
 		return (int) landscape.generateHeightmap();
 	}

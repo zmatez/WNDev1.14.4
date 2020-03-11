@@ -10,6 +10,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 
 public class PebbleBase extends BlockBase {
 
@@ -31,5 +32,10 @@ public class PebbleBase extends BlockBase {
         }else{
             return null;
         }
+    }
+
+    @Override
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        return worldIn.getBlockState(pos.down()).isSolid();
     }
 }

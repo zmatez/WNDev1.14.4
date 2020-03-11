@@ -104,8 +104,8 @@ public class BiomeListCommand {
             }
 
 
-            StringTextComponent infocomponent = new StringTextComponent(t + I18n.format(biome.getRegistryName().getPath()));
-            infocomponent.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new StringTextComponent(TextFormatting.GOLD+"--- INFORMATIONS ---")
+            StringTextComponent infocomponent = new StringTextComponent(t + I18n.format(biome.getTranslationKey()));
+            infocomponent.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new StringTextComponent(TextFormatting.GOLD+"--- INFORMATION ---")
                     .appendSibling(new StringTextComponent(TextFormatting.GRAY+"\n-> " + TextFormatting.DARK_AQUA+"id: " + biome.getRegistryName()))
                     .appendSibling(new StringTextComponent(TextFormatting.GRAY+"\n-> " + TextFormatting.DARK_AQUA+"index: " + Registry.BIOME.getId(biome)))
                     .appendSibling(new StringTextComponent(TextFormatting.GRAY+"\n-> " + TextFormatting.DARK_AQUA+"mod: " + I18n.format(biome.getRegistryName().getNamespace())))

@@ -28,6 +28,9 @@ public class WNWildFarmFeature extends Feature<NoFeatureConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+       if(Utilities.rint(0,2)!=0){
+           return false;
+       }
        if(!worldIn.getDimension().isSurfaceWorld()){
            return false;
        }

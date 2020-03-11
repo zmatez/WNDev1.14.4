@@ -73,8 +73,8 @@ public class CommonConfig {
         currentVersion = builder
                 .comment("Installed mod version. Please do not change this.").define("system.version", "");
         maxSearchRadius = builder
-                .comment("Max biome search radius\nDefault: 100000")
-                .defineInRange("system.max_search_radius", 100000,0,99999999);
+                .comment("Max *nearest* biome search radius. After exceeding this number, WildNature will search for biome ignoring radius.\nDefault: 15000")
+                .defineInRange("system.max_search_radius", 15000,10,100000000);
         //runWorldOnServer = builder
         // .comment("Use WildNature World Generator on servers?")
         // .define("system.generate_on_server",true);

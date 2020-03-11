@@ -24,6 +24,7 @@ import com.matez.wildnature.proxy.ClientProxy;
 import com.matez.wildnature.proxy.IProxy;
 import com.matez.wildnature.proxy.ServerProxy;
 import com.matez.wildnature.registry.*;
+import com.matez.wildnature.world.gen.biomes.setup.WNBiomes;
 import com.matez.wildnature.world.gen.chunk.SmoothChunkGenerator;
 import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorType;
 import com.matez.wildnature.world.gen.feature.RockGen;
@@ -113,7 +114,7 @@ import java.util.*;
 public class Main {
     public static Main instance;
     public static final String modid = "wildnature";
-    public static final String version = "2.1.4";
+    public static final String version = "2.1.5";
     public static final Logger LOGGER = LogManager.getLogger(modid);
     public static final wnItemGroup WILDNATURE_GROUP = new wnItemGroup();
     public static final wnItemGroupUnderground WILDNATURE_UNDERGROUND_GROUP = new wnItemGroupUnderground();
@@ -188,6 +189,7 @@ public class Main {
         });*/
         WNMobSpawnFix.fixAll();
 
+        WNBiomes.unregisterBlacklisted();
 
         proxy.init();
         wnInfo("Setup completed");

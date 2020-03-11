@@ -13,6 +13,7 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.sun.javafx.geom.Vec2d;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.entity.Entity;
@@ -105,7 +106,7 @@ public class BiomeArgument implements ArgumentType<Biome>
 
                     //player.connection.setPlayerLocation(x, y, z, player.rotationYaw, player.rotationPitch);
                     Main.LOGGER.info("Found " + biome.getRegistryName() + " biome at " + x + " " + y + " " + z + ". This taken " + radius + " attempts.");
-                    StringTextComponent s3 = new StringTextComponent(TextFormatting.AQUA + "Found " + TextFormatting.LIGHT_PURPLE + biome.getTranslationKey() + TextFormatting.AQUA+" biome at ");
+                    StringTextComponent s3 = new StringTextComponent(TextFormatting.AQUA + "Found " + TextFormatting.LIGHT_PURPLE + I18n.format(biome.getTranslationKey()) + TextFormatting.AQUA+" biome at ");
                     StringTextComponent s4 = new StringTextComponent(TextFormatting.YELLOW + ""+x+" " + y + " " + z);
                     StringTextComponent s42 = new StringTextComponent(TextFormatting.AQUA + " - " + TextFormatting.GOLD + (int)Utilities.getDistance(new BlockPos(player.posX,player.posY,player.posZ),new BlockPos(x,y,z)) + TextFormatting.AQUA+" blocks away.");
                     s4.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.GOLD+"Click to copy to the command prompt")));
@@ -168,9 +169,9 @@ public class BiomeArgument implements ArgumentType<Biome>
         Main.LOGGER.info("Starting searching for biome " + biomeToFind.getRegistryName());
         BiomeProvider chunkManager = world.getChunkProvider().getChunkGenerator().getBiomeProvider();
         int maxDistance = CommonConfig.maxSearchRadius.get();
-        for(int currDist = 1; currDist<maxDistance; currDist= currDist + quality){
+        for(int currDist = 0; currDist<maxDistance; currDist= currDist + quality){
             ArrayList<Vec2d> pos = drawCircle(startX,startZ,currDist);
-            player.sendStatusMessage(new StringTextComponent(TextFormatting.YELLOW+"Searching in radius " + TextFormatting.GOLD + currDist + TextFormatting.YELLOW),true);
+            player.sendStatusMessage(new StringTextComponent(TextFormatting.YELLOW+"Searching in radius " + TextFormatting.GOLD + currDist + TextFormatting.YELLOW + "/" + TextFormatting.GOLD + + maxDistance),true);
 
             int x = 0;
             for (Vec2d vec : pos) {
@@ -181,9 +182,6 @@ public class BiomeArgument implements ArgumentType<Biome>
                 }
 
 
-            }
-            if(currDist>=maxRadius){
-                break;
             }
 
         }
@@ -219,7 +217,7 @@ public class BiomeArgument implements ArgumentType<Biome>
             {
                 return new BlockPos((int)x, 0, (int)z);
             }
-            if(n>= CommonConfig.maxSearchRadius.get()){
+            if(n>=250000){
                 return null;
             }
         }

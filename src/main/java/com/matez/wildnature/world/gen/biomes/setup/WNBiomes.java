@@ -5,6 +5,7 @@ import com.matez.wildnature.world.gen.biomes.biomes.*;
 import com.matez.wildnature.world.gen.manager.WNBiomeManager;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.common.BiomeDictionary;
@@ -12,6 +13,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class WNBiomes {
     public static ArrayList<Biome> biomes = new ArrayList<>();
@@ -359,6 +361,27 @@ public class WNBiomes {
             Main.LOGGER.info("Biome generation is not active");
         }
         Main.LOGGER.info(" -------------------------------------------------------------- ");
+    }
+
+    public static void unregisterBlacklisted(){
+        ArrayList<BiomeManager.BiomeEntry> b = new ArrayList<>();
+        try {
+            b.addAll(Objects.requireNonNull(WNBiomeManager.getBiomes(BiomeManager.BiomeType.ICY)));
+            b.addAll(Objects.requireNonNull(WNBiomeManager.getBiomes(BiomeManager.BiomeType.COOL)));
+            b.addAll(Objects.requireNonNull(WNBiomeManager.getBiomes(BiomeManager.BiomeType.WARM)));
+            b.addAll(Objects.requireNonNull(WNBiomeManager.getBiomes(BiomeManager.BiomeType.DESERT)));
+
+            for (BiomeManager.BiomeEntry biomeEntry : b) {
+                if(CommonConfig.blacklistedBiomes.contains(biomeEntry.biome)){
+                    Main.LOGGER.info("Removed blacklisted " + biomeEntry.biome.getRegistryName() + " biome from generation.");
+                    WNBiomeManager.removeSpawnBiome(biomeEntry.biome);
+                    WNBiomeManager.removeBiome(BiomeManager.BiomeType.ICY,biomeEntry);
+                    WNBiomeManager.removeBiome(BiomeManager.BiomeType.COOL,biomeEntry);
+                    WNBiomeManager.removeBiome(BiomeManager.BiomeType.WARM,biomeEntry);
+                    WNBiomeManager.removeBiome(BiomeManager.BiomeType.DESERT,biomeEntry);
+                }
+            }
+        }catch (Exception e){Main.LOGGER.warn("Unable to unregister blacklisted biomes. " + e.getLocalizedMessage());}
     }
 
     public static class BiomeToRegister{

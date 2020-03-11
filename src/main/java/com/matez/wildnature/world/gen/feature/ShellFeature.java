@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.function.Function;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -27,12 +28,10 @@ public class ShellFeature extends Feature<NoFeatureConfig> {
       int i = 0;
 
 
-      Main.LOGGER.debug("Shell " + pos);
       for(int j = 0; j < 64; ++j) {
          BlockPos blockpos = pos.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
-         if ((worldIn.isAirBlock(blockpos) || worldIn.getBlockState(blockpos).getBlock()==Blocks.WATER) && (!worldIn.getDimension().isNether() || blockpos.getY() < worldIn.getWorld().getDimension().getHeight()) && (worldIn.getBlockState(blockpos).getBlock()== Blocks.SAND || worldIn.getBlockState(blockpos).getBlock()== Blocks.GRAVEL || worldIn.getBlockState(blockpos).getBlock()== WNBlocks.WHITE_SAND ) ) {
+         if ((worldIn.isAirBlock(blockpos) || worldIn.getBlockState(blockpos).getBlock()==Blocks.WATER) && (!worldIn.getDimension().isNether() || blockpos.getY() < worldIn.getWorld().getDimension().getHeight()) && (worldIn.getBlockState(blockpos.down()).getBlock()== Blocks.SAND || worldIn.getBlockState(blockpos.down()).getBlock()== Blocks.GRAVEL || worldIn.getBlockState(blockpos.down()).getBlock()== WNBlocks.WHITE_SAND ) ) {
             BlockState shell = null;
-            Main.LOGGER.debug("ShellX");
             if(worldIn.getBlockState(blockpos.down()).getBlock()== Blocks.SAND){
                //NORMAL BEACH
 
@@ -80,7 +79,13 @@ public class ShellFeature extends Feature<NoFeatureConfig> {
                }
             }
             if(shell!=null){
-               worldIn.setBlockState(blockpos,shell,2);
+               if(worldIn.getBlockState(blockpos).getBlock()==Blocks.WATER){
+                  worldIn.setBlockState(blockpos,shell.with(BlockStateProperties.WATERLOGGED,true),2);
+
+               }else{
+                  worldIn.setBlockState(blockpos,shell.with(BlockStateProperties.WATERLOGGED,false),2);
+
+               }
             }
             ++i;
          }

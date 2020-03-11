@@ -374,6 +374,11 @@ public class SaplingRegistry {
         Tree pomegranateTrees= new SchemTree(weighList);
         weighList = new TreeWeighList();
 
+        weighList.add(new citrus1(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MANGO_LEAVES)),10);
+        weighList.add(new citrus2(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MANGO_LEAVES)),10);
+
+        Tree mangoTrees= new SchemTree(weighList);
+
         weighList.add(new nuytsia1(NoFeatureConfig::deserialize,false),10);
         weighList.add(new nuytsia2(NoFeatureConfig::deserialize,false),10);
         weighList.add(new nuytsia3(NoFeatureConfig::deserialize,false),10);
@@ -423,6 +428,7 @@ public class SaplingRegistry {
                 WNBlocks.OLIVE_SAPLING = new SaplingBase(oliveTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("olive_sapling")),
                 WNBlocks.PEACH_SAPLING = new SaplingBase(peachTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("peach_sapling")),
                 WNBlocks.POMEGRANATE_SAPLING = new SaplingBase(pomegranateTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("pomegranate_sapling")),
+                WNBlocks.MANGO_SAPLING = new SaplingBase(mangoTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("mango_sapling")),
                 WNBlocks.NUYTSIA_SAPLING = new SaplingBase(nuytsiaTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("nuytsia_sapling"))
 
 

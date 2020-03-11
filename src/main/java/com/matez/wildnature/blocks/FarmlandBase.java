@@ -1,9 +1,12 @@
 package com.matez.wildnature.blocks;
 
+import java.util.List;
 import java.util.Random;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -11,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
@@ -26,15 +30,15 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
 
 public class FarmlandBase extends FarmlandBlock {
    public Item item;
-   
-   public static final IntegerProperty MOISTURE = BlockStateProperties.MOISTURE_0_7;
+
    protected static final VoxelShape SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 15.0D, 16.0D);
 
-   private static String dirt = Blocks.DIRT.getRegistryName().toString();
-   
+   private String dirt = Blocks.DIRT.getRegistryName().toString();
+
    public FarmlandBase(Properties properties, Item.Properties builder, ResourceLocation regName, String dirtBlock) {
       super(properties);
       this.setDefaultState(this.stateContainer.getBaseState().with(MOISTURE, Integer.valueOf(0)));
@@ -46,6 +50,28 @@ public class FarmlandBase extends FarmlandBlock {
       WNBlocks.BLOCKS.add(this);
       WNBlocks.ITEMBLOCKS.add(item);
       
+   }
+
+   @Override
+   public boolean ticksRandomly(BlockState state) {
+      return true;
+   }
+
+   @Override
+   public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
+      BlockState plant = plantable.getPlant(world, pos.offset(facing));
+      net.minecraftforge.common.PlantType type = plantable.getPlantType(world, pos.offset(facing));
+      try {
+         if (plant.getBlock() instanceof BushBlock && Utilities.isValidGroundFor(plant,Blocks.FARMLAND.getDefaultState().with(FarmlandBlock.MOISTURE,state.get(MOISTURE)), world, pos)) {
+            return true;
+         }
+      }catch (Exception e){
+      }
+
+
+
+
+      return false;
    }
 
    /**
@@ -108,8 +134,12 @@ public class FarmlandBase extends FarmlandBlock {
       super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
    }
 
+   public String getDirt() {
+      return dirt;
+   }
+
    public static void turnToDirt(BlockState state, World worldIn, BlockPos pos) {
-      worldIn.setBlockState(pos, nudgeEntitiesWithNewState(state, Main.getBlockByID(dirt).getDefaultState(), worldIn, pos));
+      worldIn.setBlockState(pos, nudgeEntitiesWithNewState(state, Main.getBlockByID(((FarmlandBase)state.getBlock()).getDirt()).getDefaultState(), worldIn, pos));
    }
 
    private boolean hasCrops(IBlockReader worldIn, BlockPos pos) {
@@ -134,4 +164,16 @@ public class FarmlandBase extends FarmlandBlock {
    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
       return false;
    }
+
+   @Override
+   public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+      boolean silkTouch = false;
+      List<ItemStack> list = super.getDrops(state, builder);
+      if(list.isEmpty() && !silkTouch){
+         list.add(new ItemStack(Main.getBlockByID(dirt), 1));
+      }
+
+      return list;
+   }
+
 }

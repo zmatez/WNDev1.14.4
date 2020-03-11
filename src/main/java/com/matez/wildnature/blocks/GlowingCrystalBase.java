@@ -1,6 +1,7 @@
 package com.matez.wildnature.blocks;
 
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -44,9 +45,8 @@ public class GlowingCrystalBase extends EndRodBlock {
 
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        boolean silkTouch = true;
         List<ItemStack> list = super.getDrops(state, builder);
-        if(list.isEmpty() && !silkTouch){
+        if(list.isEmpty() && Utilities.rint(0,1)==0){
             list.add(new ItemStack(item, 1));
         }
 

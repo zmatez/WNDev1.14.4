@@ -22,12 +22,12 @@ import java.util.Random;
 
 public class LightningBugBlock extends EndRodBlock {
     private static final double height = 16D;
-    protected static final VoxelShape SHAPE0 = Block.makeCuboidShape(4.0D, 16D, 4.0D, 12.0D, 6.0D, 12.0D);
-    protected static final VoxelShape SHAPE1 = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 10.0D, 12.0D);
-    protected static final VoxelShape SHAPE2 = Block.makeCuboidShape(4.0D, 4.0D, 6.0D, 12.0D, 12.0D, 16.0D);
-    protected static final VoxelShape SHAPE3 = Block.makeCuboidShape(4.0D, 4.0D, 0.0D, 12.0D, 12.0D, 10.0D);
-    protected static final VoxelShape SHAPE4 = Block.makeCuboidShape(6.0D, 4.0D, 4.0D, 16.0D, 12.0D, 12.0D);
-    protected static final VoxelShape SHAPE5 = Block.makeCuboidShape(10.0D, 4.0D, 4.0D, 0.0D, 12.0D, 12.0D);
+    protected static final VoxelShape SHAPE0 = Block.makeCuboidShape(4.0D, 16D, 4.0D, 12.0D, 1.0D, 12.0D);
+    protected static final VoxelShape SHAPE1 = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 15.0D, 12.0D);
+    protected static final VoxelShape SHAPE2 = Block.makeCuboidShape(4.0D, 4.0D, 1.0D, 12.0D, 12.0D, 16.0D);
+    protected static final VoxelShape SHAPE3 = Block.makeCuboidShape(4.0D, 4.0D, 0.0D, 12.0D, 12.0D, 15.0D);
+    protected static final VoxelShape SHAPE4 = Block.makeCuboidShape(1.0D, 4.0D, 4.0D, 16.0D, 12.0D, 12.0D);
+    protected static final VoxelShape SHAPE5 = Block.makeCuboidShape(15.0D, 4.0D, 4.0D, 0.0D, 12.0D, 12.0D);
 
     private Item item;
 

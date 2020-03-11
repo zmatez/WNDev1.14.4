@@ -124,7 +124,7 @@ public class WNCommand {
         StringTextComponent s3 = new StringTextComponent(TextFormatting.AQUA+""+TextFormatting.BOLD+"-> "+TextFormatting.YELLOW+"Generator: " + generator+"\n");
         StringTextComponent s4 = new StringTextComponent(TextFormatting.AQUA+""+TextFormatting.BOLD+"-> "+TextFormatting.YELLOW+"Patron: " + patron+"\n");
         StringTextComponent s5 = new StringTextComponent(TextFormatting.AQUA+""+TextFormatting.BOLD+"-> "+TextFormatting.YELLOW+"Language: " + language+"\n");
-        StringTextComponent s6 = new StringTextComponent(TextFormatting.AQUA+""+TextFormatting.BOLD+"-> "+TextFormatting.YELLOW+"Official Page & wiki: " + TextFormatting.DARK_AQUA+"wildnature.matez.net"+"\n");
+        StringTextComponent s6 = new StringTextComponent(TextFormatting.AQUA+""+TextFormatting.BOLD+"-> "+TextFormatting.GREEN+"Official Page & wiki: " + TextFormatting.AQUA+"www.wildnaturemod.com"+"\n");
         StringTextComponent s7 = new StringTextComponent(TextFormatting.AQUA+""+TextFormatting.BOLD+"-> "+TextFormatting.YELLOW+"CurseForge: " + TextFormatting.DARK_AQUA+"bit.ly/wildnature-mod"+"\n");
         StringTextComponent s8 = new StringTextComponent(TextFormatting.AQUA+""+TextFormatting.BOLD+"-> "+TextFormatting.YELLOW+"Discord: " + TextFormatting.DARK_AQUA+"bit.ly/wildnature-discord"+"\n");
         StringTextComponent s9 = new StringTextComponent(TextFormatting.AQUA+""+TextFormatting.BOLD+"-> "+TextFormatting.YELLOW+"GitHub: " + TextFormatting.DARK_AQUA+"github.com/zmatez/wildnature"+"\n");

@@ -1,7 +1,10 @@
 package com.matez.wildnature.other;
 
+import com.matez.wildnature.Main;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.BushBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
@@ -11,13 +14,17 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 
 import javax.annotation.Nullable;
 import java.awt.*;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
 import java.util.*;
 
 public class Utilities {
@@ -365,6 +372,29 @@ public class Utilities {
             }
         }
 
+        return false;
+    }
+
+    public static boolean isValidGroundFor(BlockState plant, BlockState placeState, @Nullable IBlockReader world, @Nullable BlockPos pos) throws Exception{
+        if (plant.getBlock() instanceof BushBlock){
+            Class clazz = plant.getBlock().getClass();
+            Class superclass = clazz;
+            Method method=null;
+            while(superclass!=null){
+                try {
+                    method = superclass.getDeclaredMethod("isValidGround", BlockState.class, IBlockReader.class, BlockPos.class);
+                    break;
+                }catch (Exception e){
+                    superclass=superclass.getSuperclass();
+                }
+
+            }
+            if(method!=null) {
+                method.setAccessible(true);
+                return (boolean) method.invoke(plant.getBlock(), placeState, world, pos);
+            }
+            return false;
+        }
         return false;
     }
 }
