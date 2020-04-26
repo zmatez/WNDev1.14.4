@@ -19,6 +19,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 
 import javax.annotation.Nullable;
@@ -35,7 +36,7 @@ public class Utilities {
         }
 
         if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
+            return max;
         }
 
         Random r = new Random();
@@ -48,7 +49,7 @@ public class Utilities {
         }
 
         if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
+            return max;
         }
 
 
@@ -61,7 +62,7 @@ public class Utilities {
         }
 
         if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
+            return max;
         }
 
         Random r = new Random();
@@ -74,12 +75,20 @@ public class Utilities {
         }
 
         if (min >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
+            return max;
         }
 
 
         return min + (max - min) * rand.nextDouble();
     }
+    public static boolean iBetween(int rangeMin, int rangeMax, int number){
+        return number>rangeMin&&number<rangeMax;
+    }
+
+    public static boolean dBetween(double rangeMin, double rangeMax, double number){
+        return number>rangeMin&&number<rangeMax;
+    }
+
     public static boolean chance(double percentChance){
         double x = rdoub(0,100);
         //Crack.LOGGER.info("chance: " + percentChance+"/"+x);
@@ -357,6 +366,29 @@ public class Utilities {
     }
 
     public static boolean isBlockNear(IWorld world, BlockPos pos, Block... blocks){
+        try {
+            for (Block block : blocks) {
+                if (world.getBlockState(pos.offset(Direction.NORTH)).getBlock() == block) {
+                    return true;
+                }
+                if (world.getBlockState(pos.offset(Direction.SOUTH)).getBlock() == block) {
+                    return true;
+                }
+                if (world.getBlockState(pos.offset(Direction.EAST)).getBlock() == block) {
+                    return true;
+                }
+                if (world.getBlockState(pos.offset(Direction.WEST)).getBlock() == block) {
+                    return true;
+                }
+            }
+
+            return false;
+        }catch (Exception e){
+            return true;
+        }
+    }
+
+    public static boolean isBlockNear(IChunk world, BlockPos pos, Block... blocks){
         for (Block block : blocks) {
             if(world.getBlockState(pos.offset(Direction.NORTH)).getBlock()==block){
                 return true;
@@ -382,7 +414,7 @@ public class Utilities {
             Method method=null;
             while(superclass!=null){
                 try {
-                    method = superclass.getDeclaredMethod("isValidGround", BlockState.class, IBlockReader.class, BlockPos.class);
+                    method = superclass.getDeclaredMethod("func_200014_a_", BlockState.class, IBlockReader.class, BlockPos.class);
                     break;
                 }catch (Exception e){
                     superclass=superclass.getSuperclass();

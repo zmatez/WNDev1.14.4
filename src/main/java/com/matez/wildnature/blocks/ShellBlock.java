@@ -1,30 +1,44 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.Main;
+import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.lists.WNItems;
+import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.*;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShellBlock extends BushBase implements IWaterLoggable {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     public ShellBlock(Properties properties, Item.Properties builder, ResourceLocation regName) {
-        super(properties.doesNotBlockMovement().sound(SoundType.CORAL), builder, regName, true);
+        super(properties.doesNotBlockMovement().sound(SoundType.CORAL).hardnessAndResistance(0.2F,0f), builder, regName, true);
     }
+
+
 
     @Override
     public boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
@@ -61,5 +75,30 @@ public class ShellBlock extends BushBase implements IWaterLoggable {
 
         IFluidState ifluidstate = context.getWorld().getFluidState(blockpos);
         return this.getDefaultState().with(WATERLOGGED, Boolean.valueOf(ifluidstate.getFluid() == Fluids.WATER));
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        List<ItemStack> list = new ArrayList<>();
+        list.add(new ItemStack(this, 1));
+
+        return list;
+    }
+
+    @Override
+    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if(player.getHeldItem(handIn).isEmpty()){
+            worldIn.setBlockState(pos,Blocks.AIR.getDefaultState());
+            player.setHeldItem(handIn,new ItemStack(Item.getItemFromBlock(state.getBlock())));
+            return true;
+        }
+        if(player.getHeldItem(handIn).getItem()==Item.getItemFromBlock(state.getBlock()) && player.getHeldItem(handIn).getCount()<getItem().getMaxStackSize()){
+            worldIn.setBlockState(pos,Blocks.AIR.getDefaultState());
+            ItemStack s = player.getHeldItem(handIn);
+            s.grow(1);
+            player.setHeldItem(handIn,s);
+            return true;
+        }
+        return false;
     }
 }

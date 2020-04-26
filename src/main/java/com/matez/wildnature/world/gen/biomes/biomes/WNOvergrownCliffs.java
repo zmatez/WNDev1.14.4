@@ -22,7 +22,7 @@ public class WNOvergrownCliffs extends WNBiome {
         super(name,(new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, WNSurfaceBuilders.OVERGROWN_STONE_CONFIG)
                 .precipitation(RainType.RAIN)
-                .category(Category.PLAINS)
+                .category(Category.EXTREME_HILLS)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
                 .climate(WNBiomeBuilder.Climate.CONTINENTAL_WARM)
                 .depth(1F)
@@ -49,7 +49,7 @@ public class WNOvergrownCliffs extends WNBiome {
         WNBiomeFeatures.addGrass(this,7, Main.getBlockByID("wildnature:small_grass").getDefaultState());
         WNBiomeFeatures.addGrass(this,7,Main.getBlockByID("wildnature:medium_grass").getDefaultState());
         WNBiomeFeatures.addGrass(this,3);
-        WNBiomeFeatures.addMushrooms(this);
+
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:buttercup_orange").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);

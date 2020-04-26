@@ -1,6 +1,7 @@
 package com.matez.wildnature.proxy;
 
 import com.matez.wildnature.gui.tileEntities.DungeonCommanderTileEntity;
+import com.matez.wildnature.world.gen.biomes.setup.WNBiomes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;

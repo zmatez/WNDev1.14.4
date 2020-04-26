@@ -11,6 +11,20 @@ public class SoundRegistry {
     public static SoundEvent PISTON_3s_CLOSE = registerSound("block.piston.3s_close");
     public static SoundEvent STEAM_GENERATOR = registerSound("block.steam_generator");
 
+    //ANIMAL
+    public static SoundEvent DUCK_FLAP = registerSound("entity.duck.flap");
+    public static SoundEvent DUCK_QUACK = registerSound("entity.duck.quack");
+    public static SoundEvent DUCK_SCARED = registerSound("entity.duck.scared");
+    public static SoundEvent DUCK_CHICK = registerSound("entity.duck.chick");
+
+    public static SoundEvent BOAR_DEATH = registerSound("entity.boar.death");
+    public static SoundEvent BOAR_SNORT = registerSound("entity.boar.snort");
+    public static SoundEvent BOAR_SCARED = registerSound("entity.boar.scared");
+    public static SoundEvent BOAR_OINK = registerSound("entity.boar.oink");
+
+    public static SoundEvent DRAGONFLY_HURT = registerSound("entity.dragonfly.hurt");
+    public static SoundEvent DRAGONFLY_FLAP = registerSound("entity.dragonfly.flap");
+
     //AMBIENT
     /*
     public static SoundEvent DENSEFOREST_DAY_0 = registerSound("ambient.denseforest_day_0");
@@ -32,7 +46,11 @@ public class SoundRegistry {
                 PISTON_3s_OPEN,
                 PISTON_2s_CLOSE,
                 PISTON_3s_CLOSE,
-                STEAM_GENERATOR
+                STEAM_GENERATOR,
+                DUCK_FLAP,
+                DUCK_QUACK,
+                DUCK_SCARED,
+                DUCK_CHICK
                 /*DENSEFOREST_DAY_0,
                 DENSEFOREST_DAY_1,
                 DENSEFOREST_DAY_2,

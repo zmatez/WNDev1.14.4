@@ -1,6 +1,7 @@
 package com.matez.wildnature.blocks;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.compatibility.WNLoot;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.*;
@@ -72,8 +73,11 @@ public class BlockBase extends Block {
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
         if(drop!=null){
             List<ItemStack> list = new ArrayList<>();
-            list.add(new ItemStack(Main.getItemByID(drop), Utilities.rint(min,max)));
-
+            if(WNLoot.isSilkTouch(builder)){
+                list.add(new ItemStack(Item.getItemFromBlock(this), 1));
+            }else {
+                list.add(new ItemStack(Main.getItemByID(drop), Utilities.rint(min,max) + Utilities.rint(0, WNLoot.getFortune(builder))));
+            }
             return list;
         }else {
             boolean silkTouch = false;

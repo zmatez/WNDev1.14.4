@@ -1,5 +1,6 @@
 package com.matez.wildnature.world.gen.structures.nature.woods.another_spruce;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.math.BlockPos;
@@ -18,6 +19,7 @@ public class tree_spruce_big2 extends SchemFeature {
         super(config, doBlockNofityOnPlace);
         LOG = log;
         LEAVES =leaves;
+        BRANCH = leaves;
     }
 
     @Override

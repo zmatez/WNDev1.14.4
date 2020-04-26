@@ -290,9 +290,8 @@ public class DoorBase extends DoorBlock {
 
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        boolean silkTouch = false;
         List<ItemStack> list = super.getDrops(state, builder);
-        if(list.isEmpty() && !silkTouch){
+        if(list.isEmpty() && state.get(HALF)==DoubleBlockHalf.LOWER){
             list.add(new ItemStack(item, 1));
         }
 

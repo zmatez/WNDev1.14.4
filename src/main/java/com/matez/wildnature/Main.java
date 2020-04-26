@@ -4,22 +4,24 @@ import com.matez.wildnature.blocks.GrassBase;
 import com.matez.wildnature.commands.BiomeArgument;
 import com.matez.wildnature.compatibility.WNMinecraftCopatibility;
 import com.matez.wildnature.compatibility.WNMobSpawnFix;
+import com.matez.wildnature.compatibility.WNMobSpawning;
 import com.matez.wildnature.entity.EntityRegistry;
 import com.matez.wildnature.entity.render.RenderRegistry;
 import com.matez.wildnature.event.*;
 import com.matez.wildnature.gui.container.PouchContainer;
 import com.matez.wildnature.gui.initGuis;
 import com.matez.wildnature.gui.tileEntities.DungeonCommanderTileEntity;
+import com.matez.wildnature.gui.tileEntities.GravityShroomTileEntity;
+import com.matez.wildnature.gui.tileEntities.HydrothermalVentTileEntity;
 import com.matez.wildnature.items.*;
+import com.matez.wildnature.items.recipes.KnifeCrafting;
 import com.matez.wildnature.items.recipes.PotCrafting;
-import com.matez.wildnature.items.recipes.cooking.CookingToolType;
-import com.matez.wildnature.items.recipes.cooking.WNCookingRecipe;
-import com.matez.wildnature.items.recipes.cooking.WNCookingRecipeSerializer;
-import com.matez.wildnature.items.recipes.cooking.WNCookingSmelting;
+import com.matez.wildnature.items.recipes.cooking.*;
 import com.matez.wildnature.items.tier.WNItemTier;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.lists.WNItems;
-import com.matez.wildnature.particles.GeyserParticle;
+import com.matez.wildnature.packets.WNSSpawnParticlePacket;
+import com.matez.wildnature.particles.*;
 import com.matez.wildnature.proxy.ClientProxy;
 import com.matez.wildnature.proxy.IProxy;
 import com.matez.wildnature.proxy.ServerProxy;
@@ -44,12 +46,10 @@ import com.matez.wildnature.itemGroup.wnItemGroupDeco;
 import com.matez.wildnature.itemGroup.wnItemGroupUnderground;
 import com.matez.wildnature.items.recipes.DyeableRecipe;
 import com.matez.wildnature.items.recipes.GiftCrafting;
-import com.matez.wildnature.particles.CrystalSparkParticle;
-import com.matez.wildnature.particles.DungeonHeartParticle;
-import com.matez.wildnature.particles.SteamParticle;
 import com.matez.wildnature.sounds.SoundRegistry;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.ClientResourcePackInfo;
 import net.minecraft.command.arguments.ArgumentSerializer;
 import net.minecraft.command.arguments.ArgumentTypes;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
@@ -64,12 +64,16 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
+import net.minecraft.network.PacketDirection;
+import net.minecraft.network.ProtocolType;
+import net.minecraft.network.play.server.SSpawnParticlePacket;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.dedicated.ServerProperties;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -81,6 +85,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
@@ -92,6 +97,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -114,7 +120,7 @@ import java.util.*;
 public class Main {
     public static Main instance;
     public static final String modid = "wildnature";
-    public static final String version = "2.1.5";
+    public static final String version = "2.1.7";
     public static final Logger LOGGER = LogManager.getLogger(modid);
     public static final wnItemGroup WILDNATURE_GROUP = new wnItemGroup();
     public static final wnItemGroupUnderground WILDNATURE_UNDERGROUND_GROUP = new wnItemGroupUnderground();
@@ -130,18 +136,21 @@ public class Main {
     public ArrayList<String> supportedLanguages = new ArrayList<>();
     public static boolean usesFancyGraphics = true;
     public static StringTextComponent WNPrefix = new StringTextComponent(Main.WildNaturePrefix);
+    public static boolean canShowAdvancedTooltip = false;
+    public static World runningWorld;
+
 
     public Main(){
         LOGGER.info("Initializing WildNature mod");
         instance=this;
         addSupportedLanguages();
 
-
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientRegistries);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onServerStarting);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registerParticles);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::dedicatedServerSetup);
 
         File f = new File(FMLPaths.GAMEDIR.get().resolve("wildnature/").toString());
         if(!f.exists()){
@@ -153,19 +162,25 @@ public class Main {
             }
         }
 
+
         WNConfig.register(ModLoadingContext.get());
         ConfigSettings.applyCfgs();
         MinecraftForge.EVENT_BUS.register(this);
 
         WNPrefix.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new StringTextComponent(TextFormatting.GOLD + "WildNature " + TextFormatting.LIGHT_PURPLE + version)));
-        WNPrefix.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://wildnature.matez.net"));
+        WNPrefix.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://wildnaturemod.com"));
+
+
+        ProtocolType.PLAY.registerPacket(PacketDirection.CLIENTBOUND, WNSSpawnParticlePacket.class);
     }
+
 
 
     private void setup(final FMLCommonSetupEvent event){
         LOGGER.info("Setup...");
         RockGen.setupRocks();
         MinecraftForge.EVENT_BUS.addListener(new ParticleFactoryEvent()::registerParticles);
+
         ArgumentTypes.register("biome_argument", BiomeArgument.class, new ArgumentSerializer<>(BiomeArgument::createArgument));
         Main.LOGGER.info("Using Version "+ CommonConfig.currentVersion+" / " + version);
 
@@ -188,9 +203,13 @@ public class Main {
             EntitySpawnPlacementRegistry.REGISTRY.replace(entity,e, new EntitySpawnPlacementRegistry.Entry(e.type,e.placementType,Main::getEntitySpawnPlacementPredicate));
         });*/
         WNMobSpawnFix.fixAll();
+        WNMobSpawning.registerAll();
+
+        EntityRegistry.registerEntitySpawns();
+
+
 
         WNBiomes.unregisterBlacklisted();
-
         proxy.init();
         wnInfo("Setup completed");
     }
@@ -200,11 +219,18 @@ public class Main {
         WNBlockColors blockColors = new WNBlockColors();
         WNItemColors itemColors = new WNItemColors();
         MinecraftForge.EVENT_BUS.addListener(new GuiEvent()::guiScreenEvent);
+        MinecraftForge.EVENT_BUS.addListener(new KeyEvent()::onKey);
+        MinecraftForge.EVENT_BUS.addListener(new FogEvent()::fogEvent);
+        MinecraftForge.EVENT_BUS.addListener(new FogEvent()::fogColorEvent);
+        //MinecraftForge.EVENT_BUS.addListener(new KeySipkeEvent()::onKey);
+        MinecraftForge.EVENT_BUS.addListener(new RenderCapeHandler()::onRender);
         //MinecraftForge.EVENT_BUS.addListener(new FogEvent()::fogEvent);
         //MinecraftForge.EVENT_BUS.addListener(new ClientPlayerEventHandler()::onPlayerJoin);
 
         RenderRegistry.registryEntityRenders();
         //MinecraftForge.EVENT_BUS.addListener(new AmbientSoundPlayer(Minecraft.getInstance())::playerTick);
+
+
 
         wnInfo("Client setup completed");
     }
@@ -216,6 +242,9 @@ public class Main {
 
     private void addSupportedLanguages(){
         supportedLanguages.add("en_us");
+        supportedLanguages.add("pl_pl");
+        supportedLanguages.add("ru_ru");
+        supportedLanguages.add("de_de");
     }
 
     public ArrayList<String> getSupportedLanguages() {
@@ -227,8 +256,16 @@ public class Main {
         LOGGER.info("Registering particle factories...");
         Minecraft.getInstance().particles.registerFactory(ParticleRegistry.DUNGEON_HEART, DungeonHeartParticle.Factory::new);
         Minecraft.getInstance().particles.registerFactory(ParticleRegistry.CRYSTAL_SPARK, CrystalSparkParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.CRYSTAL, CrystalSparkParticle.Factory::new);
         Minecraft.getInstance().particles.registerFactory(ParticleRegistry.GEYSER, GeyserParticle.GeyserParticleFactory::new);
         Minecraft.getInstance().particles.registerFactory(ParticleRegistry.STEAM, SteamParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.FLOWERING_LEAF_WHITE_DUST, DustParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.POLLEN, PollenParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.WISTERIA_PINK, DustParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.SLIMESHROOM_GREEN, SlimeshroomParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.SLIMESHROOM_BLUE, SlimeshroomParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.THERMAL_SMOKE, ThermalParticle.ThermalParticleFactory::new);
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.FUZZBALL_EXPLOSION, FuzzballExplosionParticle.Factory::new);
     }
 
     @SubscribeEvent
@@ -237,6 +274,7 @@ public class Main {
         Main.LOGGER.debug("Registering commands");
         MinecraftForge.EVENT_BUS.addListener(new PlayerEventHandler()::onPlayerJoin);
         MinecraftForge.EVENT_BUS.addListener(new PlayerEventHandler()::onPlayerExit);
+        MinecraftForge.EVENT_BUS.addListener(new CraftingTweaker()::playerCraftedEvent);
 
 
 
@@ -245,8 +283,22 @@ public class Main {
 
         wnInfo("Successfully initialized server-side");
     }
+    @SubscribeEvent
+    public void dedicatedServerSetup(FMLDedicatedServerSetupEvent event)
+    {
+        ServerProperties serverProperties = event.getServerSupplier().get().getServerProperties();
 
-
+        if (CommonConfig.useWNOnServer.get())
+        {
+            LOGGER.info(String.format("Using WildNature on server. Original value: %s", serverProperties.worldType.getName()));
+            serverProperties.serverProperties.setProperty("level-type", "wildnature");
+            serverProperties.worldType = Main.WNWorldType;
+        }
+        else
+        {
+            Main.LOGGER.info("WN Server Gen disabled");
+        }
+    }
 
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents{
@@ -258,7 +310,6 @@ public class Main {
         public static void registerItems(final RegistryEvent.Register<Item> event){
             LOGGER.info("Registering items...");
 
-            EntityRegistry.registerSpawningEggs(event);
 
             itemEvent=event;
 
@@ -274,11 +325,12 @@ public class Main {
             Food CORN = (new Food.Builder()).hunger(2).saturation(0.3F).build();
             Food TOMATO = (new Food.Builder()).hunger(2).saturation(0.5F).build();
             Food TOMATO_SOUP = (new Food.Builder()).hunger(16).saturation(1F).build();
-            Food CANDY_CANE = (new Food.Builder()).hunger(2).saturation(0.3F).build();
-            Food CANDY = (new Food.Builder()).hunger(2).saturation(0.3F).build();
+            Food CANDY_CANE = (new Food.Builder()).hunger(3).saturation(0.3F).build();
+            Food CANDY = (new Food.Builder()).hunger(3).saturation(0.3F).build();
             Food DONUTS = (new Food.Builder()).hunger(2).saturation(0.3F).build();
-            Food CHOCOLATE = (new Food.Builder()).hunger(2).saturation(0.3F).build();
+            Food CHOCOLATE = (new Food.Builder()).hunger(5).saturation(0.3F).build();
             Food CARAMEL = (new Food.Builder()).hunger(1).saturation(0.2F).build();
+            Food DRINK = (new Food.Builder()).hunger(0).saturation(0.7F).build();
 
 
             event.getRegistry().registerAll(
@@ -326,11 +378,27 @@ public class Main {
 
 
                     WNItems.PLUM = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("plum")),
+                    WNItems.MIRABELLE_PLUM = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("mirabelle_plum")),
                     WNItems.ACORN = new Item(new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("acorn")),
                     WNItems.GREEN_WATERLILY = new WaterlilyItem(getBlockByID("wildnature:green_waterlily"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("green_waterlily")),
                     WNItems.RED_WATERLILY = new WaterlilyItem(getBlockByID("wildnature:red_waterlily"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("red_waterlily")),
+                    WNItems.DUCKWEED = new WaterlilyItem(getBlockByID("wildnature:duckweed"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("duckweed")),
+                    WNItems.WATER_POPPY = new WaterlilyItem(getBlockByID("wildnature:water_poppy"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("water_poppy")),
+                    WNItems.WATER_LILY_WHITE = new WaterlilyItem(getBlockByID("wildnature:water_lily_white"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("water_lily_white")),
+                    WNItems.WATER_LILY_YELLOW = new WaterlilyItem(getBlockByID("wildnature:water_lily_yellow"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("water_lily_yellow")),
+                    WNItems.LOTUS_PINK = new WaterlilyItem(getBlockByID("wildnature:lotus_pink"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("lotus_pink")),
+                    WNItems.LOTUS_LIGHT_PINK = new WaterlilyItem(getBlockByID("wildnature:lotus_light_pink"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("lotus_light_pink")),
+                    WNItems.LOTUS_WHITE = new WaterlilyItem(getBlockByID("wildnature:lotus_white"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("lotus_white")),
+                    WNItems.WATER_HYACINTH = new WaterlilyItem(getBlockByID("wildnature:water_hyacinth"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("water_hyacinth")),
+                    WNItems.POND_WEED = new WaterlilyItem(getBlockByID("wildnature:pond_weed"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("pond_weed")),
+                    WNItems.PARROTS_FEATHER_PLANT = new WaterlilyItem(getBlockByID("wildnature:parrots_feather_plant"),new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("parrots_feather_plant")),
+                    WNItems.MAGMA_PAD = new LavalilyItem(getBlockByID("wildnature:magma_pad"),new Item.Properties().group(WILDNATURE_UNDERGROUND_GROUP)).setRegistryName(location("magma_pad")),
+
                     WNItems.GRAPES_PURPLE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("grapes_purple")),
                     WNItems.GRAPES_YELLOW = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("grapes_yellow")),
+
+                    WNItems.BELLADONNA_FRUIT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("belladonna_fruit")),
+
 
                     //CITRUS
                     WNItems.LEMON = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("lemon")),
@@ -344,7 +412,7 @@ public class Main {
                     WNItems.POMEGRANATE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("pomegranate")),
                     WNItems.MANGO = new Item(new Item.Properties().group(ItemGroup.FOOD).food(PLUM)).setRegistryName(location("mango")),
 
-                    WNItems.LEMON_WEDGE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("lemon_wedge")),
+                    WNItems.LEMON_WEDGE = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("lemon_wedge")),
 
 
 
@@ -384,21 +452,21 @@ public class Main {
 
 
                     WNItems.BASIL = new BlockNamedItem(Main.getBlockByID("wildnature:basil_plant"),new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("basil")),
-                    WNItems.CHOPPED_CHIVES = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("chopped_chives")),
+                    WNItems.CHOPPED_CHIVES = new FoodItem(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("chopped_chives")),
                     WNItems.CURRY_LEAVES = new BlockNamedItem(Main.getBlockByID("wildnature:curry_plant"),new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("curry_leaves")),
                     WNItems.DRIED_MARJORAM = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("dried_marjoram")),
                     WNItems.DRIED_PARSLEY = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("dried_parsley")),
                     WNItems.DRIED_SAGE = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("dried_sage")),
                     WNItems.FRESH_MARJORAM = new BlockNamedItem(Main.getBlockByID("wildnature:marjoram_plant"),new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("fresh_marjoram")),
                     WNItems.FRESH_ROSEMARY = new BlockNamedItem(Main.getBlockByID("wildnature:rosemary_plant"),new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("fresh_rosemary")),
-                    WNItems.GARLIC_CLOVES = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("garlic_cloves")),
+                    WNItems.GARLIC_CLOVES = new FoodItem(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("garlic_cloves")),
                     WNItems.TURMERIC = new BlockNamedItem(Main.getBlockByID("wildnature:tumeric_plant"),new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("turmeric")),
 
                     WNItems.SALT = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("salt")),
-                    WNItems.PEPPER = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("pepper")),
+                    WNItems.PEPPER = new BlockNamedItem(Main.getBlockByID("wildnature:black_pepper_plant"),new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("pepper")),
 
-                    WNItems.BUTTER = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("butter")),
-                    WNItems.DOUGH_BALL = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("dough_ball")),
+                    WNItems.BUTTER = new FoodItem(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("butter")),
+                    WNItems.DOUGH_BALL = new FoodItem(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("dough_ball")),
 
 
                     //TEA LEAF
@@ -408,6 +476,8 @@ public class Main {
                     WNItems.MINT = new BlockNamedItem(Main.getBlockByID("wildnature:mint_plant"),new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("mint")),
                     WNItems.WHITE_TEA_LEAVES = new BlockNamedItem(Main.getBlockByID("wildnature:white_tea_plant"),new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("white_tea_leaves")),
 
+                    WNItems.MUSHROOM_MIX = new FoodItem(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("mushroom_mix")),
+                    WNItems.DRIED_MUSHROOM_MIX = new FoodItem(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("dried_mushroom_mix")),
 
 
                     WNItems.COFFEE_LEAVES = new Item(new Item.Properties().group(Main.WILDNATURE_GROUP)).setRegistryName(location("coffee_leaves")),
@@ -417,14 +487,14 @@ public class Main {
                     WNItems.COFFEE_BEAN = new Item(new Item.Properties().group(Main.WILDNATURE_GROUP)).setRegistryName(location("coffee_bean")),
                     WNItems.COFFEE_POWDER = new Item(new Item.Properties().group(ItemGroup.MISC)).setRegistryName(location("coffee_powder")),
                     WNItems.CUP = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("cup")),
-                    WNItems.CUP_OF_COFFEE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:cup")).setRegistryName(location("cup_of_coffee")),
+                    WNItems.CUP_OF_COFFEE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:cup")).setRegistryName(location("cup_of_coffee")),
                     WNItems.JUG = new JugItem(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("jug")),
                     WNItems.JUG_WATER = new WaterJugItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1)).setRegistryName(location("jug_water")),
                     WNItems.GLASS = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CANDY_CANE)).setRegistryName(location("glass")),
-                    WNItems.CACAO = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:glass")).setRegistryName(location("cacao")),
+                    WNItems.CACAO = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:glass"),true).setRegistryName(location("cacao")),
                     WNItems.JAR = new JarItem(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("jar")),
-                    WNItems.JAR_WATER = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD),getItemByID("wildnature:jar")).setRegistryName(location("jar_water")),
-                    WNItems.CARAMEL_JAR = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("caramel_jar")),
+                    WNItems.JAR_WATER = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD),("wildnature:jar"),true).setRegistryName(location("jar_water")),
+                    WNItems.CARAMEL_JAR = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar"),true).setRegistryName(location("caramel_jar")),
                     WNItems.GLASS_CUP = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("glass_cup")),
                     WNItems.WINE_BOTTLE = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("wine_bottle")),
                     WNItems.WOODEN_MUG = new Item(new Item.Properties().group(ItemGroup.FOOD)).setRegistryName(location("wooden_mug")),
@@ -443,7 +513,7 @@ public class Main {
                     WNItems.STONE_HAMMER = new Item(new Item.Properties().group(ItemGroup.TOOLS)).setRegistryName(location("stone_hammer")),
                     WNItems.IRON_HAMMER = new Item(new Item.Properties().group(ItemGroup.TOOLS)).setRegistryName(location("iron_hammer")),
 
-                    WNItems.CHEF_KNIFE = new SwordItem(WNItemTier.KITCHEN_TOOLS,1,5,new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1)).setRegistryName(location("chef_knife")),
+                    WNItems.CHEF_KNIFE = new KnifeItem(WNItemTier.KITCHEN_TOOLS,1,5,new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1)).setRegistryName(location("chef_knife")),
                     WNItems.FRYING_PAN = new CookingItem(new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1), CookingToolType.FRYING_PAN).setRegistryName(location("frying_pan")),
                     WNItems.POT_EMPTY = new PotEmptyItem(new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1)).setRegistryName(location("pot_empty")),
                     WNItems.POT_WATER = new CookingItem(new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1), CookingToolType.POT).setRegistryName(location("pot_water")),
@@ -451,92 +521,91 @@ public class Main {
 
 
                     //SOUPS
-                    WNItems.BIGOS = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("bigos")),
-                    WNItems.CABBAGE_LETTUCE_SALAD = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("cabbage_lettuce_salad")),
-                    WNItems.CEASAR_SALAD = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("ceasar_salad")),
-                    WNItems.GARDEN_SALAD = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("garden_salad")),
-                    WNItems.ONION_SALAD = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("onion_salad")),
-                    WNItems.RICE_VEGGIE_CURRY_BOWL = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("rice_veggie_curry_bowl")),
-                    WNItems.VEGETABLE_SALAD = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("vegetable_salad")),
+                    WNItems.CABBAGE_LETTUCE_SALAD = new DeepBowlSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(10).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("cabbage_lettuce_salad")),
+                    WNItems.CEASAR_SALAD = new DeepBowlSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(14).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("ceasar_salad")),
+                    WNItems.GARDEN_SALAD = new DeepBowlSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(14).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("garden_salad")),
+                    WNItems.ONION_SALAD = new DeepBowlSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(14).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("onion_salad")),
+                    WNItems.RICE_VEGGIE_CURRY_BOWL = new DeepBowlSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(22).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("rice_veggie_curry_bowl")),
+                    WNItems.VEGETABLE_SALAD = new DeepBowlSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(22).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("vegetable_salad")),
 
-                    WNItems.BEEF_STEW = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("beef_stew")),
-                    WNItems.BORSCHT = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("borscht")),
-                    WNItems.CABBAGE_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("cabbage_soup")),
-                    WNItems.CHICKEN_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("chicken_soup")),
-                    WNItems.CREAM_OF_BROCCOLI_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("cream_of_broccoli_soup")),
-                    WNItems.CREAM_OF_MUSHROOM_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("cream_of_mushroom_soup")),
-                    WNItems.CUCUMBER_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("cucumber_soup")),
-                    WNItems.CURRY_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("curry_soup")),
-                    WNItems.GARLIC_MUSHROOM_GRAVY = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("garlic_mushroom_gravy")),
-                    WNItems.ONION_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("onion_soup")),
-                    WNItems.PEA_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("pea_soup")),
-                    WNItems.RED_WINE_REDUCTION_SAUCE = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("red_wine_reduction_sauce")),
-                    WNItems.SAUERKRAUT_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("sauerkraut_soup")),
-                    WNItems.TOMATO_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO_SOUP).maxStackSize(1)).setRegistryName(location("tomato_soup")),
+                    WNItems.BIGOS = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(12).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("bigos")),
+                    WNItems.BEEF_STEW = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(18).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("beef_stew")),
+                    WNItems.BORSCHT = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(18).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("borscht")),
+                    WNItems.CABBAGE_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(16).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("cabbage_soup")),
+                    WNItems.CHICKEN_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(18).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("chicken_soup")),
+                    WNItems.CREAM_OF_BROCCOLI_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(12).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("cream_of_broccoli_soup")),
+                    WNItems.CREAM_OF_MUSHROOM_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(14).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("cream_of_mushroom_soup")),
+                    WNItems.CUCUMBER_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(15).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("cucumber_soup")),
+                    WNItems.CURRY_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(11).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("curry_soup")),
+                    WNItems.GARLIC_MUSHROOM_GRAVY = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(13).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("garlic_mushroom_gravy")),
+                    WNItems.ONION_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(15).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("onion_soup")),
+                    WNItems.PEA_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(15).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("pea_soup")),
+                    WNItems.RED_WINE_REDUCTION_SAUCE = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(16).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("red_wine_reduction_sauce")),
+                    WNItems.SAUERKRAUT_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(14).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("sauerkraut_soup")),
+                    WNItems.TOMATO_SOUP = new MapleSoupItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(15).saturation(1F).build()).maxStackSize(1)).setRegistryName(location("tomato_soup")),
 
 
                     //MEALS
-                    WNItems.ASIAGO_CHEESE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("asiago_cheese")),
-                    WNItems.CHEDDAR_CHEESE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("cheddar_cheese")),
-                    WNItems.SWISS_CHEESE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("swiss_cheese")),
+                    WNItems.ASIAGO_CHEESE = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(4).saturation(0.9F).build())).setRegistryName(location("asiago_cheese")),
+                    WNItems.CHEDDAR_CHEESE = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(3).saturation(0.9F).build())).setRegistryName(location("cheddar_cheese")),
+                    WNItems.SWISS_CHEESE = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(5).saturation(0.9F).build())).setRegistryName(location("swiss_cheese")),
 
-                    WNItems.BAGEL_POPPY_SEED = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("bagel_poppy_seed")),
-                    WNItems.BANANA_BREAD = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("banana_bread")),
-                    WNItems.SLICED_BREAD = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("sliced_bread")),
-                    WNItems.GARLIC_BREAD = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("garlic_bread")),
-                    WNItems.TOAST = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("toast")),
-                    WNItems.FRENCH_TOAST = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("french_toast")),
+                    WNItems.BAGEL_POPPY_SEED = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(6).saturation(0.2F).build())).setRegistryName(location("bagel_poppy_seed")),
+                    WNItems.BANANA_BREAD = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(6).saturation(0.2F).build())).setRegistryName(location("banana_bread")),
+                    WNItems.SLICED_BREAD = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(1).saturation(0.2F).build())).setRegistryName(location("sliced_bread")),
+                    WNItems.GARLIC_BREAD = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(2).saturation(0.2F).build())).setRegistryName(location("garlic_bread")),
+                    WNItems.TOAST = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(2).saturation(0.2F).build())).setRegistryName(location("toast")),
+                    WNItems.FRENCH_TOAST = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(5).saturation(0.4F).build())).setRegistryName(location("french_toast")),
 
-                    WNItems.RAW_BACON = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.PORKCHOP)).setRegistryName(location("raw_bacon")),
-                    WNItems.COOKED_BACON = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.COOKED_PORKCHOP)).setRegistryName(location("cooked_bacon")),
-                    WNItems.BACON_BITS = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("bacon_bits")),
+                    WNItems.RAW_BACON = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(4).saturation(0.5F).build())).setRegistryName(location("raw_bacon")),
+                    WNItems.COOKED_BACON = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(5).saturation(0.5F).build())).setRegistryName(location("cooked_bacon")),
+                    WNItems.BACON_BITS = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(2).saturation(0.5F).build())).setRegistryName(location("bacon_bits")),
 
-                    WNItems.FRIED_EGG = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("fried_egg")),
+                    WNItems.FRIED_EGG = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(4).saturation(0.6F).build())).setRegistryName(location("fried_egg")),
 
-                    WNItems.GRAHAM_CRACKER = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("graham_cracker")),
-                    WNItems.GRILLED_CAULIFLOWER = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("grilled_cauliflower")),
-                    WNItems.SAUERKRAUT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("sauerkraut")),
-                    WNItems.SMORE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("smore")),
-                    WNItems.SUSHI = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("sushi")),
+                    WNItems.GRAHAM_CRACKER = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(2).saturation(0.2F).build())).setRegistryName(location("graham_cracker")),
+                    WNItems.GRILLED_CAULIFLOWER = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(5).saturation(0.3F).build())).setRegistryName(location("grilled_cauliflower")),
+                    WNItems.SAUERKRAUT = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(5).saturation(1F).build()),FillTool.PLATE).setRegistryName(location("sauerkraut")),
+                    WNItems.SMORE = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(7).saturation(0.2F).build())).setRegistryName(location("smore")),
+                    WNItems.SUSHI = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(6).saturation(1F).build())).setRegistryName(location("sushi")),
 
-                    WNItems.CHEESE_PIZZA = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("cheese_pizza")),
-                    WNItems.HAWAIIAN_PIZZA = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("hawaiian_pizza")),
-                    WNItems.PEPPERONI_PIZZA = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("pepperoni_pizza")),
-                    WNItems.CEBULARZ = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("cebularz")),
+                    WNItems.CHEESE_PIZZA = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(22).saturation(0.5F).build())).setRegistryName(location("cheese_pizza")),
+                    WNItems.HAWAIIAN_PIZZA = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(22).saturation(0.7F).build())).setRegistryName(location("hawaiian_pizza")),
+                    WNItems.PEPPERONI_PIZZA = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(22).saturation(0.5F).build())).setRegistryName(location("pepperoni_pizza")),
+                    WNItems.CEBULARZ = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(10).saturation(0.7F).build())).setRegistryName(location("cebularz")),
 
-                    WNItems.TORTILLA = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("tortilla")),
-                    WNItems.BEEF_AND_PEPPER_BURRITO = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("beef_and_pepper_burrito")),
-                    WNItems.CHICKEN_AND_CORN_BURRITO = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("chicken_and_corn_burrito")),
-                    WNItems.PORK_AND_GREEN_BEAN_BURRITO = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("pork_and_green_bean_burrito")),
-                    WNItems.VEGETABLE_AND_CHEESE_BURRITO = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("vegetable_and_cheese_burrito")),
+                    WNItems.TORTILLA = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(4).saturation(0.5F).build())).setRegistryName(location("tortilla")),
+                    WNItems.BEEF_AND_PEPPER_BURRITO = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(18).saturation(0.5F).build())).setRegistryName(location("beef_and_pepper_burrito")),
+                    WNItems.CHICKEN_AND_CORN_BURRITO = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(18).saturation(0.5F).build())).setRegistryName(location("chicken_and_corn_burrito")),
+                    WNItems.PORK_AND_GREEN_BEAN_BURRITO = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(18).saturation(0.5F).build())).setRegistryName(location("pork_and_green_bean_burrito")),
+                    WNItems.VEGETABLE_AND_CHEESE_BURRITO = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(18).saturation(0.5F).build())).setRegistryName(location("vegetable_and_cheese_burrito")),
 
-                    WNItems.BEEF_SANDWICH = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("beef_sandwich")),
-                    WNItems.BEEF_SANDWICH_WITH_CHEDDAR = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("beef_sandwich_with_cheddar")),
-                    WNItems.CHICKEN_SANDWICH = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("chicken_sandwich")),
-                    WNItems.PORK_SANDWICH = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("pork_sandwich")),
+                    WNItems.BEEF_SANDWICH = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(14).saturation(0.6F).build())).setRegistryName(location("beef_sandwich")),
+                    WNItems.BEEF_SANDWICH_WITH_CHEDDAR = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(18).saturation(0.8F).build())).setRegistryName(location("beef_sandwich_with_cheddar")),
+                    WNItems.CHICKEN_SANDWICH = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(14).saturation(0.6F).build())).setRegistryName(location("chicken_sandwich")),
+                    WNItems.PORK_SANDWICH = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(14).saturation(0.6F).build())).setRegistryName(location("pork_sandwich")),
 
 
-                    WNItems.BREAKFAST_MEAL = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("breakfast_meal")),
-                    WNItems.BROCCOLI_AND_CHEESE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("broccoli_and_cheese")),
-                    WNItems.MUTTON_DINNER_WITH_REDWINE_SAUCE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("mutton_dinner_with_redwine_sauce")),
-                    WNItems.OMELET_BREAKFAST = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("omelet_breakfast")),
-                    WNItems.PANCAKES = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("pancakes")),
-                    WNItems.PIEROGIES = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("pierogies")),
-                    WNItems.ROAST_CHICKEN_DINNER = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("roast_chicken_dinner")),
-                    WNItems.ROASTED_VEGGIES = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("roasted_veggies")),
-                    WNItems.SAUTEED_VEGGIES_WITH_GRAVY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("sauteed_veggies_with_gravy")),
-                    WNItems.STEAK_DINNER_WITH_GRAVY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("steak_dinner_with_gravy")),
-                    WNItems.STEAK_DINNER_WITH_REDWINE_SAUCE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("steak_dinner_with_redwine_sauce")),
+                    WNItems.BREAKFAST_MEAL = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(12).saturation(0.6F).build()).maxStackSize(1),FillTool.PLATE).setRegistryName(location("breakfast_meal")),
+                    WNItems.BROCCOLI_AND_CHEESE = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(10).saturation(0.8F).build()).maxStackSize(1),FillTool.PLATE).setRegistryName(location("broccoli_and_cheese")),
+                    WNItems.MUTTON_DINNER_WITH_REDWINE_SAUCE = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(16).saturation(0.7F).build()).maxStackSize(1),FillTool.PLATE).setRegistryName(location("mutton_dinner_with_redwine_sauce")),
+                    WNItems.OMELET_BREAKFAST = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(11).saturation(0.5F).build()).maxStackSize(1),FillTool.PLATE).setRegistryName(location("omelet_breakfast")),
+                    WNItems.PANCAKES = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(12).saturation(0.4F).build()).maxStackSize(1),FillTool.PLATE).setRegistryName(location("pancakes")),
+                    WNItems.PIEROGIES = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(14).saturation(0.5F).build()).maxStackSize(1),FillTool.PLATE).setRegistryName(location("pierogies")),
+                    WNItems.ROAST_CHICKEN_DINNER = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(14).saturation(0.5F).build()).maxStackSize(1),FillTool.PLATE).setRegistryName(location("roast_chicken_dinner")),
+                    WNItems.ROASTED_VEGGIES = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(8).saturation(0.6F).build()).maxStackSize(1),FillTool.PLATE).setRegistryName(location("roasted_veggies")),
+                    WNItems.SAUTEED_VEGGIES_WITH_GRAVY = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(12).saturation(0.8F).build()).maxStackSize(1),FillTool.PLATE).setRegistryName(location("sauteed_veggies_with_gravy")),
+                    WNItems.STEAK_DINNER_WITH_GRAVY = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(15).saturation(0.8F).build()).maxStackSize(1),FillTool.PLATE).setRegistryName(location("steak_dinner_with_gravy")),
+                    WNItems.STEAK_DINNER_WITH_REDWINE_SAUCE = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(19).saturation(0.9F).build()).maxStackSize(1),FillTool.PLATE).setRegistryName(location("steak_dinner_with_redwine_sauce")),
 
 
 
 
                     //OTHER
-                    WNItems.LEMON_MERINGUE_PIE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("lemon_meringue_pie")),
-                    WNItems.STRAWBERRY_RHUBARB_PIE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(TOMATO)).setRegistryName(location("strawberry_rhubarb_pie")),
+                    WNItems.LEMON_MERINGUE_PIE = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(10).saturation(0.4F).build())).setRegistryName(location("lemon_meringue_pie")),
+                    WNItems.STRAWBERRY_RHUBARB_PIE = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food((new Food.Builder()).hunger(10).saturation(0.4F).build())).setRegistryName(location("strawberry_rhubarb_pie")),
+                    WNItems.BREAD_ROLL = new FoodItem(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("bread_roll")),
 
-
-                    WNItems.BREAD_ROLL = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.BREAD)).setRegistryName(location("bread_roll")),
                     WNItems.CANDY_1 = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CANDY)).setRegistryName(location("candy_1")),
                     WNItems.CANDY_2 = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CANDY)).setRegistryName(location("candy_2")),
                     WNItems.CANDY_3 = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CANDY)).setRegistryName(location("candy_3")),
@@ -575,62 +644,62 @@ public class Main {
                     WNItems.POUCH = new PouchItem(new Item.Properties().group(WILDNATURE_GROUP).maxStackSize(1)).setRegistryName(location("pouch")),
 
                     //DRINKS
-                    WNItems.BEER = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("beer")),
-                    WNItems.RED_WINE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("red_wine")),
-                    WNItems.WHITE_WINE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("white_wine")),
+                    WNItems.BEER = new AlcoItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:wooden_mug")).setRegistryName(location("beer")),
+                    WNItems.RED_WINE = new AlcoItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:wine_bottle")).setRegistryName(location("red_wine")),
+                    WNItems.WHITE_WINE = new AlcoItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:wine_bottle")).setRegistryName(location("white_wine")),
 
-                    WNItems.COMPOT_APPLE_PEAR = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_apple_pear")),
-                    WNItems.COMPOT_APPLE_RASPBERRY_CURRANT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_apple_raspberry_currant")),
-                    WNItems.COMPOT_BLACK_CURRANT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_black_currant")),
-                    WNItems.COMPOT_BLACKBERRY_GOOSEBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_blackberry_gooseberry")),
-                    WNItems.COMPOT_CHERRY_BLUEBERRY_RASPBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_cherry_blueberry_raspberry")),
-                    WNItems.COMPOT_CHOKEBERRY_BLACKBERRY_LINGONBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_chokeberry_blackberry_lingonberry")),
-                    WNItems.COMPOT_CRANBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_cranberry")),
-                    WNItems.COMPOT_PLUM_APPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_plum_apple")),
-                    WNItems.COMPOT_WHITE_CURRANT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("compot_white_currant")),
+                    WNItems.COMPOT_APPLE_PEAR = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("compot_apple_pear")),
+                    WNItems.COMPOT_APPLE_RASPBERRY_CURRANT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("compot_apple_raspberry_currant")),
+                    WNItems.COMPOT_BLACK_CURRANT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("compot_black_currant")),
+                    WNItems.COMPOT_BLACKBERRY_GOOSEBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("compot_blackberry_gooseberry")),
+                    WNItems.COMPOT_CHERRY_BLUEBERRY_RASPBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("compot_cherry_blueberry_raspberry")),
+                    WNItems.COMPOT_CHOKEBERRY_BLACKBERRY_LINGONBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("compot_chokeberry_blackberry_lingonberry")),
+                    WNItems.COMPOT_CRANBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("compot_cranberry")),
+                    WNItems.COMPOT_PLUM_APPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("compot_plum_apple")),
+                    WNItems.COMPOT_WHITE_CURRANT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("compot_white_currant")),
 
-                    WNItems.JUICE_APPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_apple")),
-                    WNItems.JUICE_GRAPE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_grape")),
-                    WNItems.JUICE_GRAPEFRUIT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_grapefruit")),
-                    WNItems.JUICE_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_lemon")),
-                    WNItems.JUICE_MANGO_PINEAPPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_mango_pineapple")),
-                    WNItems.JUICE_ORANGE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_orange")),
-                    WNItems.JUICE_PEACH = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_peach")),
-                    WNItems.JUICE_PINEAPPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("juice_pineapple")),
-                    WNItems.LEMONADE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("lemonade")),
+                    WNItems.JUICE_APPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_apple")),
+                    WNItems.JUICE_GRAPE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_grape")),
+                    WNItems.JUICE_GRAPEFRUIT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_grapefruit")),
+                    WNItems.JUICE_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_lemon")),
+                    WNItems.JUICE_MANGO_PINEAPPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_mango_pineapple")),
+                    WNItems.JUICE_ORANGE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_orange")),
+                    WNItems.JUICE_PEACH = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_peach")),
+                    WNItems.JUICE_PINEAPPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_pineapple")),
+                    WNItems.LEMONADE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("lemonade")),
 
-                    WNItems.TEA_BLACK = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("tea_black")),
-                    WNItems.TEA_BLACK_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("tea_black_lemon")),
-                    WNItems.TEA_GREEN = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("tea_green")),
-                    WNItems.TEA_GREEN_CHERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("tea_green_cherry")),
-                    WNItems.TEA_GREEN_QUINCE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("tea_green_quince")),
-                    WNItems.TEA_MELISSA_PEACH = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("tea_melissa_peach")),
-                    WNItems.TEA_MINT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("tea_mint")),
-                    WNItems.TEA_MINT_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("tea_mint_lemon")),
-                    WNItems.TEA_WHITE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("tea_white")),
-                    WNItems.TEA_WHITE_ORANGE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("tea_white_orange")),
-
-
-                    WNItems.JAM_BLACKBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_blackberry")),
-                    WNItems.JAM_BLUEBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_blueberry")),
-                    WNItems.JAM_CHOKE_BERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_choke_berry")),
-                    WNItems.JAM_GOOSEBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_gooseberry")),
-                    WNItems.JAM_HAWTHORN_BERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_hawthorn_berry")),
-                    WNItems.JAM_KAMCHATKA_BERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_kamchatka_berry")),
-                    WNItems.JAM_ORANGE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_orange")),
-                    WNItems.JAM_PEACH = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_peach")),
-                    WNItems.JAM_QUINCE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_quince")),
-                    WNItems.JAM_RASPBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_raspberry")),
-                    WNItems.JAM_WILD_STRAWBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("jam_wild_strawberry")),
+                    WNItems.TEA_BLACK = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_black")),
+                    WNItems.TEA_BLACK_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_black_lemon")),
+                    WNItems.TEA_GREEN = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_green")),
+                    WNItems.TEA_GREEN_CHERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_green_cherry")),
+                    WNItems.TEA_GREEN_QUINCE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_green_quince")),
+                    WNItems.TEA_MELISSA_PEACH = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_melissa_peach")),
+                    WNItems.TEA_MINT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_mint")),
+                    WNItems.TEA_MINT_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_mint_lemon")),
+                    WNItems.TEA_WHITE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_white")),
+                    WNItems.TEA_WHITE_ORANGE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_white_orange")),
 
 
+                    WNItems.JAM_BLACKBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("jam_blackberry")),
+                    WNItems.JAM_BLUEBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("jam_blueberry")),
+                    WNItems.JAM_CHOKE_BERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("jam_choke_berry")),
+                    WNItems.JAM_GOOSEBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("jam_gooseberry")),
+                    WNItems.JAM_HAWTHORN_BERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("jam_hawthorn_berry")),
+                    WNItems.JAM_KAMCHATKA_BERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("jam_kamchatka_berry")),
+                    WNItems.JAM_ORANGE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("jam_orange")),
+                    WNItems.JAM_PEACH = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("jam_peach")),
+                    WNItems.JAM_QUINCE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("jam_quince")),
+                    WNItems.JAM_RASPBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("jam_raspberry")),
+                    WNItems.JAM_WILD_STRAWBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("jam_wild_strawberry")),
 
-                    WNItems.MAPLE_SYRUP = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jug")).setRegistryName(location("maple_syrup")),
-                    WNItems.PEANUT_BUTTER = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),Main.getItemByID("wildnature:jar")).setRegistryName(location("peanut_butter")),
+
+
+                    WNItems.MAPLE_SYRUP = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jug"),true).setRegistryName(location("maple_syrup")),
+                    WNItems.PEANUT_BUTTER = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("peanut_butter")),
 
                     WNItems.CHISEL = new Item(new Item.Properties().group(ItemGroup.TOOLS).maxStackSize(1)).setRegistryName(location("chisel"))
 
-                    );
+            );
             GemRegistry gems = new GemRegistry();
             event.getRegistry().registerAll(gems.getItem());
 
@@ -642,7 +711,10 @@ public class Main {
                     WNItems.RS_PISTON1 = new BlockNamedItem(Main.getBlockByID("wildnature:rs_piston1"),new Item.Properties().group(ItemGroup.REDSTONE)).setRegistryName(location("rs_piston1")),
                     WNItems.GEYSER_ESSENCE = new GeyserEssenceItem(new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("geyser_essence"))
 
-                    );
+            );
+
+            EntityRegistry.registerSpawningEggs(event);
+
 
         }
 
@@ -654,10 +726,12 @@ public class Main {
             event.getRegistry().register(new SpecialRecipeSerializer<>(GiftCrafting::new).setRegistryName("wildnature:gift_crafting"));
             event.getRegistry().register(new SpecialRecipeSerializer<>(DyeableRecipe::new).setRegistryName("wildnature:dyeable_recipe"));
             event.getRegistry().register(new SpecialRecipeSerializer<>(PotCrafting::new).setRegistryName("wildnature:pot_crafting"));
+            event.getRegistry().register(new SpecialRecipeSerializer<>(KnifeCrafting::new).setRegistryName("wildnature:knife_chopping"));
 
             //CUSTOM
             event.getRegistry().register(new WNCookingRecipeSerializer<>(WNCookingRecipe::new,200).setRegistryName("wildnature:cooking"));
             event.getRegistry().register(new SpecialRecipeSerializer<>(WNCookingSmelting::new).setRegistryName("wildnature:furnace_cooking"));
+            event.getRegistry().register(new SpecialRecipeSerializer<>(WNCookingSmelting::new).setRegistryName("wildnature:smoker_cooking"));
 
         }
 
@@ -669,7 +743,7 @@ public class Main {
 
 
             event.getRegistry().registerAll(
-                    EntityRegistry.GOBLIN
+                    EntityRegistry.GOBLIN,EntityRegistry.DRAKE,EntityRegistry.DUCK,EntityRegistry.DUCKLING,EntityRegistry.BOAR,EntityRegistry.PIRANHA,EntityRegistry.DRAGONFLY,EntityRegistry.SPARROW_MALE
             );
 
         }
@@ -745,13 +819,13 @@ public class Main {
                     com.matez.wildnature.world.gen.biomes.setup.WNBiomes.FrozenRiver,
                     com.matez.wildnature.world.gen.biomes.setup.WNBiomes.AmazonRiver,
                     com.matez.wildnature.world.gen.biomes.setup.WNBiomes.NileRiver
-                    );
+            );
 
 
 
             int x = 0;
-            while(x< com.matez.wildnature.world.gen.biomes.setup.WNBiomes.registerBiomes.size()){
-                Biome b = com.matez.wildnature.world.gen.biomes.setup.WNBiomes.registerBiomes.get(x);
+            while(x< WNBiomes.registerBiomes.size()){
+                Biome b = WNBiomes.registerBiomes.get(x);
                 event.getRegistry().register(b);
                 x++;
             }
@@ -788,6 +862,15 @@ public class Main {
             evt.getRegistry().register(dungeonCommander);
             initGuis.DUNGEON_COMMANDER=dungeonCommander;
 
+            TileEntityType<HydrothermalVentTileEntity> hydrothermalVent = TileEntityType.Builder.create(HydrothermalVentTileEntity::new, WNBlocks.HYDROTHERMAL_VENT).build(null);
+            hydrothermalVent.setRegistryName("wildnature", "hydrothermal_vent");
+            evt.getRegistry().register(hydrothermalVent);
+            initGuis.HYDROTHERMAL_VENT_TILE_ENTITY=hydrothermalVent;
+
+            TileEntityType<GravityShroomTileEntity> gravityShroom = TileEntityType.Builder.create(GravityShroomTileEntity::new, WNBlocks.GRAVITYSHROOM).build(null);
+            gravityShroom.setRegistryName("wildnature", "gravityshroom");
+            evt.getRegistry().register(gravityShroom);
+            initGuis.GRAVITY_SHROOM_TILE_ENTITY=gravityShroom;
         }
 
         private static final List<ContainerType<?>> CONTAINER_TYPES = new ArrayList<>();
@@ -818,8 +901,6 @@ public class Main {
 
 
         }
-
-
 
 
 
@@ -917,9 +998,9 @@ public class Main {
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String line = in.readLine();
             StringBuilder builder = new StringBuilder();
-        do {
-            builder.append(line+"\n");
-        } while ( (line = in.readLine()) != null);
+            do {
+                builder.append(line+"\n");
+            } while ( (line = in.readLine()) != null);
             in.close();
             return builder.toString();
         }catch (Exception e){
@@ -970,6 +1051,27 @@ public class Main {
         LOGGER.info(TextFormatting.DARK_AQUA+"---");
         LOGGER.info(TextFormatting.AQUA+"---------------------------------");
 
+    }
+
+    public static void fixResources(){
+        ArrayList<ClientResourcePackInfo> enabledPacks = new ArrayList<>(Minecraft.getInstance().getResourcePackList().getEnabledPacks());
+        ArrayList<ClientResourcePackInfo> orderedPacks = enabledPacks;
+
+        int vanillaIndex = 0;
+        int modResIndex =0;
+        for(int i = 0; i < enabledPacks.size(); i++){
+            if (enabledPacks.get(i).getName().equals("vanilla")) {
+                vanillaIndex=i;
+                orderedPacks.set(0,enabledPacks.get(i));
+            }
+            else if (enabledPacks.get(i).getName().equals("mod_resources")) {
+                modResIndex=i;
+                orderedPacks.set(1,enabledPacks.get(i));
+            }else{
+                orderedPacks.set(i,enabledPacks.get(i));
+            }
+        }
+        Minecraft.getInstance().getResourcePackList().setEnabledPacks(orderedPacks);
     }
 
     /*public static boolean getEntitySpawnPlacementPredicate(EntityType<?> entity, IWorld world, SpawnReason reason, BlockPos pos, Random random) {

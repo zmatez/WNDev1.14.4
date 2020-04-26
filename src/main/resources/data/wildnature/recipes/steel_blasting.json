@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "wildnature:steel_ore"
-  },
-  "result": "wildnature:steel_ingot",
-  "experience": 1.0,
-  "cookingtime": 200
-}

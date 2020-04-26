@@ -52,7 +52,7 @@ public class WNMirkwood extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addGrass(this);
-        WNBiomeFeatures.addMushrooms(this);
+
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:radissium_red").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);

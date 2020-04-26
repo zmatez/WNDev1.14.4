@@ -6,6 +6,7 @@ import com.matez.wildnature.lists.WNBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.Item;
 
 import java.util.ArrayList;
@@ -61,12 +62,12 @@ public class FlowerRegistry {
 
         oliveFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
         oliveFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("",0,0)));
-        oliveFruits.add(new FruitableLeaves.StageFruit(2, new FruitableLeaves.ItemPortion("wildnature:olive",1,1)));
-        oliveFruits.add(new FruitableLeaves.StageFruit(3, new FruitableLeaves.ItemPortion("wildnature:olive",1,1)));
-        oliveFruits.add(new FruitableLeaves.StageFruit(4, new FruitableLeaves.ItemPortion("wildnature:olive",1,1)));
-        oliveFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:olive",1,1)));
-        oliveFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:olive",1,1)));
-        oliveFruits.add(new FruitableLeaves.StageFruit(7, new FruitableLeaves.ItemPortion("wildnature:olive",1,1)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(2, new FruitableLeaves.ItemPortion("wildnature:olives",1,1)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(3, new FruitableLeaves.ItemPortion("wildnature:olives",1,1)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(4, new FruitableLeaves.ItemPortion("wildnature:olives",1,1)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:olives",1,1)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:olives",1,1)));
+        oliveFruits.add(new FruitableLeaves.StageFruit(7, new FruitableLeaves.ItemPortion("wildnature:olives",1,1)));
 
         peachFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
         peachFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("",0,0)));
@@ -97,10 +98,10 @@ public class FlowerRegistry {
 
 
         flowers = new Block[]{
-                WNBlocks.CHERRY_FLOWER = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("cherry_flower")),
-                WNBlocks.JACARANDA_FLOWER = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("jacaranda_flower")),
-                WNBlocks.PLUM_FLOWER = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("plum_flower")),
-                WNBlocks.DAISY = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("daisy")),
+                WNBlocks.CHERRY_FLOWER = new FlatBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("cherry_flower")),
+                WNBlocks.JACARANDA_FLOWER = new FlatBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("jacaranda_flower")),
+                WNBlocks.PLUM_FLOWER = new FlatBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("plum_flower")),
+                WNBlocks.DAISY = new FlatBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("daisy")),
                 WNBlocks.HEATHER_PURPLE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("heather_purple")),
                 WNBlocks.HEATHER_PINK = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("heather_pink")),
                 WNBlocks.HEATHER_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("heather_white")),
@@ -150,21 +151,108 @@ public class FlowerRegistry {
                 WNBlocks.ORCHIS_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("orchis_white")),
                 WNBlocks.PEACE_LILY = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("peace_lily")),
                 WNBlocks.WILD_ROSE = new WildRosePlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("wild_rose")),
+                WNBlocks.ANEMONE = new AnemonePlant(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("anemone")),
+                WNBlocks.CHAMOMILE_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("chamomile_white")),
+                WNBlocks.CHAMOMILE_DOUBLE_WHITE = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("chamomile_double_white")),
+                WNBlocks.CHRYSANTHEMUM_PURPLE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("chrysanthemum_purple")),
+                WNBlocks.CHRYSANTHEMUM_RED = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("chrysanthemum_red")),
+                WNBlocks.CHRYSANTHEMUM_YELLOW = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("chrysanthemum_yellow")),
+                WNBlocks.CHRYSANTHEMUM_LIGHT_YELLOW = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("chrysanthemum_light_yellow")),
+                WNBlocks.CHRYSANTHEMUM_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("chrysanthemum_white")),
+                WNBlocks.CROCUS_PURPLE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("crocus_purple")),
+                WNBlocks.CROCUS_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("crocus_white")),
+                WNBlocks.GERANIUM_RED = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("geranium_red")),
+                WNBlocks.GERANIUM_PINK = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("geranium_pink")),
+                WNBlocks.GERANIUM_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("geranium_white")),
+                WNBlocks.HYACINTH_DARK_BLUE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hyacinth_dark_blue")),
+                WNBlocks.HYACINTH_PURPLE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hyacinth_purple")),
+                WNBlocks.HYACINTH_RED = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hyacinth_red")),
+                WNBlocks.HYACINTH_PINK = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hyacinth_pink")),
+                WNBlocks.HYACINTH_LIGHT_BLUE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hyacinth_light_blue")),
+                WNBlocks.HYACINTH_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hyacinth_white")),
+                WNBlocks.MARIGOLD_RED = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("marigold_red")),
+                WNBlocks.MARIGOLD_ORANGE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("marigold_orange")),
+                WNBlocks.MARIGOLD_YELLOW = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("marigold_yellow")),
+                WNBlocks.MARIGOLD_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("marigold_white")),
+                WNBlocks.CATNIP = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("catnip_purple")),
+                WNBlocks.DAFFODIL = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("daffodil_yellow")),
+                WNBlocks.HEPATICA_VIOLET = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hepatica_violet")),
+                WNBlocks.HEPATICA_PURPLE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hepatica_purple")),
+                WNBlocks.HEPATICA_PINK = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hepatica_pink")),
+                WNBlocks.HEPATICA_BLUE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hepatica_blue")),
+                WNBlocks.HEPATICA_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hepatica_white")),
+                WNBlocks.PRIMROSE_BLUE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("primrose_blue")),
+                WNBlocks.PRIMROSE_PINK = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("primrose_pink")),
+                WNBlocks.PRIMROSE_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("primrose_white")),
+                WNBlocks.VIOLET_PURPLE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("violet_purple")),
+                WNBlocks.HOLLYHOCK_PINK = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hollyhock_pink")),
+                WNBlocks.HOLLYHOCK_RED = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hollyhock_red")),
+                WNBlocks.GLADIOLUS_PURPLE = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("gladiolus_purple")),
+                WNBlocks.GLADIOLUS_RED = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("gladiolus_red")),
+                WNBlocks.GLADIOLUS_ORANGE = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("gladiolus_orange")),
+                WNBlocks.GLADIOLUS_YELLOW = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("gladiolus_yellow")),
+                WNBlocks.COLUMBINE_BLUE = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("columbine_blue")),
+                WNBlocks.COLUMBINE_PURPLE = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("columbine_purple")),
+                WNBlocks.COLUMBINE_RED = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("columbine_red")),
+                WNBlocks.CARNATION_RED = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("carnation_red")),
+                WNBlocks.CARNATION_PINK = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("carnation_pink")),
+                WNBlocks.CARNATION_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("carnation_white")),
+                WNBlocks.YUCCA = new YuccaBlock(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("yucca")),
+                WNBlocks.CHINESE_LANTERN_FLOWER = new BelladonnaBlock(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("chinese_lantern_flower")),
+                WNBlocks.SCOTCHBROOM_YELLOW = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("scotchbroom_yellow")),
+                WNBlocks.SCOTCHBROOM_PURPLE = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("scotchbroom_purple")),
+                WNBlocks.CLEMATIS_BLUE = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("clematis_blue")),
+                WNBlocks.CLEMATIS_PURPLE = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("clematis_purple")),
+                WNBlocks.GOLDENROD = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("goldenrod")),
+                WNBlocks.HONEYSUCKLE_YELLOW = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("giant_hogweed")),
+                WNBlocks.GIANT_HOGWEED = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("honeysuckle_yellow")),
+                WNBlocks.HYDRANGEA_BLUE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hydrangea_blue")),
+                WNBlocks.HYDRANGEA_PURPLE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hydrangea_purple")),
+                WNBlocks.HYDRANGEA_PINK = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hydrangea_pink")),
+                WNBlocks.HYDRANGEA_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hydrangea_white")),
+                WNBlocks.MATTHIOLA_PINK = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("matthiola_pink")),
+                WNBlocks.HEATH_PURPLE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("heath_purple")),
+                WNBlocks.HEATH_PINK = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("heath_pink")),
+                WNBlocks.HEATH_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("heath_white")),
+                WNBlocks.MISCANTHUS_GRASS = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("miscanthus_grass")),
+                WNBlocks.FIRE_WEED = new FireWeedBush(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("fire_weed")),
+                WNBlocks.MONKSHOOD_BLUE = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("monkshood_blue")),
+                WNBlocks.SNOWDROP = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("snowdrop")),
+
+
+
+                WNBlocks.RHODODENDRON_PINK = new BigBushFloweringBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("rhododendron_pink")),
+                WNBlocks.RHODODENDRON_PURPLE = new BigBushFloweringBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("rhododendron_purple")),
+                WNBlocks.TAMARISK = new BigBushFloweringBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("tamarisk")),
+
+                WNBlocks.WISTERIA_PINK = new WisteriaBlock(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("wisteria_pink")),
+
+
+                WNBlocks.BOXWOOD = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("boxwood")),
+                WNBlocks.SHRUB = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("shrub")),
+                WNBlocks.SHRUB_TALL = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("shrub_tall")),
+                WNBlocks.THUJA = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("thuja")),
+                WNBlocks.THUJA_LARGE = new DoubleBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("thuja_large")),
+                WNBlocks.THUJA_LIMEGREEN = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("thuja_limegreen")),
+                WNBlocks.THUJA_LIMEGREEN_LARGE = new DoubleBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("thuja_limegreen_large")),
+
 
 
                 WNBlocks.GRASS_FERNSPROUT = new BushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grass_fernsprout")),
                 WNBlocks.GRASS_FLOWER = new FloweringBushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grass_flower")),
-                WNBlocks.GRASS_THISTLE = new FloweringBushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grass_thistle")),
+                WNBlocks.GRASS_THISTLE = new ThistleBlock(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grass_thistle")),
                 WNBlocks.GRASS_WHEAT = new FloweringBushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grass_wheat")),
                 WNBlocks.WILD_WHEAT = new FloweringBushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("wild_wheat")),
+                WNBlocks.PRAIRIE_GRASS = new FloweringBushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("prairie_grass")),
                 WNBlocks.MEDIUM_GRASS = new BushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("medium_grass")),
                 WNBlocks.SMALL_GRASS = new BushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("small_grass")),
                 WNBlocks.DESERT_GRASS = new DesertBush(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("desert_grass")),
                 WNBlocks.DEAD_SHORT_GRASS = new DesertBush(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("dead_short_grass")),
-                WNBlocks.LEAF_PILE = new BushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("leaf_pile")),
-                WNBlocks.DEAD_LEAF_PILE = new BushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("dead_leaf_pile")),
-                WNBlocks.CLOVER = new BushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("clover")),
+                WNBlocks.LEAF_PILE = new FlatBushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("leaf_pile")),
+                WNBlocks.DEAD_LEAF_PILE = new FlatBushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("dead_leaf_pile")),
+                WNBlocks.CLOVER = new FlatBushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("clover")),
                 WNBlocks.POISON_IVY = new PoisonIvyBlock(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("poison_ivy")),
+                WNBlocks.NETTLE = new NettleBlock(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("nettle")),
                 WNBlocks.LAMPGRASS = new FloweringBushBase(Block.Properties.create(Material.TALL_PLANTS).lightValue(4),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lampgrass")),
                 WNBlocks.SPIDERGRASS = new SpidergrassBlock(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("spidergrass")),
                 WNBlocks.MOSS = new MossBlock(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("moss")),
@@ -172,17 +260,61 @@ public class FlowerRegistry {
 
                 WNBlocks.YEW_BUSH = new BushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("yew_bush")),
                 WNBlocks.CATTAIL = new CattailBlock(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("cattail")),
-                WNBlocks.BIRD_OF_PARADISE = new DoubleBushBase(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bird_of_paradise")),
+                WNBlocks.BIRD_OF_PARADISE = new DoubleBushBaseFlowering(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bird_of_paradise")),
                 WNBlocks.RAPESEED = new DoubleBushBaseFlowering(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("rapeseed")),
                 WNBlocks.COFFEE_SAPLING = new CoffeeSapling(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("coffee_sapling")),
                 WNBlocks.COFFEE_BUSH = new CoffeeBush(Block.Properties.create(Material.TALL_PLANTS), Main.RegistryEvents.location("coffee_bush")),
                 WNBlocks.CORN_BUSH = new CornPlant(Block.Properties.create(Material.TALL_PLANTS), Main.RegistryEvents.location("corn_bush")),
                 WNBlocks.RIVER_CANE = new RiverCaneBush(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("river_cane")),
                 WNBlocks.SMALL_CACTI = new DesertBush(Block.Properties.create(Material.TALL_PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("small_cacti")),
+                WNBlocks.FESTUCA_ELIJAHBLUE = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("festuca_elijahblue")),
+                WNBlocks.FESTUCA = new DoubleBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("festuca")),
+                WNBlocks.TANSY = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("tansy")),
+                WNBlocks.SEA_KALE = new DesertBush(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("sea_kale")),
+                WNBlocks.CORDYLINE_AUSTRALIS = new DesertBush(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("cordyline_australis")),
+                WNBlocks.SEABEACH_SANDWORT = new DesertBush(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("seabeach_sandwort")),
+                WNBlocks.RED_SAND_VERBENA = new FloweringDesertBush(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("red_sand_verbena")),
+                WNBlocks.REEDS = new ReedsBlock(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("reeds")),
+                WNBlocks.HOTTENTOT = new FloweringDesertBush(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hottentot")),
+                WNBlocks.PRICKLY_PEAR_CACTUS = new PricklyPearBlock(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("prickly_pear_cactus")),
 
 
+
+                //UNDERWATER & WATER
                 WNBlocks.GREEN_WATERLILY = new WaterLilyBase(Block.Properties.create(Material.PLANTS), Main.RegistryEvents.location("green_waterlily")),
                 WNBlocks.RED_WATERLILY = new WaterLilyBase(Block.Properties.create(Material.PLANTS), Main.RegistryEvents.location("red_waterlily")),
+                WNBlocks.DUCKWEED = new WaterLilyBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(), Main.RegistryEvents.location("duckweed")),
+                WNBlocks.WATER_POPPY = new FloweringWaterLily(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(), Main.RegistryEvents.location("water_poppy")),
+                WNBlocks.WATER_LILY_WHITE = new FloweringWaterLily(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(), Main.RegistryEvents.location("water_lily_white")),
+                WNBlocks.WATER_LILY_YELLOW = new FloweringWaterLily(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(), Main.RegistryEvents.location("water_lily_yellow")),
+                WNBlocks.LOTUS_PINK = new FloweringWaterLily(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(), Main.RegistryEvents.location("lotus_pink")),
+                WNBlocks.LOTUS_LIGHT_PINK = new FloweringWaterLily(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(), Main.RegistryEvents.location("lotus_light_pink")),
+                WNBlocks.LOTUS_WHITE = new FloweringWaterLily(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(), Main.RegistryEvents.location("lotus_white")),
+                WNBlocks.WATER_HYACINTH = new FloweringWaterLily(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(), Main.RegistryEvents.location("water_hyacinth")),
+                WNBlocks.POND_WEED = new WaterLilyBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(), Main.RegistryEvents.location("pond_weed")),
+                WNBlocks.PARROTS_FEATHER_PLANT = new WaterLilyBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(), Main.RegistryEvents.location("parrots_feather_plant")),
+                WNBlocks.WATER_WEED = new UnderwaterBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("water_weed")),
+                WNBlocks.ALGAE = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("algae")),
+                WNBlocks.RED_ALGAE = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("red_algae")),
+                WNBlocks.OAR_WEED = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("oar_weed")),
+                WNBlocks.RED_SEA_WHIP = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("red_sea_whip")),
+                WNBlocks.SEA_ANEMONE = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("sea_anemone")),
+                WNBlocks.SHRIMP_TUBE_WEED = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("shrimp_tube_weed")),
+                WNBlocks.SHRIMP_TUBE = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("shrimp_tube")),
+                WNBlocks.SHALLOW_WATER_GRASS = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("shallow_water_grass")),
+                WNBlocks.ROCK_WEED = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("rock_weed")),
+                WNBlocks.LILY_TONGUE = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("lily_tongue")),
+                WNBlocks.GLOWING_SEA_BANANA = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT).lightValue(9),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("glowing_sea_banana")),
+                WNBlocks.GLOW_RIBBON = new UnderwaterDoubleBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("glow_ribbon")),
+                WNBlocks.DEEP_SEA_VINE = new UnderwaterVineBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("deep_sea_vine")),
+                WNBlocks.DEEP_SEA_NIGHT_SHADE = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("deep_sea_night_shade")),
+                WNBlocks.BULB_VINE = new UnderwaterDoubleBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bulb_vine")),
+
+                //CORALS
+                WNBlocks.BAMBOO_CORAL = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bamboo_coral")),
+                WNBlocks.CRAB_CORAL = new UnderwaterBushBase(Block.Properties.create(Material.OCEAN_PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("crab_coral")),
+
+
 
 
                 WNBlocks.BUSH_RASPBERRY = new BushBerryBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_raspberry"),new FruitableLeaves.StageFruit(1,new FruitableLeaves.ItemPortion("wildnature:raspberry",1,3))),
@@ -201,10 +333,16 @@ public class FlowerRegistry {
                 WNBlocks.BUSH_BLACK_LILAC = new BlackLilacPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_black_lilac")),
                 WNBlocks.BUSH_BLACKBERRY = new BlackberryPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_blackberry")),
                 WNBlocks.BUSH_CRANBERRY = new CranberryPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_cranberry")),
+                WNBlocks.BELLADONNA = new BelladonnaBlock(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("belladonna")),
 
                 //VINES
                 WNBlocks.GRAPE_VINE_PURPLE = new GrapeVine(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grape_vine_purple"), GrapeVine.VineType.PURPLE),
                 WNBlocks.GRAPE_VINE_YELLOW = new GrapeVine(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("grape_vine_yellow"), GrapeVine.VineType.YELLOW),
+                WNBlocks.ROSEVINE_RED = new RoseVine(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("rosevine_red")),
+                WNBlocks.ROSEVINE_PINK = new RoseVine(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("rosevine_pink")),
+                WNBlocks.ROSEVINE_YELLOW = new RoseVine(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("rosevine_yellow")),
+                WNBlocks.ROSEVINE_WHITE = new RoseVine(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("rosevine_white")),
+
 
 
                 //CITRUS
@@ -246,25 +384,25 @@ public class FlowerRegistry {
                 WNBlocks.CABBAGE_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("cabbage_plant"),"wildnature:cabbage"),
                 WNBlocks.CHIVES_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("chives_plant"),"wildnature:chives"),
                 WNBlocks.CUCUMBER_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("cucumber_plant"),"wildnature:cucumber"),
-                WNBlocks.EGGPLANT_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("eggplant_plant"),"wildnature:eggplant"),
+                WNBlocks.EGGPLANT_PLANT = new EggPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("eggplant_plant")),
                 WNBlocks.CURRY_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("curry_plant"),"wildnature:curry_leaf"),
                 WNBlocks.MARJORAM_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("marjoram_plant"),"wildnature:fresh_marjoram"),
                 WNBlocks.ROSEMARY_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("rosemary_plant"),"wildnature:fresh_rosemary"),
                 WNBlocks.PEA_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("pea_plant"),"wildnature:peas"),
                 WNBlocks.PEANUT_PLANT = new Age3Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("peanut_plant"),"wildnature:peanut"),
                 WNBlocks.HORSE_RADISH_PLANT = new BushBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),null, "wildnature:horse_radish", 1,2,0,Main.RegistryEvents.location("horse_radish_plant")),
-                WNBlocks.BLACK_PEPPER_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("black_pepper_plant"),"wildnature:black_pepper"),
+                WNBlocks.BLACK_PEPPER_PLANT = new Age4Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("black_pepper_plant"),"wildnature:pepper"),
 
 
                 WNBlocks.COTTON_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("cotton_plant"),"wildnature:cotton",false),
                 WNBlocks.PINEAPPLE_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("pineapple_plant"),"wildnature:pineapple",false),
 
 
-                WNBlocks.BLACK_TEA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("black_tea_plant"),"wildnature:black_tea_leaf",false),
-                WNBlocks.GREEN_TEA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("green_tea_plant"),"wildnature:green_tea_leaf",false),
+                WNBlocks.BLACK_TEA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("black_tea_plant"),"wildnature:black_tea_leaves",false),
+                WNBlocks.GREEN_TEA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("green_tea_plant"),"wildnature:green_tea_leaves",false),
                 WNBlocks.MELISSA_PLANT = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("melissa_tea_plant"),"wildnature:melissa_tea_leaf",false),
                 WNBlocks.MINT_PLANT = new BushBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),null, "wildnature:mint", 1,2,0,Main.RegistryEvents.location("mint_plant")),
-                WNBlocks.WHITE_TEA = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("white_tea_plant"),"wildnature:white_tea_leaf",false),
+                WNBlocks.WHITE_TEA = new Age2Plant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP), Main.RegistryEvents.location("white_tea_plant"),"wildnature:white_tea_leaves",false),
 
 
 
@@ -278,34 +416,54 @@ public class FlowerRegistry {
                 WNBlocks.MUSHROOM7_BIRCH_BOLETE = new MushroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("mushroom7")),
                 WNBlocks.MUSHROOM8_BOLETUS = new MushroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("mushroom8")),
                 WNBlocks.MUSHROOM9_CHANTARELLE = new MushroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("mushroom9")),
+                WNBlocks.PSILOCYBIN_MUSHROOM = new MushroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("psilocybin_mushroom")),
+                WNBlocks.FUZZBALL = new FuzzballShroom(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("fuzzball")),
 
 
 
 
 
                 //UNDERGROUNDS
-                WNBlocks.GLOW_SHROOM = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(6),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("glowshroom")),
-                WNBlocks.ICE_SHROOM = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(6),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("ice_shroom")),
-                WNBlocks.SULFUR_SHROOM = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("sulfur_shroom")),
-                WNBlocks.POISON_SHROOM = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("poison_shroom")),
-                WNBlocks.MAGMA_SHROOM = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(6),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("magma_shroom")),
-                WNBlocks.DRAGON_SHROOM = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(3),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("dragon_shroom")),
+                WNBlocks.GLOW_SHROOM = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(6),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("glowshroom"),false),
+                WNBlocks.ICE_SHROOM = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(6),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("ice_shroom"),false),
+                WNBlocks.GLOWING_SLIMESHROOM_GREEN = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(9),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("glowing_slimeshroom_green"),false),
+                WNBlocks.GLOWING_SLIMESHROOM_BLUE = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(9),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("glowing_slimeshroom_blue"),false),
+                WNBlocks.HANGING_GLOWING_SLIMESHROOM_GREEN = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(9),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("hanging_glowing_slimeshroom_green"),true),
+                WNBlocks.HANGING_GLOWING_SLIMESHROOM_BLUE = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(9),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("hanging_glowing_slimeshroom_blue"),true),
+                WNBlocks.JELLYSHROOM = new JellyShroomBlock(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(7),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("jellyshroom"),false),
+                WNBlocks.SULFUR_SHROOM = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("sulfur_shroom"),false),
+                WNBlocks.POISON_SHROOM = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("poison_shroom"),false),
+                WNBlocks.MAGMA_SHROOM = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(6),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("magma_shroom"),false),
+                WNBlocks.DRAGON_SHROOM = new CaveShroomBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(3),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("dragon_shroom"),false),
+                WNBlocks.GLOWING_SHADOWSHROOM = new ShadowShroomBlock(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(5),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("glowing_shadowshroom"),false),
+                WNBlocks.GRAVITYSHROOM = new GravityShroom(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(1),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("gravityshroom")),
+                WNBlocks.TUBESHROOM = new Tubeshroom(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(7),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("tubeshroom"),false),
+                WNBlocks.SUNSHROOM = new Sunshroom(Block.Properties.create(Material.PLANTS).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("sunshroom"),false),
+                WNBlocks.MAGMA_PAD = new MagmaPadBlock(Block.Properties.create(Material.PLANTS), Main.RegistryEvents.location("magma_pad")),
 
-                WNBlocks.STONE_GRASS = new CaveBush(Block.Properties.create(Material.ROCK),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("stone_grass"),false),
-                WNBlocks.ICE_GRASS = new CaveBush(Block.Properties.create(Material.ICE),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("ice_grass"),false),
+                WNBlocks.CAVE_LILY_FLOWER = new CaveFloweringBushBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(3),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("cave_lily"),false),
 
-                WNBlocks.ICYCLE = new CaveBush(Block.Properties.create(Material.ICE),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("icycle"),true),
-                WNBlocks.ROOTS = new CaveBush(Block.Properties.create(Material.WOOD),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("roots"),true),
-                WNBlocks.STALACTITE = new CaveBush(Block.Properties.create(Material.ROCK),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("stalactite"),true),
-                WNBlocks.STALAGMITE = new CaveBush(Block.Properties.create(Material.ROCK),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("stalagmite"),false),
 
-                WNBlocks.LARGE_GLOWSHROOM = new DoubleCaveBushBase(Block.Properties.create(Material.PLANTS).lightValue(10),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("large_glowshroom"),false),
-                WNBlocks.LARGE_ICYCLE = new DoubleCaveBushBase(Block.Properties.create(Material.ICE),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("large_icycle"),true),
-                WNBlocks.LARGE_ROOT = new DoubleCaveBushBase(Block.Properties.create(Material.WOOD),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("large_root"),true),
-                WNBlocks.LARGE_STALACTITE = new DoubleCaveBushBase(Block.Properties.create(Material.ROCK),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("large_stalactite"),true),
-                WNBlocks.LARGE_STALAGMITE = new DoubleCaveBushBase(Block.Properties.create(Material.ROCK),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("large_stalagmite"),false),
+                WNBlocks.STONE_GRASS = new CaveBush(Block.Properties.create(Material.ROCK),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("stone_grass"),false),
+                WNBlocks.ICE_GRASS = new CaveBush(Block.Properties.create(Material.ICE),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("ice_grass"),false),
 
-                WNBlocks.GLOW_VINE = new VineBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(6).sound(SoundType.PLANT),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("glow_vine")),
+                WNBlocks.ICYCLE = new CaveBush(Block.Properties.create(Material.ICE),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("icycle"),true),
+                WNBlocks.ROOTS = new CaveBush(Block.Properties.create(Material.WOOD),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("roots"),true),
+                WNBlocks.STALACTITE = new CaveBush(Block.Properties.create(Material.ROCK),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("stalactite"),true),
+                WNBlocks.STALAGMITE = new CaveBush(Block.Properties.create(Material.ROCK),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("stalagmite"),false),
+
+                WNBlocks.LARGE_GLOWSHROOM = new DoubleCaveBushBase(Block.Properties.create(Material.PLANTS).lightValue(10),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("large_glowshroom"),false),
+                WNBlocks.LARGE_ICYCLE = new DoubleCaveBushBase(Block.Properties.create(Material.ICE),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("large_icycle"),true),
+                WNBlocks.LARGE_ROOT = new DoubleCaveBushBase(Block.Properties.create(Material.WOOD),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("large_root"),true),
+                WNBlocks.LARGE_STALACTITE = new DoubleCaveBushBase(Block.Properties.create(Material.ROCK),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("large_stalactite"),true),
+                WNBlocks.LARGE_STALAGMITE = new DoubleCaveBushBase(Block.Properties.create(Material.ROCK),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("large_stalagmite"),false),
+
+                WNBlocks.GLOW_VINE = new VineBase(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().lightValue(6).sound(SoundType.PLANT),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("glow_vine")),
+
+                WNBlocks.CAVE_STAR = new CaveStarBlock(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.GLASS).hardnessAndResistance(2f,1f).harvestLevel(3),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("cave_star")),
+
+                WNBlocks.GLOWSHROOM_BLOCK = new HugeMushroomBase(Block.Properties.create(Material.WOOD, MaterialColor.WOOL).sound(SoundType.WOOD).hardnessAndResistance(0.2F),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("glowshroom_block")),
+                WNBlocks.GLOWSHROOM_STEM = new HugeMushroomBase(Block.Properties.create(Material.WOOD, MaterialColor.WOOL).sound(SoundType.WOOD).hardnessAndResistance(0.2F),new Item.Properties().group(Main.WILDNATURE_UNDERGROUND_GROUP), Main.RegistryEvents.location("glowshroom_stem")),
 
 
 

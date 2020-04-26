@@ -43,7 +43,7 @@ public class BiomeListCommandX {
         ArrayList<ITextComponent> tx = new ArrayList<>();
         pages.get(page-1).forEach(biome -> {
             boolean isWildNature = WNBiomes.registerBiomes.contains(biome);
-            String wiki = isWildNature ? "wildnature.matez.net/"+biome.getRegistryName().getPath().replace("_","-") : "";
+            String wiki = isWildNature ? "wildnaturemod.com/"+biome.getRegistryName().getPath().replace("_","-") : "";
             String search = "/wn biome tp "+biome.getRegistryName();
             boolean active = !CommonConfig.blacklistedBiomes.contains(biome);
             boolean subbiome = !WNBiomes.generatorBiomes.contains(biome);

@@ -1,8 +1,13 @@
 package com.matez.wildnature.lists;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
+import java.util.ArrayList;
+
 public class WNItems {
+    public static final ArrayList<Item> FOOD = new ArrayList<>();
+
     public static Item ROSACEAE_SIGN;
     public static Item ASPEN_SIGN;
     public static Item BAOBAB_SIGN;
@@ -33,6 +38,7 @@ public class WNItems {
     public static Item CHERRY;
     public static Item PEAR;
     public static Item PLUM;
+    public static Item MIRABELLE_PLUM;
     public static Item RASPBERRY;
     public static Item BLUEBERRY;
     public static Item LINGONBERRY;
@@ -49,6 +55,7 @@ public class WNItems {
     public static Item BLACK_LILAC_BERRIES;
     public static Item CRANBERRIES;
     public static Item BLACKBERRY;
+    public static Item BELLADONNA_FRUIT;
 
 
     //CITRUS
@@ -114,6 +121,8 @@ public class WNItems {
 
     public static Item BUTTER;
     public static Item DOUGH_BALL;
+    public static Item MUSHROOM_MIX;
+    public static Item DRIED_MUSHROOM_MIX;
     public static Item LEMON_WEDGE;
 
     //SALADS
@@ -267,7 +276,7 @@ public class WNItems {
     public static Item MARSHMALLOW;
 
     public static Item DUNGEON_TORCH,CRYSTAL_TORCH,DUNGEON_REDSTONE_TORCH,DUNGEON_LEVER;
-    public static Item GREEN_WATERLILY, RED_WATERLILY;
+    public static Item GREEN_WATERLILY, RED_WATERLILY, DUCKWEED, WATER_POPPY, WATER_LILY_WHITE, WATER_LILY_YELLOW, LOTUS_PINK, LOTUS_LIGHT_PINK, LOTUS_WHITE, WATER_HYACINTH, POND_WEED, WATER_WEED, PARROTS_FEATHER_PLANT, MAGMA_PAD;
     public static Item RS_PISTON1;
 
     public static Item GEYSER_ESSENCE;
@@ -287,5 +296,8 @@ public class WNItems {
 
     //EGGS
     public static Item GOBLIN_EGG;
+    public static Item DRAKE_EGG;
+    public static Item DUCK_EGG;
+    public static Item BOAR_EGG;
 
 }

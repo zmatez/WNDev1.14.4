@@ -21,7 +21,7 @@ public class WNCrackedDesert extends WNBiome {
         super(name,(new WNBiomeBuilder())
                 .surfaceBuilder(new CrackedSurfaceBuilder(SurfaceBuilderConfig::deserialize), new SurfaceBuilderConfig(Main.getBlockByID("wildnature:cracked_sandstone").getDefaultState(),Main.getBlockByID("wildnature:cracked_sandstone").getDefaultState(),Main.getBlockByID("minecraft:sand").getDefaultState()))
                 .precipitation(RainType.NONE)
-                .category(Category.FOREST)
+                .category(Category.DESERT)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
                 .climate(WNBiomeBuilder.Climate.CONTINENTAL_WARM)
                 .depth(0.15F)
@@ -47,7 +47,7 @@ public class WNCrackedDesert extends WNBiome {
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
         WNBiomeFeatures.addGrass(this,18);
-        WNBiomeFeatures.addMushrooms(this);
+
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 

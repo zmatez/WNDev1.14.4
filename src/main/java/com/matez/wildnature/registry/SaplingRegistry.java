@@ -6,6 +6,7 @@ import com.matez.wildnature.other.TreeWeighList;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
 import com.matez.wildnature.world.gen.structures.nature.SchemTree;
 import com.matez.wildnature.world.gen.structures.nature.woods.baobab.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.beech.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.cedar.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.cherry.cherry1;
@@ -78,11 +79,18 @@ public class SaplingRegistry {
 
         Tree baobabTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_birch3(NoFeatureConfig::deserialize,false, WNBlocks.BEECH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.BEECH_LEAVES)),10);
-        weighList.add(new tree_birch6(NoFeatureConfig::deserialize,false, WNBlocks.BEECH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.BEECH_LEAVES)),10);
-
-        //TODO Beech trees
-
+        weighList.add(new beech1(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new beech2(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new beech3(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new beech4(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new beech5(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new beech6(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new beech7(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new beech8(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new beech9(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new beech10(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new beech11(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new beech12(NoFeatureConfig::deserialize,false),10);
         Tree beechTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
 
@@ -288,6 +296,11 @@ public class SaplingRegistry {
 
         Tree plumTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
+        weighList.add(new tree_oak22(NoFeatureConfig::deserialize,false, WNBlocks.PLUM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MIRABELLE_PLUM_LEAVES)),10);
+        weighList.add(new tree_oak5(NoFeatureConfig::deserialize,false, WNBlocks.PLUM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MIRABELLE_PLUM_LEAVES)),10);
+
+        Tree mirabellePlumTrees = new SchemTree(weighList);
+        weighList = new TreeWeighList();
         weighList.add(new tree_birch10(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.POPLAR_LEAVES)),10);
 
         Tree poplarTrees = new SchemTree(weighList);
@@ -415,6 +428,7 @@ public class SaplingRegistry {
                 WNBlocks.PEAR_SAPLING = new SaplingBase(pearTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("pear_sapling")),
                 WNBlocks.PINE_SAPLING = new SaplingBase(pineTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("pine_sapling")),
                 WNBlocks.PLUM_SAPLING = new SaplingBase(plumTrees, Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("plum_sapling")),
+                WNBlocks.MIRABELLE_PLUM_SAPLING = new SaplingBase(mirabellePlumTrees, Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("mirabelle_plum_sapling")),
                 WNBlocks.POPLAR_SAPLING = new SaplingBase(poplarTrees, Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("poplar_sapling")),
                 WNBlocks.REDWOOD_SAPLING = new SaplingBase(redwoodTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("redwood_sapling")),
                 WNBlocks.ROWAN_SAPLING_RED = new SaplingBase(rowanTreesRed,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("rowan_sapling_red")),

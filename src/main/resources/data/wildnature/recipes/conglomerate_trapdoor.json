@@ -3,7 +3,7 @@
   "group": "wildnature:stone_trapdoor",
   "pattern": [
     "###",
-    "###"
+    "# #"
   ],
   "key": {
     "#": {

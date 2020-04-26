@@ -4,6 +4,7 @@ import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.BushBase;
 import com.matez.wildnature.blocks.BushBerryBase;
 import com.matez.wildnature.blocks.CropBase;
+import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.other.WeightedList;
@@ -35,6 +36,9 @@ public class WNVegeFeature extends Feature<NoFeatureConfig> {
         if(!worldIn.getDimension().isSurfaceWorld()){
             return false;
         }
+        if(Utilities.rint(0,CommonConfig.vegeCropChance.get())!=0){
+            return false;
+        }
         WeightedList<BushEntry> available = new WeightedList<>();
 
         entries.forEach(e -> {
@@ -49,12 +53,14 @@ public class WNVegeFeature extends Feature<NoFeatureConfig> {
             BushEntry b = (BushEntry) Utilities.getWeightedEntry(available, rand);
             assert b != null;
             try {
-                if (b.needsFarmland()) {
-                    new WNWildFarmFeature(NoFeatureConfig::deserialize, b.getBush()).place(worldIn, generator, rand, pos, config);
-
-                } else {
-                    new BushFeature(BushConfig::deserialize).place(worldIn, generator, rand, pos, new BushConfig(b.getBush()));
-
+                if(!CommonConfig.vegeGrassSpawn.get()) {
+                    if (b.needsFarmland()) {
+                        new WNWildFarmFeature(NoFeatureConfig::deserialize, b.getBush()).place(worldIn, generator, rand, pos, config);
+                    } else {
+                        new WNBushFeature(BushConfig::deserialize).place(worldIn, generator, rand, pos, new BushConfig(b.getBush()));
+                    }
+                }else{
+                    new WNBushFeature(BushConfig::deserialize).place(worldIn, generator, rand, pos, new BushConfig(b.getBush()));
                 }
                 //Main.LOGGER.debug("Spawned " + b.getBush().getBlock().getNameTextComponent().toString() + " at " + pos.toString());
 
@@ -70,27 +76,36 @@ public class WNVegeFeature extends Feature<NoFeatureConfig> {
     }
 
     public static void init(){
-        new BushEntry(WNBlocks.TOMATO_PLANT.getDefaultState(), Biome.TempCategory.WARM,5, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.LETTUCE_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.ONION_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.RED_ONION_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.BROCCOLI_PLANT.getDefaultState(), Biome.TempCategory.WARM,3, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.CABBAGE_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.CAULIFLOWER_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.CELERY_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.CHIVES_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.CUCUMBER_PLANT.getDefaultState(), Biome.TempCategory.WARM,5, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.GARLIC_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.GINGER_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.GREEN_PEPPER_PLANT.getDefaultState(), Biome.TempCategory.WARM,5, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.HORSE_RADISH_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5,false, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.LEEK_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.LETTUCE_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.ONION_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.PEANUT_PLANT.getDefaultState(), Biome.TempCategory.WARM,3, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.PEA_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.RED_ONION_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.RED_PEPPER_PLANT.getDefaultState(), Biome.TempCategory.WARM,3, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.RHUBARB_PLANT.getDefaultState(), Biome.TempCategory.WARM,5, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.RICE_PLANT.getDefaultState(), Biome.TempCategory.WARM,5, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.WET);
+        new BushEntry(WNBlocks.RICE_PLANT.getDefaultState(), Biome.TempCategory.WARM,5,false, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.WET);
+        new BushEntry(WNBlocks.TOMATO_PLANT.getDefaultState(), Biome.TempCategory.WARM,5, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.TURNIP_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,4, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.BROCCOLI_PLANT.getDefaultState(), Biome.TempCategory.WARM,3, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.CABBAGE_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.CHIVES_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.CUCUMBER_PLANT.getDefaultState(), Biome.TempCategory.WARM,5, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.HORSE_RADISH_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,5,false, BiomeDictionary.Type.PLAINS);
-        new BushEntry(WNBlocks.PEANUT_PLANT.getDefaultState(), Biome.TempCategory.WARM,3, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.GREEN_BEANS_BUSH.getDefaultState(), Biome.TempCategory.MEDIUM,4,false, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.GREEN_BEANS_BUSH.getDefaultState(), Biome.TempCategory.WARM,2,false, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.EGGPLANT_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,3, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.EGGPLANT_PLANT.getDefaultState(), Biome.TempCategory.WARM,3, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.CORN_BUSH.getDefaultState(), Biome.TempCategory.MEDIUM,4,false, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.CORN_BUSH.getDefaultState(), Biome.TempCategory.WARM,2,false, BiomeDictionary.Type.PLAINS);
+
         new BushEntry(WNBlocks.PINEAPPLE_PLANT.getDefaultState(), Biome.TempCategory.WARM,4,false, BiomeDictionary.Type.JUNGLE);
+
 
         new BushEntry(WNBlocks.BASIL_PLANT.getDefaultState(), Biome.TempCategory.WARM,1, BiomeDictionary.Type.JUNGLE);
         new BushEntry(WNBlocks.MARJORAM_PLANT.getDefaultState(), Biome.TempCategory.WARM,1, BiomeDictionary.Type.JUNGLE);
@@ -107,7 +122,11 @@ public class WNVegeFeature extends Feature<NoFeatureConfig> {
         new BushEntry(WNBlocks.MINT_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,4,false, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.WHITE_TEA.getDefaultState(), Biome.TempCategory.WARM,1,false, BiomeDictionary.Type.PLAINS);
 
+        new BushEntry(WNBlocks.BLACK_PEPPER_PLANT.getDefaultState(), Biome.TempCategory.WARM,2, BiomeDictionary.Type.JUNGLE);
 
+        new BushEntry(WNBlocks.COTTON_PLANT.getDefaultState(), Biome.TempCategory.MEDIUM,3,false, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.COTTON_PLANT.getDefaultState(), Biome.TempCategory.COLD,2,false, BiomeDictionary.Type.PLAINS);
+        new BushEntry(WNBlocks.COTTON_PLANT.getDefaultState(), Biome.TempCategory.WARM,2,false, BiomeDictionary.Type.PLAINS);
     }
 
     public static class BushEntry{

@@ -2,6 +2,6 @@
   "textures": {
     "particle": "wildnature:blocks/aspen/aspen_leaves",
     "leaves": "wildnature:blocks/aspen/aspen_leaves",
-    "log": "wildnature:blocks/aspen/aspen_log"
+    "log": "block/birch_log"
   }
 }

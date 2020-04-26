@@ -22,12 +22,12 @@ import java.util.Random;
 
 public class LightningBugBlock extends EndRodBlock {
     private static final double height = 16D;
-    protected static final VoxelShape SHAPE0 = Block.makeCuboidShape(4.0D, 16D, 4.0D, 12.0D, 1.0D, 12.0D);
-    protected static final VoxelShape SHAPE1 = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 15.0D, 12.0D);
-    protected static final VoxelShape SHAPE2 = Block.makeCuboidShape(4.0D, 4.0D, 1.0D, 12.0D, 12.0D, 16.0D);
-    protected static final VoxelShape SHAPE3 = Block.makeCuboidShape(4.0D, 4.0D, 0.0D, 12.0D, 12.0D, 15.0D);
-    protected static final VoxelShape SHAPE4 = Block.makeCuboidShape(1.0D, 4.0D, 4.0D, 16.0D, 12.0D, 12.0D);
-    protected static final VoxelShape SHAPE5 = Block.makeCuboidShape(15.0D, 4.0D, 4.0D, 0.0D, 12.0D, 12.0D);
+    protected static final VoxelShape UP = Block.makeCuboidShape(4.0D, 0D, 4.0D, 12.0D, 1.0D, 12.0D);
+    protected static final VoxelShape DOWN = Block.makeCuboidShape(4.0D, 15.0D, 4.0D, 12.0D, 16.0D, 12.0D);
+    protected static final VoxelShape NORTH = Block.makeCuboidShape(4.0D, 4.0D, 15.0D, 12.0D, 12.0D, 16.0D);
+    protected static final VoxelShape SOUTH = Block.makeCuboidShape(4.0D, 4.0D, 0.0D, 12.0D, 12.0D, 1.0D);
+    protected static final VoxelShape EAST = Block.makeCuboidShape(1.0D, 4.0D, 4.0D, 0.0D, 12.0D, 12.0D);
+    protected static final VoxelShape WEST = Block.makeCuboidShape(15.0D, 4.0D, 4.0D, 16.0D, 12.0D, 12.0D);
 
     private Item item;
 
@@ -46,9 +46,8 @@ public class LightningBugBlock extends EndRodBlock {
 
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        boolean silkTouch = true;
         List<ItemStack> list = super.getDrops(state, builder);
-        if(list.isEmpty() && !silkTouch){
+        if(list.isEmpty()){
             list.add(new ItemStack(item, 1));
         }
 
@@ -79,20 +78,20 @@ public class LightningBugBlock extends EndRodBlock {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         switch(state.get(FACING).getIndex()) {
             case 0://down
-                return SHAPE0;
+                return DOWN;
             case 1://up
-                return SHAPE1;
+                return UP;
             case 2://north
-                return SHAPE2;
+                return NORTH;
             case 3://south
-                return SHAPE3;
+                return SOUTH;
             case 4://west
-                return SHAPE4;
+                return WEST;
             case 5://east
-                return SHAPE5;
+                return EAST;
         }
         //System.out.println("FACING: " + state.get(FACING).getIndex());
-        return SHAPE0;
+        return DOWN;
     }
 
     @Override

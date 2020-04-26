@@ -75,7 +75,7 @@ public class WNChunkGeneratorEarth extends SmoothChunkGenerator {
         return d1;
     }
 
-    protected double[] func_222549_a(int chunkX, int chunkZ) {
+    public double[] sampleDepthAndScale(int chunkX, int chunkZ) {
         double[] adouble = new double[2];
         float f = 0.0F;
         float f1 = 0.0F;

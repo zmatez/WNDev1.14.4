@@ -4,6 +4,7 @@ import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.*;
 import com.matez.wildnature.lists.WNBlocks;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.PressurePlateBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -22,6 +23,7 @@ public class WoodRegistry {
     private ArrayList<FruitableLeaves.StageFruit> firFruits = new ArrayList<>();
     private ArrayList<FruitableLeaves.StageFruit> pineFruits = new ArrayList<>();
     private ArrayList<FruitableLeaves.StageFruit> plumFruits = new ArrayList<>();
+    private ArrayList<FruitableLeaves.StageFruit> mirabellePlumFruits = new ArrayList<>();
     private ArrayList<FruitableLeaves.StageFruit> hazelFruits = new ArrayList<>();
     private ArrayList<FruitableLeaves.StageFruit> rowanFruits = new ArrayList<>();
     private Block[] woods;
@@ -45,7 +47,8 @@ public class WoodRegistry {
                 "palm",
                 "plum",
                 "redwood",
-                "willow"
+                "willow",
+                "glowing_cave_oak"
         };
     }
     
@@ -111,6 +114,14 @@ public class WoodRegistry {
         plumFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:plum",1,1)));
         plumFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:plum",1,2)));
 
+        mirabellePlumFruits.add(new FruitableLeaves.StageFruit(0, new FruitableLeaves.ItemPortion("",0,0)));
+        mirabellePlumFruits.add(new FruitableLeaves.StageFruit(1, new FruitableLeaves.ItemPortion("wildnature:mirabelle_plum_flower",1,1)));
+        mirabellePlumFruits.add(new FruitableLeaves.StageFruit(2, new FruitableLeaves.ItemPortion("wildnature:mirabelle_plum",2,3)));
+        mirabellePlumFruits.add(new FruitableLeaves.StageFruit(3, new FruitableLeaves.ItemPortion("wildnature:mirabelle_plum",1,2)));
+        mirabellePlumFruits.add(new FruitableLeaves.StageFruit(4, new FruitableLeaves.ItemPortion("wildnature:mirabelle_plum",1,1)));
+        mirabellePlumFruits.add(new FruitableLeaves.StageFruit(5, new FruitableLeaves.ItemPortion("wildnature:mirabelle_plum",1,1)));
+        mirabellePlumFruits.add(new FruitableLeaves.StageFruit(6, new FruitableLeaves.ItemPortion("wildnature:mirabelle_plum",1,2)));
+
         
 
 
@@ -141,6 +152,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_LOG = new LogBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("redwood_log"), MaterialColor.WOOD),
                  ////BlocksList.ROWAN_LOG = new LogBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(WILDNATURE_GROUP),location("rowan_log"), MaterialColor.WOOD),
                  WNBlocks.WILLOW_LOG = new LogBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("willow_log"), MaterialColor.WOOD),
+                WNBlocks.GLOWING_CAVE_OAK_LOG = new LogBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("glowing_cave_oak_log"), MaterialColor.WOOD),
 
                  WNBlocks.ROSACEAE_WOOD = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_wood")),
                  //BlocksList.ASPEN_WOOD = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_wood")),
@@ -167,6 +179,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_WOOD = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_wood")),
                  //BlocksList.ROWAN_WOOD = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_wood")),
                  WNBlocks.WILLOW_WOOD = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_wood")),
+                WNBlocks.GLOWING_CAVE_OAK_WOOD = new PlanksBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_wood")),
 
                  WNBlocks.ROSACEAE_STRIPPED_LOG = new LogBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_stripped_log"), MaterialColor.WOOD),
                  //BlocksList.ASPEN_STRIPPED_LOG = new LogBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_stripped_log"), MaterialColor.WOOD),
@@ -193,6 +206,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_STRIPPED_LOG = new LogBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_stripped_log"), MaterialColor.WOOD),
                  //BlocksList.ROWAN_STRIPPED_LOG = new LogBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_stripped_log"), MaterialColor.WOOD),
                  WNBlocks.WILLOW_STRIPPED_LOG = new LogBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_stripped_log"), MaterialColor.WOOD),
+                WNBlocks.GLOWING_CAVE_OAK_STRIPPED_LOG = new LogBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_stripped_log"), MaterialColor.WOOD),
 
                  WNBlocks.ROSACEAE_STRIPPED_WOOD = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_stripped_wood")),
                  //BlocksList.ASPEN_STRIPPED_WOOD = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_stripped_wood")),
@@ -219,6 +233,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_STRIPPED_WOOD = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_stripped_wood")),
                  //BlocksList.ROWAN_STRIPPED_WOOD = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_stripped_wood")),
                  WNBlocks.WILLOW_STRIPPED_WOOD = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_stripped_wood")),
+                WNBlocks.GLOWING_CAVE_OAK_STRIPPED_WOOD = new PlanksBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_stripped_wood")),
 
                  WNBlocks.ROSACEAE_PLANKS = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_planks")),
                  //BlocksList.ASPEN_PLANKS = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_planks")),
@@ -245,6 +260,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_PLANKS = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_planks")),
                  //BlocksList.ROWAN_PLANKS = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_planks")),
                  WNBlocks.WILLOW_PLANKS = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_planks")),
+                WNBlocks.GLOWING_CAVE_OAK_PLANKS = new PlanksBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_planks")),
 
                  WNBlocks.ROSACEAE_PARQUET = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_parquet")),
                  //BlocksList.ASPEN_PARQUET = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_parquet")),
@@ -271,6 +287,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_PARQUET = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_parquet")),
                  //BlocksList.ROWAN_PARQUET = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_parquet")),
                  WNBlocks.WILLOW_PARQUET = new PlanksBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_parquet")),
+                WNBlocks.GLOWING_CAVE_OAK_PARQUET = new PlanksBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_parquet")),
 
                  WNBlocks.ROSACEAE_SLABS_PLANKS = new SlabBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F,1.5F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_slab")),
                  //BlocksList.ASPEN_SLABS_PLANKS = new SlabBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F,1.5F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_slab")),
@@ -297,6 +314,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_SLABS_PLANKS = new SlabBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F,1.5F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_slab")),
                  //BlocksList.ROWAN_SLABS_PLANKS = new SlabBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F,1.5F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_slab")),
                  WNBlocks.WILLOW_SLABS_PLANKS = new SlabBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F,1.5F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_slab")),
+                WNBlocks.GLOWING_CAVE_OAK_SLABS_PLANKS = new SlabBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).sound(SoundType.WOOD).hardnessAndResistance(1.8F,2F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_slab")),
 
                  WNBlocks.ROSACEAE_SLABS_PARQUET = new SlabBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F,1.5F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_slab_parquet")),
                  //BlocksList.ASPEN_SLABS_PARQUET = new SlabBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F,1.5F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_slab_parquet")),
@@ -323,6 +341,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_SLABS_PARQUET = new SlabBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F,1.5F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_slab_parquet")),
                  //BlocksList.ROWAN_SLABS_PARQUET = new SlabBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F,1.5F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_slab_parquet")),
                  WNBlocks.WILLOW_SLABS_PARQUET = new SlabBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F,1.5F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_slab_parquet")),
+                WNBlocks.GLOWING_CAVE_OAK_SLABS_PARQUET = new SlabBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).sound(SoundType.WOOD).hardnessAndResistance(1.8F,2F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_slab_parquet")),
 
                  WNBlocks.ROSACEAE_STAIRS_PLANKS = new StairsBase(WNBlocks.ROSACEAE_PLANKS.getDefaultState(),Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_stairs")),
                  //BlocksList.ASPEN_STAIRS_PLANKS = new StairsBase(//BlocksList.ASPEN_PLANKS.getDefaultState(),Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_stairs")),
@@ -349,6 +368,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_STAIRS_PLANKS = new StairsBase(WNBlocks.REDWOOD_PLANKS.getDefaultState(),Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_stairs")),
                  //BlocksList.ROWAN_STAIRS_PLANKS = new StairsBase(//BlocksList.ROWAN_PLANKS.getDefaultState(),Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_stairs")),
                  WNBlocks.WILLOW_STAIRS_PLANKS = new StairsBase(WNBlocks.WILLOW_PLANKS.getDefaultState(),Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_stairs")),
+                WNBlocks.GLOWING_CAVE_OAK_STAIRS_PLANKS = new StairsBase(WNBlocks.GLOWING_CAVE_OAK_PLANKS.getDefaultState(),Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).sound(SoundType.WOOD).hardnessAndResistance(2F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_stairs")),
 
                  WNBlocks.ROSACEAE_STAIRS_PARQUET = new StairsBase(WNBlocks.ROSACEAE_PARQUET.getDefaultState(),Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_stairs_parquet")),
                  //BlocksList.ASPEN_STAIRS_PARQUET = new StairsBase(//BlocksList.ASPEN_PARQUET.getDefaultState(),Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_stairs_parquet")),
@@ -375,6 +395,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_STAIRS_PARQUET = new StairsBase(WNBlocks.REDWOOD_PARQUET.getDefaultState(),Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_stairs_parquet")),
                  //BlocksList.ROWAN_STAIRS_PARQUET = new StairsBase(//BlocksList.ROWAN_PARQUET.getDefaultState(),Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_stairs_parquet")),
                  WNBlocks.WILLOW_STAIRS_PARQUET = new StairsBase(WNBlocks.WILLOW_PARQUET.getDefaultState(),Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).sound(SoundType.WOOD).hardnessAndResistance(2F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_stairs_parquet")),
+                WNBlocks.GLOWING_CAVE_OAK_STAIRS_PARQUET = new StairsBase(WNBlocks.GLOWING_CAVE_OAK_PARQUET.getDefaultState(),Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).sound(SoundType.WOOD).hardnessAndResistance(2F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_stairs_parquet")),
 
                  WNBlocks.ROSACEAE_FENCE = new FenceBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_fence")),
                  //BlocksList.ASPEN_FENCE = new FenceBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_fence")),
@@ -401,6 +422,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_FENCE = new FenceBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_fence")),
                  //BlocksList.ROWAN_FENCE = new FenceBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_fence")),
                  WNBlocks.WILLOW_FENCE = new FenceBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_fence")),
+                WNBlocks.GLOWING_CAVE_OAK_FENCE = new FenceBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).hardnessAndResistance(1.8F, 4.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_fence")),
 
                  WNBlocks.ROSACEAE_FENCE_GATE = new FenceGateBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_fence_gate")),
                  //BlocksList.ASPEN_FENCE_GATE = new FenceGateBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_fence_gate")),
@@ -427,6 +449,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_FENCE_GATE = new FenceGateBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_fence_gate")),
                  //BlocksList.ROWAN_FENCE_GATE = new FenceGateBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_fence_gate")),
                  WNBlocks.WILLOW_FENCE_GATE = new FenceGateBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_fence_gate")),
+                WNBlocks.GLOWING_CAVE_OAK_FENCE_GATE = new FenceGateBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).hardnessAndResistance(1.8F, 4.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_fence_gate")),
 
                  WNBlocks.ROSACEAE_LOG_FENCE = new FenceBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_log_fence")),
                  //BlocksList.ASPEN_LOG_FENCE = new FenceBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_log_fence")),
@@ -453,6 +476,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_LOG_FENCE = new FenceBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_log_fence")),
                  //BlocksList.ROWAN_LOG_FENCE = new FenceBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_log_fence")),
                  WNBlocks.WILLOW_LOG_FENCE = new FenceBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_log_fence")),
+                WNBlocks.GLOWING_CAVE_OAK_LOG_FENCE = new FenceBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).hardnessAndResistance(1.8F, 4.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_log_fence")),
 
                  WNBlocks.ROSACEAE_LOG_FENCE_GATE = new FenceGateBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_log_fence_gate")),
                  //BlocksList.ASPEN_LOG_FENCE_GATE = new FenceGateBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_log_fence_gate")),
@@ -479,6 +503,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_LOG_FENCE_GATE = new FenceGateBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_log_fence_gate")),
                  //BlocksList.ROWAN_LOG_FENCE_GATE = new FenceGateBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_log_fence_gate")),
                  WNBlocks.WILLOW_LOG_FENCE_GATE = new FenceGateBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_log_fence_gate")),
+                WNBlocks.GLOWING_CAVE_OAK_LOG_FENCE_GATE = new FenceGateBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).hardnessAndResistance(1.8F, 4.0F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_log_fence_gate")),
 
                  WNBlocks.ROSACEAE_DOOR = new DoorBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_door")),
                  //BlocksList.ASPEN_DOOR = new DoorBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_door")),
@@ -505,6 +530,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_DOOR = new DoorBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_door")),
                  //BlocksList.ROWAN_DOOR = new DoorBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_door")),
                  WNBlocks.WILLOW_DOOR = new DoorBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_door")),
+                WNBlocks.GLOWING_CAVE_OAK_DOOR = new DoorBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).hardnessAndResistance(1.8F, 1F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_door")),
 
                  WNBlocks.ROSACEAE_TRAPDOOR = new TrapDoorBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_trapdoor")),
                  //BlocksList.ASPEN_TRAPDOOR = new TrapDoorBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_trapdoor")),
@@ -531,6 +557,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_TRAPDOOR = new TrapDoorBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_trapdoor")),
                  //BlocksList.ROWAN_TRAPDOOR = new TrapDoorBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_trapdoor")),
                  WNBlocks.WILLOW_TRAPDOOR = new TrapDoorBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(2.0F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_trapdoor")),
+                WNBlocks.GLOWING_CAVE_OAK_TRAPDOOR = new TrapDoorBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).hardnessAndResistance(1.8F, 1F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_trapdoor")),
 
                  WNBlocks.ROSACEAE_PRESSURE_PLATE = new PressurePlateBase(PressurePlateBlock.Sensitivity.EVERYTHING,Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_pressure_plate")),
                  //BlocksList.ASPEN_PRESSURE_PLATE = new PressurePlateBase(PressurePlateBlock.Sensitivity.EVERYTHING,Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_pressure_plate")),
@@ -557,6 +584,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_PRESSURE_PLATE = new PressurePlateBase(PressurePlateBlock.Sensitivity.EVERYTHING,Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_pressure_plate")),
                  //BlocksList.ROWAN_PRESSURE_PLATE = new PressurePlateBase(PressurePlateBlock.Sensitivity.EVERYTHING,Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_pressure_plate")),
                  WNBlocks.WILLOW_PRESSURE_PLATE = new PressurePlateBase(PressurePlateBlock.Sensitivity.EVERYTHING,Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_pressure_plate")),
+                WNBlocks.GLOWING_CAVE_OAK_PRESSURE_PLATE = new PressurePlateBase(PressurePlateBlock.Sensitivity.MOBS,Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).hardnessAndResistance(1.3F, 1F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_pressure_plate")),
 
 
                  WNBlocks.ROSACEAE_LOG_PRESSURE_PLATE = new PressurePlateBase(PressurePlateBlock.Sensitivity.EVERYTHING,Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_log_pressure_plate")),
@@ -584,6 +612,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_LOG_PRESSURE_PLATE = new PressurePlateBase(PressurePlateBlock.Sensitivity.EVERYTHING,Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_log_pressure_plate")),
                  //BlocksList.ROWAN_LOG_PRESSURE_PLATE = new PressurePlateBase(PressurePlateBlock.Sensitivity.EVERYTHING,Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_log_pressure_plate")),
                  WNBlocks.WILLOW_LOG_PRESSURE_PLATE = new PressurePlateBase(PressurePlateBlock.Sensitivity.EVERYTHING,Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_log_pressure_plate")),
+                WNBlocks.GLOWING_CAVE_OAK_LOG_PRESSURE_PLATE = new PressurePlateBase(PressurePlateBlock.Sensitivity.MOBS,Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).hardnessAndResistance(1.3F, 1F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_log_pressure_plate")),
 
                  WNBlocks.ROSACEAE_BUTTON = new ButtonBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_button")),
                  //BlocksList.ASPEN_BUTTON = new ButtonBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_button")),
@@ -610,6 +639,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_BUTTON = new ButtonBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_button")),
                  //BlocksList.ROWAN_BUTTON = new ButtonBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_button")),
                  WNBlocks.WILLOW_BUTTON = new ButtonBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_button")),
+                WNBlocks.GLOWING_CAVE_OAK_BUTTON = new ButtonBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).hardnessAndResistance(1.3F, 1.4F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_button")),
 
                  WNBlocks.ROSACEAE_LOG_BUTTON = new ButtonBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_log_button")),
                  //BlocksList.ASPEN_LOG_BUTTON = new ButtonBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_log_button")),
@@ -636,6 +666,7 @@ public class WoodRegistry {
                  WNBlocks.REDWOOD_LOG_BUTTON = new ButtonBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("redwood_log_button")),
                  //BlocksList.ROWAN_LOG_BUTTON = new ButtonBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("rowan_log_button")),
                  WNBlocks.WILLOW_LOG_BUTTON = new ButtonBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F).hardnessAndResistance(1.5F, 0.5F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("willow_log_button")),
+                WNBlocks.GLOWING_CAVE_OAK_LOG_BUTTON = new ButtonBase(Block.Properties.create(Material.WOOD).harvestLevel(3).hardnessAndResistance(1.3F,1.4F).hardnessAndResistance(1.3F, 1.4F).sound(SoundType.WOOD),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("glowing_cave_oak_log_button")),
 
                  WNBlocks.APPLE_LEAVES = new FruitableLeaves(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("apple_leaves"),appleFruits),
                  WNBlocks.ASPEN_LEAVES = new LeavesBase(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("aspen_leaves")),
@@ -664,13 +695,28 @@ public class WoodRegistry {
                  WNBlocks.PEAR_LEAVES = new FruitableLeaves(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("pear_leaves"),pearFruits),
                  WNBlocks.PINE_LEAVES = new FruitableLeaves(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("pine_leaves"),pineFruits),
                  WNBlocks.PLUM_LEAVES = new FruitableLeaves(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("plum_leaves"),plumFruits,true),
+                 WNBlocks.MIRABELLE_PLUM_LEAVES = new FruitableLeaves(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("mirabelle_plum_leaves"),mirabellePlumFruits,true),
                  WNBlocks.POPLAR_LEAVES = new LeavesBase(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("poplar_leaves")),
                  WNBlocks.REDWOOD_LEAVES = new LeavesBase(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("redwood_leaves")),
                  WNBlocks.ROWAN_LEAVES_RED = new FruitableLeaves(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("rowan_leaves_red"),rowanFruits),
                  WNBlocks.ROWAN_LEAVES_ORANGE = new FruitableLeaves(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("rowan_leaves_orange"),rowanFruits),
                  WNBlocks.WILLOW_LEAVES = new LeavesBase(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("willow_leaves")),
+                 WNBlocks.GLOWING_CAVE_OAK_LEAVES = new LeavesBase(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("glowing_cave_oak_leaves")),
+                WNBlocks.GLOWING_CAVE_OAK_ICY_LEAVES = new LeavesBase(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("glowing_cave_oak_icy_leaves")),
 
-                 WNBlocks.ROSACEAE_BRANCH = new BranchBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_branch"), WNBlocks.ROSACEAE_LOG),
+                WNBlocks.MAGNOLIA_LEAVES = new FloweringLeaves(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("magnolia_leaves")),
+                WNBlocks.FORSYTHIA_LEAVES = new FloweringLeaves(Block.Properties.create(Material.LEAVES),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("forsythia_leaves")),
+
+
+
+                WNBlocks.OAK_BRANCH = new BranchBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("oak_branch"), Blocks.OAK_LOG),
+                WNBlocks.SPRUCE_BRANCH = new BranchBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("spruce_branch"), Blocks.SPRUCE_LOG),
+                WNBlocks.BIRCH_BRANCH = new BranchBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("birch_branch"), Blocks.BIRCH_LOG),
+                WNBlocks.ACACIA_BRANCH = new BranchBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("acacia_branch"), Blocks.ACACIA_LOG),
+                WNBlocks.DARK_OAK_BRANCH = new BranchBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("dark_oak_branch"), Blocks.DARK_OAK_LOG),
+
+
+                WNBlocks.ROSACEAE_BRANCH = new BranchBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("rosaceae_branch"), WNBlocks.ROSACEAE_LOG),
                  //BlocksList.ASPEN_BRANCH = new BranchBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(WILDNATURE_BUILDING_GROUP),location("aspen_branch"), //BlocksList.ASPEN_LOG),
                  WNBlocks.BAOBAB_BRANCH = new BranchBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("baobab_branch"), WNBlocks.BAOBAB_LOG),
                  WNBlocks.BEECH_BRANCH = new BranchBase(Block.Properties.create(Material.WOOD).hardnessAndResistance(1.5F,0.8F),new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("beech_branch"), WNBlocks.BEECH_LOG),

@@ -1,5 +1,6 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.items.CakeItem;
 import com.matez.wildnature.lists.WNBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -36,7 +37,7 @@ public class CakeBase extends Block {
       this.setDefaultState(this.stateContainer.getBaseState().with(BITES, Integer.valueOf(0)));
 
       this.setRegistryName(regName);
-      item = new BlockItem(this,builder).setRegistryName(regName);
+      item = new CakeItem(this,builder).setRegistryName(regName);
 
 
       WNBlocks.BLOCKS.add(this);

@@ -8,10 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.world.gen.biomes.setup.WNGenSettings;
 import com.matez.wildnature.world.gen.chunk.landscape.ChunkLandscape;
-import com.matez.wildnature.world.gen.noise.OctaveNoiseSampler;
-import com.matez.wildnature.world.gen.noise.OpenSimplexNoise;
-import com.matez.wildnature.world.gen.noise.Sampler;
-import com.matez.wildnature.world.gen.noise.SuperSimplexNoise;
+import com.matez.wildnature.world.gen.noise.*;
 import com.matez.wildnature.world.gen.noise.bukkit.SimplexOctaveGenerator;
 
 import it.unimi.dsi.fastutil.longs.LongIterator;
@@ -59,6 +56,8 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 	private WNGenSettings settings;
 	
 	private final OctavesNoiseGenerator surfaceDepthNoise;
+
+
 	protected HashMap<Long, int[]> noiseCache = new HashMap<>();
 	
 	private SharedSeedRandom randomSeed;
@@ -66,7 +65,6 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 	public SmoothChunkGenerator(IWorld worldIn, BiomeProvider biomeProviderIn, WNGenSettings generationSettingsIn) 
 	{
 		super(worldIn, biomeProviderIn, generationSettingsIn);
-		
 		this.settings = generationSettingsIn;
 		this.randomSeed = new SharedSeedRandom(this.seed);
 		
@@ -90,11 +88,15 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
 
         for(int i1 = 0; i1 < 16; ++i1) {
             for(int j1 = 0; j1 < 16; ++j1) {
-                int k1 = k + i1;
-                int l1 = l + j1;
-                int i2 = chunkIn.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, i1, j1) + 1;
-                double d1 = this.surfaceDepthNoise.func_215460_a((double)k1 * 0.0625D, (double)l1 * 0.0625D, 0.0625D, (double)i1 * 0.0625D);
-                abiome[j1 * 16 + i1].buildSurface(sharedseedrandom, chunkIn, k1, l1, i2, d1, this.getSettings().getDefaultBlock(), this.getSettings().getDefaultFluid(), this.getSeaLevel(), this.world.getSeed());
+                int x = k + i1;
+                int z = l + j1;
+                int startHeight = chunkIn.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, i1, j1) + 1;
+                double d1 = this.surfaceDepthNoise.func_215460_a((double)x * 0.0625D, (double)z * 0.0625D, 0.0625D, (double)i1 * 0.0625D);
+
+
+
+                abiome[j1 * 16 + i1].buildSurface(sharedseedrandom, chunkIn, x, z, startHeight, d1, this.getSettings().getDefaultBlock(), this.getSettings().getDefaultFluid(), this.getSeaLevel(), this.world.getSeed());
+
             }
         }
 
@@ -188,12 +190,17 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
         	for(int z = 0; z < 16; z++)
         	{
         		int height = (int) noise[(x * 16) + z];
+				double depth = sampleDepthAndScale((chunk.getPos().x * 16) + x,(chunk.getPos().z * 16) + z)[0];
+        		double scale = sampleDepthAndScale((chunk.getPos().x * 16) + x,(chunk.getPos().z * 16) + z)[1];
         		
         		for(int y = 0; y < 256; y++)
         		{
         			BlockPos pos = new BlockPos(x, y, z);
-        			if (y > height)
-        			{
+					Biome b = chunk.getBiome(pos);
+
+					if (y > (height * 0.75) + (height * 0.3 * scale) + (depth * 15))
+					//if (y > height)
+					{
         				if (y < this.getSeaLevel())
         				{
         					chunk.setBlockState(pos, this.settings.getDefaultFluid(), false);
@@ -206,6 +213,66 @@ public class SmoothChunkGenerator extends ChunkGenerator<WNGenSettings>
         		}
         	}
         }
+	}
+
+
+	private boolean amplified = false;
+	public double[] sampleDepthAndScale(int x, int z) {
+		double[] adouble = new double[2];
+		float f = 0.0F;
+		float f1 = 0.0F;
+		float f2 = 0.0F;
+		int i = 2;
+		float depth = this.biomeProvider.func_222366_b(x, z).getDepth();
+
+		for(int j = -2; j <= 2; ++j) {
+			for(int k = -2; k <= 2; ++k) {
+				Biome biome = this.biomeProvider.func_222366_b(x + j, z + k);
+				float biomeDepth = biome.getDepth();
+				float biomeScale = biome.getScale();
+				if (amplified && biomeDepth > 0.0F) {
+					biomeDepth = 1.0F + biomeDepth * 2.0F;
+					biomeScale = 1.0F + biomeScale * 4.0F;
+				}
+
+				float f6 = biomeData[j + 2 + (k + 2) * 5] / (biomeDepth + 2.0F);
+				if (biome.getDepth() > depth) {
+					f6 /= 2.0F;
+				}
+
+				f += biomeScale * f6;
+				f1 += biomeDepth * f6;
+				f2 += f6;
+			}
+		}
+
+		f = f / f2;
+		f1 = f1 / f2;
+		f = f * 0.9F + 0.1F;
+		f1 = (f1 * 4.0F - 1.0F) / 8.0F;
+		adouble[0] = (double)f1 + this.func_222574_c(x, z);
+		adouble[1] = (double)f;
+		return adouble;
+	}
+
+	private double func_222574_c(int p_222574_1_, int p_222574_2_) {
+		double d0 = this.surfaceDepthNoise.func_215462_a((double)(p_222574_1_ * 200), 10.0D, (double)(p_222574_2_ * 200), 1.0D, 0.0D, true) / 8000.0D;
+		if (d0 < 0.0D) {
+			d0 = -d0 * 0.3D;
+		}
+
+		d0 = d0 * 3.0D - 2.0D;
+		if (d0 < 0.0D) {
+			d0 = d0 / 28.0D;
+		} else {
+			if (d0 > 1.0D) {
+				d0 = 1.0D;
+			}
+
+			d0 = d0 / 40.0D;
+		}
+
+		return d0;
 	}
 	
 	protected int[] getHeightsInChunk(ChunkPos pos)

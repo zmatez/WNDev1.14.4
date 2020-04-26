@@ -1,5 +1,6 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.entity.type.animal.duck.AbstractDuckEntity;
 import com.matez.wildnature.lists.WNBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -9,10 +10,14 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WaterLilyBase extends LilyPadBlock {
    protected static final VoxelShape LILY_PAD_AABB = Block.makeCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 1.5D, 15.0D);
@@ -29,9 +34,12 @@ public class WaterLilyBase extends LilyPadBlock {
       super.onEntityCollision(state, worldIn, pos, entityIn);
       if (entityIn instanceof BoatEntity) {
          worldIn.destroyBlock(new BlockPos(pos), true);
+      } else if(!(entityIn instanceof AbstractDuckEntity)){
+         //entityIn.setMotionMultiplier(state, new Vec3d(0.5,1,0.5));
       }
 
    }
+
 
    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
       return LILY_PAD_AABB;
@@ -40,5 +48,14 @@ public class WaterLilyBase extends LilyPadBlock {
    protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
       IFluidState ifluidstate = worldIn.getFluidState(pos);
       return ifluidstate.getFluid() == Fluids.WATER || state.getMaterial() == Material.ICE;
+   }
+
+   public Block.OffsetType getOffsetType() {
+      return Block.OffsetType.XZ;
+   }
+
+   @OnlyIn(Dist.CLIENT)
+   public long getPositionRandom(BlockState state, BlockPos pos) {
+      return MathHelper.getCoordinateRandom(pos.getX(), pos.getY(), pos.getZ());
    }
 }

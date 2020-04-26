@@ -3,12 +3,15 @@ package com.matez.wildnature.items.recipes;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.items.CookingItem;
 import com.matez.wildnature.items.GiftItem;
+import com.matez.wildnature.items.recipes.cooking.WNAbstractCookingRecipe;
+import com.matez.wildnature.items.recipes.cooking.WNCookingRecipe;
 import com.matez.wildnature.lists.WNItems;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.nbt.CompoundNBT;
@@ -17,17 +20,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 
 public class PotCrafting extends SpecialRecipe {
 
     public PotCrafting(ResourceLocation idIn) {
         super(idIn);
     }
-
+    private boolean matching = true;
     public boolean matches(CraftingInventory inv, World worldIn) {
+        matching=true;
         int i = 0;
         int j = 0;
         for(int k = 0; k < inv.getSizeInventory(); ++k) {
@@ -42,8 +44,27 @@ public class PotCrafting extends SpecialRecipe {
                 if (i > 1) {
                     return false;
                 }
+
+                if(!(itemstack.getItem() instanceof CookingItem)) {
+
+                    Collection<IRecipe<?>> recipe = worldIn.getRecipeManager().getRecipes();
+                    ArrayList<Item> allMatchingItems = new ArrayList<>();
+                    for (IRecipe<?> r : recipe) {
+                        if (r instanceof WNCookingRecipe) {
+                            for(ItemStack s : ((WNCookingRecipe)r).ingredient.getMatchingStacks()){
+                                allMatchingItems.add(s.getItem());
+                            }
+                        }
+                    }
+
+                    if(!allMatchingItems.contains(itemstack.getItem())){
+                        return false;
+                    }
+                }
             }
         }
+
+
 
         return i == 1 && j >= 1;
     }
@@ -73,6 +94,7 @@ public class PotCrafting extends SpecialRecipe {
         for (SimpleItemStack simpleItemStack : s) {
             resultIngredients.add(new ItemStack(simpleItemStack.getItem(),simpleItemStack.getCount()));
         }
+
 
         ItemStack result = pot.copy();
         Utilities.saveItems(nbt,resultIngredients);

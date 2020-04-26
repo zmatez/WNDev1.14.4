@@ -1,5 +1,6 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.compatibility.WNLoot;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.*;
@@ -47,7 +48,7 @@ public class GlowingCrystalBase extends EndRodBlock {
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
         List<ItemStack> list = super.getDrops(state, builder);
         if(list.isEmpty() && Utilities.rint(0,1)==0){
-            list.add(new ItemStack(item, 1));
+            list.add(new ItemStack(item, 1+Utilities.rint(0,WNLoot.getFortune(builder))));
         }
 
         return list;

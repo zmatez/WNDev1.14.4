@@ -18,6 +18,7 @@ public class tree_spruce_m7 extends SchemFeature {
         super(config, doBlockNofityOnPlace);
         LOG = log;
         LEAVES =leaves;
+        BRANCH = leaves;
     }
 
     @Override

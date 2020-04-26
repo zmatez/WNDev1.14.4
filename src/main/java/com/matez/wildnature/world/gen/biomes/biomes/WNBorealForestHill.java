@@ -29,7 +29,7 @@ public class WNBorealForestHill extends WNBiome {
                 .category(Category.TAIGA)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
                 .climate(WNBiomeBuilder.Climate.CONTINENTAL_COOL)
-                .depth(0.8F)
+                .depth(1.2F)
                 .scale(0.3F)
                 .temperature(0.2F)
                 .downfall(0.3F)
@@ -52,7 +52,7 @@ public class WNBorealForestHill extends WNBiome {
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
         WNBiomeFeatures.addGrass(this,10);
-        WNBiomeFeatures.addMushrooms(this);
+
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 

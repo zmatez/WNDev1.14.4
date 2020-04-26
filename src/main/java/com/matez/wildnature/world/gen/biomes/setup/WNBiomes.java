@@ -28,14 +28,32 @@ public class WNBiomes {
     public static Biome AmazonRiver = new WNAmazonRiver();
     public static Biome NileRiver = new WNNileRiver();
 
+    //OAK
+    public static Biome Oaklands = new WNOaklands("oaklands");
+    public static Biome DenseOaklands = new WNDenseOaklands("dense_oaklands");
+    public static Biome OakValley = new WNOakValley("oak_valley");
+    public static Biome OaklandHills = new WNOaklandHills("oakland_hills");
+
     //POPLAR
     public static Biome PoplarForest = new WNPoplarForest("poplar_forest");
     public static Biome PoplarForestValley = new WNPoplarForestValley("poplar_forest_valley");
     public static Biome PoplarForestHills = new WNPoplarForestHills("poplar_forest_hills");
 
+    //HIGH
+    public static Biome HighForest = new WNHighForest("high_forest");
+    public static Biome HighForestHills = new WNHighForestHills("high_forest_hills");
+    public static Biome HighForestValley = new WNHighForestValley("high_forest_valley");
+    public static Biome ForestedMountains = new WNForestedMountains("forested_cliffs");
+
+
     //ASPEN
     public static Biome AspenGrove = new WNAspenGrove("aspen_grove");
     public static Biome SnowyAspenGrove = new WNSnowyAspenGrove("snowy_aspen_grove");
+
+    //BEECH
+    public static Biome BeechForest = new WNBeechForest("beech_forest");
+    public static Biome BeechForestHills = new WNBeechForestHills("beech_hills");
+    public static Biome BeechValley = new WNBeechValley("beech_valley");
 
     //ORCHARD
     public static Biome Orchard = new WNOrchard("orchard");
@@ -63,6 +81,8 @@ public class WNBiomes {
     public static Biome PrairieHills = new WNPrairieHills("prairie_hills");
     public static Biome RapeseedField = new WNRapeseedField("rapeseed_field");
     public static Biome CornField = new WNCornField("corn_field");
+    public static Biome CottonFields = new WNCottonFields("cotton_fields");
+
 
     //OUTBACK
     public static Biome Outback = new WNOutback("outback");
@@ -82,10 +102,12 @@ public class WNBiomes {
     public static Biome BialowiezaForestS = new WNSnowyBialowiezaForest("snowy_bialowieza_forest");
     public static Biome BialowiezaMarshS = new WNBialowiezaFrozenMarsh("bialowieza_frozen_marsh");
 
+    //CLIFFS
     public static Biome SnowyMountains = new WNSnowedMountains("snowy_mountains");
     public static Biome Glacier = new WNGlacier("glacier");
     public static Biome Himalayas = new WNHimalayas("himalayas");
     public static Biome OvergrownCliffs = new WNOvergrownCliffs("overgrown_cliffs");
+    public static Biome MahoganyCliffs = new WNMahoganyCliffs("mahogany_cliffs");
 
     //BOG
     public static Biome Bog = new WNBog("bog");
@@ -127,7 +149,7 @@ public class WNBiomes {
     public static Biome RedwoodForest = new WNRedwoodForest("redwood_forest");
     public static Biome OldRedwoodForest = new WNOldRedwoodForest("old_redwood_forest");
     public static Biome CedarForest = new WNCedarForest("cedar_fields");
-    public static Biome SnowyCedarForest = new WNCedarForest("snowy_cedar_fields");
+    public static Biome SnowyCedarForest = new WNSnowyCedarForest("snowy_cedar_fields");
 
 
     //CHRISTMAS
@@ -232,6 +254,9 @@ public class WNBiomes {
 
 
     public static void registerBiomes(){
+        register(Oaklands, BiomeManager.BiomeType.WARM,8, Type.FOREST, Type.DENSE);
+        register(DenseOaklands, BiomeManager.BiomeType.WARM,5, Type.FOREST, Type.DENSE);
+        register(HighForest, BiomeManager.BiomeType.WARM,12, Type.FOREST, Type.DENSE);
         register(Forest, BiomeManager.BiomeType.WARM,10, Type.FOREST, Type.DENSE);
         register(SnowyForest, BiomeManager.BiomeType.COOL,10, Type.FOREST, Type.DENSE, Type.SNOWY);
         register(DeciduousForest, BiomeManager.BiomeType.WARM,10, Type.FOREST, Type.DENSE);
@@ -239,6 +264,7 @@ public class WNBiomes {
         register(AspenGrove, BiomeManager.BiomeType.COOL,10, Type.FOREST, Type.DENSE);
         register(SnowyAspenGrove, BiomeManager.BiomeType.COOL,10, Type.FOREST, Type.DENSE, Type.SNOWY);
         register(SnowyBorealForest, BiomeManager.BiomeType.ICY,10, Type.FOREST, Type.DENSE, Type.COLD, Type.CONIFEROUS, Type.SNOWY);
+        register(BeechForest, BiomeManager.BiomeType.COOL,7, Type.FOREST, Type.DENSE);
         register(BorealForest, BiomeManager.BiomeType.COOL,10, Type.FOREST, Type.DENSE, Type.COLD, Type.CONIFEROUS);
         register(TucholaForest, BiomeManager.BiomeType.COOL,5, Type.FOREST, Type.DENSE, Type.COLD, Type.CONIFEROUS);
         register(DenseTucholaForest, BiomeManager.BiomeType.COOL,3, Type.FOREST, Type.DENSE, Type.COLD, Type.CONIFEROUS);
@@ -259,6 +285,7 @@ public class WNBiomes {
         register(Farmlands, BiomeManager.BiomeType.WARM,8, Type.PLAINS);
         register(LavenderGarden, BiomeManager.BiomeType.WARM,4, Type.PLAINS);
         register(Prairie, BiomeManager.BiomeType.WARM,10, Type.PLAINS, Type.DRY);
+        //register(CottonFields, BiomeManager.BiomeType.WARM,4, Type.PLAINS, Type.DRY);
         register(Masuria, BiomeManager.BiomeType.WARM,6, Type.PLAINS, Type.WET);
         register(LandOfRivers, BiomeManager.BiomeType.COOL,6, Type.PLAINS, Type.WET);
         register(Wetlands, BiomeManager.BiomeType.WARM,9, Type.PLAINS, Type.WET);
@@ -272,7 +299,9 @@ public class WNBiomes {
         register(BialowiezaForestS, BiomeManager.BiomeType.ICY,7, Type.FOREST, Type.DENSE, Type.COLD, Type.CONIFEROUS);
         register(BialowiezaMarsh, BiomeManager.BiomeType.COOL,6, Type.SWAMP, Type.WET);
         register(BialowiezaMarshS, BiomeManager.BiomeType.ICY,6, Type.SWAMP, Type.WET, Type.COLD);
-        register(OvergrownCliffs, BiomeManager.BiomeType.COOL,8, Type.MOUNTAIN, Type.HILLS, Type.WATER, Type.HOT);
+        register(OvergrownCliffs, BiomeManager.BiomeType.COOL,8, Type.MOUNTAIN, Type.HILLS, Type.WATER);
+        register(ForestedMountains, BiomeManager.BiomeType.COOL,8, Type.MOUNTAIN, Type.HILLS, Type.DENSE, Type.FOREST);
+        register(MahoganyCliffs, BiomeManager.BiomeType.WARM,4, Type.MOUNTAIN, Type.HILLS, Type.WATER, Type.HOT, Type.JUNGLE,Type.WET);
         register(SnowyMountains, BiomeManager.BiomeType.ICY,9, Type.MOUNTAIN, Type.HILLS, Type.COLD, Type.SNOWY);
         register(Glacier, BiomeManager.BiomeType.ICY,9, Type.MOUNTAIN, Type.HILLS, Type.COLD);
         register(Himalayas, BiomeManager.BiomeType.ICY,7, Type.MOUNTAIN, Type.HILLS, Type.COLD, Type.SNOWY);
@@ -370,7 +399,12 @@ public class WNBiomes {
             b.addAll(Objects.requireNonNull(WNBiomeManager.getBiomes(BiomeManager.BiomeType.COOL)));
             b.addAll(Objects.requireNonNull(WNBiomeManager.getBiomes(BiomeManager.BiomeType.WARM)));
             b.addAll(Objects.requireNonNull(WNBiomeManager.getBiomes(BiomeManager.BiomeType.DESERT)));
-
+            Main.LOGGER.debug(" -------------------------------------------------------------- ");
+            b.forEach(biomeEntry -> {
+                Main.LOGGER.debug("entry: " + biomeEntry.biome.getRegistryName());
+            });
+            Main.LOGGER.debug("entries: " + b.size());
+            Main.LOGGER.debug(" -------------------------------------------------------------- ");
             for (BiomeManager.BiomeEntry biomeEntry : b) {
                 if(CommonConfig.blacklistedBiomes.contains(biomeEntry.biome)){
                     Main.LOGGER.info("Removed blacklisted " + biomeEntry.biome.getRegistryName() + " biome from generation.");

@@ -1,6 +1,7 @@
 package com.matez.wildnature.blocks;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.Block;
@@ -29,11 +30,19 @@ public class Age5Plant extends CropBase {
     public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 4);
     private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D), Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 5.0D, 14.0D), Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 8.0D, 14.0D), Block.makeCuboidShape(0.2D, 0.0D, 0.2D, 14.0D, 10.0D, 14.0D), Block.makeCuboidShape(0.2D, 0.0D, 0.2D, 14.0D, 10.0D, 14.0D)};
 
+    private boolean needsFarmland = true;
     private String drop;
     public Age5Plant(Properties properties, ResourceLocation regName, String drop) {
         super(properties, null, regName);
         this.drop=drop;
     }
+
+    public Age5Plant(Properties properties, ResourceLocation regName, String drop, boolean needsFarmland) {
+        super(properties, null, regName);
+        this.drop=drop;
+        this.needsFarmland=needsFarmland;
+    }
+
     @Override
     protected IItemProvider getSeedsItem() {
         return Main.getItemByID(drop);
@@ -97,10 +106,11 @@ public class Age5Plant extends CropBase {
 
     public boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        if(this.getBlock()== WNBlocks.RICE_PLANT){
-            return block==Blocks.FARMLAND;//...
+        if(!CommonConfig.vegeGrassSpawn.get()) {
+            return block == Blocks.FARMLAND;
         }
-        return block == Blocks.FARMLAND;
+        return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.PODZOL || block == Blocks.FARMLAND;
+
     }
 
 }

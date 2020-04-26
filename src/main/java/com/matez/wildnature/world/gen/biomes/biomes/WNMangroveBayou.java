@@ -2,10 +2,13 @@ package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.google.common.collect.Lists;
 import com.matez.wildnature.Main;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.feature.WNBlobConfig;
+import com.matez.wildnature.world.gen.feature.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.mangrove.*;
 import com.matez.wildnature.blocks.config.ConfigSettings;
 import com.matez.wildnature.world.gen.structures.nature.woods.mangrove.*;
@@ -57,7 +60,7 @@ public class WNMangroveBayou extends WNBiome {
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
         WNBiomeFeatures.addGrass(this,18);
-        WNBiomeFeatures.addMushrooms(this);
+
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addSwampVegetation(this);
@@ -66,6 +69,7 @@ public class WNMangroveBayou extends WNBiome {
         WNBiomeFeatures.addWaterlilies(this,Main.getBlockByID("wildnature:red_waterlily"),10);
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(Feature.SEAGRASS, new SeaGrassConfig(128, 0.6D), Placement.TOP_SOLID_HEIGHTMAP, IPlacementConfig.NO_PLACEMENT_CONFIG));
         this.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.DISK, new SphereReplaceConfig(Blocks.CLAY.getDefaultState(), 4, 1, Lists.newArrayList(Main.getBlockByID("wildnature:tropical_dirt").getDefaultState(), Blocks.CLAY.getDefaultState())), Placement.COUNT_TOP_SOLID, new FrequencyConfig(1)));
+        //this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(WNBlocks.MUD.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(5)));
 
 
         WNBiomeFeatures.addTree(this,new mangrove1(NoFeatureConfig::deserialize,true),1);

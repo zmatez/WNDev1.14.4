@@ -2,6 +2,7 @@ package com.matez.wildnature.world.gen.feature;
 
 import com.matez.wildnature.blocks.BushBerryBase;
 import com.matez.wildnature.blocks.CropBase;
+import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.other.WeightedList;
@@ -9,6 +10,7 @@ import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
@@ -30,6 +32,10 @@ public class WNFruitFeature extends Feature<NoFeatureConfig> {
         if(!worldIn.getDimension().isSurfaceWorld()){
             return false;
         }
+
+        if(Utilities.rint(0, CommonConfig.fruitBushChance.get())!=0){
+            return false;
+        }
         WeightedList<BushEntry> available = new WeightedList<>();
 
         entries.forEach(e -> {
@@ -46,7 +52,7 @@ public class WNFruitFeature extends Feature<NoFeatureConfig> {
             if(!b.isPlant()) {
                 new shrub1(NoFeatureConfig::deserialize, true, SchemFeature.notDecayingLeaf(b.getBush().getBlock()).with(BushBerryBase.STAGE,Utilities.rint(0,1,rand)), b.getBush()).place(worldIn, generator, rand, pos, config);
             }else{
-                new BushFeature(BushConfig::deserialize).place(worldIn,generator,rand,pos,new BushConfig(b.getBush().with(((CropBase)b.getBush().getBlock()).getAge(),Utilities.rint(((CropBase)b.getBush().getBlock()).getMaxAge()-1,((CropBase)b.getBush().getBlock()).getMaxAge()))));
+                new WNBushFeature(BushConfig::deserialize).place(worldIn,generator,rand,pos,new BushConfig(b.getBush().with(((CropBase)b.getBush().getBlock()).getAge(),Utilities.rint(((CropBase)b.getBush().getBlock()).getMaxAge()-1,((CropBase)b.getBush().getBlock()).getMaxAge()))));
             }
 
             return true;

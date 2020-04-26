@@ -30,7 +30,7 @@ public class WNDeadDesolation extends WNBiome {
         super(name,(new WNBiomeBuilder())
                 .surfaceBuilder(new DeadSurfaceBuilder(SurfaceBuilderConfig::deserialize), WNSurfaceBuilders.DESERT_CONFIG)
                 .precipitation(RainType.RAIN)
-                .category(Category.SAVANNA)
+                .category(Category.DESERT)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
                 .climate(WNBiomeBuilder.Climate.CONTINENTAL_WARM)
                 .depth(0.1F)
@@ -56,7 +56,7 @@ public class WNDeadDesolation extends WNBiome {
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
         WNBiomeFeatures.addGrass(this,3, Blocks.DEAD_BUSH.getDefaultState());
-        WNBiomeFeatures.addMushrooms(this);
+
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 

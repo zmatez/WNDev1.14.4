@@ -6,6 +6,7 @@ import com.matez.wildnature.items.recipes.PotCrafting;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.IRecipe;
@@ -40,7 +41,6 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
    }
 
    public boolean matches(IInventory inv, World worldIn) {
-      Main.LOGGER.debug("Checking maching");
       return checkMatching(new ArrayList<ItemStack>(((Inventory)inv).inventoryContents),ingredient,worldIn);
    }
 
@@ -51,6 +51,9 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
          return false;
       }
 
+
+
+
       int d = 0;
       for (ItemStack stack : stacks) {
          if(!checkForMatch(stack,i,stacks)){
@@ -60,9 +63,14 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
          }
 
       }
-      Main.LOGGER.debug("SIZE: " + matching + " x " + stacks.size() + " z " + i.matchingStacks.length);
 
-      if(i.matchingStacks.length!=matching){
+
+
+      if(PotCrafting.SimpleItemStack.sumLists(new ArrayList<>(Arrays.asList(i.matchingStacks)),new ArrayList<>()).size()>=9){
+         return false;
+      }
+
+      if(PotCrafting.SimpleItemStack.sumLists(new ArrayList<>(Arrays.asList(i.matchingStacks)),new ArrayList<>()).size()!=matching){
          return false;
       }
 
@@ -78,6 +86,17 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
 
       Main.LOGGER.debug(ok);
       return ok;
+   }
+
+   public static ArrayList<Item> convertItemStackListToItemList(ItemStack[] stacks){
+      ArrayList<Item> items = new ArrayList<>();
+      for (ItemStack stack : stacks) {
+         int count = stack.getCount();
+         for(int i = 0; i<count; i++){
+            items.add(stack.getItem());
+         }
+      }
+      return items;
    }
 
    public boolean checkForMatch(@Nullable ItemStack itemStack, Ingredient i, ArrayList<ItemStack> stacks) {
@@ -103,7 +122,6 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
          }
 
          for(ItemStack itemstack : resultIngredients) {
-            Main.LOGGER.debug("M : " + itemStack.getDisplayName().getFormattedText() + itemStack.getCount() + " x " + itemstack.getDisplayName().getFormattedText()+itemstack.getCount());
             if (itemstack.getItem() == itemStack.getItem() && (itemStack.getCount())==itemstack.getCount()) {
                return ok;
             }
@@ -130,7 +148,6 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
    }
 
    public ItemStack getCraftingResult(IInventory inv) {
-      Main.LOGGER.debug("Crafting result: " + this.result.copy().getTranslationKey());
       return this.result.copy();
    }
 

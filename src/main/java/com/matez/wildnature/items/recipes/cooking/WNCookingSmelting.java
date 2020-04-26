@@ -22,13 +22,10 @@ public class WNCookingSmelting extends SpecialSmelting {
 
     @Override
     public boolean matches(IInventory inventory, World world) {
-        Main.LOGGER.debug("Checking furnace");
         if(inventory.getStackInSlot(0).getItem() instanceof CookingItem) {
             WNAbstractCookingRecipe recipe = CookingItem.checkForRecipes(world, Utilities.loadItems(inventory.getStackInSlot(0).getOrCreateTag()),((CookingItem)inventory.getStackInSlot(0).getItem()).getToolType());
             w = world;
-            Main.LOGGER.debug("Checking furnace success");
             if(recipe!=null && recipe.ingredient!=null && recipe.result!=null) {
-                Main.LOGGER.debug("SET RESULTS");
                 //ingredient = recipe.ingredient;
                 result = getCraftingResult(inventory).copy();
 
@@ -41,7 +38,6 @@ public class WNCookingSmelting extends SpecialSmelting {
 
     @Override
     public ItemStack getCraftingResult(IInventory inventory) {
-        Main.LOGGER.debug("GETTING RESULT");
         ItemStack s = inventory.getStackInSlot(0).copy();
         if(s.getItem() instanceof CookingItem) {
             WNAbstractCookingRecipe recipe = CookingItem.checkForRecipes(w, Utilities.loadItems(inventory.getStackInSlot(0).getOrCreateTag()),((CookingItem)inventory.getStackInSlot(0).getItem()).getToolType());
@@ -60,9 +56,12 @@ public class WNCookingSmelting extends SpecialSmelting {
 
                 Utilities.saveItem(nbt,output);
                 nbt.putBoolean("cooked",true);
+                nbt.putString("fill",CookingItem.getGroupParams(recipe.getGroup())[1]);
                 ItemStack r = s.copy();
+                if(s.getItem()==WNItems.POT_WATER){
+                    r=new ItemStack(WNItems.POT_EMPTY,r.getCount());
+                }
                 r.setTag(nbt);
-                Main.LOGGER.debug("RESULT =  " + r.getDisplayName().getFormattedText());
                 return r;
             }
         }else{

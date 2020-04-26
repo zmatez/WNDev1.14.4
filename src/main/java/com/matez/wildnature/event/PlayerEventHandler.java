@@ -46,8 +46,10 @@ public class PlayerEventHandler {
     }
 
     private void joined(PlayerEvent.PlayerLoggedInEvent event){
+        boolean showInfo = false;
+        boolean canSend = false;
         if (event.getEntity() instanceof PlayerEntity && CommonConfig.messageOnJoin.get()) {
-            boolean showInfo = false;
+            canSend=true;
             if(!gotMessageAboutYourself.contains(event.getPlayer())) {
                 gotMessageAboutYourself.add(event.getPlayer());
                 StringTextComponent s = null;
@@ -56,18 +58,13 @@ public class PlayerEventHandler {
                     if (event.getEntity().getEntityWorld().getWorldType().getClass() == WNWorldType.class) {
                         s = new StringTextComponent(TextFormatting.AQUA + "Using " + TextFormatting.YELLOW + "WildNature World Generator" + TextFormatting.AQUA + ". Version " + TextFormatting.YELLOW + Main.version + TextFormatting.AQUA + ".");
                         s.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.DARK_AQUA + "WildNature World Generator" + TextFormatting.GRAY + " is needed to generate really smooth world.\nWithout it, sub-biomes wouldn't generate.")));
-                        s.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://wildnature.matez.net"));
+                        s.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://wildnaturemod.com"));
                     } else {
                         s = new StringTextComponent(TextFormatting.RED + "Using WildNature " + TextFormatting.YELLOW + Main.version + TextFormatting.RED + " without " + TextFormatting.YELLOW + "WildNature World Generator" + TextFormatting.RED + ".");
                         s.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.DARK_RED + "WildNature World Generator" + TextFormatting.GRAY + " is needed to generate really smooth world.\nWithout it, sub-biomes wouldn't generate.")));
-                        s.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://wildnature.matez.net"));
+                        s.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://wildnaturemod.com"));
                     }
 
-                    if(!Main.usesFancyGraphics){
-                        sg = new StringTextComponent(TextFormatting.RED + "Please enable fancy graphics! Our leaves are temporary not supporting fast one, white pixels can be visible.");
-                        sg.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.DARK_RED + "Click ESC, go to Options, video settings and change Graphics to fast.")));
-                        sg.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://wildnature.matez.net"));
-                    }
 
                     showInfo=true;
 
@@ -79,72 +76,73 @@ public class PlayerEventHandler {
 
             }
 
-            if(!gotMessageAboutYourself2.contains(event.getPlayer())) {
-                gotMessageAboutYourself2.add(event.getPlayer());
-                Patron patron = isPatron((PlayerEntity) event.getEntity());
-                if (patron != null) {
+        }
+
+        if(!gotMessageAboutYourself2.contains(event.getPlayer())) {
+            gotMessageAboutYourself2.add(event.getPlayer());
+            Patron patron = isPatron((PlayerEntity) event.getEntity());
+            if (patron != null) {
+                if (isServer(event.getEntity())) {
+                    Main.LOGGER.info("Running on server");
+                }
+                if (patron.getType() == 4) {
+                    this.patron = true;
                     if (isServer(event.getEntity())) {
-                        Main.LOGGER.info("Running on server");
-                    }
-                    if (patron.getType() == 4) {
-                        this.patron = true;
-                        if (isServer(event.getEntity())) {
-                            StringTextComponent s2 = new StringTextComponent(TextFormatting.AQUA + "Joined " + TextFormatting.GREEN + "" + ((PlayerEntity) (event.getEntity())).getDisplayName().getString() + TextFormatting.AQUA + ", the WildNature patron. Hi!");
-                            s2.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.GREEN + "" + ((PlayerEntity) (event.getEntity())).getDisplayName().getString() + TextFormatting.DARK_AQUA + " is supporting " + TextFormatting.GREEN + "WildNature mod" + TextFormatting.DARK_AQUA + ".\nThanks to it, this mod is getting to be better." + TextFormatting.DARK_PURPLE + "\nClick to open.")));
-                            s2.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://bit.ly/matez-patreon"));
-                            Main.sendServerChatMessage(event.getEntity().getServer(), (PlayerEntity) event.getEntity(), new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s2));
-                        }
-                        StringTextComponent s2 = new StringTextComponent(TextFormatting.AQUA + "Hello, " + TextFormatting.GREEN + "" + ((PlayerEntity) (event.getEntity())).getDisplayName().getString() + TextFormatting.AQUA + ", the WildNature patron.");
+                        StringTextComponent s2 = new StringTextComponent(TextFormatting.AQUA + "Joined " + TextFormatting.GREEN + "" + ((PlayerEntity) (event.getEntity())).getDisplayName().getString() + TextFormatting.AQUA + ", the WildNature patron. Hi!");
                         s2.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.GREEN + "" + ((PlayerEntity) (event.getEntity())).getDisplayName().getString() + TextFormatting.DARK_AQUA + " is supporting " + TextFormatting.GREEN + "WildNature mod" + TextFormatting.DARK_AQUA + ".\nThanks to it, this mod is getting to be better." + TextFormatting.DARK_PURPLE + "\nClick to open.")));
                         s2.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://bit.ly/matez-patreon"));
-                        Main.sendChatMessage((PlayerEntity) event.getEntity(), new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s2));
-
-                    } else {
-                        String textClient = "";//$PLAYER$ = player
-                        String textServer = "";//$PLAYER$ = player
-                        String hoverClient = "";//$PLAYER$ = player
-                        String hoverServer = "";//$PLAYER$ = player
-
-                        if (patron.getType() == 1) {
-                            textClient = TextFormatting.AQUA + "Hello, " + TextFormatting.RED + "$PLAYER$" + TextFormatting.AQUA + ", the WildNature main developer.";
-                            textServer = TextFormatting.AQUA + "Joined " + TextFormatting.RED + "$PLAYER$" + TextFormatting.AQUA + ", the WildNature main developer.";
-                            hoverClient = TextFormatting.RED + "$PLAYER$" + TextFormatting.DARK_AQUA + " is the WildNature main developer.";
-                            hoverServer = hoverClient;
-                        } else if (patron.getType() == 2) {
-                            textClient = TextFormatting.AQUA + "Hello, " + TextFormatting.GOLD + "$PLAYER$" + TextFormatting.AQUA + ", the WildNature developer.";
-                            textServer = TextFormatting.AQUA + "Joined " + TextFormatting.GOLD + "$PLAYER$" + TextFormatting.AQUA + ", the WildNature developer.";
-                            hoverClient = TextFormatting.GOLD + "$PLAYER$" + TextFormatting.DARK_AQUA + " is the WildNature developer.";
-                            hoverServer = hoverClient;
-                        } else if (patron.getType() == 3) {
-                            textClient = TextFormatting.AQUA + "Hello, " + TextFormatting.LIGHT_PURPLE + "$PLAYER$" + TextFormatting.AQUA + ", I see you're developing something!";
-                            textServer = TextFormatting.AQUA + "Joined " + TextFormatting.LIGHT_PURPLE + "$PLAYER$" + TextFormatting.AQUA + ", guy that is developing something with WildNature mod installed.";
-                            hoverClient = TextFormatting.LIGHT_PURPLE + "$PLAYER$" + TextFormatting.DARK_AQUA + " is running Minecraft from the IDE.";
-                            hoverServer = hoverClient;
-                        }
-
-                        textClient = textClient.replace("$PLAYER$", ((PlayerEntity) (event.getEntity())).getDisplayName().getString()) + TextFormatting.AQUA;
-                        textServer = textServer.replace("$PLAYER$", ((PlayerEntity) (event.getEntity())).getDisplayName().getString()) + TextFormatting.AQUA;
-                        hoverClient = hoverClient.replace("$PLAYER$", ((PlayerEntity) (event.getEntity())).getDisplayName().getString()) + TextFormatting.AQUA;
-                        hoverServer = hoverServer.replace("$PLAYER$", ((PlayerEntity) (event.getEntity())).getDisplayName().getString()) + TextFormatting.AQUA;
-                        if (isServer(event.getEntity())) {
-                            StringTextComponent s2 = new StringTextComponent(textServer);
-                            s2.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(hoverServer)));
-                            s2.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://wildnature.matez.net"));
-                            Main.sendServerChatMessage(event.getEntity().getServer(), (PlayerEntity) event.getEntity(), new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s2));
-                        }
-                        StringTextComponent s2 = new StringTextComponent(textClient);
-                        s2.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(hoverClient)));
-                        s2.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://wildnature.matez.net"));
-                        Main.sendChatMessage((PlayerEntity) event.getEntity(), new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s2));
-
-
+                        Main.sendServerChatMessage(event.getEntity().getServer(), (PlayerEntity) event.getEntity(), new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s2));
                     }
+                    StringTextComponent s2 = new StringTextComponent(TextFormatting.AQUA + "Hello, " + TextFormatting.GREEN + "" + ((PlayerEntity) (event.getEntity())).getDisplayName().getString() + TextFormatting.AQUA + ", the WildNature patron.");
+                    s2.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.GREEN + "" + ((PlayerEntity) (event.getEntity())).getDisplayName().getString() + TextFormatting.DARK_AQUA + " is supporting " + TextFormatting.GREEN + "WildNature mod" + TextFormatting.DARK_AQUA + ".\nThanks to it, this mod is getting to be better." + TextFormatting.DARK_PURPLE + "\nClick to open.")));
+                    s2.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://bit.ly/matez-patreon"));
+                    Main.sendChatMessage((PlayerEntity) event.getEntity(), new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s2));
+
+                } else {
+                    String textClient = "";//$PLAYER$ = player
+                    String textServer = "";//$PLAYER$ = player
+                    String hoverClient = "";//$PLAYER$ = player
+                    String hoverServer = "";//$PLAYER$ = player
+
+                    if (patron.getType() == 1) {
+                        textClient = TextFormatting.AQUA + "Hello, " + TextFormatting.RED + "$PLAYER$" + TextFormatting.AQUA + ", the WildNature main developer.";
+                        textServer = TextFormatting.AQUA + "Joined " + TextFormatting.RED + "$PLAYER$" + TextFormatting.AQUA + ", the WildNature main developer.";
+                        hoverClient = TextFormatting.RED + "$PLAYER$" + TextFormatting.DARK_AQUA + " is the WildNature main developer.";
+                        hoverServer = hoverClient;
+                    } else if (patron.getType() == 2) {
+                        textClient = TextFormatting.AQUA + "Hello, " + TextFormatting.GOLD + "$PLAYER$" + TextFormatting.AQUA + ", the WildNature developer.";
+                        textServer = TextFormatting.AQUA + "Joined " + TextFormatting.GOLD + "$PLAYER$" + TextFormatting.AQUA + ", the WildNature developer.";
+                        hoverClient = TextFormatting.GOLD + "$PLAYER$" + TextFormatting.DARK_AQUA + " is the WildNature developer.";
+                        hoverServer = hoverClient;
+                    } else if (patron.getType() == 3) {
+                        textClient = TextFormatting.AQUA + "Hello, " + TextFormatting.LIGHT_PURPLE + "$PLAYER$" + TextFormatting.AQUA + ", I see you're developing something!";
+                        textServer = TextFormatting.AQUA + "Joined " + TextFormatting.LIGHT_PURPLE + "$PLAYER$" + TextFormatting.AQUA + ", guy that is developing something with WildNature mod installed.";
+                        hoverClient = TextFormatting.LIGHT_PURPLE + "$PLAYER$" + TextFormatting.DARK_AQUA + " is running Minecraft from the IDE.";
+                        hoverServer = hoverClient;
+                    }
+
+                    textClient = textClient.replace("$PLAYER$", ((PlayerEntity) (event.getEntity())).getDisplayName().getString()) + TextFormatting.AQUA;
+                    textServer = textServer.replace("$PLAYER$", ((PlayerEntity) (event.getEntity())).getDisplayName().getString()) + TextFormatting.AQUA;
+                    hoverClient = hoverClient.replace("$PLAYER$", ((PlayerEntity) (event.getEntity())).getDisplayName().getString()) + TextFormatting.AQUA;
+                    hoverServer = hoverServer.replace("$PLAYER$", ((PlayerEntity) (event.getEntity())).getDisplayName().getString()) + TextFormatting.AQUA;
+                    if (isServer(event.getEntity())) {
+                        StringTextComponent s2 = new StringTextComponent(textServer);
+                        s2.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(hoverServer)));
+                        s2.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://wildnaturemod.com"));
+                        Main.sendServerChatMessage(event.getEntity().getServer(), (PlayerEntity) event.getEntity(), new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s2));
+                    }
+                    StringTextComponent s2 = new StringTextComponent(textClient);
+                    s2.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(hoverClient)));
+                    s2.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://wildnaturemod.com"));
+                    Main.sendChatMessage((PlayerEntity) event.getEntity(), new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s2));
+
+
                 }
             }
 
 
 
-            if(!gotMessageAboutYourself3.contains(event.getPlayer())) {
+            if(!gotMessageAboutYourself3.contains(event.getPlayer()) && canSend) {
                 gotMessageAboutYourself3.add(event.getPlayer());
                 Motd motd = readMOTD(event.getPlayer());
                 if(motd==null){

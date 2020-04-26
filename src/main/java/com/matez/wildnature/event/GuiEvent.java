@@ -1,16 +1,23 @@
 package com.matez.wildnature.event;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.gui.screen.WNWorldLoadProgressScreen;
 import com.matez.wildnature.gui.screen.WildNatureScreen;
+import com.matez.wildnature.items.recipes.cooking.CraftingTweaker;
+import com.matez.wildnature.lists.WNItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.gui.screen.WorldLoadProgressScreen;
+import net.minecraft.client.gui.screen.inventory.CraftingScreen;
 import net.minecraft.client.gui.widget.button.ImageButton;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.inventory.container.CraftingResultSlot;
+import net.minecraft.inventory.container.WorkbenchContainer;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -34,7 +41,7 @@ public class GuiEvent {
                     Main.proxy.getClient().toast(new StringTextComponent(TextFormatting.GOLD + "Want a cape?"), new StringTextComponent(TextFormatting.GRAY + "wildnaturemod.com/donate"));
                     Main.proxy.getClient().toast(new StringTextComponent(TextFormatting.GOLD + "Server.pro - free servers"), new StringTextComponent(TextFormatting.GRAY + "bit.ly/wildnature-server-pro"));
                     if(Main.instance.getSupportedLanguages().contains(Minecraft.getInstance().getLanguageManager().getCurrentLanguage().getCode()) && !Minecraft.getInstance().getLanguageManager().getCurrentLanguage().getCode().equals("en_us")){
-                        Main.proxy.getClient().toast(new StringTextComponent(TextFormatting.LIGHT_PURPLE + "Using " + TextFormatting.GOLD + Minecraft.getInstance().getLanguageManager().getCurrentLanguage().getCode() + TextFormatting.LIGHT_PURPLE+" language."), new StringTextComponent(TextFormatting.GRAY + "Made by " + TextFormatting.DARK_PURPLE+I18n.format("lang.credits")));
+                        Main.proxy.getClient().toast(new StringTextComponent(TextFormatting.LIGHT_PURPLE + "Using " + TextFormatting.GOLD + Minecraft.getInstance().getLanguageManager().getCurrentLanguage().getCode() + TextFormatting.LIGHT_PURPLE+" language."), new StringTextComponent(TextFormatting.GRAY + "Made by " + TextFormatting.DARK_PURPLE+new TranslationTextComponent("lang.credits").getFormattedText()));
                     }
 
                 }
@@ -47,7 +54,7 @@ public class GuiEvent {
                         //Main.proxy.getClient().toast( new StringTextComponent(TextFormatting.RED + "This menu is in progress"), new StringTextComponent(TextFormatting.GRAY + "Wait for updates!"));
 
 
-                    }, I18n.format("narrator.button.wildnature")));
+                    }, new TranslationTextComponent("narrator.button.wildnature").getFormattedText()));
                 }
 
         }
@@ -55,7 +62,7 @@ public class GuiEvent {
             Main.gotInfoAboutWorld = false;
         }
 
-        if(event.getGui().getClass()==WorldLoadProgressScreen.class){
+        if(event.getGui().getClass()==WorldLoadProgressScreen.class && CommonConfig.newLoadingWorldScreen.get()){
             worldRender = new WNWorldLoadProgressScreen(Minecraft.getInstance().field_213277_ad.get());
             Minecraft.getInstance().displayGuiScreen(worldRender);
         }else{

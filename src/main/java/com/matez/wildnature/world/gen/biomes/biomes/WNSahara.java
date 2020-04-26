@@ -24,7 +24,7 @@ public class WNSahara extends WNBiome {
         super(name,(new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.SAND_CONFIG)
                 .precipitation(RainType.RAIN)
-                .category(Category.FOREST)
+                .category(Category.DESERT)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
                 .climate(WNBiomeBuilder.Climate.DRY_TROPICAL)
                 .depth(0.9F)

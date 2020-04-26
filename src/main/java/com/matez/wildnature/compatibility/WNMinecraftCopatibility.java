@@ -3,6 +3,7 @@ package com.matez.wildnature.compatibility;
 import com.google.common.collect.Maps;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.lists.WNItems;
 import com.matez.wildnature.registry.WoodRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -85,6 +86,12 @@ public class WNMinecraftCopatibility {
 
         WNBlocks.MUSHROOMS.forEach(block -> {
             registerCompostable(0.8F,block);
+        });
+        WNItems.FOOD.forEach(block -> {
+            registerCompostable(0.65F,block);
+        });
+        WNBlocks.CROPS.forEach(block -> {
+            registerCompostable(0.65F,block);
         });
     }
 

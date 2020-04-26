@@ -3,7 +3,7 @@
   "group": "wildnature:cobble_trapdoor",
   "pattern": [
     "###",
-    "###"
+    "# #"
   ],
   "key": {
     "#": {

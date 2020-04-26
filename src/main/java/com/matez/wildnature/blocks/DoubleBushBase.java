@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class DoubleBushBase extends TallFlowerBlock {
     private Item item;
-    protected static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
+    protected static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
 
 
     private static Properties Properties(Properties properties){
@@ -66,7 +67,7 @@ public class DoubleBushBase extends TallFlowerBlock {
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
         boolean silkTouch = false;
         List<ItemStack> list = super.getDrops(state, builder);
-        if(list.isEmpty() && !silkTouch){
+        if(list.isEmpty() && !silkTouch && state.get(HALF)== DoubleBlockHalf.LOWER){
             list.add(new ItemStack(item, 1));
         }
 

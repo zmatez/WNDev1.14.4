@@ -1,34 +1,65 @@
 package com.matez.wildnature.blocks;
 
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.other.Utilities;
+import com.matez.wildnature.registry.ParticleRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class CaveShroomBase extends MushroomBase {
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
-    public CaveShroomBase(Properties properties, Item.Properties builder, ResourceLocation regName) {
+    protected static final VoxelShape SHAPER = Block.makeCuboidShape(2.0D, 16.0D, 2.0D, 14.0D, 3.0D, 14.0D);
+
+    private boolean reversed = false;
+    public CaveShroomBase(Properties properties, Item.Properties builder, ResourceLocation regName, boolean reversed) {
         super(properties, builder, regName);
+        this.reversed=reversed;
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return SHAPE;
+    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        int max = 7;
+        if(Utilities.rint(0,4)==0) {
+            if (reversed) {
+                if (this == WNBlocks.HANGING_GLOWING_SLIMESHROOM_BLUE) {
+                    for(int i = 0; i < max; i++) {
+                        worldIn.addParticle(ParticleRegistry.SLIMESHROOM_BLUE, pos.getX() + 0.5 + Utilities.rdoub(-0.1,0.1), pos.getY() + 0.85 + Utilities.rdoub(-0.1,0.1), pos.getZ() + 0.5 + Utilities.rdoub(-0.1,0.1), 0.01, 0.1, 0.01);
+                    }
+                } else if (this == WNBlocks.HANGING_GLOWING_SLIMESHROOM_GREEN) {
+                    for (int i = 0; i < max; i++) {
+                        worldIn.addParticle(ParticleRegistry.SLIMESHROOM_GREEN, pos.getX() + 0.5, pos.getY() + 0.85 + Utilities.rdoub(-0.1, 0.1), pos.getZ() + 0.5 + Utilities.rdoub(-0.1, 0.1), 0.01, 0.1, 0.01);
+                    }
+                }
+            } else {
+                if (this == WNBlocks.GLOWING_SLIMESHROOM_BLUE) {
+                    for (int i = 0; i < max; i++) {
+                        worldIn.addParticle(ParticleRegistry.SLIMESHROOM_BLUE, pos.getX() + 0.5 + Utilities.rdoub(-0.1, 0.1), pos.getY() + 0.6 + Utilities.rdoub(-0.1, 0.1), pos.getZ() + 0.5 + Utilities.rdoub(-0.1, 0.1), 0.01, 0.1, 0.01);
+                    }
+                }else if (this == WNBlocks.GLOWING_SLIMESHROOM_GREEN) {
+                    for (int i = 0; i < max; i++) {
+                        worldIn.addParticle(ParticleRegistry.SLIMESHROOM_GREEN, pos.getX() + 0.5 + Utilities.rdoub(-0.1, 0.1), pos.getY() + 0.6 + Utilities.rdoub(-0.1, 0.1), pos.getZ() + 0.5 + Utilities.rdoub(-0.1, 0.1), 0.01, 0.1, 0.01);
+                    }
+                }
+            }
+        }
     }
 
-    @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        BlockPos blockpos = pos.down();
-        return isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos) && worldIn.getLightSubtracted(pos, 0) < 10;
-    }
     @Override
     public boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         Block block = state.getBlock();
@@ -36,4 +67,32 @@ public class CaveShroomBase extends MushroomBase {
         return ((BlockTags.getCollection().getOrCreate(new ResourceLocation("forge","stone")).contains(block) || block == Blocks.GRAVEL || block == Blocks.PACKED_ICE)&& ((IWorldReader)worldIn).getLightSubtracted(pos, 0) <= 10);
     }
 
+    @Override
+    public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity entity) {
+        if(entity.inventory.getCurrentItem().getItem()== Items.SHEARS && !entity.abilities.isCreativeMode){
+            spawnAsEntity(world,pos,new ItemStack(Item.getItemFromBlock(state.getBlock())));
+            world.playSound((double)pos.getX(),(double)pos.getY(),(double)pos.getZ(),this.getSoundType(state,world,pos,entity).getBreakSound(), SoundCategory.BLOCKS,this.getSoundType(state,world,pos,entity).pitch,this.getSoundType(state,world,pos,entity).volume,false);
+            super.onBlockHarvested(world,pos,state,entity);
+        }else{
+            super.onBlockHarvested(world,pos,state,entity);
+        }
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        if(reversed){
+            return SHAPER;
+        }
+        return SHAPE;
+    }
+
+    @Override
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        if(reversed){
+            BlockPos blockpos = pos.up();
+            return isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos) && worldIn.getLightSubtracted(pos, 0) < 10;
+        }
+        BlockPos blockpos = pos.down();
+        return isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos) && worldIn.getLightSubtracted(pos, 0) < 10;
+    }
 }

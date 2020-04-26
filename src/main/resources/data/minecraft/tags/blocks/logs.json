@@ -15,6 +15,9 @@
     "wildnature:palm_log",
     "wildnature:plum_log",
     "wildnature:redwood_log",
-    "wildnature:willow_log"
+    "wildnature:willow_log",
+    "wildnature:eucalyptus_log",
+    "wildnature:citrus_log"
+
   ]
 }

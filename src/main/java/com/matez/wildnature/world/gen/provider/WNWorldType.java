@@ -37,7 +37,7 @@ public class WNWorldType extends WorldType {
 
         if(world.getDimension().getType()==DimensionType.OVERWORLD) {
             Main.wnInfo("Generating WildNature World");
-            WNWorldLoadProgressScreen.world=world;
+            Main.runningWorld=world;
             ChunkGeneratorType<WNGenSettings, WNChunkGeneratorOverworld> gen = WNChunkGeneratorType.WILDNATURE;
             ChunkGeneratorType<NetherGenSettings, NetherChunkGenerator> genNether = ChunkGeneratorType.CAVES;
             ChunkGeneratorType<EndGenerationSettings, EndChunkGenerator> genEnd = ChunkGeneratorType.FLOATING_ISLANDS;

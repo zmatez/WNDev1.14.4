@@ -10,6 +10,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -21,8 +22,7 @@ public class SteamGeneratorBlock2 extends SteamGeneratorBlock {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void steamParticle(BlockPos oldPos, BlockState state, World world, Random random){
+    public void steamParticle(BlockPos oldPos, BlockState state, ServerWorld world, Random random){
         Direction direction = state.get(FACING);
         double X = offset(oldPos,direction,0.6).getX();
         double Y = offset(oldPos,direction,0.6).getY();
@@ -36,8 +36,8 @@ public class SteamGeneratorBlock2 extends SteamGeneratorBlock {
             double speedX = -((oldPos.getX()-X)/divider)+ Utilities.rdoub(-res,res);
             double speedY = -((oldPos.getY()-Y)/divider)+ Utilities.rdoub(-0.02,dividerY);
             double speedZ = -((oldPos.getZ()-Z)/divider)+ Utilities.rdoub(-res,res);
-            world.addParticle(ParticleRegistry.STEAM,true, X+0.5, Y+0.5, Z+0.5, speedX,speedY,speedZ);
-            Minecraft.getInstance().worldRenderer.addParticle(ParticleRegistry.STEAM, ParticleTypes.CLOUD.getType().getAlwaysShow(), X+0.5, Y+0.5, Z+0.5, speedX,speedY,speedZ);
+            spawnParticle(world,ParticleRegistry.STEAM,X+0.5, Y+0.5, Z+0.5, 1,speedX,speedY,speedZ,0.1);
+
 
         }
     }

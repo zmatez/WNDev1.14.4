@@ -139,7 +139,9 @@ public class FarmlandBase extends FarmlandBlock {
    }
 
    public static void turnToDirt(BlockState state, World worldIn, BlockPos pos) {
-      worldIn.setBlockState(pos, nudgeEntitiesWithNewState(state, Main.getBlockByID(((FarmlandBase)state.getBlock()).getDirt()).getDefaultState(), worldIn, pos));
+      if(state.getBlock() instanceof FarmlandBase) {
+         worldIn.setBlockState(pos, nudgeEntitiesWithNewState(state, Main.getBlockByID(((FarmlandBase) state.getBlock()).getDirt()).getDefaultState(), worldIn, pos));
+      }
    }
 
    private boolean hasCrops(IBlockReader worldIn, BlockPos pos) {

@@ -43,8 +43,10 @@ public class GrapeVine extends VineBase implements IGrowable {
     @Override
     public void randomTick(BlockState state, World worldIn, BlockPos pos, Random random) {
         super.randomTick(state,worldIn,pos,random);
-        if(Utilities.chance(ConfigSettings.floweringChance)){
-            worldIn.setBlockState(pos,worldIn.getBlockState(pos).with(FLOWERING,true));
+        if(Utilities.chance(ConfigSettings.floweringChance) && state.getBlock() instanceof GrapeVine){
+            try {
+                worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(FLOWERING, true));
+            }catch (Exception e){}
         }
     }
 

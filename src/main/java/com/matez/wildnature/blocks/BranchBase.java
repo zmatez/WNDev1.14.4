@@ -1,6 +1,7 @@
 package com.matez.wildnature.blocks;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.compatibility.WNLoot;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
@@ -83,12 +84,13 @@ public class BranchBase extends VWallBlock {
 
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        System.out.println("drop");
-        boolean silkTouch = false;
         List<ItemStack> list = new ArrayList<>();
-        String log = getRegistryName().getPath().toString().replace("branch","log");
-        list.add(new ItemStack(Main.getBlockByID("wildnature:"+log), 1));
-
+        if(WNLoot.isSilkTouch(builder)){
+            list.add(new ItemStack(Item.getItemFromBlock(this), 1));
+        }else {
+            String log = getRegistryName().getPath().toString().replace("branch","log");
+            list.add(new ItemStack(Main.getBlockByID("wildnature:"+log), 1));
+        }
 
         return list;
     }

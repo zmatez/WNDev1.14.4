@@ -2,6 +2,12 @@
   "lang.credits": "matez_",
   "_comment": "#NOTE FOR YOU - DONT CHANGE THIS, ITS NEVER USED# this is the translator nick, so replace the current one with yours. WARNING: Text cannot be longer than 15 characters!",
 
+  "block.wildnature.oak_branch": "Oak Branch",
+  "block.wildnature.spruce_branch": "Spruce Branch",
+  "block.wildnature.birch_branch": "Birch Branch",
+  "block.wildnature.acacia_branch": "Acacia Branch",
+  "block.wildnature.dark_oak_branch": "Dark Oak Branch",
+
   "block.wildnature.rosaceae_log": "Rosaceae Log",
   "block.wildnature.rosaceae_wood": "Rosaceae Wood",
   "block.wildnature.rosaceae_stripped_log": "Stripped Rosaceae Log",
@@ -339,6 +345,7 @@
   "block.wildnature.maple_stairs_parquet": "Maple Parquet Stairs",
   "block.wildnature.maple_parquet": "Maple Parquet",
   "block.wildnature.maple_leaves": "Maple Leaves",
+  "block.wildnature.maple_red_leaves": "Red Maple Leaves",
   "block.wildnature.maple_yellow_leaves": "Yellow Maple Leaves",
   "block.wildnature.maple_brown_leaves": "Brown Maple Leaves",
   "block.wildnature.maple_orange_leaves": "Orange Maple Leaves",
@@ -681,6 +688,8 @@
   "item.wildnature.pomegranate": "Pomegranate",
   "item.wildnature.mango": "Mango",
 
+  "item.wildnature.lemon_wedge": "Lemon Wedge",
+
   "block.wildnature.banana_leaves": "Banana Leaves",
   "block.wildnature.grape_fruit_leaves": "Grapefruit Leaves",
   "block.wildnature.lemon_leaves": "Lemon Leaves",
@@ -738,7 +747,7 @@
   "item.wildnature.garlic_cloves": "Garlic Cloves",
   "item.wildnature.turmeric": "Turmeric",
   "item.wildnature.salt": "Salt",
-  "item.wildnature.pepper": "Pepper",
+  "item.wildnature.pepper": "Black Pepper",
 
   "item.wildnature.butter": "Butter",
   "item.wildnature.dough_ball": "Dough Ball",
@@ -749,6 +758,8 @@
   "item.wildnature.mint": "Mint",
   "item.wildnature.white_tea_leaves": "White Tea Leaves",
 
+  "item.wildnature.mushroom_mix": "Mushroom Mix",
+  "item.wildnature.dried_mushroom_mix": "Dried Mushroom Mix",
 
   "item.wildnature.raw_boar": "Raw Boar",
   "item.wildnature.cooked_boar": "Cooked Boar",
@@ -1047,6 +1058,8 @@
   "block.wildnature.lightning_bug": "Lightning Bug",
   "block.wildnature.geyser": "Geyser",
   "item.wildnature.geyser_essence": "Geyser Essence",
+  "block.wildnature.eco_lantern": "Eco Lantern",
+
 
 
   "block.wildnature.andirons": "Andirons",
@@ -1062,6 +1075,7 @@
   "block.wildnature.crystal_torch": "Crystal Torch",
   "block.wildnature.dungeon_redstone_torch": "Dungeon Redstone Torch",
 
+  "block.wildnature.stick_frame": "Stick Frame",
   "block.wildnature.beams": "Beams Block",
   "block.wildnature.slab_corner": "Corner Slab",
   "block.wildnature.slab_vertical": "Vertical Slab",
@@ -1167,6 +1181,7 @@
   "block.wildnature.ruby_ore": "Ruby Ore",
   "block.wildnature.ruby_block": "Ruby Block",
 
+  "block.wildnature.salt_ore": "Salt Ore",
 
 
   "block.wildnature.basalt": "Basalt",
@@ -1565,6 +1580,8 @@
   "biome.wildnature.prairie_hills": "Prairie Hills",
   "biome.wildnature.rapeseed_field": "Rapeseed Field",
   "biome.wildnature.corn_field": "Corn Fields",
+  "biome.wildnature.cotton_fields": "Cotton Fields",
+
 
   "biome.wildnature.outback": "Outback",
   "biome.wildnature.wooded_outback": "Wooded Outback",
@@ -1693,6 +1710,22 @@
   "biome.wildnature.christmas_island": "Christmas Island",
   "biome.wildnature.madagascar": "Madagascar",
   "biome.wildnature.madagascar_valley": "Madagascar Valley",
-  "biome.wildnature.white_beach": "White Beach"
+  "biome.wildnature.white_beach": "White Beach",
 
+  "biome.wildnature.beech_forest": "Beech Forest",
+  "biome.wildnature.beech_hills": "Beech Hills",
+  "biome.wildnature.beech_valley": "Beech Valley",
+
+  "biome.wildnature.oaklands": "Oaklands",
+  "biome.wildnature.dense_oaklands": "Dense Oaklands",
+  "biome.wildnature.oakland_hills": "Oakland Hills",
+  "biome.wildnature.oak_valley": "Oak Valley",
+
+
+  "biome.wildnature.high_forest": "High Forest",
+  "biome.wildnature.high_forest_hills": "High Forest Hills",
+  "biome.wildnature.high_forest_valley": "High Forest Valley",
+
+  "biome.wildnature.mahogany_cliffs": "Mahogany Cliffs",
+  "biome.wildnature.forested_cliffs": "Forested Cliffs"
 }

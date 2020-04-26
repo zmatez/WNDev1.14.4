@@ -1,7 +1,8 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "texture": "wildnature:items/cherry_flower"
+    "texture": "wildnature:items/cherry_flower",
+    "particle": "wildnature:items/cherry_flower"
   },
   "elements": [
     {   "from": [ 0, 0.015625, 0 ],

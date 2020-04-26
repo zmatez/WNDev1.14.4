@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 
 public class PoisonIvyBlock extends FloweringBushBase {
     public PoisonIvyBlock(Properties properties, Item.Properties builder, ResourceLocation regName) {
-        super(properties, builder, regName);
+        super(properties.hardnessAndResistance(0.4f,0), builder, regName);
     }
 
     @Override

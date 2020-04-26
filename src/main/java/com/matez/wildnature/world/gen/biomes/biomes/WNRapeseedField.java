@@ -50,7 +50,7 @@ public class WNRapeseedField extends WNBiome {
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
         WNBiomeFeatures.addGrass(this,80,Main.getBlockByID("wildnature:rapeseed").getDefaultState().with(FloweringBushBase.FLOWERING,true),true);
-        WNBiomeFeatures.addMushrooms(this);
+
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 

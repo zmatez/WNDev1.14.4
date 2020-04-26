@@ -7,6 +7,7 @@ import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,8 +19,10 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 
 public class FloweringBushBase extends BushBase implements IGrowable {
@@ -36,12 +39,11 @@ public class FloweringBushBase extends BushBase implements IGrowable {
 
     @Override
     public boolean ticksRandomly(BlockState state) {
-        return true;
+        return !state.get(FLOWERING);
     }
 
     @Override
     public void randomTick(BlockState state, World worldIn, BlockPos pos, Random random) {
-
         if(Utilities.chance(ConfigSettings.floweringChance)){
             worldIn.setBlockState(pos,state.with(FLOWERING,true));
         }
@@ -49,7 +51,7 @@ public class FloweringBushBase extends BushBase implements IGrowable {
 
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-        if(state.getBlock() instanceof FloweringBushBase && state.get(FLOWERING) && CommonConfig.flowerDisappearsOnWalk.get()){
+        if(state.getBlock() instanceof FloweringBushBase && state.get(FLOWERING) && CommonConfig.flowerDisappearsOnWalk.get() && !(entityIn instanceof ItemEntity)){
             worldIn.setBlockState(pos,worldIn.getBlockState(pos).with(FLOWERING,false));
             worldIn.playSound(pos.getX(),pos.getY(),pos.getZ(), SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS,0.3F,(float) Utilities.rdoub(0.7,1.3),false);
         }
@@ -83,4 +85,6 @@ public class FloweringBushBase extends BushBase implements IGrowable {
             worldIn.setBlockState(pos,state.with(FLOWERING,true));
         }
     }
+
+
 }

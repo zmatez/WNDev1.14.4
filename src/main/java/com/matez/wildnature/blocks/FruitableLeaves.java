@@ -21,9 +21,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class FruitableLeaves extends LeavesBase {
@@ -65,6 +67,14 @@ public class FruitableLeaves extends LeavesBase {
         builder.add(STAGE);
     }
 
+    @Override
+    public boolean ticksRandomly(BlockState state) {
+        int stage = state.get(getStage());
+        if(this.hasFlowers){
+            return stage==0 || stage==1;
+        }
+        return stage==0;
+    }
 
     @Override
     public void randomTick(BlockState state, World worldIn, BlockPos pos, Random random) {
@@ -108,10 +118,17 @@ public class FruitableLeaves extends LeavesBase {
     }
 
     @Override
-    public boolean ticksRandomly(BlockState state) {
-        return true;
-    }
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        List<ItemStack> list = super.getDrops(state, builder);
+        int c = getCurrentStage(state);
+        ItemPortion p = getFruitFromStage(c);
+        if(p!=null && Main.getItemByID(p.item.toString())!= Items.AIR){
+            list.add(new ItemStack(Main.getItemByID(p.item.toString()), Utilities.rint(p.min,p.max)));
+        }
 
+
+        return list;
+    }
 
     private ItemPortion getFruitFromStage(int stage){
         int x = 0;

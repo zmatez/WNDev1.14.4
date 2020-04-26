@@ -1,12 +1,22 @@
 package com.matez.wildnature.world.gen.chunk;
 
+import com.matez.wildnature.commands.LocatePath;
+import com.matez.wildnature.customizable.CommonConfig;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.other.Utilities;
+import com.matez.wildnature.world.gen.biomes.undergroundBiomes.setup.URBiome;
+import com.matez.wildnature.world.gen.biomes.undergroundBiomes.setup.URBiomeManager;
+import com.matez.wildnature.world.gen.noise.VoronoiGenerator;
+import com.matez.wildnature.world.gen.noise.sponge.module.source.Perlin;
+import com.matez.wildnature.world.gen.noise.sponge.module.source.RidgedMulti;
 import it.unimi.dsi.fastutil.longs.LongIterator;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectList;
 import it.unimi.dsi.fastutil.objects.ObjectListIterator;
-import java.util.Random;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+
+import java.util.*;
+
+import net.minecraft.block.*;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -28,6 +38,7 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraftforge.common.BiomeDictionary;
 
 public abstract class NoiseChunkGenerator<T extends GenerationSettings> extends ChunkGenerator<T> {
    private static final float[] field_222561_h = Util.make(new float[13824], (p_222557_0_) -> {
@@ -53,6 +64,16 @@ public abstract class NoiseChunkGenerator<T extends GenerationSettings> extends 
    private final INoiseGenerator surfaceDepthNoise;
    protected final BlockState defaultBlock;
    protected final BlockState defaultFluid;
+   private final VoronoiGenerator voronoiGenerator;
+   private double frequency = CommonConfig.pathFrequency.get();
+
+   private final VoronoiGenerator underwaterRiverGenerator;
+   private double riverFrequency = 0.005;
+
+   private final RidgedMulti ridgedMultiNoise;
+   private final Perlin perlinNoise, biomeNoise;
+   private double latestBiomeNoise = -1;
+
 
    public NoiseChunkGenerator(IWorld worldIn, BiomeProvider biomeProviderIn, int p_i49931_3_, int p_i49931_4_, int p_i49931_5_, T p_i49931_6_, boolean usePerlin) {
       super(worldIn, biomeProviderIn, p_i49931_6_);
@@ -68,6 +89,25 @@ public abstract class NoiseChunkGenerator<T extends GenerationSettings> extends 
       this.field_222569_p = new OctavesNoiseGenerator(this.randomSeed, 16);
       this.field_222570_q = new OctavesNoiseGenerator(this.randomSeed, 8);
       this.surfaceDepthNoise = (INoiseGenerator)(usePerlin ? new PerlinNoiseGenerator(this.randomSeed, 4) : new OctavesNoiseGenerator(this.randomSeed, 4));
+      this.voronoiGenerator=new VoronoiGenerator(worldIn.getSeed(),(short)0);
+      this.underwaterRiverGenerator=new VoronoiGenerator(worldIn.getSeed(),(short)0);
+      this.ridgedMultiNoise =new RidgedMulti();
+      ridgedMultiNoise.setSeed((int)worldIn.getSeed());
+      ridgedMultiNoise.setFrequency(0.005);
+      ridgedMultiNoise.setOctaveCount(1);
+      ridgedMultiNoise.setLacunarity(0.0);
+      this.perlinNoise = new Perlin();
+      perlinNoise.setSeed((int)worldIn.getSeed());
+      perlinNoise.setFrequency(0.1);
+      perlinNoise.setOctaveCount(2);
+      perlinNoise.setLacunarity(0.0);
+      perlinNoise.setPersistence(-0.4);
+      this.biomeNoise = new Perlin();
+      biomeNoise.setSeed((int)worldIn.getSeed());
+      biomeNoise.setFrequency(0.002);
+      biomeNoise.setOctaveCount(2);
+      biomeNoise.setLacunarity(0.0);
+      biomeNoise.setPersistence(0.0);
    }
 
    private double func_222552_a(int p_222552_1_, int p_222552_2_, int p_222552_3_, double coordScale, double heightScale, double p_222552_8_, double p_222552_10_) {
@@ -177,11 +217,11 @@ public abstract class NoiseChunkGenerator<T extends GenerationSettings> extends 
    }
 
    protected abstract void func_222548_a(double[] p_222548_1_, int p_222548_2_, int p_222548_3_);
-
+   public static double maxNoise = 0;
    public int func_222550_i() {
       return this.noiseSizeY + 1;
    }
-
+   public Random random = new Random(seed);
    public void generateSurface(IChunk chunkIn) {
       ChunkPos chunkpos = chunkIn.getPos();
       int i = chunkpos.x;
@@ -196,15 +236,233 @@ public abstract class NoiseChunkGenerator<T extends GenerationSettings> extends 
 
       for(int i1 = 0; i1 < 16; ++i1) {
          for(int j1 = 0; j1 < 16; ++j1) {
-            int k1 = k + i1;
-            int l1 = l + j1;
-            int i2 = chunkIn.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, i1, j1) + 1;
-            double d1 = this.surfaceDepthNoise.func_215460_a((double)k1 * 0.0625D, (double)l1 * 0.0625D, 0.0625D, (double)i1 * 0.0625D);
-            abiome[j1 * 16 + i1].buildSurface(sharedseedrandom, chunkIn, k1, l1, i2, d1, this.getSettings().getDefaultBlock(), this.getSettings().getDefaultFluid(), this.getSeaLevel(), this.world.getSeed());
+            int x = k + i1;
+            int z = l + j1;
+            int startHeight = chunkIn.getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, i1, j1) + 1;
+            double d1 = this.surfaceDepthNoise.func_215460_a((double)x * 0.0625D, (double)z * 0.0625D, 0.0625D, (double)i1 * 0.0625D);
+
+            Biome biome = abiome[j1 * 16 + i1];
+
+            biome.buildSurface(sharedseedrandom, chunkIn, x, z, startHeight, d1, this.getSettings().getDefaultBlock(), this.getSettings().getDefaultFluid(), this.getSeaLevel(), this.world.getSeed());
+
+            if(CommonConfig.generatePaths.get()) {
+               double vnoise = voronoiGenerator.noise(x, z, frequency);
+
+               if (vnoise > 0.3) {
+                  //stone
+
+               } else {
+                  //lava
+                  if (vnoise >= 0.29 && BiomeDictionary.getTypes(biome).contains(BiomeDictionary.Type.FOREST) && BiomeDictionary.getTypes(biome).contains(BiomeDictionary.Type.DENSE)) {
+
+                     Block theme = biome.getSurfaceBuilderConfig().getTop().getBlock();
+
+                     BlockState b = chunkIn.getBlockState(new BlockPos(x, startHeight - 1, z));
+                     Block toPlace = null;
+                     if (b.getBlock() == WNBlocks.MOLD_GRASS_BLOCK) {
+                        toPlace = WNBlocks.MOLD_GRASS_PATH;
+                     } else if (b.getBlock() == WNBlocks.BROWN_GRASS_BLOCK) {
+                        toPlace = WNBlocks.BROWN_GRASS_PATH;
+                     } else if (b.getBlock() == WNBlocks.DRIED_GRASS_BLOCK) {
+                        toPlace = WNBlocks.DRIED_GRASS_PATH;
+                     } else if (b.getBlock() == WNBlocks.DESERT_GRASS_BLOCK) {
+                        toPlace = WNBlocks.DESERT_GRASS_PATH;
+                     } else if (b.getBlock() == WNBlocks.TROPICAL_GRASS_BLOCK) {
+                        toPlace = WNBlocks.TROPICAL_GRASS_PATH;
+                     } else if (b.getBlock() == WNBlocks.BROWN_PODZOL) {
+                        toPlace = WNBlocks.BROWN_GRASS_PATH;
+                     } else if (b.getBlock() == Blocks.GRASS_BLOCK) {
+                        toPlace = Blocks.GRASS_PATH;
+                     } else if (b.getBlock() == Blocks.PODZOL) {
+                        if (theme == WNBlocks.MOLD_GRASS_BLOCK) {
+                           toPlace = WNBlocks.MOLD_GRASS_PATH;
+                        } else if (theme == WNBlocks.BROWN_GRASS_BLOCK) {
+                           toPlace = WNBlocks.BROWN_GRASS_PATH;
+                        } else if (theme == WNBlocks.DRIED_GRASS_BLOCK) {
+                           toPlace = WNBlocks.DRIED_GRASS_PATH;
+                        } else if (theme == WNBlocks.DESERT_GRASS_BLOCK) {
+                           toPlace = WNBlocks.DESERT_GRASS_PATH;
+                        } else if (theme == WNBlocks.TROPICAL_GRASS_BLOCK) {
+                           toPlace = WNBlocks.TROPICAL_GRASS_PATH;
+                        } else if (theme == WNBlocks.BROWN_PODZOL) {
+                           toPlace = WNBlocks.BROWN_GRASS_PATH;
+                        } else {
+                           toPlace = Blocks.GRASS_PATH;
+                        }
+                     } else if (b.getBlock() == Blocks.COARSE_DIRT) {
+                        if (theme == WNBlocks.MOLD_GRASS_BLOCK) {
+                           toPlace = WNBlocks.MOLD_GRASS_PATH;
+                        } else if (theme == WNBlocks.BROWN_GRASS_BLOCK) {
+                           toPlace = WNBlocks.BROWN_GRASS_PATH;
+                        } else if (theme == WNBlocks.DRIED_GRASS_BLOCK) {
+                           toPlace = WNBlocks.DRIED_GRASS_PATH;
+                        } else if (theme == WNBlocks.DESERT_GRASS_BLOCK) {
+                           toPlace = WNBlocks.DESERT_GRASS_PATH;
+                        } else if (theme == WNBlocks.TROPICAL_GRASS_BLOCK) {
+                           toPlace = WNBlocks.TROPICAL_GRASS_PATH;
+                        } else if (theme == WNBlocks.BROWN_PODZOL) {
+                           toPlace = WNBlocks.BROWN_GRASS_PATH;
+                        } else {
+                           toPlace = Blocks.GRASS_PATH;
+                        }
+                     }
+
+                     if (toPlace != null) {
+                        if(Utilities.rint(0,5)!=0) {
+                           chunkIn.setBlockState(new BlockPos(x, startHeight - 1, z), toPlace.getDefaultState(), false);
+                        }
+                        if(Utilities.rint(0,15)==0) {
+                           chunkIn.setBlockState(new BlockPos(x, startHeight - 1, z), Blocks.GRAVEL.getDefaultState(), false);
+                        }
+                        if (Utilities.rint(0, 30) == 0) {
+                           LocatePath.paths.add(new BlockPos(x, startHeight, z));
+                        }
+                     }
+
+                  }
+               }
+            }
+
+            //underwaterRivers
+            /*if(!CommonConfig.generateUndergroundRivers.get()) {
+               double vnoise = underwaterRiverGenerator.noise(x, z, riverFrequency);
+               if(Utilities.rint(0,10)==0){
+                  Main.LOGGER.debug("N: " + vnoise);
+               }
+               if (vnoise >=0.24 && vnoise<=0.32) {
+                  BlockPos pos = new BlockPos(x, 13, z);
+                  int height = calculateHeightByCenter(vnoise,0.24,0.32,1,10);
+                  int startPointY = -(int)height/2;//pos.y - startPointY -> block being set
+                  for(int a = pos.getY() - startPointY; a > pos.getY() - height; a--){
+                     if(a>10) {
+                        chunkIn.setBlockState(new BlockPos(pos.getX(), a, pos.getZ()), Blocks.CAVE_AIR.getDefaultState(), false);
+                     }else{
+                        chunkIn.setBlockState(new BlockPos(pos.getX(), a, pos.getZ()), Blocks.WATER.getDefaultState(), false);
+
+                     }
+
+                  }
+               }
+            }*/
+
+            /*double vnoise = ridgetMultiNoise.getValue(x,100,z);
+            if(vnoise>maxNoise){
+               maxNoise=vnoise;
+               Main.LOGGER.debug("max: " + maxNoise);
+            }
+            if (vnoise >=0 && vnoise<=1) {
+               BlockPos pos = new BlockPos(x, 13, z);
+               int height = calculateHeightByCenter(vnoise,0,1,3,20);
+               int startPointY = -(int)height/2;//pos.y - startPointY -> block being set
+               for(int a = pos.getY() - startPointY; a > pos.getY() - height; a--){
+                  if(a>10) {
+                     chunkIn.setBlockState(new BlockPos(pos.getX(), a, pos.getZ()), Blocks.CAVE_AIR.getDefaultState(), false);
+                  }else{
+                     chunkIn.setBlockState(new BlockPos(pos.getX(), a, pos.getZ()), Blocks.WATER.getDefaultState(), false);
+
+                  }
+
+               }
+            }*/
+            if(CommonConfig.generateUndergroundRivers.get()) {
+               URBiome riverBiome = URBiomeManager.getBiomeAt(chunkIn,new BlockPos(x,1,z),world.getSeed());
+
+               double vnoise = ridgedMultiNoise.getValue(x, 1, z);
+               if (vnoise >= 0.60 && vnoise <= 2) {
+                  BlockPos pos = new BlockPos(x, 13, z);
+                  int height = riverBiome.getNoiseHeight(vnoise, 0.60,  0.625,1, 10,17,0.63,random,seed,pos);
+                  if(height==10 || height==9){
+                     double pnoise = perlinNoise.getValue(x, 1, z);
+                     if(pnoise>=0.3){
+                        height=height+1;
+                        if(pnoise>=0.38){
+                           height=height+1;
+                        }
+                     }else if(pnoise<0.16){
+                        height=height-1;
+                     }
+                  }
+                  int startPointY = -(int) height / 2;//pos.y - startPointY -> block being set
+                  for (int a = pos.getY() - startPointY; a > pos.getY() - height; a--) {
+                     if (a > 10) {
+                        chunkIn.setBlockState(new BlockPos(pos.getX(), a, pos.getZ()), Blocks.CAVE_AIR.getDefaultState(), false);
+                     } else {
+                        chunkIn.setBlockState(new BlockPos(pos.getX(), a, pos.getZ()), Blocks.WATER.getDefaultState(), false);
+
+                     }
+
+                  }
+               }
+
+               if (vnoise >= 0.58 && vnoise <= 2) {
+                  BlockPos pos = new BlockPos(x, 13, z);
+                  if((riverBiome.getElevationBlock(seed,random,pos).getBlock()!=Blocks.STONE || riverBiome.getUnderwaterBlock(seed,random,pos).getBlock()!=Blocks.STONE)) {
+
+                     int height = riverBiome.getNoiseHeight(vnoise, 0.59, 0.635, 1, 13,17,0.64,random,seed,pos);
+                     int startPointY = -(int) height / 2;//pos.y - startPointY -> block being set
+                     for (int a = pos.getY() - startPointY; a > pos.getY() - height; a--) {
+                        riverBiome.elevate(pos,a,chunkIn,random,seed);
+                     }
+                  }
+               }
+            }
          }
       }
 
       this.makeBedrock(chunkIn, sharedseedrandom);
+   }
+
+   /**
+    *
+    * @param noise actual noise, example: 29.23141283 (?%)
+    * @param minNoise minimal noise, example: 28.0 (its 0%)
+    * @param maxNoise maximal noise, example: 29.999999 (its 100%)
+    * @param minHeight min height example: 1
+    * @param maxHeight max height example: 6
+    * @return
+    */
+   private int calculateHeight(double noise, double minNoise, double maxNoise, int minHeight, int maxHeight){
+      double maxNoiseCalc = maxNoise-minNoise;//1.999999
+      double noiseCalc = noise-minNoise;//1.23141283
+      double noisePercent = noiseCalc/maxNoiseCalc;//0.61(%)
+
+      int maxHeightCalc = maxHeight-minHeight;//5
+      double height = maxHeightCalc*noisePercent;//3.05
+
+      return (int)Math.round(height)+minHeight;//4.05 - returns 4
+   }
+
+   /**
+    *
+    * @param noise actual noise, example: 29.23141283 (?%)
+    * @param minNoise minimal noise, example: 28.0 (its 0%)
+    * @param maxNoise maximal noise, example: 29.999999 (its 100%)
+    * @param minHeight min height example: 1
+    * @param maxHeight max height example: 6
+    * @return
+    */
+   private int calculateHeightByCenter(double noise, double minNoise, double maxNoise, int minHeight, int maxHeight){
+      double noiseCenter = ((maxNoise-minNoise)/2)+minNoise;//28.99999995
+      double noisePercent = 0;
+
+      if(noiseCenter>noise) {
+         noisePercent = calculatePercent(noise, minNoise, noiseCenter);
+      }else if(noiseCenter<noise){
+         noisePercent = calculatePercent(noise, maxHeight, noiseCenter);
+      }else{
+         noisePercent = 1;
+      }
+
+      int maxHeightCalc = maxHeight-minHeight;//5
+      double height = maxHeightCalc*noisePercent;//3.05
+
+      return (int)Math.round(height)+minHeight;//4.05 - returns 4
+   }
+
+   private double calculatePercent(double noise, double minNoise, double maxNoise) {
+      double maxNoiseCalc = maxNoise - minNoise;//1.999999
+      double noiseCalc = noise - minNoise;//1.23141283
+      return noiseCalc / maxNoiseCalc;//0.61(%)
    }
 
    protected void makeBedrock(IChunk chunkIn, Random rand) {

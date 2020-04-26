@@ -1,5 +1,6 @@
 package com.matez.wildnature.items;
 
+import com.matez.wildnature.blocks.FloweringWaterLily;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -45,6 +46,10 @@ public class WaterlilyItem extends BlockItem {
     * {@link #onItemUse}.
     */
    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+      BlockState state = block.getDefaultState();
+      if(block instanceof FloweringWaterLily && playerIn.isCreative()){
+         state = state.with(FloweringWaterLily.FLOWERING, true);
+      }
       ItemStack itemstack = playerIn.getHeldItem(handIn);
       RayTraceResult raytraceresult = rayTrace(worldIn, playerIn, RayTraceContext.FluidMode.SOURCE_ONLY);
       if (raytraceresult.getType() == RayTraceResult.Type.MISS) {
@@ -66,7 +71,7 @@ public class WaterlilyItem extends BlockItem {
 
                // special case for handling block placement with water lilies
                net.minecraftforge.common.util.BlockSnapshot blocksnapshot = net.minecraftforge.common.util.BlockSnapshot.getBlockSnapshot(worldIn, blockpos1);
-               worldIn.setBlockState(blockpos1, block.getDefaultState(), 11);
+               worldIn.setBlockState(blockpos1, state, 11);
                if (net.minecraftforge.event.ForgeEventFactory.onBlockPlace(playerIn, blocksnapshot, net.minecraft.util.Direction.UP)) {
                   blocksnapshot.restore(true, false);
                   return new ActionResult<ItemStack>(ActionResultType.FAIL, itemstack);

@@ -1,6 +1,8 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.world.gen.biomes.biomes.surface.BialowiezaSurfaceBuilder;
+import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
+import com.matez.wildnature.world.gen.feature.WNWaterFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
@@ -13,11 +15,16 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
+import net.minecraft.world.gen.placement.CountConfig;
+import net.minecraft.world.gen.placement.CountRangeConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,7 +33,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNBialowiezaMarsh extends WNBiome {
     public WNBialowiezaMarsh(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new BialowiezaSurfaceBuilder(SurfaceBuilderConfig::deserialize,3), SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, WNSurfaceBuilders.BROWN_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.SWAMP)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -51,7 +58,7 @@ public class WNBialowiezaMarsh extends WNBiome {
         WNBiomeFeatures.addStoneVariants(this);
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addGrass(this);
-        WNBiomeFeatures.addMushrooms(this);
+
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addPlant(this, Blocks.BLUE_ORCHID.getDefaultState(),1);
@@ -66,6 +73,7 @@ public class WNBialowiezaMarsh extends WNBiome {
         applyPlants();
         applyTrees();
 
+        this.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION, Biome.createDecoratedFeature(new WNWaterFeature(CountConfig::deserialize),new CountConfig(32), Placement.COUNT_BIASED_RANGE, new CountRangeConfig(50, 60, 0, 150)));
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.PIG, 10, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.CHICKEN, 10, 4, 4));

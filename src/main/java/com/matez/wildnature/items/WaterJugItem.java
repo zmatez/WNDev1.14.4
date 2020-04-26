@@ -25,6 +25,8 @@ public class WaterJugItem extends Item {
     * the Item before the action is complete.
     */
    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+      super.onItemUseFinish(stack,worldIn,entityLiving);
+
       PlayerEntity playerentity = entityLiving instanceof PlayerEntity ? (PlayerEntity)entityLiving : null;
       if (playerentity == null || !playerentity.abilities.isCreativeMode) {
          stack.shrink(1);

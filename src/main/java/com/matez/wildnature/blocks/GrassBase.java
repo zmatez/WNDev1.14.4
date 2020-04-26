@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.compatibility.WNLoot;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.*;
@@ -13,6 +14,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -24,7 +26,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.DecoratedFeatureConfig;
 import net.minecraft.world.gen.feature.FlowersFeature;
+import net.minecraft.world.lighting.LightEngine;
 import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.world.storage.loot.LootParameter;
+import net.minecraft.world.storage.loot.LootParameters;
 
 public class GrassBase extends GrassBlock {
     private Item item;
@@ -103,7 +108,10 @@ public class GrassBase extends GrassBlock {
         BlockPos blockpos = pos.up();
         int chance = Utilities.rint(0,15);
         BlockState blockstate = Blocks.GRASS.getDefaultState();
-        if(chance>7 && chance<12){
+        if(chance<=7){
+            blockstate = Main.getBlockByID("minecraft:grass").getDefaultState();
+        }
+        else if(chance>7 && chance<12){
             blockstate = Main.getBlockByID("wildnature:medium_grass").getDefaultState();
         }else{
             blockstate = Main.getBlockByID("wildnature:small_grass").getDefaultState();
@@ -170,11 +178,20 @@ public class GrassBase extends GrassBlock {
         boolean silkTouch = false;
         List<ItemStack> list = super.getDrops(state, builder);
         if(list.isEmpty() && !silkTouch){
-            list.add(new ItemStack(Item.getItemFromBlock(Main.getBlockByID(dirt)), 1));
+            if(WNLoot.isSilkTouch(builder)){
+                list.add(new ItemStack(Item.getItemFromBlock(this), 1));
+            }else {
+                list.add(new ItemStack(Item.getItemFromBlock(Main.getBlockByID(dirt)), 1));
+            }
         }
+
+
 
         return list;
     }
 
-
+    @Override
+    public boolean ticksRandomly(BlockState state) {
+        return true;
+    }
 }

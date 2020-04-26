@@ -23,24 +23,24 @@ public class WNCaveCarver extends WorldCarver<ProbabilityConfig> {
       int j = rand.nextInt(rand.nextInt(rand.nextInt(this.func_222724_a()) + 1) + 1);
 
       for(int k = 0; k < j; ++k) {
-         double d0 = (double)(chunkX * 16 + rand.nextInt(16));
-         double d1 = (double)this.generateCaveStartY(rand);
-         double d2 = (double)(chunkZ * 16 + rand.nextInt(16));
+         double carveX = (double)(chunkX * 16 + rand.nextInt(16));
+         double carveY = (double)this.generateCaveStartY(rand);
+         double carveZ = (double)(chunkZ * 16 + rand.nextInt(16));
          int l = 1;
          if (rand.nextInt(4) == 0) {
             double d3 = 0.5D;
             float f1 = 1.0F + rand.nextFloat() * 6.0F;
-            this.func_222723_a(chunkIn, rand.nextLong(), seaLevel, p_212867_6_, p_212867_7_, d0, d1, d2, f1, 0.5D, carvingMask);
+            this.func_222723_a(chunkIn, rand.nextLong(), seaLevel, p_212867_6_, p_212867_7_, carveX, carveY, carveZ, f1, 0.5D, carvingMask);
             l += rand.nextInt(4);
          }
 
          for(int k1 = 0; k1 < l; ++k1) {
             float f = rand.nextFloat() * ((float)Math.PI * 2F);
             float f3 = (rand.nextFloat() - 0.5F) / 4.0F;
-            float f2 = this.generateCaveRadius(rand);
+            float carveRadius = this.generateCaveRadius(rand);
             int i1 = i - rand.nextInt(i / 4);
             int j1 = 0;
-            this.carveTunnel(chunkIn, rand.nextLong(), seaLevel, p_212867_6_, p_212867_7_, d0, d1, d2, f2, f, f3, 0, i1, this.func_222725_b(), carvingMask);
+            this.carveTunnel(chunkIn, rand.nextLong(), seaLevel, p_212867_6_, p_212867_7_, carveX, carveY, carveZ, carveRadius, f, f3, 0, i1, this.func_222725_b(), carvingMask);
          }
       }
 

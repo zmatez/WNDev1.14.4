@@ -2,7 +2,9 @@ package com.matez.wildnature.blocks;
 
 import com.matez.wildnature.event.ClientPlayerEventHandler;
 import com.matez.wildnature.other.Utilities;
+import com.matez.wildnature.packets.WNSSpawnParticlePacket;
 import com.matez.wildnature.registry.ParticleRegistry;
+import com.matez.wildnature.sounds.SoundRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -10,7 +12,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
+import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SPlaySoundPacket;
+import net.minecraft.network.play.server.SSpawnParticlePacket;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.*;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.*;
@@ -19,6 +25,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -78,9 +85,8 @@ public class SteamGeneratorBlock extends BlockBase {
             if (state.get(POWERED) && !worldIn.isBlockPowered(pos)) {
                 worldIn.setBlockState(pos, worldIn.getBlockState(pos).cycle(POWERED).with(STEAM,0).with(RUNNING,false), 2);
             }
+            steam(state,(ServerWorld)worldIn,pos,random);
         }
-        steam(state,worldIn,pos,random);
-
 
     }
 
@@ -89,20 +95,16 @@ public class SteamGeneratorBlock extends BlockBase {
         //steam(stateIn,worldIn,pos,rand);
     }
 
-    public void steam(BlockState state, World worldIn, BlockPos pos, Random random){
+    public void steam(BlockState state, ServerWorld worldIn, BlockPos pos, Random random){
         if(state.get(POWERED)){
             if(state.get(STEAM)>0) {
                 if(state.get(STEAM)==25){
-                    playSound(worldIn, new Vec3d(pos), new ResourceLocation("wildnature","block.steam_generator"), SoundCategory.BLOCKS,1,1,0.1F);
+                    worldIn.playSound(null,pos.getX(),pos.getY(),pos.getZ(), SoundRegistry.STEAM_GENERATOR, SoundCategory.BLOCKS,1f,1F);
+
                 }
                 worldIn.setBlockState(pos,worldIn.getBlockState(pos).with(RUNNING,true).with(POWERED,true).with(STEAM,state.get(STEAM)-1));
 
-                DistExecutor.runWhenOn(Dist.CLIENT, () -> new Runnable() {
-                    @Override
-                    public void run() {
-                        steamParticle(pos, state, worldIn, random);
-                    }
-                });
+                steamParticle(pos, state, worldIn, random);
 
                 worldIn.getPendingBlockTicks().scheduleTick(pos, this, 2, TickPriority.NORMAL);
             }else{
@@ -112,46 +114,7 @@ public class SteamGeneratorBlock extends BlockBase {
         }
     }
 
-    public void playSound(World world, Vec3d pos, ResourceLocation soundIn, SoundCategory category, float volume, float pitch, float minVolume) {
-        double d0 = Math.pow(volume > 1.0F ? (double)(volume * 16.0F) : 16.0D, 2.0D);
-        int i = 0;
-        ArrayList<PlayerEntity> spea = (ArrayList<PlayerEntity>)world.getPlayers();
-
-        while(true) {
-            ServerPlayerEntity serverplayerentity;
-            Vec3d vec3d;
-            float f;
-            while(true) {
-                if(i>=spea.size()){
-                    return;
-                }
-                serverplayerentity = (ServerPlayerEntity)spea.get(i);
-                double d1 = pos.x - serverplayerentity.posX;
-                double d2 = pos.y - serverplayerentity.posY;
-                double d3 = pos.z - serverplayerentity.posZ;
-                double d4 = d1 * d1 + d2 * d2 + d3 * d3;
-                vec3d = pos;
-                f = volume;
-                if (!(d4 > d0)) {
-                    break;
-                }
-
-                if (!(minVolume <= 0.0F)) {
-                    double d5 = (double)MathHelper.sqrt(d4);
-                    vec3d = new Vec3d(serverplayerentity.posX + d1 / d5 * 2.0D, serverplayerentity.posY + d2 / d5 * 2.0D, serverplayerentity.posZ + d3 / d5 * 2.0D);
-                    f = minVolume;
-                    break;
-                }
-            }
-
-            serverplayerentity.connection.sendPacket(new SPlaySoundPacket(soundIn, category, vec3d, f, pitch));
-            ++i;
-        }
-
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public void steamParticle(BlockPos oldPos, BlockState state, World world, Random random){
+    public void steamParticle(BlockPos oldPos, BlockState state, ServerWorld world, Random random){
         Direction direction = state.get(FACING);
         double X = offset(oldPos,direction,0.6).getX();
         double Y = offset(oldPos,direction,0.6).getY();
@@ -163,8 +126,7 @@ public class SteamGeneratorBlock extends BlockBase {
             double speedX = -((oldPos.getX()-X)/divider)+ Utilities.rdoub(-res,res);
             double speedY = -((oldPos.getY()-Y)/divider)+ Utilities.rdoub(-res,res);
             double speedZ = -((oldPos.getZ()-Z)/divider)+ Utilities.rdoub(-res,res);
-            world.addParticle(ParticleRegistry.STEAM,true, X+0.5, Y+0.5, Z+0.5, speedX,speedY,speedZ);
-            Minecraft.getInstance().worldRenderer.addParticle(ParticleRegistry.STEAM, false, X+0.5, Y+0.5, Z+0.5, speedX,speedY,speedZ);
+            spawnParticle(world,ParticleRegistry.STEAM,X+0.5, Y+0.5, Z+0.5, 1,speedX,speedY,speedZ,0.1);
 
         }
     }
@@ -176,5 +138,33 @@ public class SteamGeneratorBlock extends BlockBase {
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(FACING,RUNNING,POWERED,STEAM);
+    }
+
+    public static <T extends IParticleData> int spawnParticle(ServerWorld world, T type, double posX, double posY, double posZ, int particleCount, double xSpeed, double ySpeed, double zSpeed, double speed) {
+        WNSSpawnParticlePacket sspawnparticlepacket = new WNSSpawnParticlePacket(type, false, (float)posX, (float)posY, (float)posZ, (float)xSpeed, (float)ySpeed, (float)zSpeed, (float)speed, particleCount);
+        int i = 0;
+
+        for(int j = 0; j < world.getPlayers().size(); ++j) {
+            ServerPlayerEntity serverplayerentity = world.getPlayers().get(j);
+            if (sendPacketWithinDistance(world, serverplayerentity, false, posX, posY, posZ, sspawnparticlepacket)) {
+                ++i;
+            }
+        }
+
+        return i;
+    }
+
+    public static boolean sendPacketWithinDistance(ServerWorld world, ServerPlayerEntity player, boolean longDistance, double posX, double posY, double posZ, IPacket<?> packet) {
+        if (player.getServerWorld() != world) {
+            return false;
+        } else {
+            BlockPos blockpos = player.getPosition();
+            if (blockpos.withinDistance(new Vec3d(posX, posY, posZ), longDistance ? 512.0D : 32.0D)) {
+                player.connection.sendPacket(packet);
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 }

@@ -2,6 +2,6 @@
   "textures": {
     "particle": "wildnature:blocks/hornbeam/hornbeam_leaves",
     "leaves": "wildnature:blocks/hornbeam/hornbeam_leaves",
-    "log": "wildnature:blocks/hornbeam/hornbeam_log"
+    "log": "block/oak_log"
   }
 }

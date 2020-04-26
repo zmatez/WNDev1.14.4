@@ -1,7 +1,8 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "texture": "wildnature:blocks/flowers/dead_leaf_pile"
+    "texture": "wildnature:blocks/flowers/dead_leaf_pile",
+    "particle": "wildnature:blocks/flowers/dead_leaf_pile"
   },
   "elements": [
     {   "from": [ 0, 0.015625, 0 ],

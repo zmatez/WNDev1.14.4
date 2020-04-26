@@ -10,8 +10,10 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -39,7 +41,7 @@ public class RecipeCommand {
             int i = 0;
             ItemStack tool = ItemStack.EMPTY;
             for (ItemStack itemStack : stack) {
-                if(itemStack.getItem() instanceof CookingItem){
+                if(itemStack.getItem() instanceof CookingItem || itemStack.getItem()==Item.getItemFromBlock(Blocks.CRAFTING_TABLE) || itemStack.getItem()==Item.getItemFromBlock(Blocks.STONE)){
                     tool=itemStack.copy();
                 }else {
                     i++;
@@ -54,10 +56,14 @@ public class RecipeCommand {
                 StringTextComponent st = new StringTextComponent(TextFormatting.GOLD + tool.getDisplayName().getFormattedText());
                 if(tool.getItem()==Item.getItemFromBlock(Blocks.STONE) || tool.isEmpty()){
                     st = new StringTextComponent(TextFormatting.RED+"unknown");
-                }else {
+                }  else {
                     st.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_ITEM, new StringTextComponent(tool.write(new CompoundNBT()).toString())));
                 }
-                Main.sendChatMessage(p, new StringTextComponent(TextFormatting.GREEN + "Cook it using ").appendSibling(st));
+                if (tool.getItem() == Item.getItemFromBlock(Blocks.CRAFTING_TABLE)) {
+                    Main.sendChatMessage(p, new StringTextComponent(TextFormatting.GRAY + "Craft it in " + TextFormatting.YELLOW+Item.getItemFromBlock(Blocks.CRAFTING_TABLE).getDisplayName(new ItemStack(Blocks.CRAFTING_TABLE,1)).getFormattedText()));
+                }else {
+                    Main.sendChatMessage(p, new StringTextComponent(TextFormatting.GRAY + "Cook it using ").appendSibling(st));
+                }
             }
 
             Main.sendChatMessage(p,new StringTextComponent(TextFormatting.DARK_GRAY+"----------------------------------"));
@@ -91,12 +97,13 @@ public class RecipeCommand {
                     }
 
                     if(iRecipe instanceof WNCookingRecipe){
+                        Main.LOGGER.debug("Getting recipe: " + CookingItem.getGroupParams(r.getGroup())[0] + " in " + CookingItem.getGroupParams(r.getGroup())[1]);
 
-                        if(r.getGroup().equals("pot")){
+                        if(CookingItem.getGroupParams(r.getGroup())[0].equals("pot")){
                             item=WNItems.POT_WATER;
-                        }else if(r.getGroup().equals("frying_pan")){
+                        }else if(CookingItem.getGroupParams(r.getGroup())[0].equals("frying_pan")){
                             item=WNItems.FRYING_PAN;
-                        }else if(r.getGroup().equals("cake_pan")){
+                        }else if(CookingItem.getGroupParams(r.getGroup())[0].equals("cake_pan")){
                             item=WNItems.CAKE_PAN;
                         }else{
                             item=Item.getItemFromBlock(Blocks.STONE);
@@ -104,6 +111,28 @@ public class RecipeCommand {
 
                         fromSimple.add(new ItemStack(item,1));
                     }
+                    stacks.add(fromSimple);
+
+
+                }
+            }
+            if(iRecipe instanceof ShapelessRecipe){
+                ShapelessRecipe r = (ShapelessRecipe)iRecipe;
+                if(r.getRecipeOutput().getItem()==result.getItem()){
+                    ArrayList<ItemStack> rcipe = new ArrayList<>();
+                    for (Ingredient ingredient : r.getIngredients()) {
+                        rcipe.addAll(Arrays.asList(ingredient.getMatchingStacks()));
+                    }
+                    ArrayList<PotCrafting.SimpleItemStack> s = PotCrafting.SimpleItemStack.sumLists(rcipe,new ArrayList<>());
+                    ArrayList<ItemStack> fromSimple = new ArrayList<>();
+                    for (PotCrafting.SimpleItemStack simpleItemStack : s) {
+                        fromSimple.add(new ItemStack(simpleItemStack.getItem(),simpleItemStack.getCount()));
+                    }
+
+                    item= Items.CRAFTING_TABLE;
+
+                    fromSimple.add(new ItemStack(item,1));
+
                     stacks.add(fromSimple);
 
 

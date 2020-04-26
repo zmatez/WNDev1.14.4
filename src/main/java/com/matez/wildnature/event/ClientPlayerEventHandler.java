@@ -2,7 +2,7 @@ package com.matez.wildnature.event;
 
 import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
-import com.matez.wildnature.entity.render.CapeTexture;
+import com.matez.wildnature.entity.render.cape.CapeTexture;
 import com.matez.wildnature.other.Patron;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IImageBuffer;
@@ -10,35 +10,42 @@ import net.minecraft.client.renderer.texture.NativeImage;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import java.util.ArrayList;
+
 public class ClientPlayerEventHandler {
-    private static PlayerEntity player;
+    public static ArrayList<String> loadedCapes = new ArrayList<>();
+
+
 
     @SubscribeEvent
     public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
-        player=event.getPlayer();
+        PlayerEntity player=event.getPlayer();
         String uuid = event.getEntity().getUniqueID().toString().replace("-", "");
 
-        Main.LOGGER.info("Player joined, loading capes... " + event.getPlayer().getDisplayName());
+        Main.LOGGER.info("Loading capes for player: " + event.getPlayer().getDisplayName().getFormattedText());
         new Thread(new Runnable() {
             public void run() {
                 if(CommonConfig.renderCapes.get()) {
-                    download(uuid);
+                    download(uuid,player);
                 }
             }
         }).start();
     }
 
-    public static void download(final String uuid) {
+    public static void download(final String uuid,PlayerEntity player) {
+        if(loadedCapes.contains(uuid)){
+            Main.LOGGER.debug("Cape already loaded");
+            return;
+        }
         Patron p = PlayerEventHandler.isPatron(player);
+
         if (p !=null && uuid != null && !uuid.isEmpty()) {
-            String url = "https://wildnature.matez.net/data/capes/"+uuid;
+            String url = "https://wildnaturemod.com/data/capes/"+uuid;
             if(Main.is404(url)){
-                url = "https://wildnature.matez.net/data/capes/" + "cape-basic";
+                url = "https://wildnaturemod.com/data/capes/" + "cape-basic";
             }else{
                 Main.LOGGER.info("Found customized cape for " + player.getDisplayName());
             }
@@ -55,6 +62,7 @@ public class ClientPlayerEventHandler {
             };
             CapeTexture textureCape = new CapeTexture(url, (ResourceLocation)null, iib);
             textureManager.loadTexture(rl, textureCape);
+            loadedCapes.add(uuid);
         }
 
     }

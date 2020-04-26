@@ -9,7 +9,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.BlockPosArgument;
@@ -22,6 +21,7 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
 
@@ -40,7 +40,22 @@ public class WNCommand {
             return BiomeArgument.findTeleportBiome(context.getSource(), player, BiomeArgument.getValue(context, "biome"));
         })))).then(Commands.literal("list").then(Commands.argument("page",IntegerArgumentType.integer(1)).executes((context -> {
             return new BiomeListCommand((PlayerEntity)context.getSource().getEntity()).showPage(IntegerArgumentType.getInteger(context,"page"));
-        })))))
+        }))))).then(Commands.literal("undergroundRiverBiome").then(Commands.literal("locate").requires((perm) -> {
+            return perm.hasPermissionLevel(2);
+        }).then(Commands.argument("biome",new CaveBiomeArgument()).executes((context -> {
+            ServerPlayerEntity player = context.getSource().asPlayer();
+            return CaveBiomeArgument.findTeleportURBiome(context.getSource(), player, CaveBiomeArgument.getValue(context, "biome"));
+        })))).then(Commands.literal("list").then(Commands.argument("page",IntegerArgumentType.integer(1)).executes((context -> {
+            return new BiomeListCommand((PlayerEntity)context.getSource().getEntity()).showPage(IntegerArgumentType.getInteger(context,"page"));
+        }))))).then(Commands.literal("path").then(Commands.literal("locate").requires((perm) -> {
+            return perm.hasPermissionLevel(2);
+        }).executes(context -> {
+            return LocatePath.findTeleportBiome(context.getSource(),context.getSource().asPlayer());
+        }))).then(Commands.literal("randomTp").then(Commands.argument("max radius",IntegerArgumentType.integer(1)).requires((perm)->{
+            return perm.hasPermissionLevel(2);
+        }).executes(context -> {
+            return RandomTeleportCommand.rtp(context.getSource(),context.getSource().asPlayer(),IntegerArgumentType.getInteger(context,"max radius"));
+        })))
                 .then(Commands.literal("dev").requires((perm) -> {
                     return perm.hasPermissionLevel(2);
                 })
@@ -115,7 +130,7 @@ public class WNCommand {
                 if(Minecraft.getInstance().getLanguageManager().getCurrentLanguage().getCode().equals("en_us")){
                     language = TextFormatting.LIGHT_PURPLE + "default";
                 }else {
-                    language = TextFormatting.LIGHT_PURPLE + Minecraft.getInstance().getLanguageManager().getCurrentLanguage().getCode() + TextFormatting.DARK_PURPLE + " by " + TextFormatting.LIGHT_PURPLE + I18n.format("lang.credits");
+                    language = TextFormatting.LIGHT_PURPLE + Minecraft.getInstance().getLanguageManager().getCurrentLanguage().getCode() + TextFormatting.DARK_PURPLE + " by " + TextFormatting.LIGHT_PURPLE + new TranslationTextComponent("lang.credits").getFormattedText();
                 }
             }else{
                 language = TextFormatting.DARK_PURPLE+"Not supported. [HOVER FOR INFO]";
@@ -136,7 +151,7 @@ public class WNCommand {
         s4.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://patreon.com/matez"));
         s5.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new StringTextComponent(TextFormatting.DARK_AQUA+"If you want to create own language file, visit our GitHub,\ndownload english language file, translate it and open\nnew thread with completed translations.")));
         HoverEvent click = new HoverEvent(HoverEvent.Action.SHOW_TEXT,new StringTextComponent(TextFormatting.GREEN+"Click to open"));
-        s6.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://wildnature.matez.net"));
+        s6.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://wildnaturemod.com"));
         s6.getStyle().setHoverEvent(click);
         s7.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"http://bit.ly/wildnature-mod"));
         s7.getStyle().setHoverEvent(click);
@@ -144,7 +159,7 @@ public class WNCommand {
         s8.getStyle().setHoverEvent(click);
         s9.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"http://bit.ly/wildnature-github"));
         s9.getStyle().setHoverEvent(click);
-        s10.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://wildnature.matez.net/donate/"));
+        s10.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://wildnaturemod.com/donate/"));
         s10.getStyle().setHoverEvent(click);
 
         return new StringTextComponent("").appendSibling(s1).appendSibling(s2).appendSibling(s3).appendSibling(s4).appendSibling(s5).appendSibling(s6).appendSibling(s7).appendSibling(s8).appendSibling(s9).appendSibling(s10).appendSibling(s11);

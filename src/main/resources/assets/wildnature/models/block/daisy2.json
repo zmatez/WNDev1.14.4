@@ -1,7 +1,8 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "texture": "wildnature:blocks/flowers/daisy2"
+    "texture": "wildnature:blocks/flowers/daisy2",
+    "particle": "wildnature:blocks/flowers/daisy2"
   },
   "elements": [
     {   "from": [ 0, 0.015625, 0 ],

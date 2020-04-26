@@ -4,12 +4,12 @@ import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomes;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.biome.Biome;
@@ -79,7 +79,7 @@ public class BiomeListCommand {
             Main.sendChatMessage(entity,new StringTextComponent(TextFormatting.DARK_GRAY+"["+index+"]").appendSibling(new StringTextComponent(TextFormatting.AQUA+" ")));
         }else {
             boolean isWildNature = WNBiomes.registerBiomes.contains(biome);
-            String wiki = isWildNature ? "https://wildnature.matez.net/"+biome.getRegistryName().getPath().replace("_","-") : "";
+            String wiki = isWildNature ? "https://wildnaturemod.com/"+biome.getRegistryName().getPath().replace("_","-") : "";
             String search = "/wn biome locate "+biome.getRegistryName();
             boolean active = !CommonConfig.blacklistedBiomes.contains(biome);
             boolean subbiome = !WNBiomes.generatorBiomes.contains(biome);
@@ -104,11 +104,11 @@ public class BiomeListCommand {
             }
 
 
-            StringTextComponent infocomponent = new StringTextComponent(t + I18n.format(biome.getTranslationKey()));
+            StringTextComponent infocomponent = new StringTextComponent(t + new TranslationTextComponent(biome.getTranslationKey()).getFormattedText());
             infocomponent.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new StringTextComponent(TextFormatting.GOLD+"--- INFORMATION ---")
                     .appendSibling(new StringTextComponent(TextFormatting.GRAY+"\n-> " + TextFormatting.DARK_AQUA+"id: " + biome.getRegistryName()))
                     .appendSibling(new StringTextComponent(TextFormatting.GRAY+"\n-> " + TextFormatting.DARK_AQUA+"index: " + Registry.BIOME.getId(biome)))
-                    .appendSibling(new StringTextComponent(TextFormatting.GRAY+"\n-> " + TextFormatting.DARK_AQUA+"mod: " + I18n.format(biome.getRegistryName().getNamespace())))
+                    .appendSibling(new StringTextComponent(TextFormatting.GRAY+"\n-> " + TextFormatting.DARK_AQUA+"mod: " + new TranslationTextComponent(biome.getRegistryName().getNamespace()).getFormattedText()))
                     .appendSibling(new StringTextComponent(TextFormatting.GRAY+"\n-> " + TextFormatting.DARK_AQUA+"active: " + active))
                     .appendSibling(new StringTextComponent(TextFormatting.GRAY+"\n-> " + TextFormatting.DARK_AQUA+"sub-biome: " + subbiome))
 

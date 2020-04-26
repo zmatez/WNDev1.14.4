@@ -1,3 +1,6 @@
 {
-    "parent": "wildnature:block/lightning_bug"
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "wildnature:blocks/other/lightning_bug_item"
+    }
 }

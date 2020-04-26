@@ -1,7 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "wildnature:blocks/flowers/moss"
+		"0": "wildnature:blocks/flowers/moss",
+		"particle": "wildnature:blocks/flowers/moss"
+
 	},
 	"elements": [
 		{

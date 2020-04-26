@@ -3,6 +3,7 @@ package com.matez.wildnature.blocks;
 import com.matez.wildnature.lists.WNItems;
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.registry.ParticleRegistry;
+import com.matez.wildnature.sounds.SoundRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -21,6 +22,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
@@ -80,26 +82,24 @@ public class GeyserBlock extends BlockBase {
     }
 
     public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
-        if(state.get(RUNNING)) {
-            steam(state, worldIn, pos, random);
+        if(!worldIn.isRemote()) {
+            if (state.get(RUNNING)) {
+                steam(state, (ServerWorld)worldIn, pos, random);
+            }
         }
 
     }
 
 
-    public void steam(BlockState state, World worldIn, BlockPos pos, Random random){
+    public void steam(BlockState state, ServerWorld worldIn, BlockPos pos, Random random){
         if(state.get(STEAM)>0) {
             if(state.get(STEAM)==25){
-                playSound(worldIn, new Vec3d(pos), new ResourceLocation("wildnature","block.steam_generator"), SoundCategory.BLOCKS,1,0.7F,0.1F);
+                worldIn.playSound(null,pos.getX(),pos.getY(),pos.getZ(), SoundRegistry.STEAM_GENERATOR, SoundCategory.BLOCKS,1f,0.7F);
             }
             worldIn.setBlockState(pos,worldIn.getBlockState(pos).with(RUNNING,true).with(STEAM,state.get(STEAM)-1));
 
-            DistExecutor.runWhenOn(Dist.CLIENT, () -> new Runnable() {
-                @Override
-                public void run() {
-                    steamParticle(pos, state, worldIn, random);
-                }
-            });
+            steamParticle(pos, state, worldIn, random);
+
             worldIn.getPendingBlockTicks().scheduleTick(pos, this, 2, TickPriority.NORMAL);
         }else{
             worldIn.setBlockState(pos,worldIn.getBlockState(pos).with(RUNNING,false).with(LOAD,0));
@@ -107,45 +107,7 @@ public class GeyserBlock extends BlockBase {
         }
     }
 
-    public void playSound(World world, Vec3d pos, ResourceLocation soundIn, SoundCategory category, float volume, float pitch, float minVolume) {
-        double d0 = Math.pow(volume > 1.0F ? (double)(volume * 16.0F) : 16.0D, 2.0D);
-        int i = 0;
-        ArrayList<PlayerEntity> spea = (ArrayList<PlayerEntity>)world.getPlayers();
-
-        while(true) {
-            ServerPlayerEntity serverplayerentity;
-            Vec3d vec3d;
-            float f;
-            while(true) {
-                if(i>=spea.size()){
-                    return;
-                }
-                serverplayerentity = (ServerPlayerEntity)spea.get(i);
-                double d1 = pos.x - serverplayerentity.posX;
-                double d2 = pos.y - serverplayerentity.posY;
-                double d3 = pos.z - serverplayerentity.posZ;
-                double d4 = d1 * d1 + d2 * d2 + d3 * d3;
-                vec3d = pos;
-                f = volume;
-                if (!(d4 > d0)) {
-                    break;
-                }
-
-                if (!(minVolume <= 0.0F)) {
-                    double d5 = (double) MathHelper.sqrt(d4);
-                    vec3d = new Vec3d(serverplayerentity.posX + d1 / d5 * 2.0D, serverplayerentity.posY + d2 / d5 * 2.0D, serverplayerentity.posZ + d3 / d5 * 2.0D);
-                    f = minVolume;
-                    break;
-                }
-            }
-
-            serverplayerentity.connection.sendPacket(new SPlaySoundPacket(soundIn, category, vec3d, f, pitch));
-            ++i;
-        }
-
-    }
-
-    public void steamParticle(BlockPos oldPos, BlockState state, World world, Random random){
+    public void steamParticle(BlockPos oldPos, BlockState state, ServerWorld world, Random random){
         double X = oldPos.getX();
         double Y = oldPos.getY()+0.6;
         double Z = oldPos.getZ();
@@ -155,11 +117,11 @@ public class GeyserBlock extends BlockBase {
             double speedX = Utilities.rdoub(-res,res);
             double speedY = Utilities.rdoub(0.3,1.2);
             double speedZ = Utilities.rdoub(-res,res);
-            world.addParticle(ParticleRegistry.GEYSER,true, X+0.5, Y+0.5, Z+0.5, speedX,speedY,speedZ);
-            Minecraft.getInstance().worldRenderer.addParticle(ParticleRegistry.GEYSER, true, X+0.5, Y+0.5, Z+0.5, speedX,speedY,speedZ);
+            SteamGeneratorBlock.spawnParticle(world,ParticleRegistry.STEAM,X+0.5, Y+0.5, Z+0.5, 1,speedX,speedY,speedZ,0.1);
 
         }
     }
+
 
     @Override
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {

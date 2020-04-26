@@ -1,8 +1,6 @@
 package com.matez.wildnature.world.gen.structures.nature;
 
 import com.google.common.collect.Sets;
-import com.matez.wildnature.Main;
-import com.matez.wildnature.blocks.BranchBase;
 import com.matez.wildnature.other.Utilities;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -23,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
@@ -86,7 +83,7 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
             soilPos = soilPos.down();
             x++;
         }
-        if(x>=5){
+        if(x>=15){
             return false;
         }
 
@@ -98,7 +95,7 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
         addedBlocks.clear();
         virtualPlace=true;
         setBlocks();
-        collaborateWithTerrain();
+        workWithTerrain();
         virtualPlace=false;
         if(canGenerate) {
             setBlocks();
@@ -166,7 +163,7 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
         }
     }
 
-    public void collaborateWithTerrain(){
+    public void workWithTerrain(){
         if(bottomBlocks==null){
             return;
         }

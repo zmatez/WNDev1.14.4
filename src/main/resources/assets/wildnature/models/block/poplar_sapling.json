@@ -2,6 +2,6 @@
   "textures": {
     "particle": "wildnature:blocks/poplar/poplar_leaves",
     "leaves": "wildnature:blocks/poplar/poplar_leaves",
-    "log": "wildnature:blocks/poplar/poplar_log"
+    "log": "block/oak_log"
   }
 }

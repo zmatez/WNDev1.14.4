@@ -1,4 +1,4 @@
-/*
+package com.matez.wildnature.world.gen.noise.sponge;/*
  * This file is part of Noise, licensed under the MIT License (MIT).
  *
  * Copyright (c) Flow Powered <https://github.com/flow>
@@ -27,7 +27,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.matez.wildnature.world.gen.noise.sponge;
+
 
 public final class Noise {
     private static final int X_NOISE_GEN = 1619;

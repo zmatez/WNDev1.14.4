@@ -35,7 +35,7 @@ import java.util.function.Supplier;
 
 @OnlyIn(Dist.CLIENT)
 public class WNWorldLoadProgressScreen extends Screen {
-    public static World world;
+
     private final TrackingChunkStatusListener progress;
     private long field_213041_b = -1L;
     public int color;
@@ -121,9 +121,9 @@ public class WNWorldLoadProgressScreen extends Screen {
     private boolean drawn = false, rendered = false, building = false,joining=false,closing=false;
     private Thread t;
     public void renderChunks(TrackingChunkStatusListener progress, int centerX, int centerY,int maxX,int maxY) {
-        if(world!=null && world.getDimension()!=null) {
+        if(Main.runningWorld!=null && Main.runningWorld.getDimension()!=null) {
             try {
-                BlockPos center = world.getSpawnPoint();
+                BlockPos center = Main.runningWorld.getSpawnPoint();
                 int blockSize = 10;
                 if(!drawn){
                     loadText="Rendering terrain";
@@ -131,7 +131,7 @@ public class WNWorldLoadProgressScreen extends Screen {
                     drawBackground(centerX,centerY,maxX,maxY,blockSize,center.getX(),center.getZ());
                     drawn=true;
                 }
-                if(currentChunkStatus==null || currentChunkStatus.getName()!=progress.func_219525_a(world.getChunkAt(center).getPos().x,world.getChunkAt(center).getPos().z).getName()){
+                if(currentChunkStatus==null || currentChunkStatus.getName()!=progress.func_219525_a(Main.runningWorld.getChunkAt(center).getPos().x,Main.runningWorld.getChunkAt(center).getPos().z).getName()){
 
                     if(true) {
                         //Main.LOGGER.debug("Drawing background");
@@ -151,7 +151,7 @@ public class WNWorldLoadProgressScreen extends Screen {
                                         }
                                         //Main.LOGGER.debug("Getting color : " + i + "/"+self.blockPoints.size());
                                         try {
-                                            if(world.isAreaLoaded(new BlockPos(blockPoint.getPosX(),63, blockPoint.getPosZ()),1)) {
+                                            if(Main.runningWorld.isAreaLoaded(new BlockPos(blockPoint.getPosX(),63, blockPoint.getPosZ()),1)) {
                                                 blockPoint.setColorProper(true);
                                                 self.coloredPoints.add(blockPoint.withColor(getColor(blockPoint.getPosX(), blockPoint.getPosZ())));
                                             }else{
@@ -338,17 +338,17 @@ public class WNWorldLoadProgressScreen extends Screen {
     }
 
     public void getColorV(int posX, int posZ){
-        color = Utilities.getColorValue(world.getBlockState(new BlockPos(posX, getHeight(posX, posZ, world), posZ)).getBlock().getMaterialColor(null, null, null).colorValue);
+        color = Utilities.getColorValue(Main.runningWorld.getBlockState(new BlockPos(posX, getHeight(posX, posZ, Main.runningWorld), posZ)).getBlock().getMaterialColor(null, null, null).colorValue);
 
 
     }
 
     public int getColor(int posX, int posZ){
         //Main.LOGGER.debug("getting color");
-        BlockPos blockPos= new BlockPos(posX,getHeight(posX,posZ,WNWorldLoadProgressScreen.world),posZ);
-        Block b = (WNWorldLoadProgressScreen.world.getBlockState(blockPos).getBlock());
+        BlockPos blockPos= new BlockPos(posX,getHeight(posX,posZ,Main.runningWorld),posZ);
+        Block b = (Main.runningWorld.getBlockState(blockPos).getBlock());
         try{
-            return Utilities.getColorValue(Integer.decode("0x"+Utilities.blendColors(Color.decode(b.getMaterialColor(null,null,null).colorValue+""),blockPos.getY()>WNWorldLoadProgressScreen.world.getSeaLevel() ? Color.WHITE : Color.BLACK,(float)(blockPos.getY()/WNWorldLoadProgressScreen.world.getHeight())/5+0.8F)));
+            return Utilities.getColorValue(Integer.decode("0x"+Utilities.blendColors(Color.decode(b.getMaterialColor(null,null,null).colorValue+""),blockPos.getY()>Main.runningWorld.getSeaLevel() ? Color.WHITE : Color.BLACK,(float)(blockPos.getY()/Main.runningWorld.getHeight())/4+0.8F)));
         }catch (Exception e){
             //Main.LOGGER.debug("Cannot get " + b.getNameTextComponent().toString());
         }

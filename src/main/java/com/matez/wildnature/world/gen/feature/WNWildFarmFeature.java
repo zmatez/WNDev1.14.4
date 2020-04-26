@@ -2,9 +2,13 @@ package com.matez.wildnature.world.gen.feature;
 
 import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.CropBase;
+import com.matez.wildnature.blocks.EggPlant;
+import com.matez.wildnature.blocks.GreenBeansBush;
+import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.other.Utilities;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.*;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -28,9 +32,7 @@ public class WNWildFarmFeature extends Feature<NoFeatureConfig> {
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig config) {
-       if(Utilities.rint(0,2)!=0){
-           return false;
-       }
+
        if(!worldIn.getDimension().isSurfaceWorld()){
            return false;
        }
@@ -70,10 +72,20 @@ public class WNWildFarmFeature extends Feature<NoFeatureConfig> {
                            }else{
                                crop = cropState;
                            }
-                           worldIn.setBlockState(blockpos, crop, 2);
+
+                           if(crop.getBlock() instanceof EggPlant){
+                               worldIn.setBlockState(blockpos, crop.with(EggPlant.HALF, DoubleBlockHalf.LOWER), 2);
+                               if(crop.get(EggPlant.AGE)!=0 && crop.get(EggPlant.AGE)!=1) {
+                                   worldIn.setBlockState(blockpos.up(), crop.with(EggPlant.HALF, DoubleBlockHalf.UPPER), 2);
+                               }
+                           }else if(crop.getBlock() instanceof GreenBeansBush){
+                               new GreenBeanFeature(NoFeatureConfig::deserialize).place(worldIn,generator,rand,blockpos,new NoFeatureConfig());
+                           }else {
+                               worldIn.setBlockState(blockpos, crop, 2);
+                           }
                        }
                    }else if(worldIn.getBlockState(blockpos.down()).getBlock() instanceof GrassBlock && Utilities.isBlockNear(worldIn,blockpos.down(),Blocks.FARMLAND)){
-                       if (Utilities.rint(0, (int)fence/2) == 0) {
+                       if (Utilities.rint(0, (int)fence/2) == 0 && CommonConfig.vegeFarmFence.get()) {
                            fence++;
                            worldIn.setBlockState(blockpos, Blocks.OAK_FENCE.getDefaultState(), 2);
                            if(Utilities.rint(0,1)==0){

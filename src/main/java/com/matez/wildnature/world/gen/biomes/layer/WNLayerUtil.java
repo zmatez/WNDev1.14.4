@@ -92,8 +92,13 @@ public class WNLayerUtil extends LayerUtil {
         IAreaFactory<T> lvt_7_1_ = repeat(1000L, ZoomLayer.NORMAL, iareafactory, 0, contextFactory);
         lvt_7_1_ = StartRiverLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply(100L), lvt_7_1_);
 
-        IAreaFactory<T> lvt_8_1_ = worldTypeIn.getBiomeLayer(iareafactory, settings, contextFactory);
-        //IAreaFactory<T> lvt_8_1_ = createBiomeFactory(contextFactory, lvt_7_1_);
+        IAreaFactory<T> lvt_8_1_ = null;
+
+        if(!CommonConfig.generateOnlyWildNature.get()) {
+            lvt_8_1_ = worldTypeIn.getBiomeLayer(iareafactory, settings, contextFactory);
+        }else {
+            lvt_8_1_ = createBiomeFactory(contextFactory, lvt_7_1_);
+        }
         IAreaFactory<T> lvt_9_1_ = repeat(1000L, ZoomLayer.NORMAL, lvt_7_1_, 2, contextFactory);
 
         lvt_8_1_ = GroupLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply(1000L), lvt_8_1_, lvt_9_1_);

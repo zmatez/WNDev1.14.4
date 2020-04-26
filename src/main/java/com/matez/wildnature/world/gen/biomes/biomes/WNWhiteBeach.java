@@ -47,7 +47,7 @@ public final class WNWhiteBeach extends WNBiome {
       WNBiomeFeatures.addSedimentDisks(this);
       WNBiomeFeatures.addDefaultFlowers(this);
       WNBiomeFeatures.func_222348_W(this);
-      WNBiomeFeatures.addMushrooms(this);
+
       WNBiomeFeatures.addReedsAndPumpkins(this);
       WNBiomeFeatures.addSprings(this);
       WNBiomeFeatures.addFreezeTopLayer(this);

@@ -6,6 +6,7 @@ import com.matez.wildnature.blocks.boundingboxes.*;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.blocks.ModelBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.SlimeBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -130,7 +131,13 @@ public class OtherRegistry {
                 WNBlocks.SAND_DOLLAR = new ShellBlock(Block.Properties.create(Material.CORAL),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("sand_dollar")),
                 WNBlocks.STAR_FISH = new ShellBlock(Block.Properties.create(Material.CORAL),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("star_fish")),
 
+                WNBlocks.JELLY_BLUE_BLOCK = new JellyBlock(Block.Properties.create(Material.CORAL, MaterialColor.LIGHT_BLUE_TERRACOTTA).slipperiness(0.95F).sound(SoundType.SLIME).lightValue(5),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("jelly_blue_block")),
+                WNBlocks.JELLY_ORANGE_BLOCK = new JellyBlock(Block.Properties.create(Material.CORAL, MaterialColor.ORANGE_TERRACOTTA).slipperiness(0.95F).sound(SoundType.SLIME).lightValue(9),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("jelly_orange_block")),
+                WNBlocks.JELLY_PINK_BLOCK = new JellyBlock(Block.Properties.create(Material.CORAL, MaterialColor.PINK_TERRACOTTA).slipperiness(0.95F).sound(SoundType.SLIME).lightValue(9),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("jelly_pink_block")),
+                WNBlocks.JELLY_RED_BLOCK = new JellyBlock(Block.Properties.create(Material.CORAL, MaterialColor.RED_TERRACOTTA).slipperiness(0.95F).sound(SoundType.SLIME).lightValue(7),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("jelly_red_block")),
+                WNBlocks.JELLY_WHITE_BLOCK = new JellyBlock(Block.Properties.create(Material.CORAL, MaterialColor.WHITE_TERRACOTTA).slipperiness(0.95F).sound(SoundType.SLIME).lightValue(13),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("jelly_white_block")),
 
+                WNBlocks.HYDROTHERMAL_VENT = new HydrothermalVent(Block.Properties.create(Material.SHULKER, MaterialColor.STONE).sound(SoundType.SCAFFOLDING),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hydrothermal_vent"))
 
         };
     }

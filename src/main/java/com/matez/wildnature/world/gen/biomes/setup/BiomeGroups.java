@@ -21,7 +21,7 @@ public class BiomeGroups {
         groups.add(new BiomeGroup("orchard",new BiomeWeight(WNBiomes.Orchard,5,true,true),new BiomeWeight(WNBiomes.WarmLake,7),new BiomeWeight(WNBiomes.OrchardPlum,8)));
         groups.add(new BiomeGroup("grasslands",new BiomeWeight(WNBiomes.Grasslands,5,true,true),new BiomeWeight(WNBiomes.GrasslandsHills,5)));
         groups.add(new BiomeGroup("forested_grasslands",new BiomeWeight(WNBiomes.ForestedGrasslands,5,true,true),new BiomeWeight(WNBiomes.ForestedGrasslandsHills,5)));
-        groups.add(new BiomeGroup("prairie",new BiomeWeight(WNBiomes.Prairie,5,true,true),new BiomeWeight(WNBiomes.PrairieHills,5)));
+        groups.add(new BiomeGroup("prairie",new BiomeWeight(WNBiomes.Prairie,5,true,true),new BiomeWeight(WNBiomes.PrairieHills,5),new BiomeWeight(WNBiomes.CottonFields,1)));
         groups.add(new BiomeGroup("tatra",new BiomeWeight(WNBiomes.TatraMountains,5,true,true),new BiomeWeight(WNBiomes.TatraFoothills,7),new BiomeWeight(WNBiomes.MorskieOko,5),new BiomeWeight(WNBiomes.Rysy,3)));
         groups.add(new BiomeGroup("bialowieza_forest",new BiomeWeight(WNBiomes.BialowiezaForest,5,true,true),new BiomeWeight(WNBiomes.ColdLake,3)));
         groups.add(new BiomeGroup("bialowieza_forest_snowy",new BiomeWeight(WNBiomes.BialowiezaForestS,5,true,true),new BiomeWeight(WNBiomes.FrozenLake,3)));
@@ -44,10 +44,16 @@ public class BiomeGroups {
         groups.add(new BiomeGroup("outback",new BiomeWeight(WNBiomes.Outback,9,true,true),new BiomeWeight(WNBiomes.WoodedOutback,2)));
         groups.add(new BiomeGroup("madagascar",new BiomeWeight(WNBiomes.Madagascar,5,true,true),new BiomeWeight(WNBiomes.MadagascarValley,5)));
         groups.add(new BiomeGroup("daintree",new BiomeWeight(WNBiomes.DaintreeForest,2,true,true),new BiomeWeight(WNBiomes.TropicalLake,5),new BiomeWeight(WNBiomes.DaintreePlateau,12)));
+        groups.add(new BiomeGroup("beech",new BiomeWeight(WNBiomes.BeechForest,5,true,true),new BiomeWeight(WNBiomes.ColdLake,8),new BiomeWeight(WNBiomes.BeechValley,8),new BiomeWeight(WNBiomes.BeechForestHills,8)));
+        groups.add(new BiomeGroup("oakland_valley", new BiomeWeight(WNBiomes.Oaklands, 5, true, true), new BiomeWeight(WNBiomes.OakValley, 2), new BiomeWeight(WNBiomes.OaklandHills, 5)));
+        groups.add(new BiomeGroup("oakland_valley_dense", new BiomeWeight(WNBiomes.DenseOaklands, 5, true, true), new BiomeWeight(WNBiomes.OakValley, 2), new BiomeWeight(WNBiomes.OaklandHills, 5)));
+        groups.add(new BiomeGroup("high_forest",new BiomeWeight(WNBiomes.HighForest,5,true,true),new BiomeWeight(WNBiomes.ColdLake,8),new BiomeWeight(WNBiomes.HighForestHills,8),new BiomeWeight(WNBiomes.HighForestValley,5)));
+        groups.add(new BiomeGroup("mahogany_cliffs",new BiomeWeight(WNBiomes.MahoganyCliffs,5,true,true),new BiomeWeight(WNBiomes.WarmLake,8)));
+        groups.add(new BiomeGroup("forested_mountains",new BiomeWeight(WNBiomes.ForestedMountains,5,true,true),new BiomeWeight(WNBiomes.ColdLake,8)));
 
 
-        groups.add(new BiomeGroup("oasis_desert",new BiomeWeight(Biomes.DESERT,16,true,true),new BiomeWeight(WNBiomes.Oasis,1)));
-        groups.add(new BiomeGroup("oasis_sahara",new BiomeWeight(WNBiomes.Sahara,16,true,true),new BiomeWeight(WNBiomes.Oasis,1)));
+        groups.add(new BiomeGroup("oasis_desert",new BiomeWeight(Biomes.DESERT,20,true,true),new BiomeWeight(WNBiomes.Oasis,1)));
+        groups.add(new BiomeGroup("oasis_sahara",new BiomeWeight(WNBiomes.Sahara,20,true,true),new BiomeWeight(WNBiomes.Oasis,1)));
 
 
         groups.forEach(biomeGroup -> {

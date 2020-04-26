@@ -1,14 +1,13 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.lists.WNItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.state.*;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -44,6 +43,11 @@ public class BlockBeams extends Block {
         WNBlocks.ITEMBLOCKS.add(item);
 
 
+    }
+
+    @Override
+    public boolean isSolid(BlockState p_200124_1_) {
+        return false;
     }
 
     public VoxelShape result(List<VoxelShape> shapes){
@@ -211,16 +215,40 @@ public class BlockBeams extends Block {
     @Override
     public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity entity, Hand hand, BlockRayTraceResult rayTraceResult) {
         if(entity.getHeldItem(hand).getItem()== WNItems.CHISEL)/*checks if held item is stick for example*/ {
-            int currentType = state.get(TYPE);//gets current type from clicked block
-            int validType = currentType;
-            if (currentType >= getMaxTypes()) {
-                validType = 0;//resets validType if currentType is bigger than allowed
-            } else {
-                validType++;
-            }
+            if(entity.isSneaking()){
+                if(this!=WNBlocks.BEAMS){
+                    Block b = Main.getBlockByID("wildnature:"+state.getBlock().getRegistryName().getNamespace().replace("_beams",""));
+                    if(b!=Blocks.AIR){
+                        world.setBlockState(pos,WNBlocks.BEAMS.getDefaultState().with(FACING,state.get(FACING)).with(TYPE,state.get(TYPE)));
+                        spawnAsEntity(world,pos,new ItemStack(Item.getItemFromBlock(b)));
+                        return true;
+                    }
+                }
+            }else {
+                int currentType = state.get(TYPE);//gets current type from clicked block
+                int validType = currentType;
+                if (currentType >= getMaxTypes()) {
+                    validType = 0;//resets validType if currentType is bigger than allowed
+                } else {
+                    validType++;
+                }
 
-            world.setBlockState(pos, state.with(TYPE, validType));//replaces that block with same block but another TYPE property
-            return true;
+                world.setBlockState(pos, state.with(TYPE, validType));//replaces that block with same block but another TYPE property
+                return true;
+            }
+        }else{
+            ItemStack s = entity.getHeldItem(hand);
+            Block b = Block.getBlockFromItem(s.getItem());
+            if(b!=null && b!= Blocks.AIR){
+                if(b.getDefaultState().isSolid()){
+                    BlockState newBlock = Main.getBlockByID("wildnature:"+b.getRegistryName().getNamespace()+"_beams").getDefaultState();
+                    if(newBlock.getBlock()!=Blocks.AIR && newBlock.getBlock() instanceof BlockBeams){
+                        world.setBlockState(pos,newBlock.with(FACING,state.get(FACING)).with(TYPE,state.get(TYPE)));
+                        s.shrink(1);
+                        return true;
+                    }
+                }
+            }
         }
         return false;
     }

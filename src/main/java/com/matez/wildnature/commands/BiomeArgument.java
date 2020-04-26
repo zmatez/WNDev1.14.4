@@ -10,10 +10,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import com.sun.javafx.geom.Vec2d;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.entity.Entity;
@@ -37,6 +35,7 @@ import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.Heightmap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 public class BiomeArgument implements ArgumentType<Biome>
@@ -74,15 +73,45 @@ public class BiomeArgument implements ArgumentType<Biome>
         return ISuggestionProvider.suggestIterable(Registry.BIOME.keySet(), suggestionsBuilder);
     }
 
-    public static int findTeleportBiome(CommandSource cs, ServerPlayerEntity player, Biome biome)
+    public static int findTeleportBiome(CommandSource cs, ServerPlayerEntity player, Biome... biome)
     {
-        if(CommonConfig.blacklistedBiomes.contains(biome)){
-            StringTextComponent sx = new StringTextComponent(TextFormatting.RED + "This biome is blacklisted.");
-            Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(sx));
-            return 0;
+        ArrayList<Biome> biomes = new ArrayList<>(Arrays.asList(biome));
+
+
+        StringTextComponent s2;
+        if(biomes.size()==1){
+            if(CommonConfig.blacklistedBiomes.contains(biome)){
+                StringTextComponent sx = new StringTextComponent(TextFormatting.RED + "This biome is blacklisted.");
+                Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(sx));
+                return 0;
+            }
+            s2 = new StringTextComponent(TextFormatting.AQUA + "Trying to find " + TextFormatting.GOLD + new TranslationTextComponent(biomes.get(0).getTranslationKey()).getFormattedText() + TextFormatting.AQUA+" biome...");
+        }else{
+            int blacklisted =0;
+            for (Biome biome1 : biomes) {
+                if(CommonConfig.blacklistedBiomes.contains(biome1)){
+                    blacklisted++;
+                }
+            }
+            if(blacklisted==biomes.size()){
+                StringTextComponent sx = new StringTextComponent(TextFormatting.RED + "All choosen biomes are blacklisted.");
+                Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(sx));
+                return 0;
+            }
+            if(blacklisted==1){
+                StringTextComponent sx = new StringTextComponent(TextFormatting.RED +"One " + " of " + biomes.size() + " biomes is blacklisted. Searching still possible");
+                Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(sx));
+            }
+            else if(blacklisted>1){
+                StringTextComponent sx = new StringTextComponent(TextFormatting.RED +""+ blacklisted + " of " + biomes.size() + " biomes are blacklisted. Searching still possible");
+                Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(sx));
+            }
+            s2 = new StringTextComponent(TextFormatting.AQUA + "Trying to find one of " + TextFormatting.GOLD + biomes.size() + TextFormatting.AQUA+" biomes...");
+
         }
 
-        StringTextComponent s2 = new StringTextComponent(TextFormatting.AQUA + "Trying to find " + TextFormatting.GOLD + biome.getRegistryName() + TextFormatting.AQUA+" biome...");
+
+
         Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s2));
         StringTextComponent sx = new StringTextComponent(TextFormatting.AQUA + "This will take a moment.");
         Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(sx));
@@ -91,10 +120,12 @@ public class BiomeArgument implements ArgumentType<Biome>
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                BlockPos closestBiomePos = lookForBiome(world, biome, (int)player.posX, (int)player.posZ,player);
+                BiomePos biomePos = lookForBiome(world, (int)player.posX, (int)player.posZ,player,biome);
 
-                if (closestBiomePos != null)
+
+                if (biomePos != null && biomePos.biome !=null && biomePos.pos!=null)
                 {
+                    BlockPos closestBiomePos = biomePos.pos;
                     double x = (double)closestBiomePos.getX();
                     double y = (double) getTopBlock(world, closestBiomePos.getX(), closestBiomePos.getZ()).getY();
                     double z = (double)closestBiomePos.getZ();
@@ -105,8 +136,8 @@ public class BiomeArgument implements ArgumentType<Biome>
                     }
 
                     //player.connection.setPlayerLocation(x, y, z, player.rotationYaw, player.rotationPitch);
-                    Main.LOGGER.info("Found " + biome.getRegistryName() + " biome at " + x + " " + y + " " + z + ". This taken " + radius + " attempts.");
-                    StringTextComponent s3 = new StringTextComponent(TextFormatting.AQUA + "Found " + TextFormatting.LIGHT_PURPLE + I18n.format(biome.getTranslationKey()) + TextFormatting.AQUA+" biome at ");
+                    Main.LOGGER.info("Found " + biomePos.biome.getRegistryName() + " biome at " + x + " " + y + " " + z + ". This taken " + radius + " attempts.");
+                    StringTextComponent s3 = new StringTextComponent(TextFormatting.AQUA + "Found " + TextFormatting.LIGHT_PURPLE + new TranslationTextComponent(biomePos.biome.getTranslationKey()).getFormattedText() + TextFormatting.AQUA+" biome at ");
                     StringTextComponent s4 = new StringTextComponent(TextFormatting.YELLOW + ""+x+" " + y + " " + z);
                     StringTextComponent s42 = new StringTextComponent(TextFormatting.AQUA + " - " + TextFormatting.GOLD + (int)Utilities.getDistance(new BlockPos(player.posX,player.posY,player.posZ),new BlockPos(x,y,z)) + TextFormatting.AQUA+" blocks away.");
                     s4.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.GOLD+"Click to copy to the command prompt")));
@@ -121,11 +152,19 @@ public class BiomeArgument implements ArgumentType<Biome>
                 }
                 else
                 {
-                    StringTextComponent s3 = new StringTextComponent(TextFormatting.RED + "Unable to find " + TextFormatting.LIGHT_PURPLE + biome.getRegistryName() + TextFormatting.RED+" biome.");
-                    player.sendStatusMessage(new StringTextComponent(TextFormatting.RED+"Unable to find biome"),true);
+                    if(biomes.size()==1) {
+                        StringTextComponent s3 = new StringTextComponent(TextFormatting.RED + "Unable to find " + TextFormatting.LIGHT_PURPLE + biomes.get(0).getRegistryName() + TextFormatting.RED + " biome.");
+                        player.sendStatusMessage(new StringTextComponent(TextFormatting.RED + "Unable to find biome"), true);
 
-                    s3.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.DARK_RED+"Operation Failed :/")));
-                    Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s3));
+                        s3.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.DARK_RED + "Operation Failed :/")));
+                        Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s3));
+                    }else{
+                        StringTextComponent s3 = new StringTextComponent(TextFormatting.RED + "Unable to find any of " + TextFormatting.LIGHT_PURPLE + biomes.size() + TextFormatting.RED + " biomes.");
+                        player.sendStatusMessage(new StringTextComponent(TextFormatting.RED + "Unable to find biomes"), true);
+
+                        s3.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.DARK_RED + "Operation Failed :/")));
+                        Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s3));
+                    }
 
                 }
             }
@@ -163,36 +202,40 @@ public class BiomeArgument implements ArgumentType<Biome>
         return new BlockPos(x, chunk.getTopBlockY(Heightmap.Type.MOTION_BLOCKING, x & 15, z & 15), z);
     }
 
-    public static BlockPos lookForBiome(World world, Biome biomeToFind, int startX, int startZ, PlayerEntity player)
+    public static BiomePos lookForBiome(World world, int startX, int startZ, PlayerEntity player, Biome... biomeToFind)
     {
+        ArrayList<Biome> biomes = new ArrayList<>(Arrays.asList(biomeToFind));
         speedSearch=true;
-        Main.LOGGER.info("Starting searching for biome " + biomeToFind.getRegistryName());
+        Main.LOGGER.info("Starting searching for " + biomes.size() + " biomes");
         BiomeProvider chunkManager = world.getChunkProvider().getChunkGenerator().getBiomeProvider();
         int maxDistance = CommonConfig.maxSearchRadius.get();
         for(int currDist = 0; currDist<maxDistance; currDist= currDist + quality){
-            ArrayList<Vec2d> pos = drawCircle(startX,startZ,currDist);
+            ArrayList<BlockPos> pos = drawCircle(startX,startZ,currDist);
             player.sendStatusMessage(new StringTextComponent(TextFormatting.YELLOW+"Searching in radius " + TextFormatting.GOLD + currDist + TextFormatting.YELLOW + "/" + TextFormatting.GOLD + + maxDistance),true);
 
             int x = 0;
-            for (Vec2d vec : pos) {
+            for (BlockPos vec : pos) {
                 x++;
-                if(chunkManager.getBiome((int)vec.x,(int)vec.y)==biomeToFind){
-                    radius = currDist;
-                    return new BlockPos((int)vec.x,0,(int)vec.y);
+                for (Biome biome : biomes) {
+                    if(chunkManager.getBiome((int)vec.getX(),(int)vec.getZ())==biome){
+                        radius = currDist;
+                        return new BiomePos(new BlockPos((int)vec.getX(),0,(int)vec.getZ()),biome);
+                    }
                 }
-
 
             }
 
         }
 
+        Biome b = biomes.get(Utilities.rint(0,biomes.size()-1));
 
-        Main.LOGGER.info("Finding biome on the world, ignoring distance | " + biomeToFind.getRegistryName());
 
-        return lookForBiomeAsap(world,biomeToFind,startX,startZ,player);
+        Main.LOGGER.info("Finding biome on the world, ignoring distance | " +b );
+
+        return lookForBiomeAsap(world,b,startX,startZ,player);
     }
 
-    public static BlockPos lookForBiomeAsap(World world, Biome biomeToFind, int startX, int startZ, PlayerEntity player)
+    public static BiomePos lookForBiomeAsap(World world, Biome biomeToFind, int startX, int startZ, PlayerEntity player)
     {
         player.sendStatusMessage(new StringTextComponent(TextFormatting.YELLOW+"Unable to find the nearest biome. Searching ignoring distance..."),true);
 
@@ -215,7 +258,7 @@ public class BiomeArgument implements ArgumentType<Biome>
             Biome[] biomesAtSample = chunkManager.getBiomes((int)x, (int)z, 1, 1, false);
             if (biomesAtSample[0] == biomeToFind)
             {
-                return new BlockPos((int)x, 0, (int)z);
+                return new BiomePos(new BlockPos((int)x, 0, (int)z),biomeToFind);
             }
             if(n>=250000){
                 return null;
@@ -225,8 +268,8 @@ public class BiomeArgument implements ArgumentType<Biome>
         return null;
     }
 
-    private static ArrayList<Vec2d> drawCircle(int x, int y, int r) {
-        ArrayList<Vec2d> pos = new ArrayList<>();
+    private static ArrayList<BlockPos> drawCircle(int x, int y, int r) {
+        ArrayList<BlockPos> pos = new ArrayList<>();
         double PI = Math.PI;
         double i, angle, x1, y1;
 
@@ -237,9 +280,18 @@ public class BiomeArgument implements ArgumentType<Biome>
 
             int ElX = (int) Math.round(x + x1);
             int ElY = (int) Math.round(y + y1);
-            pos.add(new Vec2d(ElX,ElY));
+            pos.add(new BlockPos(ElX,0,ElY));
         }
         return pos;
     }
+
+    public static class BiomePos{
+        public BlockPos pos;
+        public Biome biome;
+        public BiomePos(BlockPos pos, Biome biome){
+            this.pos=pos;
+            this.biome=biome;
+        }
+}
 
 }

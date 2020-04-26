@@ -3,15 +3,19 @@ package com.matez.wildnature.world.gen.biomes.setup;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.blocks.RockBase;
+import com.matez.wildnature.blocks.SaltOreBlock;
 import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.BlockWeighList;
 import com.matez.wildnature.world.gen.feature.*;
 import com.matez.wildnature.world.gen.feature.WaterlilyFeature;
 import com.matez.wildnature.world.gen.structures.nature.rocks.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.glowing_cave_oak.GlowingCaveOakSpawner;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.world.biome.BeachBiome;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -32,22 +36,55 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Main.getBlockByID("wildnature:small_grass").getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(2)));
     }
 
+    public static void addLotsOfGrass(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Blocks.GRASS.getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(14)));
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Main.getBlockByID("wildnature:medium_grass").getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(6)));
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Main.getBlockByID("wildnature:small_grass").getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(5)));
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new DoubleGrassFeature(DoublePlantConfig::deserialize), new DoublePlantConfig(Blocks.TALL_GRASS.getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(5)));
+
+    }
+
 
     public static void addMushrooms(Biome biomeIn) {
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Blocks.BROWN_MUSHROOM.getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Blocks.RED_MUSHROOM.getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(4)));
+	    if(BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.FOREST)) {
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Blocks.BROWN_MUSHROOM.getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Blocks.RED_MUSHROOM.getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(4)));
 
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom1").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom2").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom3").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom4").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(4)));
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom5").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(4)));
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom6").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom7").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom8").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom9").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom1").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom2").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom4").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(4)));
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom5").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(4)));
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom6").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom7").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom8").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom9").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:psilocybin_mushroom").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(1)));
 
+        }
+        if(BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.PLAINS)) {
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:mushroom3").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(2)));
 
+        }
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.BUSH, new BushConfig(Main.getBlockByID("wildnature:fuzzball").getDefaultState()), Placement.CHANCE_HEIGHTMAP_DOUBLE, new ChanceConfig(1)));
+
+    }
+
+    public static void addLakes(Biome biomeIn) {
+	    if(CommonConfig.waterLakeGeneration.get()) {
+            biomeIn.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(Feature.LAKE, new LakesConfig(Blocks.WATER.getDefaultState()), Placement.WATER_LAKE, new LakeChanceConfig(4)));
+        }
+	    if(CommonConfig.lavaLakeGeneration.get()) {
+            biomeIn.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(Feature.LAKE, new LakesConfig(Blocks.LAVA.getDefaultState()), Placement.LAVA_LAKE, new LakeChanceConfig(80)));
+        }
+    }
+
+    public static void addSprings(Biome p_222337_0_) {
+	    if(CommonConfig.waterSpringGeneration.get()) {
+            p_222337_0_.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.SPRING_FEATURE, new LiquidsConfig(Fluids.WATER.getDefaultState()), Placement.COUNT_BIASED_RANGE, new CountRangeConfig(50, 8, 8, 256)));
+        }
+	    if(CommonConfig.lavaSpringGeneration.get()) {
+            p_222337_0_.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.SPRING_FEATURE, new LiquidsConfig(Fluids.LAVA.getDefaultState()), Placement.COUNT_VERY_BIASED_RANGE, new CountRangeConfig(20, 8, 16, 256)));
+        }
     }
 
 
@@ -162,19 +199,16 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         biomeIn.addCarver(GenerationStage.Carving.AIR, Biome.createCarver(new WNCaveCarver(ProbabilityConfig::deserialize, 256), new ProbabilityConfig(0.14285715F)));
     }
 
-    public static void addPaths(Biome biomeIn){
-        biomeIn.addCarver(GenerationStage.Carving.AIR, Biome.createCarver(new WNCaveCarver(ProbabilityConfig::deserialize, 256), new ProbabilityConfig(0.14285715F)));
-    }
-
-    public static void addGlowingCaves(Biome biomeIn) {
-        biomeIn.addCarver(GenerationStage.Carving.AIR, Biome.createCarver(new CaveWorldCarver(ProbabilityConfig::deserialize, 256), new ProbabilityConfig(0.14285715F)));
-    }
-
     public static void addCaveVines(Biome biomeIn) {
         if (biomeIn.getTempCategory() == Biome.TempCategory.WARM && BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.JUNGLE)) {
             if (biomeIn != WNBiomes.Polders) {
-                biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveVineFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(50, 10, 0, 35)));
+                biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveVineFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(3, 10, 0, 35)));
+                biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new WNVinesFeature(BushConfig::deserialize), new BushConfig(Blocks.VINE.getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(3, 10, 0, 35)));
             }
+        }else if(biomeIn.getTempCategory() == Biome.TempCategory.WARM){
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveVineFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(4, 10, 0, 35)));
+        }else if(biomeIn.getTempCategory() == Biome.TempCategory.MEDIUM){
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveVineFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(1, 10, 0, 35)));
         }
     }
 
@@ -201,6 +235,7 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
     public static void addNewOres(Biome biomeIn) {
         biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, WNBlocks.TIN_ORE.getDefaultState(), 7), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.tinRarity.get(), 40, 0, 64)));
         biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, WNBlocks.COPPER_ORE.getDefaultState(), 6), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.copperRarity.get(), 0, 0, 30)));
+        biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, WNBlocks.SALT_ORE.getDefaultState().with(SaltOreBlock.SALT_VARIANT,SaltOreBlock.SaltVariant.STONE), 5), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.saltStoneRarity.get(), 20, 0, 55)));
 
         if(biomeIn.getTempCategory()== Biome.TempCategory.COLD){
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, WNBlocks.AMETHYST_ORE.getDefaultState(), 3), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.amethystRarity.get(), 10, 0, 28)));
@@ -213,11 +248,15 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         }
         if(biomeIn instanceof BeachBiome){
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(new WNOreFeature(WNOreFeatureConfig::deserialize), new WNOreFeatureConfig(WNOreFeatureConfig.FillerBlockType.SAND, WNBlocks.AMBER_ORE.getDefaultState(), 3), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.amberRarity.get(), 50, 0, 65)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(new WNOreFeature(WNOreFeatureConfig::deserialize), new WNOreFeatureConfig(WNOreFeatureConfig.FillerBlockType.SAND, WNBlocks.SALT_ORE.getDefaultState().with(SaltOreBlock.SALT_VARIANT,SaltOreBlock.SaltVariant.SAND), 7), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.saltSandRarity.get(), 50, 0, 65)));
+
         }
         if(biomeIn.getTempCategory()== Biome.TempCategory.OCEAN){
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, WNBlocks.RUBY_ORE.getDefaultState(), 4), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.rubyRarity.get(), 0, 0, 15)));
 
         }
+
+
         biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, WNBlocks.SILVER_ORE.getDefaultState(), 6), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.silverRarity.get(), 20, 0, 36)));
 
     }
@@ -246,14 +285,19 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
     }
 
     public static void addPoisonIves(Biome biomeIn){
+        BlockWeighList l = new BlockWeighList();
+
         if(BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.FOREST)){
-            BlockWeighList l = new BlockWeighList();
             l.add(Main.getBlockByID("wildnature:poison_ivy").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
             l.add(Main.getBlockByID("wildnature:spidergrass").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new SinglePlantFeature(NoFeatureConfig::deserialize,l), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(CommonConfig.poisonIvyRarity.get())));
 
 
         }
+        if(biomeIn.getTempCategory()== Biome.TempCategory.WARM || biomeIn.getTempCategory()== Biome.TempCategory.MEDIUM){
+            l.add(Main.getBlockByID("wildnature:grass_thistle").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        }
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new SinglePlantFeature(NoFeatureConfig::deserialize,l), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(CommonConfig.poisonIvyRarity.get())));
+
     }
 
     public static void addSmallCacti(Biome biomeIn){
@@ -275,23 +319,45 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:ice_grass").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(35, 30, 0, 50)));
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:ice_shroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(5, 30, 0, 50)));
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:glowshroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(3, 10, 0, 50)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new SlimeCaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:hanging_glowing_slimeshroom_blue").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(3, 5, 0, 20)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new SlimeCaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:hanging_glowing_slimeshroom_green").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 5, 0, 20)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new SlimeCaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:glowing_slimeshroom_blue").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(4, 5, 0, 20)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new SlimeCaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:glowing_slimeshroom_green").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 5, 0, 20)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:sunshroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 10, 0, 20)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new LavalilyFeature(NoFeatureConfig::deserialize,WNBlocks.MAGMA_PAD), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(5, 2, 0, 20)));
+
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveStarFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:cave_star").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(9, 15, 0, 23)));
+
         }else{
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:glowshroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(11, 10, 0, 50)));
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new DoubleCaveBushFeature(BushConfig::deserialize,false), new BushConfig(Main.getBlockByID("wildnature:large_glowshroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(8, 10, 0, 50)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new SlimeCaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:hanging_glowing_slimeshroom_blue").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(3, 5, 0, 20)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new SlimeCaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:hanging_glowing_slimeshroom_green").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(3, 5, 0, 20)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new SlimeCaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:glowing_slimeshroom_blue").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(3, 5, 0, 20)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new SlimeCaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:glowing_slimeshroom_green").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(3, 5, 0, 20)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:sunshroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(2, 10, 0, 20)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new LavalilyFeature(NoFeatureConfig::deserialize,WNBlocks.MAGMA_PAD), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(9, 2, 0, 20)));
+
+
 
         }
         if(biomeIn.getTempCategory()== Biome.TempCategory.WARM){
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:poison_shroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(2, 10, 0, 50)));
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:sulfur_shroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(2, 20, 0, 50)));
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:dragon_shroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 10, 0, 15)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:gravityshroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 5, 0, 20)));
+
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveStarFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:cave_star").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(4, 15, 0, 23)));
 
         }
-
         if(biomeIn.getTempCategory()== Biome.TempCategory.OCEAN){
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:sulfur_shroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(4, 20, 0, 50)));
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:dragon_shroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 10, 0, 15)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new JellyshroomFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:jellyshroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(3, 2, 0, 15)));
 
         }
+
+
 
         biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:stone_grass").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(40, 10, 0, 50)));
         biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:stalagmite").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(6, 10, 0, 50)));
@@ -303,12 +369,41 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new DoubleCaveBushFeature(BushConfig::deserialize,true), new BushConfig(Main.getBlockByID("wildnature:large_root").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(10, 55, 0, 52)));
 
         biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:magma_shroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(4, 5, 0, 16)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:glowing_shadowshroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 3, 0, 10)));
+        biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:cave_lily").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 5, 0, 20)));
+
+        biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new UnderwaterCaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:tubeshroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 2, 0, 12)));
+
+
     }
 
+
+    public static void addGlowingCaveOaks(Biome biomeIn) {
+        if (biomeIn.getTempCategory() == Biome.TempCategory.COLD) {
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new GlowingCaveOakSpawner(NoFeatureConfig::deserialize,false,true), new NoFeatureConfig(), Placement.COUNT_RANGE, new CountRangeConfig(2, 5, 0, 35)));
+        }else if (biomeIn.getTempCategory() == Biome.TempCategory.WARM && biomeIn.getCategory()!= Biome.Category.DESERT && biomeIn.getCategory()!= Biome.Category.MESA) {
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new GlowingCaveOakSpawner(NoFeatureConfig::deserialize,false,false), new NoFeatureConfig(), Placement.COUNT_RANGE, new CountRangeConfig(2, 5, 0, 35)));
+        }else if (biomeIn.getTempCategory() == Biome.TempCategory.OCEAN) {
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new GlowingCaveOakSpawner(NoFeatureConfig::deserialize,false,false), new NoFeatureConfig(), Placement.COUNT_RANGE, new CountRangeConfig(2, 5, 0, 35)));
+        }
+    }
 
     public static void addShells(Biome biomeIn){
 	    if(biomeIn==Biomes.BEACH || biomeIn==WNBiomes.WhiteBeach) {
             biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new ShellFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.shellRarity.get(), 50, 0, 69)));
+        }
+    }
+
+    public static void addMoss(Biome biomeIn){
+	    if(BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.DENSE)){
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new WNMossFeature(CountConfig::deserialize), new CountConfig(32), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.mossRarityDense.get(),64,0,180)));
+        }else if(BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.FOREST)) {
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new WNMossFeature(CountConfig::deserialize), new CountConfig(12), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.mossRarity.get(), 64, 0, 180)));
+
+        }
+        if(biomeIn.getTempCategory()== Biome.TempCategory.WARM) {
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new WNMossFeature(CountConfig::deserialize), new CountConfig(64), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.mossRarityDense.get(), 10, 0, 40)));
         }
     }
 }

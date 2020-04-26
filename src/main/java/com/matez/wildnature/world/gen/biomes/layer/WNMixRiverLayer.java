@@ -21,7 +21,10 @@ public class WNMixRiverLayer implements IAreaTransformer2, IDimOffset0Transforme
     //private static final int SNOWY_TUNDRA = Registry.BIOME.getId(Biomes.SNOWY_TUNDRA);
     private static final int MUSHROOM_FIELDS = Registry.BIOME.getId(Biomes.MUSHROOM_FIELDS);
     private static final int MUSHROOM_FIELD_SHORE = Registry.BIOME.getId(Biomes.MUSHROOM_FIELD_SHORE);
+
     private static final int RIVER = Registry.BIOME.getId(WNBiomes.River);
+
+    private static final int POLDERS = Registry.BIOME.getId(WNBiomes.Polders);
 
     private static final int JUNGLE = Registry.BIOME.getId(Biomes.JUNGLE);
     private static final int JUNGLE2 = Registry.BIOME.getId(Biomes.JUNGLE_EDGE);
@@ -66,6 +69,8 @@ public class WNMixRiverLayer implements IAreaTransformer2, IDimOffset0Transforme
             } else if(Registry.BIOME.getId(surfaceBiome.getRiver())==NILE_RIVER || i == DESERT || i == DESERT2 || i == DESERT3 || db.contains(i)){
                 return NILE_RIVER;
 
+            }else if(j==POLDERS || i==POLDERS){
+                return POLDERS;
             }
             else {
                 return i != MUSHROOM_FIELDS && i != MUSHROOM_FIELD_SHORE ? j & 255 : MUSHROOM_FIELD_SHORE;

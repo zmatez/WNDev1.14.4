@@ -22,6 +22,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 
@@ -87,6 +88,11 @@ public class StoneSpikeBlock extends BlockBase implements IWaterLoggable {
         }
 
         return blockstate1;
+    }
+
+    @Override
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        return state.get(type)==StoneSpikeType.STALAGMITE ? worldIn.getBlockState(pos.down()).isSolid() : worldIn.getBlockState(pos.up()).isSolid();
     }
 
     @Override

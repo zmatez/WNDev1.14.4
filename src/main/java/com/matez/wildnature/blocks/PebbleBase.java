@@ -1,6 +1,7 @@
 package com.matez.wildnature.blocks;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -30,12 +31,17 @@ public class PebbleBase extends BlockBase {
         if(world.getBlockState(pos1.down()).isSolid()){
             return state;
         }else{
-            return null;
+            return Blocks.AIR.getDefaultState();
         }
     }
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos.down()).isSolid();
+    }
+
+    @Override
+    public BlockState updatePostPlacement(BlockState state, Direction p_196271_2_, BlockState state2, IWorld worldIn, BlockPos pos, BlockPos p_196271_6_) {
+        return worldIn.getBlockState(pos.down()).isSolid() ? state : Blocks.AIR.getDefaultState();
     }
 }

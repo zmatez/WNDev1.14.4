@@ -12,8 +12,8 @@ public class SignRegistry {
     Block[] sign;
     public SignRegistry(){
         sign = new Block[]{
-                WNBlocks.ROSACEAE_SIGN = new SignBase(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(1.5F,0.25F)).setRegistryName("apple_sign"),
-                WNBlocks.ROSACEAE_WALL_SIGN = new WallSignBase(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(1.5F,0.25F)).setRegistryName("apple_wall_sign"),
+                WNBlocks.ROSACEAE_SIGN = new SignBase(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(1.5F,0.25F)).setRegistryName("rosaceae_sign"),
+                WNBlocks.ROSACEAE_WALL_SIGN = new WallSignBase(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(1.5F,0.25F)).setRegistryName("rosaceae_wall_sign"),
                 //BlocksList.ASPEN_SIGN = new SignBase(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(1.5F,0.25F)).setRegistryName("aspen_sign"),
                 //BlocksList.ASPEN_WALL_SIGN = new WallSignBase(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(1.5F,0.25F)).setRegistryName("aspen_wall_sign"),
                 WNBlocks.BAOBAB_SIGN = new SignBase(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD).hardnessAndResistance(1.5F,0.25F)).setRegistryName("baobab_sign"),

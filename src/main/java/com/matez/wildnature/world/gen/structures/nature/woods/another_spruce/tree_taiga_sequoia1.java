@@ -18,6 +18,7 @@ public class tree_taiga_sequoia1 extends SchemFeature {
         super(config, doBlockNofityOnPlace);
         LOG = log;
         LEAVES =leaves;
+        BRANCH = leaves;
     }
 
     @Override

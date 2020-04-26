@@ -32,7 +32,7 @@ public class WNLushDesert extends WNBiome implements IHaveRiver {
         super(name,(new WNBiomeBuilder())
                 .surfaceBuilder(new LushDesertSurfaceBuilder(SurfaceBuilderConfig::deserialize), SurfaceBuilder.SAND_CONFIG)
                 .precipitation(RainType.RAIN)
-                .category(Category.FOREST)
+                .category(Category.DESERT)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
                 .climate(WNBiomeBuilder.Climate.DRY_TROPICAL)
                 .depth(0.2F)

@@ -1,45 +1,43 @@
 package com.matez.wildnature.proxy;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.entity.render.WNCapeLayer;
+import com.matez.wildnature.customizable.CommonConfig;
+import com.matez.wildnature.entity.render.cape.WNCapeLayer;
 import com.matez.wildnature.event.ClientPlayerEventHandler;
 import com.matez.wildnature.gui.screen.DungeonCommanderScreen;
 import com.matez.wildnature.gui.screen.PouchScreen;
 import com.matez.wildnature.gui.tileEntities.DungeonCommanderTileEntity;
 import com.matez.wildnature.gui.initGuis;
-import com.matez.wildnature.gui.screen.CraftingManagerScreen;
 import com.matez.wildnature.music.AmbientMusic;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.gui.toasts.SystemToast;
 import net.minecraft.client.gui.toasts.ToastGui;
-import net.minecraft.client.renderer.entity.LivingRenderer;
+import net.minecraft.client.renderer.RenderSkyboxCube;
 import net.minecraft.client.renderer.entity.PlayerRenderer;
 import net.minecraft.client.renderer.entity.layers.CapeLayer;
-import net.minecraft.client.renderer.entity.layers.ElytraLayer;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerModelPart;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 public class ClientProxy implements IProxy {
     public static AmbientMusic music;
 
     @Override
     public void init() {
+        if(CommonConfig.changePanorama.get()) {
+            MainMenuScreen.PANORAMA_RESOURCES = new RenderSkyboxCube(new ResourceLocation("wildnature:textures/gui/title/background/panorama"));
+        }
         ScreenManager.registerFactory(initGuis.POUCH, PouchScreen::new);
         //ScreenManager.registerFactory(initGuis.CRAFTING_MANAGER_CONTAINER, CraftingManagerScreen::new);
         //music = new AmbientMusic();
@@ -70,7 +68,7 @@ public class ClientProxy implements IProxy {
         Main.LOGGER.info("Registering capes...");
         Minecraft.getInstance().gameSettings.setModelPartEnabled(PlayerModelPart.CAPE, true);
         Iterator var2 = Minecraft.getInstance().getRenderManager().getSkinMap().values().iterator();
-        MinecraftForge.EVENT_BUS.addListener(new ClientPlayerEventHandler()::onPlayerJoin);
+        //MinecraftForge.EVENT_BUS.addListener(new ClientPlayerEventHandler()::onPlayerJoin);
 
         while(var2.hasNext()) {
             PlayerRenderer render = (PlayerRenderer)var2.next();

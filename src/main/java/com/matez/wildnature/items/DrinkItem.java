@@ -1,6 +1,8 @@
 package com.matez.wildnature.items;
 
+import com.matez.wildnature.Main;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -12,13 +14,23 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class DrinkItem extends Item {
-   private Item onEmpty;
-   public DrinkItem(Item.Properties builder, Item onEmpty) {
+   public String onEmpty;
+   private boolean ignore=false;
+   public DrinkItem(Item.Properties builder, String onEmpty) {
       super(builder);
       this.onEmpty=onEmpty;
+   }
+
+   public DrinkItem(Item.Properties builder, String onEmpty, boolean ignore) {
+      super(builder);
+      this.ignore=ignore;
    }
 
 
@@ -27,6 +39,8 @@ public class DrinkItem extends Item {
     * the Item before the action is complete.
     */
    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, LivingEntity entityLiving) {
+      super.onItemUseFinish(stack,worldIn,entityLiving);
+
       if (!worldIn.isRemote) entityLiving.curePotionEffects(stack); // FORGE - move up so stack.shrink does not turn stack into air
 
       if (entityLiving instanceof ServerPlayerEntity) {
@@ -43,7 +57,7 @@ public class DrinkItem extends Item {
          entityLiving.clearActivePotions();
       }
 
-      return stack.isEmpty() ? new ItemStack(onEmpty) : stack;
+      return stack.isEmpty() ? new ItemStack(Main.getItemByID(onEmpty)) : stack;
    }
 
    /**
@@ -72,5 +86,14 @@ public class DrinkItem extends Item {
    @Override
    public net.minecraftforge.common.capabilities.ICapabilityProvider initCapabilities(ItemStack stack, @javax.annotation.Nullable net.minecraft.nbt.CompoundNBT nbt) {
       return new net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper(stack);
+   }
+
+
+   @Override
+   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+      super.addInformation(stack, worldIn, tooltip, flagIn);
+      if(!ignore) {
+         IHasRecipe.addInformation(this, stack, worldIn, tooltip, flagIn);
+      }
    }
 }

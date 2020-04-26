@@ -1,7 +1,8 @@
 {
   "ambientocclusion": false,
   "textures": {
-    "texture": "wildnature:items/jacaranda_flower"
+    "texture": "wildnature:items/jacaranda_flower",
+    "particle": "wildnature:items/jacaranda_flower"
   },
   "elements": [
     {   "from": [ 0, 0.015625, 0 ],

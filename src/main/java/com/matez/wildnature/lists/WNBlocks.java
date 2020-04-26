@@ -16,7 +16,14 @@ public class WNBlocks {
     public static final ArrayList<Block> PLANTS = new ArrayList<>();
     public static final ArrayList<Block> SAPLINGS = new ArrayList<>();
     public static final ArrayList<Block> MUSHROOMS = new ArrayList<>();
+    public static final ArrayList<Block> CROPS = new ArrayList<>();
 //$multiname1$=rosaceae,baobab,beech,cedar,cherry,ebony,eucalyptus,fir,hazel,hornbeam,jacaranda,mahogany,palm,pear,pine,redwood,rowan,willow
+
+    public static Block OAK_BRANCH;
+    public static Block SPRUCE_BRANCH;
+    public static Block BIRCH_BRANCH;
+    public static Block ACACIA_BRANCH;
+    public static Block DARK_OAK_BRANCH;
 
     public static Block ROSACEAE_LOG;
     public static Block ROSACEAE_WOOD;
@@ -575,7 +582,9 @@ public class WNBlocks {
     public static Block PLUM_STRIPPED_LOG;
     public static Block PLUM_STRIPPED_WOOD;
     public static Block PLUM_LEAVES;
+    public static Block MIRABELLE_PLUM_LEAVES;
     public static Block PLUM_SAPLING;
+    public static Block MIRABELLE_PLUM_SAPLING;
     public static Block PLUM_PLANKS;
     public static Block PLUM_PARQUET;
     public static Block PLUM_STAIRS_PLANKS;
@@ -707,6 +716,37 @@ public class WNBlocks {
     public static Block WILLOW_BRANCH;
     public static Block WILLOW_BRANCH_SMALL;
 
+    public static Block GLOWING_CAVE_OAK_LOG;
+    public static Block GLOWING_CAVE_OAK_WOOD;
+    public static Block GLOWING_CAVE_OAK_STRIPPED_LOG;
+    public static Block GLOWING_CAVE_OAK_STRIPPED_WOOD;
+    public static Block GLOWING_CAVE_OAK_LEAVES;
+    public static Block GLOWING_CAVE_OAK_ICY_LEAVES;
+    public static Block GLOWING_CAVE_OAK_SAPLING;
+    public static Block GLOWING_CAVE_OAK_PLANKS;
+    public static Block GLOWING_CAVE_OAK_PARQUET;
+    public static Block GLOWING_CAVE_OAK_STAIRS_PLANKS;
+    public static Block GLOWING_CAVE_OAK_STAIRS_PARQUET;
+    public static Block GLOWING_CAVE_OAK_SLABS_PLANKS;
+    public static Block GLOWING_CAVE_OAK_SLABS_PARQUET;
+    public static Block GLOWING_CAVE_OAK_FENCE;
+    public static Block GLOWING_CAVE_OAK_FENCE_GATE;
+    public static Block GLOWING_CAVE_OAK_LOG_FENCE;
+    public static Block GLOWING_CAVE_OAK_LOG_FENCE_GATE;
+    public static Block GLOWING_CAVE_OAK_BUTTON;
+    public static Block GLOWING_CAVE_OAK_LOG_BUTTON;
+    public static Block GLOWING_CAVE_OAK_PRESSURE_PLATE;
+    public static Block GLOWING_CAVE_OAK_LOG_PRESSURE_PLATE;
+    public static Block GLOWING_CAVE_OAK_TRAPDOOR;
+    public static Block GLOWING_CAVE_OAK_DOOR;
+    public static Block GLOWING_CAVE_OAK_SIGN;
+    public static Block GLOWING_CAVE_OAK_WALL_SIGN;
+    public static Block GLOWING_CAVE_OAK_BRANCH;
+    public static Block GLOWING_CAVE_OAK_BRANCH_SMALL;
+
+    public static Block MAGNOLIA_LEAVES;
+    public static Block FORSYTHIA_LEAVES;
+    
     ///////////////////FLOWERS
 
     public static Block CHERRY_FLOWER;
@@ -762,6 +802,87 @@ public class WNBlocks {
     public static Block ORCHIS_WHITE;
     public static Block PEACE_LILY;
     public static Block WILD_ROSE;
+    public static Block ANEMONE;
+    public static Block CHAMOMILE_WHITE;
+    public static Block CHAMOMILE_DOUBLE_WHITE;
+    public static Block CHRYSANTHEMUM_PURPLE;
+    public static Block CHRYSANTHEMUM_RED;
+    public static Block CHRYSANTHEMUM_LIGHT_YELLOW;
+    public static Block CHRYSANTHEMUM_YELLOW;
+    public static Block CHRYSANTHEMUM_WHITE;
+    public static Block CROCUS_PURPLE;
+    public static Block CROCUS_WHITE;
+    public static Block GERANIUM_PINK;
+    public static Block GERANIUM_RED;
+    public static Block GERANIUM_WHITE;
+    public static Block HYACINTH_DARK_BLUE;
+    public static Block HYACINTH_LIGHT_BLUE;
+    public static Block HYACINTH_PINK;
+    public static Block HYACINTH_PURPLE;
+    public static Block HYACINTH_RED;
+    public static Block HYACINTH_WHITE;
+    public static Block MARIGOLD_RED;
+    public static Block MARIGOLD_ORANGE;
+    public static Block MARIGOLD_YELLOW;
+    public static Block MARIGOLD_WHITE;
+    public static Block CATNIP;
+    public static Block DAFFODIL;
+    public static Block HEPATICA_WHITE;
+    public static Block HEPATICA_VIOLET;
+    public static Block HEPATICA_PURPLE;
+    public static Block HEPATICA_PINK;
+    public static Block HEPATICA_BLUE;
+    public static Block PRIMROSE_BLUE;
+    public static Block PRIMROSE_PINK;
+    public static Block PRIMROSE_WHITE;
+    public static Block VIOLET_PURPLE;
+    public static Block HOLLYHOCK_PINK;
+    public static Block HOLLYHOCK_RED;
+    public static Block GLADIOLUS_PURPLE;
+    public static Block GLADIOLUS_RED;
+    public static Block GLADIOLUS_ORANGE;
+    public static Block GLADIOLUS_YELLOW;
+    public static Block COLUMBINE_BLUE;
+    public static Block COLUMBINE_PURPLE;
+    public static Block COLUMBINE_RED;
+    public static Block CARNATION_RED;
+    public static Block CARNATION_PINK;
+    public static Block CARNATION_WHITE;
+    public static Block YUCCA;
+    public static Block CHINESE_LANTERN_FLOWER;
+    public static Block CLEMATIS_PURPLE;
+    public static Block CLEMATIS_BLUE;
+    public static Block GOLDENROD;
+    public static Block HONEYSUCKLE_YELLOW;
+    public static Block HYDRANGEA_BLUE;
+    public static Block HYDRANGEA_PURPLE;
+    public static Block HYDRANGEA_PINK;
+    public static Block HYDRANGEA_WHITE;
+    public static Block MATTHIOLA_PINK;
+    public static Block HEATH_PURPLE;
+    public static Block HEATH_PINK;
+    public static Block HEATH_WHITE;
+    public static Block MISCANTHUS_GRASS;
+    public static Block FIRE_WEED;
+    public static Block MONKSHOOD_BLUE;
+    public static Block SNOWDROP;
+
+
+    public static Block RHODODENDRON_PINK;
+    public static Block RHODODENDRON_PURPLE;
+    public static Block TAMARISK;
+
+    public static Block WISTERIA_PINK;
+
+
+    public static Block BOXWOOD;
+    public static Block SHRUB;
+    public static Block SHRUB_TALL;
+    public static Block THUJA;
+    public static Block THUJA_LARGE;
+    public static Block THUJA_LIMEGREEN;
+    public static Block THUJA_LIMEGREEN_LARGE;
+
 
     ///////////////////BUSHES
     public static Block YEW_BUSH;
@@ -777,6 +898,7 @@ public class WNBlocks {
     public static Block GRASS_THISTLE;
     public static Block GRASS_WHEAT;
     public static Block WILD_WHEAT;
+    public static Block PRAIRIE_GRASS;
     public static Block MEDIUM_GRASS;
     public static Block SMALL_GRASS;
     public static Block DEAD_SHORT_GRASS;
@@ -785,10 +907,19 @@ public class WNBlocks {
     public static Block DEAD_LEAF_PILE;
     public static Block CLOVER;
     public static Block POISON_IVY;
+    public static Block NETTLE;
     public static Block LAMPGRASS;
     public static Block SPIDERGRASS;
     public static Block MOSS;
     public static Block LICHEN;
+    public static Block FESTUCA_ELIJAHBLUE;
+    public static Block TANSY;
+    public static Block SEA_KALE;
+    public static Block CORDYLINE_AUSTRALIS;
+    public static Block SEABEACH_SANDWORT;
+    public static Block RED_SAND_VERBENA;
+    public static Block PRICKLY_PEAR_CACTUS;
+    public static Block HOTTENTOT;
 
     ///////////////////DOUBLE PLANTS
     public static Block CATTAIL;
@@ -796,10 +927,47 @@ public class WNBlocks {
     public static Block RAPESEED;
     public static Block COFFEE_BUSH,COFFEE_SAPLING;
     public static Block CORN_BUSH;
+    public static Block FESTUCA;
+    public static Block REEDS;
+    public static Block SCOTCHBROOM_YELLOW;
+    public static Block SCOTCHBROOM_PURPLE;
+    public static Block GIANT_HOGWEED;
+
 
     ///////////////////WATERLILIES
     public static Block GREEN_WATERLILY;
     public static Block RED_WATERLILY;
+    public static Block DUCKWEED;
+    public static Block WATER_POPPY;
+    public static Block WATER_LILY_WHITE;
+    public static Block WATER_LILY_YELLOW;
+    public static Block LOTUS_PINK;
+    public static Block LOTUS_LIGHT_PINK;
+    public static Block LOTUS_WHITE;
+    public static Block WATER_HYACINTH;
+    public static Block POND_WEED;
+    public static Block WATER_WEED;
+    public static Block PARROTS_FEATHER_PLANT;
+    public static Block ALGAE;
+    public static Block RED_ALGAE;
+    public static Block RED_SEA_WHIP;
+    public static Block OAR_WEED;
+    public static Block SEA_ANEMONE;
+    public static Block SHRIMP_TUBE_WEED;
+    public static Block SHRIMP_TUBE;
+    public static Block SHALLOW_WATER_GRASS;
+    public static Block ROCK_WEED;
+    public static Block LILY_TONGUE;
+    public static Block GLOWING_SEA_BANANA;
+    public static Block GLOW_RIBBON;//double
+    public static Block DEEP_SEA_VINE;//vine
+    public static Block DEEP_SEA_NIGHT_SHADE;
+    public static Block BULB_VINE;//double
+
+    //CORALS
+    public static Block WITHER_FAN_CORAL;
+    public static Block CRAB_CORAL;
+    public static Block BAMBOO_CORAL;
 
     ///////////////////CROPS
     public static Block TOMATO_PLANT;
@@ -857,7 +1025,8 @@ public class WNBlocks {
     public static Block MUSHROOM7_BIRCH_BOLETE;
     public static Block MUSHROOM8_BOLETUS;
     public static Block MUSHROOM9_CHANTARELLE;
-
+    public static Block PSILOCYBIN_MUSHROOM;
+    public static Block FUZZBALL;
 
 
     ///////////////////BERRIES
@@ -879,10 +1048,15 @@ public class WNBlocks {
     public static Block BUSH_BLACK_LILAC;
     public static Block BUSH_BLACKBERRY;
     public static Block BUSH_CRANBERRY;
+    public static Block BELLADONNA;
 
     //VINES
     public static Block GRAPE_VINE_YELLOW;
     public static Block GRAPE_VINE_PURPLE;
+    public static Block ROSEVINE_RED;
+    public static Block ROSEVINE_PINK;
+    public static Block ROSEVINE_YELLOW;
+    public static Block ROSEVINE_WHITE;
 
     //CITRUS
     public static Block LEMON_LEAVES, LEMON_SAPLING;
@@ -2740,7 +2914,7 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_4_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_ROOF_4_STAIRS;
 
-
+    public static Block STICK_FRAME;
     public static Block BEAMS;
     public static Block BRICKS_ARROWSLIT;
     public static Block BRICKS_MACHICOLATIONS;
@@ -2834,14 +3008,14 @@ public class WNBlocks {
     public static Block TIN_ORE,TIN_BLOCK;
     public static Block COPPER_ORE,COPPER_BLOCK;
     public static Block STEEL_BLOCK;
-    public static Block BRONZE_ORE,BRONZE_BLOCK;
+    public static Block BRONZE_BLOCK;
     public static Block AMETHYST_ORE,AMETHYST_BLOCK;
     public static Block SAPPHIRE_ORE,SAPPHIRE_BLOCK;
     public static Block MALACHITE_ORE,MALACHITE_BLOCK;
     public static Block SILVER_ORE,SILVER_BLOCK;
     public static Block AMBER_ORE,AMBER_BLOCK;
     public static Block RUBY_ORE,RUBY_BLOCK;
-
+    public static Block SALT_ORE;
 
 
     //UNDERGROUNDS
@@ -2851,6 +3025,18 @@ public class WNBlocks {
     public static Block POISON_SHROOM;
     public static Block MAGMA_SHROOM;
     public static Block DRAGON_SHROOM;
+    public static Block GLOWING_SLIMESHROOM_GREEN;
+    public static Block GLOWING_SLIMESHROOM_BLUE;
+    public static Block HANGING_GLOWING_SLIMESHROOM_GREEN;
+    public static Block HANGING_GLOWING_SLIMESHROOM_BLUE;
+    public static Block JELLYSHROOM;
+    public static Block GLOWING_SHADOWSHROOM;
+    public static Block GRAVITYSHROOM;
+    public static Block SUNSHROOM;
+    public static Block TUBESHROOM;
+    public static Block CAVE_STAR;
+    public static Block MAGMA_PAD;
+    public static Block CAVE_LILY_FLOWER;
 
     public static Block STONE_GRASS;
     public static Block ICE_GRASS;
@@ -2868,10 +3054,23 @@ public class WNBlocks {
 
     public static Block GLOW_VINE;
 
+    public static Block GLOWSHROOM_BLOCK, GLOWSHROOM_STEM;
+
     //SHELLS
     public static Block COCKLESHELL;
     public static Block HORN_SHELL;
     public static Block LIONS_PAW;
     public static Block SAND_DOLLAR;
     public static Block STAR_FISH;
+
+
+    //JELLIES
+    public static Block JELLY_BLUE_BLOCK;
+    public static Block JELLY_ORANGE_BLOCK;
+    public static Block JELLY_PINK_BLOCK;
+    public static Block JELLY_RED_BLOCK;
+    public static Block JELLY_WHITE_BLOCK;
+
+    public static Block HYDROTHERMAL_VENT;
+
 }

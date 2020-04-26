@@ -2,6 +2,6 @@
   "textures": {
     "particle": "wildnature:blocks/hazel/hazel_leaves",
     "leaves": "wildnature:blocks/hazel/hazel_leaves",
-    "log": "wildnature:blocks/hazel/hazel_log"
+    "log": "block/oak_log"
   }
 }
