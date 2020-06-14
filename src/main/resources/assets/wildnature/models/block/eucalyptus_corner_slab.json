@@ -1,0 +1,7 @@
+{
+    "parent": "wildnature:block/slab_corner",
+    "textures": {
+    	"particle": "wildnature:blocks/eucalyptus/eucalyptus_corner_slab",
+    	"material": "wildnature:blocks/eucalyptus/eucalyptus_corner_slab"
+  }
+}

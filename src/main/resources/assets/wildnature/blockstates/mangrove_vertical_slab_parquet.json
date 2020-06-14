@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "wildnature:block/mangrove_vertical_slab_parquet" },
+    "facing=east": { "model": "wildnature:block/mangrove_vertical_slab_parquet", "y": 90, "uvlock": true},
+    "facing=south": { "model": "wildnature:block/mangrove_vertical_slab_parquet", "y": 180, "uvlock": true},
+    "facing=west": { "model": "wildnature:block/mangrove_vertical_slab_parquet", "y": 270, "uvlock": true}
+  }
+}

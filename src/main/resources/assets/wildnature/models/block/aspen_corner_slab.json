@@ -1,0 +1,7 @@
+{
+    "parent": "wildnature:block/slab_corner",
+    "textures": {
+    	"particle": "wildnature:blocks/aspen/aspen_corner_slab",
+    	"material": "wildnature:blocks/aspen/aspen_corner_slab"
+  }
+}

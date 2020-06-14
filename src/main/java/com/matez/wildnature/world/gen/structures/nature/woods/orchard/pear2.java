@@ -13,6 +13,7 @@ public class pear2 extends SchemFeature {
     public pear2(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace) {
         super(config, doBlockNofityOnPlace);
         Main.treesList.add(this);
+        terrainIncrease=1;
     }
 
     public pear2(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace, BlockState log, BlockState leaves) {

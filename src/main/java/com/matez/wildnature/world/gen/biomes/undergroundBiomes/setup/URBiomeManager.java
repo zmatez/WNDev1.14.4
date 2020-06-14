@@ -90,9 +90,6 @@ public class URBiomeManager {
         }
         biomeNoise.setSeed((int)seed);
         URBiome biome = (URBiome)Utilities.getWeightedEntry(entry.list,new Random(seed+(int)(biomeNoise.getValue(pos.getX(),pos.getY(),pos.getZ())*1000)));
-        /*if(Utilities.rint(0,20)==0){
-            Main.LOGGER.debug("BIOME: " + biome.getName() + " " + pos + " : " +entry.list.getRarityFor(biome)  + " x " + entry.list.getRarity() );
-        }*/
         return biome;
     }
 

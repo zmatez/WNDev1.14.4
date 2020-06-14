@@ -277,6 +277,7 @@ public class FlowerRegistry {
                 WNBlocks.REEDS = new ReedsBlock(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("reeds")),
                 WNBlocks.HOTTENTOT = new FloweringDesertBush(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hottentot")),
                 WNBlocks.PRICKLY_PEAR_CACTUS = new PricklyPearBlock(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("prickly_pear_cactus")),
+                WNBlocks.SUCCULENTS = new BushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("succulents")),
 
 
 
@@ -333,6 +334,8 @@ public class FlowerRegistry {
                 WNBlocks.BUSH_BLACK_LILAC = new BlackLilacPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_black_lilac")),
                 WNBlocks.BUSH_BLACKBERRY = new BlackberryPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_blackberry")),
                 WNBlocks.BUSH_CRANBERRY = new CranberryPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_cranberry")),
+                WNBlocks.BUSH_WILD_BLUEBERRY = new WildBlueberryPlant(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().sound(SoundType.CROP),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("bush_wild_blueberry")),
+
                 WNBlocks.BELLADONNA = new BelladonnaBlock(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("belladonna")),
 
                 //VINES

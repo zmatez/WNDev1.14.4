@@ -103,4 +103,14 @@ public class WNBiome extends Biome {
     public int customColor(double noise, double modifier, int color1, int color2){
         return noise < modifier ? color1 : color2;
     }
+
+    public int customColor3x(double noise, double modFrom, double modTo, int color1, int color2, int color3){
+        if(noise<modFrom){
+            return color1;
+        }else if(noise>modTo){
+            return color2;
+        }else{
+            return color3;
+        }
+    }
 }

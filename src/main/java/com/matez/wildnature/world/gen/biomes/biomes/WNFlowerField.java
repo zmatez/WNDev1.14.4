@@ -61,6 +61,7 @@ public class WNFlowerField extends WNBiome {
         WNBiomeFeatures.addPlant(this,Blocks.AZURE_BLUET.getDefaultState(),1);
 
         WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.removeAllDefaultFlowers(this);
 
         plantRate=18;
         treeRate=0;

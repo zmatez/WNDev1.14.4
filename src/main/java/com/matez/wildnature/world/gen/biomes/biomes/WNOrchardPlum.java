@@ -69,7 +69,7 @@ public class WNOrchardPlum extends WNBiome {
         WNBiomeFeatures.addTree(this,new tree_oak22(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:plum_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:plum_leaves"))),2);
         WNBiomeFeatures.addTree(this,new tree_oak5(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:plum_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:plum_leaves"))),2);
         WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:oak_leaves"))),2);
-
+        WNBiomeFeatures.addTree(this,new tree_oak5(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:plum_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:mirabelle_plum_leaves"))),2);
         treeRate=5;
 
         //applyPlants();

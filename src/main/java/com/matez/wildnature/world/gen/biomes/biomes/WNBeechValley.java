@@ -84,9 +84,12 @@ public class WNBeechValley extends WNBiome {
         WNBiomeFeatures.addTree(this,new beech10(NoFeatureConfig::deserialize,true),3);
         WNBiomeFeatures.addTree(this,new beech11(NoFeatureConfig::deserialize,true),3);
         WNBiomeFeatures.addTree(this,new beech12(NoFeatureConfig::deserialize,true),3);
+        WNBiomeFeatures.addTree(this,new thick_beech1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new thick_beech2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new thick_beech3(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new thick_beech4(NoFeatureConfig::deserialize,true),1);
 
-
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),10);
+        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),15);
 
         treeRate=2;
 

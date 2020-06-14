@@ -11,6 +11,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.EmptyCarverConfig;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.LakeChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
 
@@ -25,6 +26,7 @@ public class WNGlobalBiomeFeatures {
 
         Registry.BIOME.forEach(biome -> {
             WNBiomeFeatures.addMushrooms(biome);
+            WNBiomeFeatures.addDefaultFlowersForBiome(biome);
             if(CommonConfig.generateVines.get()){
                 WNBiomeFeatures.addCaveVines(biome);
             }
@@ -80,9 +82,29 @@ public class WNGlobalBiomeFeatures {
                 //biome.addCarver(GenerationStage.Carving.LIQUID,Biome.createCarver(new RiverCarver(null,256),new EmptyCarverConfig()));
             }
 
-            //removeLakesAndSprings(biome);
+
 
         });
+
+        for (Biome biome : WNBiomeFeatures.lakeBiomes) {
+            if(CommonConfig.waterLakeGeneration.get()) {
+                Main.LOGGER.info("adding water for "+ biome.getRegistryName());
+                biome.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(Feature.LAKE, new LakesConfig(Blocks.WATER.getDefaultState()), Placement.WATER_LAKE, new LakeChanceConfig(4)));
+            }
+            if(CommonConfig.lavaLakeGeneration.get()) {
+                Main.LOGGER.info("adding lava for "+ biome.getRegistryName());
+                biome.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(Feature.LAKE, new LakesConfig(Blocks.LAVA.getDefaultState()), Placement.LAVA_LAKE, new LakeChanceConfig(80)));
+            }
+        }
+
+        for (Biome biome : WNBiomeFeatures.springBiomes) {
+            if(CommonConfig.waterSpringGeneration.get()) {
+                biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.SPRING_FEATURE, new LiquidsConfig(Fluids.WATER.getDefaultState()), Placement.COUNT_BIASED_RANGE, new CountRangeConfig(50, 8, 8, 256)));
+            }
+            if(CommonConfig.lavaSpringGeneration.get()) {
+                biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.SPRING_FEATURE, new LiquidsConfig(Fluids.LAVA.getDefaultState()), Placement.COUNT_VERY_BIASED_RANGE, new CountRangeConfig(20, 8, 16, 256)));
+            }
+        }
     }
 
     private static void replaceDefaultFeatures(Biome biome){

@@ -5,6 +5,9 @@ import com.matez.wildnature.entity.render.animal.*;
 import com.matez.wildnature.entity.render.monster.GoblinRender;
 import com.matez.wildnature.entity.type.animal.bird.SparrowEntity;
 import com.matez.wildnature.entity.type.animal.boar.BoarEntity;
+import com.matez.wildnature.entity.type.animal.deer.BuckEntity;
+import com.matez.wildnature.entity.type.animal.deer.DoeEntity;
+import com.matez.wildnature.entity.type.animal.deer.FawnEntity;
 import com.matez.wildnature.entity.type.animal.duck.DrakeEntity;
 import com.matez.wildnature.entity.type.animal.duck.DuckEntity;
 import com.matez.wildnature.entity.type.animal.duck.DucklingEntity;
@@ -27,5 +30,9 @@ public class RenderRegistry {
         RenderingRegistry.registerEntityRenderingHandler(PiranhaEntity.class,new PiranhaRender.RenderFactory());
         RenderingRegistry.registerEntityRenderingHandler(DragonflyEntity.class,new DragonflyRender.RenderFactory());
         RenderingRegistry.registerEntityRenderingHandler(SparrowEntity.class,new SparrowMaleRenderer.RenderFactory());
+        RenderingRegistry.registerEntityRenderingHandler(BuckEntity.class,new BuckRender.RenderFactory());
+        RenderingRegistry.registerEntityRenderingHandler(DoeEntity.class,new DoeRender.RenderFactory());
+        RenderingRegistry.registerEntityRenderingHandler(FawnEntity.class,new FawnRender.RenderFactory());
+
     }
 }

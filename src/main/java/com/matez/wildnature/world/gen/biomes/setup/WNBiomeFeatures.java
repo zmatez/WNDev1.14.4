@@ -30,6 +30,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class WNBiomeFeatures extends DefaultBiomeFeatures {
+
+    public static ArrayList<Biome> defaultPlantBlacklist = new ArrayList<>();
+
+    public static void removeAllDefaultFlowers(Biome biomeIn){
+        defaultPlantBlacklist.add(biomeIn);
+    }
+
+
 	public static void addGrass(Biome biomeIn) {
         biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Blocks.GRASS.getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(9)));
         biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Main.getBlockByID("wildnature:medium_grass").getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(3)));
@@ -69,22 +77,14 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
 
     }
 
+    public static ArrayList<Biome> lakeBiomes = new ArrayList<>();
     public static void addLakes(Biome biomeIn) {
-	    if(CommonConfig.waterLakeGeneration.get()) {
-            biomeIn.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(Feature.LAKE, new LakesConfig(Blocks.WATER.getDefaultState()), Placement.WATER_LAKE, new LakeChanceConfig(4)));
-        }
-	    if(CommonConfig.lavaLakeGeneration.get()) {
-            biomeIn.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(Feature.LAKE, new LakesConfig(Blocks.LAVA.getDefaultState()), Placement.LAVA_LAKE, new LakeChanceConfig(80)));
-        }
+	    lakeBiomes.add(biomeIn);
     }
 
+    public static ArrayList<Biome> springBiomes = new ArrayList<>();
     public static void addSprings(Biome p_222337_0_) {
-	    if(CommonConfig.waterSpringGeneration.get()) {
-            p_222337_0_.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.SPRING_FEATURE, new LiquidsConfig(Fluids.WATER.getDefaultState()), Placement.COUNT_BIASED_RANGE, new CountRangeConfig(50, 8, 8, 256)));
-        }
-	    if(CommonConfig.lavaSpringGeneration.get()) {
-            p_222337_0_.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.SPRING_FEATURE, new LiquidsConfig(Fluids.LAVA.getDefaultState()), Placement.COUNT_VERY_BIASED_RANGE, new CountRangeConfig(20, 8, 16, 256)));
-        }
+	    springBiomes.add(p_222337_0_);
     }
 
 
@@ -187,7 +187,7 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         }
 
         if(biomeIn.getTempCategory()== Biome.TempCategory.COLD) {
-            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, Blocks.PACKED_ICE.getDefaultState(), CommonConfig.rockSize.get() * 2), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.rockChance.get(), 30, 0, seaLevel)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, Blocks.PACKED_ICE.getDefaultState(), CommonConfig.rockSize.get() * 2), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.rockChance.get(), 25, 0, seaLevel-(seaLevel/4))));
         }
 
         rocks=null;
@@ -316,9 +316,9 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         if(biomeIn.getTempCategory()== Biome.TempCategory.COLD){
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:icycle").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(10, 35, 0, 50)));
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:large_icycle").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(10, 40, 0, 50)));
-            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:ice_grass").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(35, 30, 0, 50)));
-            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:ice_shroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(5, 30, 0, 50)));
-            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:glowshroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(3, 10, 0, 50)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:ice_grass").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(35, 30, 0, 45)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:ice_shroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(5, 30, 0, 45)));
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new CaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:glowshroom").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(3, 10, 0, 45)));
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new SlimeCaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:hanging_glowing_slimeshroom_blue").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(3, 5, 0, 20)));
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new SlimeCaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:hanging_glowing_slimeshroom_green").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 5, 0, 20)));
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new SlimeCaveBushFeature(BushConfig::deserialize), new BushConfig(Main.getBlockByID("wildnature:glowing_slimeshroom_blue").getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(4, 5, 0, 20)));
@@ -404,6 +404,113 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         }
         if(biomeIn.getTempCategory()== Biome.TempCategory.WARM) {
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new WNMossFeature(CountConfig::deserialize), new CountConfig(64), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.mossRarityDense.get(), 10, 0, 40)));
+        }
+    }
+
+    public static void addDefaultFlowersForBiome(Biome biomeIn){
+        if(defaultPlantBlacklist.contains(biomeIn)){
+            return;
+        }
+        Biome.TempCategory category = biomeIn.getTempCategory();
+
+        if (BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.FOREST) && !BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.JUNGLE)&& !BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.PLAINS)) {
+            if (BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.DENSE)) {
+                if(category== Biome.TempCategory.COLD) {
+                    addPlant(biomeIn, WNBlocks.HEPATICA_BLUE.getDefaultState(), 1);
+                    addPlant(biomeIn, WNBlocks.HEPATICA_WHITE.getDefaultState(), 1);
+                    addPlant(biomeIn, WNBlocks.HEPATICA_PINK.getDefaultState(), 1);
+                    addPlant(biomeIn, WNBlocks.HEPATICA_PURPLE.getDefaultState(), 1);
+                }else {
+                    addPlant(biomeIn, WNBlocks.PASQUE_PINK.getDefaultState(), 1);
+                    addPlant(biomeIn, WNBlocks.PASQUE_PURPLE.getDefaultState(), 1);
+                    addPlant(biomeIn, WNBlocks.PASQUE_WHITE.getDefaultState(), 1);
+                }
+
+                addPlant(biomeIn,WNBlocks.ANEMONE.getDefaultState(),2);
+
+                if(category== Biome.TempCategory.MEDIUM) {
+                    addPlant(biomeIn, WNBlocks.PRIMROSE_WHITE.getDefaultState(), 1);
+                    addPlant(biomeIn, WNBlocks.PRIMROSE_BLUE.getDefaultState(), 1);
+                }
+
+                addPlant(biomeIn,WNBlocks.FORGET_ME_NOT_BLUE.getDefaultState(),1);
+                if(biomeIn.getTempCategory()== Biome.TempCategory.COLD){
+                    addPlant(biomeIn,WNBlocks.SNOWDROP.getDefaultState(),2);
+                    addPlant(biomeIn,WNBlocks.BLUEBELL.getDefaultState(),2);
+                    addPlant(biomeIn,WNBlocks.HEATH_PURPLE.getDefaultState(),2);
+                    addPlant(biomeIn,WNBlocks.HEATH_PINK.getDefaultState(),2);
+                    addPlant(biomeIn,WNBlocks.HEATH_WHITE.getDefaultState(),2);
+                }
+
+                addPlant(biomeIn,WNBlocks.GRASS_FERNSPROUT.getDefaultState(),3);
+
+                addPlant(biomeIn,WNBlocks.SHRUB.getDefaultState(),4);
+                addPlant(biomeIn,WNBlocks.SHRUB_TALL.getDefaultState(),4);
+            }else{
+                if(category== Biome.TempCategory.COLD) {
+                    addPlant(biomeIn, WNBlocks.HEPATICA_PURPLE.getDefaultState(), 1);
+                    addPlant(biomeIn, WNBlocks.HEPATICA_PINK.getDefaultState(), 2);
+                    addPlant(biomeIn, WNBlocks.HEPATICA_VIOLET.getDefaultState(), 1);
+                    addPlant(biomeIn, WNBlocks.VIOLET_PURPLE.getDefaultState(), 1);
+                }else {
+                    addPlant(biomeIn, WNBlocks.PASQUE_YELLOW.getDefaultState(), 2);
+                    addPlant(biomeIn, WNBlocks.PASQUE_WHITE.getDefaultState(), 1);
+                }
+
+
+                addPlant(biomeIn,WNBlocks.ANEMONE.getDefaultState(),1);
+
+                if(category== Biome.TempCategory.MEDIUM) {
+                    addPlant(biomeIn, WNBlocks.PRIMROSE_PINK.getDefaultState(), 2);
+                }
+
+                addPlant(biomeIn,WNBlocks.FORGET_ME_NOT_PINK.getDefaultState(),1);
+
+                addPlant(biomeIn,WNBlocks.GRASS_FERNSPROUT.getDefaultState(),3);
+
+                if(biomeIn.getTempCategory()== Biome.TempCategory.COLD){
+                    addPlant(biomeIn,WNBlocks.SNOWDROP.getDefaultState(),2);
+                    addPlant(biomeIn,WNBlocks.BLUEBELL.getDefaultState(),2);
+                    addPlant(biomeIn,WNBlocks.HEATHER_PURPLE.getDefaultState(),2);
+                    addPlant(biomeIn,WNBlocks.HEATHER_PINK.getDefaultState(),2);
+                    addPlant(biomeIn,WNBlocks.HEATHER_WHITE.getDefaultState(),1);
+                    addPlant(biomeIn,WNBlocks.HEATHER_YELLOW.getDefaultState(),1);
+                    addPlant(biomeIn, WNBlocks.VIOLET_PURPLE.getDefaultState(), 1);
+                }
+
+                addPlant(biomeIn,WNBlocks.SHRUB.getDefaultState(),2);
+                addPlant(biomeIn,WNBlocks.SHRUB_TALL.getDefaultState(),2);
+            }
+
+            addPlant(biomeIn,WNBlocks.WILD_ROSE.getDefaultState(),1);
+
+        }
+        if(BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.PLAINS)&& !BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.JUNGLE)){
+            addPlant(biomeIn,WNBlocks.CHAMOMILE_WHITE.getDefaultState(),2);
+            addPlant(biomeIn,WNBlocks.CHAMOMILE_DOUBLE_WHITE.getDefaultState(),1);
+            addPlant(biomeIn,WNBlocks.GOLDENROD.getDefaultState(),3);
+            addPlant(biomeIn,WNBlocks.TANSY.getDefaultState(),1);
+            if(category== Biome.TempCategory.MEDIUM) {
+                addPlant(biomeIn, WNBlocks.CATNIP.getDefaultState(), 2);
+                addPlant(biomeIn, WNBlocks.BUTTERCUP_YELLOW.getDefaultState(), 1);
+                addPlant(biomeIn, WNBlocks.FORGET_ME_NOT_WHITE.getDefaultState(), 1);
+                addPlant(biomeIn, WNBlocks.GIANT_HOGWEED.getDefaultState(), 2);
+
+            }
+
+            if(category== Biome.TempCategory.COLD){
+                addPlant(biomeIn, WNBlocks.VIOLET_PURPLE.getDefaultState(), 2);
+            }
+
+            addPlant(biomeIn, WNBlocks.BOXWOOD.getDefaultState(), 3);
+            addPlant(biomeIn, WNBlocks.SHRUB.getDefaultState(), 1);
+
+
+        }
+
+        if(BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.PLAINS) && BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.WET)){
+            addPlant(biomeIn, WNBlocks.MISCANTHUS_GRASS.getDefaultState(), 2);
+
         }
     }
 }

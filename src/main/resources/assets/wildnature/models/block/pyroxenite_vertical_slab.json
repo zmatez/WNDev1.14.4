@@ -1,0 +1,7 @@
+{
+    "parent": "wildnature:block/slab_vertical",
+    "textures": {
+    	"particle": "wildnature:blocks/rocks/pyroxenite/pyroxenite_vertical_slab",
+    	"material": "wildnature:blocks/rocks/pyroxenite/pyroxenite_vertical_slab"
+  }
+}

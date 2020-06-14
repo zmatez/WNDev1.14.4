@@ -9,7 +9,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 @Mod.EventBusSubscriber
 public class WNConfig {
-    private static CommonConfig common;
+    public static CommonConfig common;
     private static ForgeConfigSpec commonSpec;
 
     public static void initCommon()

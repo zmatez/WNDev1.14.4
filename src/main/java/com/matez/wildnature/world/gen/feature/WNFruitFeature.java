@@ -85,8 +85,10 @@ public class WNFruitFeature extends Feature<NoFeatureConfig> {
         new BushEntry(WNBlocks.BUSH_BLACKBERRY.getDefaultState(), Biome.TempCategory.MEDIUM,6,true, BiomeDictionary.Type.FOREST);
         new BushEntry(WNBlocks.BUSH_CRANBERRY.getDefaultState(), Biome.TempCategory.MEDIUM,4,true, BiomeDictionary.Type.PLAINS);
         new BushEntry(WNBlocks.BUSH_CRANBERRY.getDefaultState(), Biome.TempCategory.COLD,4,true, BiomeDictionary.Type.PLAINS);
-
-
+        new BushEntry(WNBlocks.BUSH_WILD_BLUEBERRY.getDefaultState(), Biome.TempCategory.COLD,2,true, BiomeDictionary.Type.FOREST);
+        new BushEntry(WNBlocks.BUSH_WILD_BLUEBERRY.getDefaultState(), Biome.TempCategory.MEDIUM,4,true, BiomeDictionary.Type.FOREST);
+        new BushEntry(WNBlocks.BUSH_WILD_BLUEBERRY.getDefaultState(), Biome.TempCategory.COLD,4,true, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE);
+        new BushEntry(WNBlocks.BUSH_WILD_BLUEBERRY.getDefaultState(), Biome.TempCategory.MEDIUM,8,true, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE);
 
 
     }

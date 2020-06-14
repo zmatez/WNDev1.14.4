@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "wildnature:block/poplar_corner_slab_top" },
+    "facing=east": { "model": "wildnature:block/poplar_corner_slab_top", "y": 90, "uvlock": true},
+    "facing=south": { "model": "wildnature:block/poplar_corner_slab_top", "y": 180, "uvlock": true},
+    "facing=west": { "model": "wildnature:block/poplar_corner_slab_top", "y": 270, "uvlock": true}
+  }
+}

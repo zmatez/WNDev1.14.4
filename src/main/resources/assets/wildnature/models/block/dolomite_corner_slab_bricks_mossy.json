@@ -1,0 +1,7 @@
+{
+    "parent": "wildnature:block/slab_corner",
+    "textures": {
+    	"particle": "wildnature:blocks/rocks/dolomite/dolomite_corner_slab_bricks_mossy",
+    	"material": "wildnature:blocks/rocks/dolomite/dolomite_corner_slab_bricks_mossy"
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "wildnature:block/slab_corner",
+    "textures": {
+    	"particle": "wildnature:blocks/rocks/rhyolite/rhyolite_roof_3_corner_slab",
+    	"material": "wildnature:blocks/rocks/rhyolite/rhyolite_roof_3_corner_slab"
+  }
+}

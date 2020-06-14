@@ -9,6 +9,8 @@ import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.feature.WNBlobConfig;
 import com.matez.wildnature.world.gen.feature.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.rowan.rowan1;
+import com.matez.wildnature.world.gen.structures.nature.woods.rowan.rowan4;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.matez.wildnature.world.gen.structures.nature.woods.small_redwood.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga1;
@@ -82,6 +84,9 @@ public class WNOaklands extends WNBiome {
         WNBiomeFeatures.addTree(this,new oaklands_oak6(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new oaklands_oak7(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new oaklands_oak8(NoFeatureConfig::deserialize,true),1);
+
+        WNBiomeFeatures.addTree(this,new rowan1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new rowan4(NoFeatureConfig::deserialize,true),1);
 
         WNBiomeFeatures.addTree(this,new oaklands_smallshrub1(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new oaklands_smallshrub2(NoFeatureConfig::deserialize,true),1);

@@ -1,0 +1,7 @@
+{
+    "parent": "wildnature:block/slab_vertical",
+    "textures": {
+    	"particle": "wildnature:blocks/mahogany/mahogany_vertical_slab_parquet_top",
+    	"material": "wildnature:blocks/mahogany/mahogany_vertical_slab_parquet_top"
+  }
+}

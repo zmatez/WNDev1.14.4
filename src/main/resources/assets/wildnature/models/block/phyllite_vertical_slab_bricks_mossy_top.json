@@ -1,0 +1,7 @@
+{
+    "parent": "wildnature:block/slab_vertical",
+    "textures": {
+    	"particle": "wildnature:blocks/rocks/phyllite/phyllite_vertical_slab_bricks_mossy_top",
+    	"material": "wildnature:blocks/rocks/phyllite/phyllite_vertical_slab_bricks_mossy_top"
+  }
+}

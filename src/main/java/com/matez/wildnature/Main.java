@@ -127,7 +127,7 @@ public class Main {
     public static final wnItemGroupDeco WILDNATURE_DECO_GROUP = new wnItemGroupDeco();
     public static final wnItemGroupBuilding WILDNATURE_BUILDING_GROUP = new wnItemGroupBuilding();
     public static final String WildNaturePrefix = TextFormatting.GOLD.toString()+TextFormatting.BOLD.toString()+"["+TextFormatting.GREEN.toString()+TextFormatting.BOLD.toString()+"WN"+TextFormatting.GOLD.toString()+TextFormatting.BOLD.toString()+"] "+TextFormatting.AQUA.toString();
-    public static WorldType WNWorldType = new WNWorldType("wildnature");;
+    public static WorldType WNWorldType = new WNWorldType("wildnature").setCustomOptions(true);
     private static WNChunkGeneratorType chunkGeneratorType = new WNChunkGeneratorType();
     private static WNBiomeProviderType biomeProviderType = new WNBiomeProviderType();
     public static ArrayList<SchemFeature> treesList = new ArrayList<>();
@@ -357,6 +357,7 @@ public class Main {
             event.getRegistry().registerAll(
                     //FRUITS
                     WNItems.GREEN_APPLE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("green_apple")),
+                    WNItems.PARADISE_APPLE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("paradise_apple")),
                     WNItems.CHERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(CHERRY)).setRegistryName(location("cherry")),
                     WNItems.PEAR = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("pear")),
                     WNItems.RASPBERRY = new Item(new Item.Properties().group(ItemGroup.FOOD).food(smallFruit)).setRegistryName(location("raspberry")),
@@ -743,7 +744,7 @@ public class Main {
 
 
             event.getRegistry().registerAll(
-                    EntityRegistry.GOBLIN,EntityRegistry.DRAKE,EntityRegistry.DUCK,EntityRegistry.DUCKLING,EntityRegistry.BOAR,EntityRegistry.PIRANHA,EntityRegistry.DRAGONFLY,EntityRegistry.SPARROW_MALE
+                    EntityRegistry.GOBLIN,EntityRegistry.DRAKE,EntityRegistry.DUCK,EntityRegistry.DUCKLING,EntityRegistry.BOAR,EntityRegistry.PIRANHA,EntityRegistry.DRAGONFLY,EntityRegistry.SPARROW_MALE,EntityRegistry.BUCK,EntityRegistry.DOE,EntityRegistry.FAWN
             );
 
         }
@@ -762,6 +763,7 @@ public class Main {
 
 
             BuildingRegistry rockAddonRegistry = new BuildingRegistry();
+            BuildingAddonsRegistry buildingAddonRegistry = new BuildingAddonsRegistry();
             EngravedRegistry engravedRegistry = new EngravedRegistry();
             SignRegistry signRegistry = new SignRegistry();
             GrassRegistry grassRegistry = new GrassRegistry();
@@ -794,6 +796,10 @@ public class Main {
 
             );
             event.getRegistry().registerAll(
+                    buildingAddonRegistry.getBlock()
+
+            );
+            event.getRegistry().registerAll(
                     engravedRegistry.getEngraved()
 
             );
@@ -818,7 +824,9 @@ public class Main {
                     com.matez.wildnature.world.gen.biomes.setup.WNBiomes.River,
                     com.matez.wildnature.world.gen.biomes.setup.WNBiomes.FrozenRiver,
                     com.matez.wildnature.world.gen.biomes.setup.WNBiomes.AmazonRiver,
-                    com.matez.wildnature.world.gen.biomes.setup.WNBiomes.NileRiver
+                    com.matez.wildnature.world.gen.biomes.setup.WNBiomes.NileRiver,
+                    WNBiomes.CanyonRiver, WNBiomes.IcelandRiver, WNBiomes.DaintreeRiver
+
             );
 
 

@@ -35,6 +35,7 @@ public class WNItems {
 
     //FRUITS
     public static Item GREEN_APPLE;
+    public static Item PARADISE_APPLE;
     public static Item CHERRY;
     public static Item PEAR;
     public static Item PLUM;

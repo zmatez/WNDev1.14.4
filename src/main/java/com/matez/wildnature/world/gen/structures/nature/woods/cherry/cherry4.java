@@ -14,6 +14,7 @@ public class cherry4 extends SchemFeature {
     public cherry4(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace) {
         super(config, doBlockNofityOnPlace);
         Main.treesList.add(this);
+        terrainIncrease=1;
     }
 
     public cherry4(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace, BlockState log, BlockState leaves) {
@@ -21,6 +22,7 @@ public class cherry4 extends SchemFeature {
         Main.treesList.add(this);
         LOG = log;
         LEAVES =leaves;
+        terrainIncrease=1;
     }
 
     @Override

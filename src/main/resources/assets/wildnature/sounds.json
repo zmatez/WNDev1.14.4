@@ -139,5 +139,54 @@
       "name":"wildnature:entity/dragonfly/flap",
       "stream":true
     }]
+  },
+  "entity.deer.buckgrunt":{
+    "category":"entity",
+    "sounds":[{
+      "name":"wildnature:entity/deer/buckgrunt",
+      "stream":true
+    }]
+  },
+  "entity.deer.doegrunt":{
+    "category":"entity",
+    "sounds":[{
+      "name":"wildnature:entity/deer/doegrunt",
+      "stream":true
+    }]
+  },
+  "entity.deer.snort":{
+    "category":"entity",
+    "sounds":[{
+      "name":"wildnature:entity/deer/snort",
+      "stream":true
+    }]
+  },
+  "entity.deer.snort2":{
+    "category":"entity",
+    "sounds":[{
+      "name":"wildnature:entity/deer/snort2",
+      "stream":true
+    }]
+  },
+  "entity.deer.contact":{
+    "category":"entity",
+    "sounds":[{
+      "name":"wildnature:entity/deer/contact",
+      "stream":true
+    }]
+  },
+  "entity.deer.hurt":{
+    "category":"entity",
+    "sounds":[{
+      "name":"wildnature:entity/deer/hurt",
+      "stream":true
+    }]
+  },
+  "entity.deer.death":{
+    "category":"entity",
+    "sounds":[{
+      "name":"wildnature:entity/deer/death",
+      "stream":true
+    }]
   }
 }

@@ -21,9 +21,8 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.spawner.CatSpawner;
 import net.minecraft.world.spawner.PatrolSpawner;
 import net.minecraft.world.spawner.PhantomSpawner;
-import net.minecraft.world.spawner.WorldEntitySpawner;
 
-public class WNChunkGeneratorOverworld extends NoiseChunkGenerator<WNGenSettings> {
+public class WNChunkGeneratorOverworld extends WNNoiseChunkGenerator<WNGenSettings> {
     private static final float[] field_222576_h = Util.make(new float[25], (p_222575_0_) -> {
         for(int i = -2; i <= 2; ++i) {
             for(int j = -2; j <= 2; ++j) {

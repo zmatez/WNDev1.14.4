@@ -50,6 +50,24 @@ public class BiomeGroups {
         groups.add(new BiomeGroup("high_forest",new BiomeWeight(WNBiomes.HighForest,5,true,true),new BiomeWeight(WNBiomes.ColdLake,8),new BiomeWeight(WNBiomes.HighForestHills,8),new BiomeWeight(WNBiomes.HighForestValley,5)));
         groups.add(new BiomeGroup("mahogany_cliffs",new BiomeWeight(WNBiomes.MahoganyCliffs,5,true,true),new BiomeWeight(WNBiomes.WarmLake,8)));
         groups.add(new BiomeGroup("forested_mountains",new BiomeWeight(WNBiomes.ForestedMountains,5,true,true),new BiomeWeight(WNBiomes.ColdLake,8)));
+        groups.add(new BiomeGroup("eroded_fields",new BiomeWeight(WNBiomes.ErodedFields,5,true,true),new BiomeWeight(WNBiomes.ErodedHills,7)));
+        groups.add(new BiomeGroup("taiga",new BiomeWeight(WNBiomes.Taiga,13,true,true)
+                ,new BiomeWeight(WNBiomes.ColdLake,8)
+                ,new BiomeWeight(WNBiomes.TaigaValley,4)
+                ,new BiomeWeight(WNBiomes.TaigaHills,11)
+                ,new BiomeWeight(WNBiomes.WetTaiga,4)
+                ,new BiomeWeight(WNBiomes.TaigaMarsh,3)
+                ,new BiomeWeight(WNBiomes.RockyTaiga,5)
+                ,new BiomeWeight(WNBiomes.BerryTaiga,1)));
+        groups.add(new BiomeGroup("cold_taiga",new BiomeWeight(WNBiomes.ColdTaiga,13,true,true)
+                ,new BiomeWeight(WNBiomes.ColdLake,8)
+                ,new BiomeWeight(WNBiomes.ColdTaigaValley,4)
+                ,new BiomeWeight(WNBiomes.ColdTaigaHills,11)
+                ,new BiomeWeight(WNBiomes.FrozenTaiga,4)
+                ,new BiomeWeight(WNBiomes.ColdTaigaMarsh,3)
+                ,new BiomeWeight(WNBiomes.ColdRockyTaiga,5)
+                ,new BiomeWeight(WNBiomes.ColdBerryTaiga,1)));
+        groups.add(new BiomeGroup("fields",new BiomeWeight(WNBiomes.Fields,25,true,true),new BiomeWeight(WNBiomes.SunflowerFields,1)));
 
 
         groups.add(new BiomeGroup("oasis_desert",new BiomeWeight(Biomes.DESERT,20,true,true),new BiomeWeight(WNBiomes.Oasis,1)));

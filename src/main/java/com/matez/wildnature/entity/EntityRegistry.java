@@ -2,6 +2,10 @@ package com.matez.wildnature.entity;
 
 import com.matez.wildnature.entity.type.animal.bird.SparrowEntity;
 import com.matez.wildnature.entity.type.animal.boar.BoarEntity;
+import com.matez.wildnature.entity.type.animal.deer.AbstractDeerEntity;
+import com.matez.wildnature.entity.type.animal.deer.BuckEntity;
+import com.matez.wildnature.entity.type.animal.deer.DoeEntity;
+import com.matez.wildnature.entity.type.animal.deer.FawnEntity;
 import com.matez.wildnature.entity.type.animal.duck.*;
 import com.matez.wildnature.entity.type.animal.fish.PiranhaEntity;
 import com.matez.wildnature.entity.type.animal.insect.DragonflyEntity;
@@ -28,6 +32,12 @@ public class EntityRegistry {
     public static EntityType<AbstractDuckEntity> DRAKE = (EntityType<AbstractDuckEntity>) EntityType.Builder.<AbstractDuckEntity>create(DrakeEntity::new, EntityClassification.CREATURE).size(0.4F, 0.7F).build("wildnature:drake").setRegistryName("wildnature:drake");
     public static EntityType<AbstractDuckEntity> DUCK = (EntityType<AbstractDuckEntity>) EntityType.Builder.<AbstractDuckEntity>create(DuckEntity::new, EntityClassification.CREATURE).size(0.4F, 0.7F).build("wildnature:duck").setRegistryName("wildnature:duck");
     public static EntityType<AbstractDuckEntity> DUCKLING = (EntityType<AbstractDuckEntity>) EntityType.Builder.<AbstractDuckEntity>create(DucklingEntity::new, EntityClassification.CREATURE).size(0.2F, 0.3F).build("wildnature:duckling").setRegistryName("wildnature:duckling");
+
+    //deers
+    public static EntityType<AbstractDeerEntity> BUCK = (EntityType<AbstractDeerEntity>) EntityType.Builder.<AbstractDeerEntity>create(BuckEntity::new, EntityClassification.CREATURE).size(1.4F, 2.2F).build("wildnature:buck").setRegistryName("wildnature:buck");
+    public static EntityType<AbstractDeerEntity> DOE = (EntityType<AbstractDeerEntity>) EntityType.Builder.<AbstractDeerEntity>create(DoeEntity::new, EntityClassification.CREATURE).size(1.4F, 2.2F).build("wildnature:doe").setRegistryName("wildnature:doe");
+    public static EntityType<AbstractDeerEntity> FAWN = (EntityType<AbstractDeerEntity>) EntityType.Builder.<AbstractDeerEntity>create(FawnEntity::new, EntityClassification.CREATURE).size(1F, 1.7F).build("wildnature:fawn").setRegistryName("wildnature:fawn");
+
 
     public static EntityType<BoarEntity> BOAR = (EntityType<BoarEntity>) EntityType.Builder.<BoarEntity>create(BoarEntity::new, EntityClassification.CREATURE).size(1F, 1F).build("wildnature:boar").setRegistryName("wildnature:boar");
 

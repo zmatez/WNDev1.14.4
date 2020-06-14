@@ -1,6 +1,9 @@
 package com.matez.wildnature.world.gen.structures.nature;
 
 import com.google.common.collect.Sets;
+import com.matez.wildnature.blocks.FloweringLeaves;
+import com.matez.wildnature.blocks.FruitableLeaves;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -138,6 +141,13 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
         //setBlockState(world,pos,state);
         if(world.getBlockState(pos).getBlock()==Blocks.WATER && state.getBlock() instanceof IWaterLoggable){
             state=state.with(BlockStateProperties.WATERLOGGED,true);
+        }
+        if(state.getBlock()== WNBlocks.MAGNOLIA_LEAVES || state.getBlock()==WNBlocks.FORSYTHIA_LEAVES || Utilities.rint(0,10)==0){
+            if(state.getBlock() instanceof FloweringLeaves){
+                state = state.with(FloweringLeaves.FLOWERING,true);
+            }else if(state.getBlock() instanceof FruitableLeaves){
+                state = state.with((((FruitableLeaves)state.getBlock()).getStage()),Utilities.rint(1,((FruitableLeaves)state.getBlock()).getMaxStages()));
+            }
         }
         if(!virtualPlace) {
             if((isLeaf(state.getBlock()) && !world.getBlockState(pos).isSolid()) || !isLeaf(state.getBlock())) {

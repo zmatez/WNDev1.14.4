@@ -1,9 +1,16 @@
 package com.matez.wildnature.world.gen.feature;
 
+import com.matez.wildnature.blocks.CropBase;
+import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.other.BlockWeighList;
 import com.matez.wildnature.other.Utilities;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.DoublePlantBlock;
+import net.minecraft.block.TallFlowerBlock;
+import net.minecraft.state.IProperty;
+import net.minecraft.state.IntegerProperty;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -38,7 +45,32 @@ public class PlantFeature extends Feature<NoFeatureConfig> {
                 BlockPos blockpos = pos.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
                 try {
                     if (worldIn.isAirBlock(blockpos) && state.isValidPosition(worldIn, blockpos)) {
-                        worldIn.setBlockState(blockpos, state, 2);
+                        if(state.getProperties().contains(FloweringBushBase.FLOWERING)){
+                            if(!state.get(FloweringBushBase.FLOWERING)){
+                                if(Utilities.rint(0,1)==0){
+                                    state = state.with(FloweringBushBase.FLOWERING,true);
+                                }
+                            }else{
+                                if(Utilities.rint(0,3)==0){
+                                    state = state.with(FloweringBushBase.FLOWERING,false);
+                                }
+                            }
+                        }
+                        if(state.getBlock() instanceof CropBase){
+                            IntegerProperty property = ((CropBase)state.getBlock()).getAge();
+                            if(property==null){
+                                property = ((CropBase)state.getBlock()).getAgeProperty();
+                            }
+                            state = state.with(property,Utilities.rint(0,((CropBase)state.getBlock()).getMaxAge()));
+                        }
+                        if(state.getBlock() instanceof DoublePlantBlock){
+                            if(worldIn.getBlockState(pos.up()).isAir()){
+                                worldIn.setBlockState(blockpos, state.with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER), 2);
+                                worldIn.setBlockState(blockpos.up(), state.with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER), 2);
+                            }
+                        }else {
+                            worldIn.setBlockState(blockpos, state, 2);
+                        }
                         ++i;
                     }
                 } catch (NullPointerException e) {

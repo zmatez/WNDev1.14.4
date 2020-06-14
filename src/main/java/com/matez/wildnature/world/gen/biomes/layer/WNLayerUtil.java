@@ -107,6 +107,7 @@ public class WNLayerUtil extends LayerUtil {
         lvt_7_1_ = repeat(1000L, ZoomLayer.NORMAL, lvt_7_1_, 2, contextFactory);
         lvt_7_1_ = repeat(1000L, ZoomLayer.NORMAL, lvt_7_1_, j, contextFactory);
         lvt_7_1_ = WNRiverLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply((long)0.001), lvt_7_1_);
+        // bigger rivers - lvt_7_1_ = repeat(1000L, ZoomLayer.NORMAL, lvt_7_1_, 3, contextFactory);
         lvt_7_1_ = SmoothLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply(1000L), lvt_7_1_);
         lvt_8_1_ = RareBiomeLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply(1001L), lvt_8_1_);
 

@@ -1,5 +1,6 @@
 package com.matez.wildnature.world.gen.feature;
 
+import com.matez.wildnature.other.Utilities;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -54,34 +55,40 @@ public class WNBlobFeature extends Feature<WNBlobConfig> {
                         BlockPos blockPos = (BlockPos)var12.next();
                         if (blockPos.distanceSq(pos) <= (double)(lvt_11_1_ * lvt_11_1_)) {
                             if(config.surfaceBlob){
-                                if(world.getBlockState(blockPos).isSolid()){
-                                    if(!config.undergroundBlob){
-                                        if(!world.getBlockState(blockPos.up()).isSolid() && !(world.getBlockState(blockPos.up()).getBlock() instanceof FarmlandBlock) && world.getBlockState(blockPos.up()).getBlock()!=Blocks.WATER){
+                                boolean canPlace = !config.flatInTerrain || !Utilities.isBlockNear(world, blockPos, Blocks.AIR);
+                                if(canPlace) {
+                                    if (world.getBlockState(blockPos).isSolid()) {
+                                        if (!config.undergroundBlob) {
+                                            if (!world.getBlockState(blockPos.up()).isSolid() && !(world.getBlockState(blockPos.up()).getBlock() instanceof FarmlandBlock) && world.getBlockState(blockPos.up()).getBlock() != Blocks.WATER) {
+                                                world.setBlockState(blockPos, config.state, 4);
+                                                world.setBlockState(blockPos.up(), Blocks.AIR.getDefaultState(), 4);
+                                                filledBlocks.add(blockPos);
+                                            }
+                                        } else {
+                                            world.setBlockState(blockPos, config.state, 4);
+                                            filledBlocks.add(blockPos);
+                                        }
+                                    } else {
+                                        if (world.getBlockState(blockPos).getBlock() == Blocks.WATER) {
+                                            world.setBlockState(blockPos, Blocks.WATER.getDefaultState(), 4);
+                                        } else {
+                                            world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 4);
+                                        }
+                                    }
+                                }
+                            }else{
+                                boolean canPlace = !config.flatInTerrain || !Utilities.isBlockNear(world, blockPos, Blocks.AIR);
+                                if(canPlace) {
+                                    if (!config.undergroundBlob) {
+                                        if (!world.getBlockState(blockPos.up()).isSolid() && !(world.getBlockState(blockPos.up()).getBlock() instanceof FarmlandBlock) && world.getBlockState(blockPos.up()).getBlock() != Blocks.WATER) {
                                             world.setBlockState(blockPos, config.state, 4);
                                             world.setBlockState(blockPos.up(), Blocks.AIR.getDefaultState(), 4);
                                             filledBlocks.add(blockPos);
                                         }
-                                    }else {
+                                    } else {
                                         world.setBlockState(blockPos, config.state, 4);
                                         filledBlocks.add(blockPos);
                                     }
-                                }else{
-                                    if(world.getBlockState(blockPos).getBlock()==Blocks.WATER){
-                                        world.setBlockState(blockPos, Blocks.WATER.getDefaultState(), 4);
-                                    }else{
-                                        world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 4);
-                                    }
-                                }
-                            }else{
-                                if(!config.undergroundBlob){
-                                    if(!world.getBlockState(blockPos.up()).isSolid() && !(world.getBlockState(blockPos.up()).getBlock() instanceof FarmlandBlock) && world.getBlockState(blockPos.up()).getBlock()!=Blocks.WATER){
-                                        world.setBlockState(blockPos, config.state, 4);
-                                        world.setBlockState(blockPos.up(), Blocks.AIR.getDefaultState(), 4);
-                                        filledBlocks.add(blockPos);
-                                    }
-                                }else {
-                                    world.setBlockState(blockPos, config.state, 4);
-                                    filledBlocks.add(blockPos);
                                 }
                             }
 

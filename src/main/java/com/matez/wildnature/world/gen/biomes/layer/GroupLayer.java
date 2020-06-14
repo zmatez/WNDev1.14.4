@@ -1,6 +1,7 @@
 package com.matez.wildnature.world.gen.biomes.layer;
 
 import com.matez.wildnature.customizable.CommonConfig;
+import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.world.gen.biomes.setup.BiomeGroups;
 import com.matez.wildnature.blocks.config.ConfigSettings;
 import net.minecraft.util.registry.Registry;

@@ -9,6 +9,8 @@ import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.feature.WNBlobConfig;
 import com.matez.wildnature.world.gen.feature.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.rowan.rowan1;
+import com.matez.wildnature.world.gen.structures.nature.woods.rowan.rowan4;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
@@ -87,6 +89,8 @@ public class WNOaklandHills extends WNBiome {
 
         this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(Blocks.PODZOL.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(3)));
 
+        WNBiomeFeatures.addTree(this,new rowan1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new rowan4(NoFeatureConfig::deserialize,true),1);
         plantRate=2;
         treeRate=14;
 

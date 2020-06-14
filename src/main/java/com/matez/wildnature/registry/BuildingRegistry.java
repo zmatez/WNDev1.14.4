@@ -345,7 +345,6 @@ public class BuildingRegistry {
                 WNBlocks.SLAB_CORNER = new BlockSlabCorner(Block.Properties.create(Material.GLASS).hardnessAndResistance(1.5F, 6.0F), new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("slab_corner")),
                 WNBlocks.SLAB_VERTICAL = new BlockSlabVertical(Block.Properties.create(Material.GLASS).hardnessAndResistance(1.5F, 6.0F), new Item.Properties().group(Main.WILDNATURE_BUILDING_GROUP), Main.RegistryEvents.location("slab_vertical")),
 
-
         };
     }
 

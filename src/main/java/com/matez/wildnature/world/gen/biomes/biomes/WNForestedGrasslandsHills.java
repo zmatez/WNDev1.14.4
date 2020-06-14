@@ -1,6 +1,7 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.world.gen.structures.nature.woods.def.BigTree;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.FloweringBushBase;
@@ -63,8 +64,15 @@ public class WNForestedGrasslandsHills extends WNBiome {
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:wild_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
 
-        WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),4);
+        WNBiomeFeatures.addTree(this,new pointy_oak_1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_3(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_4(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_5(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new oak1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new oak2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new oak3(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),7);
 
         plantRate=4;
         treeRate=4;

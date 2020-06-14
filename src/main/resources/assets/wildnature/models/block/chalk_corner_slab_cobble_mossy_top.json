@@ -1,0 +1,7 @@
+{
+    "parent": "wildnature:block/slab_corner",
+    "textures": {
+    	"particle": "wildnature:blocks/rocks/chalk/chalk_corner_slab_cobble_mossy_top",
+    	"material": "wildnature:blocks/rocks/chalk/chalk_corner_slab_cobble_mossy_top"
+  }
+}

@@ -39,14 +39,33 @@ public enum WNShoreLayer implements ICastleTransformer {
    private static final int MADAGASCAR = Registry.BIOME.getId(WNBiomes.Madagascar);
    private static final int MADAGASCAR_VALLEY = Registry.BIOME.getId(WNBiomes.MadagascarValley);
    private static final int TROPICAL_CLIFFS = Registry.BIOME.getId(WNBiomes.TropicalCliffs);
-
+   private static final int CANYONS = Registry.BIOME.getId(WNBiomes.Canyons);
+   private static final int GRAND_CANYON = Registry.BIOME.getId(WNBiomes.GrandCanyon);
+   private static final int CANYON_RIVER = Registry.BIOME.getId(WNBiomes.CanyonRiver);
+   private static final int ICELAND_RIVER = Registry.BIOME.getId(WNBiomes.IcelandRiver);
+   private static final int ICELANDS = Registry.BIOME.getId(WNBiomes.Icelands);
+   private static final int DAINTREE_RIVER = Registry.BIOME.getId(WNBiomes.DaintreeRiver);
+   private static final int DAINTREE_CLIFFS = Registry.BIOME.getId(WNBiomes.DaintreeCliffs);
    public int apply(INoiseRandom context, int north, int west, int south, int east, int center) {
       Biome biome = Registry.BIOME.getByValue(center);
       if (center == MUSHROOM_FIELDS) {
          if (WNLayerUtil.isShallowOcean(north) || WNLayerUtil.isShallowOcean(west) || WNLayerUtil.isShallowOcean(south) || WNLayerUtil.isShallowOcean(east)) {
             return MUSHROOM_FIELD_SHORE;
          }
-      }else if (center == MAHOGANY_RAINFOREST || center==MAHOGANY_CLIFFS || center == TROPICAL_ISLAND || center == TROPICAL_CLIFFS || center == MADAGASCAR || center == MADAGASCAR_VALLEY) {
+      }else if(center==CANYONS || center==GRAND_CANYON){
+         return center;
+      }else if(isCanyonCompatible(north)||isCanyonCompatible(south)||isCanyonCompatible(west)||isCanyonCompatible(east)){
+         return CANYON_RIVER;
+      }else if(center==ICELANDS){
+         return center;
+      }else if(center==DAINTREE_CLIFFS){
+         return center;
+      }else if(isIceCanyonCompatible(north)||isIceCanyonCompatible(south)||isIceCanyonCompatible(west)||isIceCanyonCompatible(east)){
+         return CANYON_RIVER;
+      }else if(isDaintreeCanyonCompatible(north)||isDaintreeCanyonCompatible(south)||isDaintreeCanyonCompatible(west)||isDaintreeCanyonCompatible(east)){
+         return CANYON_RIVER;
+      }
+      else if (center == MAHOGANY_RAINFOREST || center==MAHOGANY_CLIFFS || center == TROPICAL_ISLAND || center == TROPICAL_CLIFFS || center == MADAGASCAR || center == MADAGASCAR_VALLEY) {
          if (WNLayerUtil.isShallowOcean(north) || WNLayerUtil.isShallowOcean(west) || WNLayerUtil.isShallowOcean(south) || WNLayerUtil.isShallowOcean(east)) {
             return WHITE_BEACH;
          }
@@ -85,6 +104,16 @@ public enum WNShoreLayer implements ICastleTransformer {
       }
    }
 
+   private static boolean isCanyonCompatible(int biomeNear){
+      return biomeNear==GRAND_CANYON || biomeNear==CANYONS || biomeNear==CANYON_RIVER;
+   }
+
+   private static boolean isIceCanyonCompatible(int biomeNear){
+      return biomeNear==ICELANDS || biomeNear==ICELAND_RIVER;
+   }
+   private static boolean isDaintreeCanyonCompatible(int biomeNear){
+      return biomeNear==DAINTREE_CLIFFS || biomeNear==DAINTREE_RIVER;
+   }
    private boolean isMesa(int p_151633_1_) {
       return p_151633_1_ == BADLANDS || p_151633_1_ == WOODED_BADLANDS_PLATEAU || p_151633_1_ == BADLANDS_PLATEAU || p_151633_1_ == ERODED_BADLANDS || p_151633_1_ == MODIFIED_WOODED_BADLANDS_PLATEAU || p_151633_1_ == MODIFIED_BADLANDS_PLATEAU;
    }

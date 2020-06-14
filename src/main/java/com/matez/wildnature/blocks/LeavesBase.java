@@ -60,7 +60,7 @@ public class LeavesBase extends LeavesBlock {
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
         List<ItemStack> list = super.getDrops(state, builder);
-        if(list.isEmpty() && Utilities.rint(0,12)==0){
+        if(list.isEmpty() && Utilities.rint(0,12)==0 && !item.getRegistryName().toString().contains("wildnature:wild")){
             list.add(new ItemStack(Main.getItemByID(item.getRegistryName().toString().replace("leaves","sapling"))));
         }
 

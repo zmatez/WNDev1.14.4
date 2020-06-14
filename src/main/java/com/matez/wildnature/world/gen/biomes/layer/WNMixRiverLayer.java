@@ -38,6 +38,15 @@ public class WNMixRiverLayer implements IAreaTransformer2, IDimOffset0Transforme
     private static final int DESERT2 = Registry.BIOME.getId(Biomes.DESERT_HILLS);
     private static final int DESERT3 = Registry.BIOME.getId(Biomes.DESERT_LAKES);
 
+    private static final int CANYONS = Registry.BIOME.getId(WNBiomes.Canyons);
+    private static final int GRAND_CANYON = Registry.BIOME.getId(WNBiomes.GrandCanyon);
+    private static final int CANYON_RIVER = Registry.BIOME.getId(WNBiomes.CanyonRiver);
+
+    private static final int ICELANDS = Registry.BIOME.getId(WNBiomes.Icelands);
+    private static final int ICELAND_RIVER = Registry.BIOME.getId(WNBiomes.IcelandRiver);
+
+    private static final int DAINTREE_CLIFFS = Registry.BIOME.getId(WNBiomes.DaintreeCliffs);
+    private static final int DAINTREE_RIVER = Registry.BIOME.getId(WNBiomes.DaintreeRiver);
     public int apply(INoiseRandom p_215723_1_, IArea p_215723_2_, IArea p_215723_3_, int p_215723_4_, int p_215723_5_) {
         int i = p_215723_2_.getValue(this.func_215721_a(p_215723_4_), this.func_215722_b(p_215723_5_));
         int j = p_215723_3_.getValue(this.func_215721_a(p_215723_4_), this.func_215722_b(p_215723_5_));
@@ -60,8 +69,21 @@ public class WNMixRiverLayer implements IAreaTransformer2, IDimOffset0Transforme
 
         if (WNLayerUtil.isOcean(i)) {
             return i;
-        } else if (j == RIVER) {
-            if (surfaceBiome.getPrecipitation()== Biome.RainType.SNOW) {
+        }else if(i==GRAND_CANYON || i ==CANYONS){
+            return i;
+        }else if(i==ICELANDS){
+            return i;
+        }else if(i==DAINTREE_CLIFFS){
+            return i;
+        }else if (j == RIVER) {
+            if(Registry.BIOME.getId(surfaceBiome.getRiver())==CANYON_RIVER){
+                return CANYON_RIVER;
+            }else if(Registry.BIOME.getId(surfaceBiome.getRiver())==ICELAND_RIVER){
+                return ICELAND_RIVER;
+            }else if(Registry.BIOME.getId(surfaceBiome.getRiver())==DAINTREE_RIVER){
+                return DAINTREE_RIVER;
+            }
+            else if (surfaceBiome.getPrecipitation()== Biome.RainType.SNOW) {
                 return FROZEN_RIVER;
             } else if(Registry.BIOME.getId(surfaceBiome.getRiver())==AMAZON_RIVER || i == JUNGLE || i == JUNGLE2|| i == JUNGLE3|| i == JUNGLE4|| i == JUNGLE5|| i == JUNGLE6|| i == JUNGLE7 || jb.contains(i)){
                 return AMAZON_RIVER;

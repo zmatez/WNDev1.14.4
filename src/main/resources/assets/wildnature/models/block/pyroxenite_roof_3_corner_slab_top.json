@@ -1,0 +1,7 @@
+{
+    "parent": "wildnature:block/slab_corner",
+    "textures": {
+    	"particle": "wildnature:blocks/rocks/pyroxenite/pyroxenite_roof_3_corner_slab_top",
+    	"material": "wildnature:blocks/rocks/pyroxenite/pyroxenite_roof_3_corner_slab_top"
+  }
+}

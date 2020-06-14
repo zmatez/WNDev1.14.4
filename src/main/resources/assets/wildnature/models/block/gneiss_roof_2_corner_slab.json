@@ -1,0 +1,7 @@
+{
+    "parent": "wildnature:block/slab_corner",
+    "textures": {
+    	"particle": "wildnature:blocks/rocks/gneiss/gneiss_roof_2_corner_slab",
+    	"material": "wildnature:blocks/rocks/gneiss/gneiss_roof_2_corner_slab"
+  }
+}

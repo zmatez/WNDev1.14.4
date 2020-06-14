@@ -41,16 +41,15 @@ public class WNSteppe extends WNBiome {
         this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/savanna/town_centers", 8));
+        this.addStructure(Feature.VILLAGE, new VillageConfig("village/plains/town_centers", 3));
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
-        WNBiomeFeatures.addLakes(this);
         WNBiomeFeatures.addMonsterRooms(this);
         WNBiomeFeatures.addStoneVariants(this);
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,18);
+        WNBiomeFeatures.addGrass(this,5);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
@@ -61,7 +60,6 @@ public class WNSteppe extends WNBiome {
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
 
 
-        WNBiomeFeatures.addTree(this,new SavannaTreeFeature(NoFeatureConfig::deserialize,true),4);
 
         plantRate=1;
         treeRate=0;
@@ -91,12 +89,12 @@ public class WNSteppe extends WNBiome {
     @OnlyIn(Dist.CLIENT)
     public int getGrassColor(BlockPos pos)
     {
-        return 0xB49D5D;
+        return 0xB3E754;
     }
 
     @OnlyIn(Dist.CLIENT)
     public int getFoliageColor(BlockPos pos)
     {
-        return 0xBFEB60;
+        return 0x71C157;
     }
 }

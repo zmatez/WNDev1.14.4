@@ -17,6 +17,15 @@ public class SoundRegistry {
     public static SoundEvent DUCK_SCARED = registerSound("entity.duck.scared");
     public static SoundEvent DUCK_CHICK = registerSound("entity.duck.chick");
 
+    public static SoundEvent DEER_BUCKGRUNT = registerSound("entity.deer.buckgrunt");
+    public static SoundEvent DEER_DOEGRUNT = registerSound("entity.deer.doegrunt");
+    public static SoundEvent DEER_SNORT = registerSound("entity.deer.snort");
+    public static SoundEvent DEER_SNORT2 = registerSound("entity.deer.snort2");
+    public static SoundEvent DEER_CONTACT = registerSound("entity.deer.contact");
+    public static SoundEvent DEER_HURT = registerSound("entity.deer.hurt");
+    public static SoundEvent DEER_DEATH = registerSound("entity.deer.death");
+
+
     public static SoundEvent BOAR_DEATH = registerSound("entity.boar.death");
     public static SoundEvent BOAR_SNORT = registerSound("entity.boar.snort");
     public static SoundEvent BOAR_SCARED = registerSound("entity.boar.scared");
@@ -50,7 +59,14 @@ public class SoundRegistry {
                 DUCK_FLAP,
                 DUCK_QUACK,
                 DUCK_SCARED,
-                DUCK_CHICK
+                DUCK_CHICK,
+                DEER_BUCKGRUNT,
+                DEER_DOEGRUNT,
+                DEER_SNORT,
+                DEER_SNORT2,
+                DEER_CONTACT,
+                DEER_HURT,
+                DEER_DEATH
                 /*DENSEFOREST_DAY_0,
                 DENSEFOREST_DAY_1,
                 DENSEFOREST_DAY_2,

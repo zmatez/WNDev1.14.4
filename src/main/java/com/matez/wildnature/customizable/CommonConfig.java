@@ -14,7 +14,7 @@ import java.util.List;
 public class CommonConfig {
 
     private static CommonConfig instance;
-    private final ForgeConfigSpec.Builder builder;
+    public final ForgeConfigSpec.Builder builder;
 
     public static ForgeConfigSpec.ConfigValue<String> currentVersion;
     public static ForgeConfigSpec.BooleanValue changePanorama, newLoadingWorldScreen, generateOnlyWildNature;

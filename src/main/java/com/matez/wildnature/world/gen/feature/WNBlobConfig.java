@@ -12,6 +12,7 @@ public class WNBlobConfig implements IFeatureConfig {
     public final int startRadius;
     public final boolean surfaceBlob;
     public final boolean undergroundBlob;
+    public boolean flatInTerrain = false;
 
     public WNBlobConfig(BlockState state, int startRadius, boolean surfaceBlob, boolean undergroundBlob) {
 
@@ -19,6 +20,15 @@ public class WNBlobConfig implements IFeatureConfig {
         this.startRadius = startRadius;
         this.surfaceBlob=surfaceBlob;
         this.undergroundBlob=undergroundBlob;
+    }
+
+    public WNBlobConfig(BlockState state, int startRadius, boolean surfaceBlob, boolean undergroundBlob, boolean flatInTerrain) {
+
+        this.state = state;
+        this.startRadius = startRadius;
+        this.surfaceBlob=surfaceBlob;
+        this.undergroundBlob=undergroundBlob;
+        this.flatInTerrain=flatInTerrain;
     }
 
     public <T> Dynamic<T> serialize(DynamicOps<T> p_214634_1_) {

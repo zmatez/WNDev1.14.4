@@ -2,6 +2,7 @@ package com.matez.wildnature.world.gen.provider;
 
 import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
+import com.matez.wildnature.gui.screen.WNWorldConfigScreen;
 import com.matez.wildnature.gui.screen.WNWorldLoadProgressScreen;
 import com.matez.wildnature.world.gen.biomes.biomes.terrain.BiomeTerrain;
 import com.matez.wildnature.world.gen.biomes.layer.WNBiomeLayer;
@@ -11,6 +12,10 @@ import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorEarth;
 import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorOverworld;
 import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorType;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.CreateBuffetWorldScreen;
+import net.minecraft.client.gui.screen.CreateFlatWorldScreen;
+import net.minecraft.client.gui.screen.CreateWorldScreen;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.provider.BiomeProvider;
@@ -22,6 +27,8 @@ import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.area.IAreaFactory;
 import net.minecraft.world.gen.layer.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.function.LongFunction;
 
@@ -73,6 +80,17 @@ public class WNWorldType extends WorldType {
         parentLayer = LayerUtil.repeat(1000L, ZoomLayer.NORMAL, parentLayer, 2, contextFactory);
         parentLayer = EdgeBiomeLayer.INSTANCE.apply(contextFactory.apply(1000L), parentLayer);
         return parentLayer;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void onCustomizeButton(Minecraft mc, CreateWorldScreen gui)
+    {
+        if (this == WorldType.FLAT)
+            mc.displayGuiScreen(new CreateFlatWorldScreen(gui, gui.chunkProviderSettingsJson));
+        else if (this == WorldType.BUFFET)
+            mc.displayGuiScreen(new CreateBuffetWorldScreen(gui, gui.chunkProviderSettingsJson));
+        else if(this == Main.WNWorldType)
+            mc.displayGuiScreen(new WNWorldConfigScreen(gui, gui.chunkProviderSettingsJson));
     }
 
 

@@ -49,8 +49,8 @@ public class WNPrairieHills extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,20,Main.getBlockByID("wildnature:wild_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true));
-
+        WNBiomeFeatures.addGrass(this,25,Main.getBlockByID("wildnature:prairie_grass").getDefaultState().with(FloweringBushBase.FLOWERING,true));
+        WNBiomeFeatures.removeAllDefaultFlowers(this);
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
