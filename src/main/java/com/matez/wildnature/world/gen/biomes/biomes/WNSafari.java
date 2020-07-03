@@ -7,6 +7,7 @@ import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.structures.nature.woods.acacia.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -39,7 +40,7 @@ public class WNSafari extends WNBiome {
                 .parent(null));
 
 
-
+        WNBiomeFeatures.removeAllDefaultFlowers(this);
         this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
@@ -65,7 +66,12 @@ public class WNSafari extends WNBiome {
 
 
 
-        WNBiomeFeatures.addTree(this,new SavannaTreeFeature(NoFeatureConfig::deserialize,true),4);
+        WNBiomeFeatures.addTree(this,new SavannaTreeFeature(NoFeatureConfig::deserialize,true),5);
+        WNBiomeFeatures.addTree(this,new acacia1(NoFeatureConfig::deserialize,true),3);
+        WNBiomeFeatures.addTree(this,new acacia2(NoFeatureConfig::deserialize,true),3);
+        WNBiomeFeatures.addTree(this,new acacia3(NoFeatureConfig::deserialize,true),3);
+        WNBiomeFeatures.addTree(this,new acacia4(NoFeatureConfig::deserialize,true),3);
+        WNBiomeFeatures.addTree(this,new acacia5(NoFeatureConfig::deserialize,true),3);
 
         plantRate=1;
         treeRate=4;

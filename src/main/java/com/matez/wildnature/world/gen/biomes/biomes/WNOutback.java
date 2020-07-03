@@ -53,10 +53,10 @@ public class WNOutback extends WNBiome {
         WNBiomeFeatures.addSprings(this);
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.CACTUS, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(7)));
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DEAD_BUSH, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(20)));
+        WNBiomeFeatures.removeAllDefaultFlowers(this);
 
 
-
-        plantRate=4;
+        plantRate=1;
         treeRate=0;
 
         applyPlants();

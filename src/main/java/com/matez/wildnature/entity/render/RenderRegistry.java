@@ -14,6 +14,8 @@ import com.matez.wildnature.entity.type.animal.duck.DucklingEntity;
 import com.matez.wildnature.entity.type.animal.fish.PiranhaEntity;
 import com.matez.wildnature.entity.type.animal.insect.DragonflyEntity;
 import com.matez.wildnature.entity.type.monster.GoblinEntity;
+import com.matez.wildnature.gui.tileEntities.seat.SeatEntity;
+import com.matez.wildnature.gui.tileEntities.seat.SeatEntityRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -33,6 +35,9 @@ public class RenderRegistry {
         RenderingRegistry.registerEntityRenderingHandler(BuckEntity.class,new BuckRender.RenderFactory());
         RenderingRegistry.registerEntityRenderingHandler(DoeEntity.class,new DoeRender.RenderFactory());
         RenderingRegistry.registerEntityRenderingHandler(FawnEntity.class,new FawnRender.RenderFactory());
+
+        //tiles
+        RenderingRegistry.registerEntityRenderingHandler(SeatEntity.class,new SeatEntityRenderer.RenderFactory());
 
     }
 }

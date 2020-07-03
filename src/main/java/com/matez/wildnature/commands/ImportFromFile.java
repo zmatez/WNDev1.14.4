@@ -57,7 +57,9 @@ public class ImportFromFile {
                         linex = linex.replaceFirst(z + ",", "");
                         String blockstate = linex.substring(linex.indexOf("(") + 1, linex.indexOf(")"));
                         //System.out.println("x = " + x + "   y = " + y + "   z = " + z + "   blockstate = " + blockstate);
-                        list.add(new BlockStatePos(parse(new StringReader(blockstate)).getState(), new BlockPos(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z))));
+                        blockstate = blockstate.substring(1,blockstate.length()-1).replace("\\","");
+                        Main.LOGGER.info("Block: " + blockstate);
+                        list.add(new BlockStatePos(parse(new StringReader(blockstate)), new BlockPos(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(z))));
                     }catch (Exception e){
                         brokenParts++;
                     }
@@ -74,7 +76,7 @@ public class ImportFromFile {
         }
 
         if(brokenParts>0){
-            StringTextComponent s4 = new StringTextComponent(TextFormatting.LIGHT_PURPLE + "Found " + TextFormatting.GOLD + brokenParts + TextFormatting.LIGHT_PURPLE +" broken parts in this file.");
+            StringTextComponent s4 = new StringTextComponent(TextFormatting.RED + "Found " + TextFormatting.GOLD + brokenParts + TextFormatting.RED +" broken parts in this file.");
             Main.sendChatMessage(source.getSource().asPlayer(), new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s4));
         }
 
@@ -83,8 +85,12 @@ public class ImportFromFile {
         Main.sendChatMessage(source.getSource().asPlayer(), new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s6).appendSibling(s7));
 
         for (BlockStatePos statePos : list){
-            BlockPos pos = new BlockPos(coords.getX()+statePos.getPos().getX(),coords.getY()+statePos.getPos().getY(),coords.getZ()+statePos.getPos().getZ());
-            world.setBlockState(pos,statePos.getState());
+            try {
+                BlockPos pos = new BlockPos(coords.getX() + statePos.getPos().getX(), coords.getY() + statePos.getPos().getY(), coords.getZ() + statePos.getPos().getZ());
+                statePos.getState().place(world, pos, 2);
+            }catch (Exception e){
+                Main.LOGGER.warn(e);
+            }
         }
 
         StringTextComponent s4 = new StringTextComponent(TextFormatting.GREEN + "Operation succeed.");
@@ -97,7 +103,7 @@ public class ImportFromFile {
 
     public BlockStateInput parse(StringReader p_parse_1_) {
         try {
-            BlockStateParser blockstateparser = (new BlockStateParser(p_parse_1_, false)).parse(true);
+            BlockStateParser blockstateparser = (new BlockStateParser(p_parse_1_, true)).parse(true);
             return new BlockStateInput(blockstateparser.getState(), blockstateparser.getProperties().keySet(), blockstateparser.getNbt());
         }catch (Exception e){
             brokenParts++;
@@ -106,14 +112,14 @@ public class ImportFromFile {
     }
 
     private static class BlockStatePos{
-        private BlockState state;
+        private BlockStateInput state;
         private BlockPos pos;
-        public BlockStatePos(BlockState state, BlockPos pos){
+        public BlockStatePos(BlockStateInput state, BlockPos pos){
             this.state=state;
             this.pos=pos;
         }
 
-        public BlockState getState() {
+        public BlockStateInput getState() {
             return state;
         }
 
@@ -125,7 +131,7 @@ public class ImportFromFile {
             this.pos = pos;
         }
 
-        public void setState(BlockState state) {
+        public void setState(BlockStateInput state) {
             this.state = state;
         }
     }

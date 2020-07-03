@@ -3,10 +3,13 @@ package com.matez.wildnature.commands;
 import com.matez.wildnature.Main;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.arguments.BlockStateInput;
 import net.minecraft.command.arguments.BlockStateParser;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.text.StringTextComponent;
@@ -25,7 +28,7 @@ import java.util.ArrayList;
 public class ExportToFile {
     public ExportToFile(){}
 
-    public int export(CommandContext<CommandSource> source, MutableBoundingBox area, String name, BlockStateInput centerTo, boolean fullJava) throws CommandSyntaxException {
+    public int export(CommandContext<CommandSource> source, MutableBoundingBox area, String name, BlockStateInput centerTo, boolean fullJava, boolean tileEntitySave) throws CommandSyntaxException {
 
 
         ArrayList<BlockPos> list = new ArrayList<>();
@@ -68,12 +71,13 @@ public class ExportToFile {
         String signature = "\n\n//   wildnature mod\n" +
                 "//           created by matez \n" +
                 "//         all rights reserved   \n" +
-                "//     http://bit.ly/wildnature-mod\n";
+                "//     https://wildnaturemod.com\n";
         String end = "";
 
         if(fullJava){
-            start=("import Main;\n" +
-                    "import SchemFeature;\n" +
+            start=(
+                    "import com.matez.wildnature.Main;\n" +
+                    "import com.matez.wildnature.world.gen.structures.nature.SchemFeature;\n" +
                     "import com.mojang.datafixers.Dynamic;\n" +
                     "import net.minecraft.util.math.BlockPos;\n" +
                     "import net.minecraft.block.BlockState;\n" +
@@ -107,7 +111,7 @@ public class ExportToFile {
                 continue;
             }
             BlockPos centered = centerBlockPos(blockPos,centerBlockPos);
-            export =  export + "\nBlock(" + centered.getX()+","+centered.getY()+","+centered.getZ()+",\""+ BlockStateParser.toString(serverworld.getBlockState(blockPos))+"\");";
+            export =  export + "\nBlock(" + centered.getX()+","+centered.getY()+","+centered.getZ()+",\""+ parseBlock(serverworld,blockPos,tileEntitySave)+"\");";
         }
 
 
@@ -163,5 +167,19 @@ public class ExportToFile {
         }else{
             return -value;
         }
+    }
+
+    private String parseBlock(ServerWorld world, BlockPos pos, boolean saveTileEntity){
+        BlockState state = world.getBlockState(pos);
+        String s = BlockStateParser.toString(state);
+        if(saveTileEntity) {
+            TileEntity e = world.getTileEntity(pos);
+            if(e!=null){
+                CompoundNBT nbt = e.write(new CompoundNBT());
+                s = s + nbt.toString().replace("\"","\\\"");
+            }
+        }
+
+        return s;
     }
 }

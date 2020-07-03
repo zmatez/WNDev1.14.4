@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/hardened_sandstone/hardened_sandstone",
-        "top": "wildnature:blocks/rocks/hardened_sandstone/hardened_sandstone",
-        "side": "wildnature:blocks/rocks/hardened_sandstone/hardened_sandstone"
-    }
-}

@@ -12,6 +12,6 @@ public class wnItemGroupUnderground extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(Registry.ITEM.getOrDefault(new ResourceLocation("wildnature:dragon_shroom")));
+        return new ItemStack(Registry.ITEM.getOrDefault(new ResourceLocation("wildnature:glowshroom_dust")));
     }
 }

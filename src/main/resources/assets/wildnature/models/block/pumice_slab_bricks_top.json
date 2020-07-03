@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab_top",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/pumice/pumice_bricks",
-        "top": "wildnature:blocks/rocks/pumice/pumice_bricks",
-        "side": "wildnature:blocks/rocks/pumice/pumice_bricks"
-    }
-}

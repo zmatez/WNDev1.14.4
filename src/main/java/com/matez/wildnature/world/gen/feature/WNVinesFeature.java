@@ -2,6 +2,7 @@ package com.matez.wildnature.world.gen.feature;
 
 import com.matez.wildnature.Main;
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.other.Utilities;
 import com.mojang.datafixers.Dynamic;
 import java.util.Random;
 import java.util.function.Function;
@@ -29,20 +30,39 @@ public class WNVinesFeature extends Feature<BushConfig> {
       if(!worldIn.getDimension().isSurfaceWorld()){
          return false;
       }
+      if(!(config.state.getBlock() instanceof VineBlock)){
+         return false;
+      }
       BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos(pos);
-
+      BlockPos.MutableBlockPos vinePos = new BlockPos.MutableBlockPos(pos);
       for(int i = pos.getY(); i > 2; i--) {
          mutable.setPos(pos);
          mutable.move(rand.nextInt(4) - rand.nextInt(4), 0, rand.nextInt(4) - rand.nextInt(4));
          mutable.setY(i);
          if (worldIn.isAirBlock(mutable)) {
-            for(Direction direction : DIRECTIONS) {
-               if ( direction != Direction.DOWN && direction != Direction.UP && worldIn.getBlockState(mutable.offset(direction)).isSolid()) {
-                  worldIn.setBlockState(mutable, config.state.with(VineBlock.getPropertyFor(direction), Boolean.valueOf(true)), 2);
-                  break;
+            for (Direction direction : DIRECTIONS) {
+               if (direction != Direction.DOWN && direction != Direction.UP) {
+                  if (worldIn.getBlockState(mutable.offset(direction)).isSolid()) {
+
+                     worldIn.setBlockState(mutable, config.state.with(VineBlock.getPropertyFor(direction), Boolean.valueOf(true)), 2);
+                     vinePos.setPos(mutable);
+                     break;
+                  }
                }
             }
-
+         }
+      }
+      for(int i = vinePos.getY(); i > Utilities.rint(1,15,rand); i--) {
+         vinePos.setY(i);
+         if(worldIn.isAirBlock(vinePos.down())) {
+            if (worldIn.getBlockState(vinePos).getBlock() == config.state.getBlock()){
+               BlockState s = worldIn.getBlockState(vinePos);
+               worldIn.setBlockState(vinePos.down(), config.state.with(VineBlock.UP,false)
+                       .with(VineBlock.EAST,s.get(VineBlock.EAST))
+                       .with(VineBlock.WEST,s.get(VineBlock.WEST))
+                       .with(VineBlock.NORTH,s.get(VineBlock.NORTH))
+                       .with(VineBlock.SOUTH,s.get(VineBlock.SOUTH)), 2);
+            }
          }
       }
 

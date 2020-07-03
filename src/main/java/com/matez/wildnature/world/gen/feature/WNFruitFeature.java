@@ -1,5 +1,6 @@
 package com.matez.wildnature.world.gen.feature;
 
+import com.matez.wildnature.blocks.BelladonnaBlock;
 import com.matez.wildnature.blocks.BushBerryBase;
 import com.matez.wildnature.blocks.CropBase;
 import com.matez.wildnature.customizable.CommonConfig;
@@ -51,8 +52,12 @@ public class WNFruitFeature extends Feature<NoFeatureConfig> {
             assert b != null;
             if(!b.isPlant()) {
                 new shrub1(NoFeatureConfig::deserialize, true, SchemFeature.notDecayingLeaf(b.getBush().getBlock()).with(BushBerryBase.STAGE,Utilities.rint(0,1,rand)), b.getBush()).place(worldIn, generator, rand, pos, config);
-            }else{
-                new WNBushFeature(BushConfig::deserialize).place(worldIn,generator,rand,pos,new BushConfig(b.getBush().with(((CropBase)b.getBush().getBlock()).getAge(),Utilities.rint(((CropBase)b.getBush().getBlock()).getMaxAge()-1,((CropBase)b.getBush().getBlock()).getMaxAge()))));
+            }else {
+                if (b.getBush().getBlock() instanceof BelladonnaBlock) {
+                    new WNBushFeature(BushConfig::deserialize).place(worldIn, generator, rand, pos, new BushConfig(b.getBush()));
+                } else {
+                    new WNBushFeature(BushConfig::deserialize).place(worldIn, generator, rand, pos, new BushConfig(b.getBush().with(((CropBase) b.getBush().getBlock()).getAge(), Utilities.rint(((CropBase) b.getBush().getBlock()).getMaxAge() - 1, ((CropBase) b.getBush().getBlock()).getMaxAge()))));
+                }
             }
 
             return true;
@@ -90,7 +95,8 @@ public class WNFruitFeature extends Feature<NoFeatureConfig> {
         new BushEntry(WNBlocks.BUSH_WILD_BLUEBERRY.getDefaultState(), Biome.TempCategory.COLD,4,true, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE);
         new BushEntry(WNBlocks.BUSH_WILD_BLUEBERRY.getDefaultState(), Biome.TempCategory.MEDIUM,8,true, BiomeDictionary.Type.FOREST, BiomeDictionary.Type.DENSE);
 
-
+        new BushEntry(WNBlocks.BELLADONNA.getDefaultState(), Biome.TempCategory.COLD,3,true, BiomeDictionary.Type.FOREST);
+        new BushEntry(WNBlocks.BELLADONNA.getDefaultState(), Biome.TempCategory.MEDIUM,2,true, BiomeDictionary.Type.FOREST);
     }
 
     public static class BushEntry{

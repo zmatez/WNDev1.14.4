@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/carbonatite/carbonatite",
-        "top": "wildnature:blocks/rocks/carbonatite/carbonatite",
-        "side": "wildnature:blocks/rocks/carbonatite/carbonatite"
-    }
-}

@@ -13,6 +13,7 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.TickPriority;
 import net.minecraft.world.World;
 
@@ -39,7 +40,19 @@ public class MagmaPadBlock extends LavalilyBase {
         super.onEntityCollision(state, worldIn, pos, entity);
         if(entity instanceof LivingEntity && (!(entity instanceof PlayerEntity) || !(((PlayerEntity)entity).isCreative())) && !state.get(CRACK)) {
             worldIn.setBlockState(pos, worldIn.getBlockState(pos).with(CRACK, true));
-            worldIn.getPendingBlockTicks().scheduleTick(pos, this, 60, TickPriority.NORMAL);
+
+            if(worldIn.getDifficulty()!= Difficulty.PEACEFUL){
+                int time = 60;
+                if(worldIn.getDifficulty()==Difficulty.EASY){
+                    time = 80;
+                }else if(worldIn.getDifficulty()==Difficulty.NORMAL){
+                    time = 40;
+                }else{
+                    time = 10;
+                }
+                worldIn.getPendingBlockTicks().scheduleTick(pos, this, time, TickPriority.NORMAL);
+
+            }
         }
     }
 

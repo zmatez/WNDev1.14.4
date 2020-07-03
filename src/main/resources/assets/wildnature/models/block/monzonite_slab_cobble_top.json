@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab_top",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/monzonite/monzonite_cobble",
-        "top": "wildnature:blocks/rocks/monzonite/monzonite_cobble",
-        "side": "wildnature:blocks/rocks/monzonite/monzonite_cobble"
-    }
-}

@@ -7,6 +7,7 @@ import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.structures.nature.woods.acacia.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.baobab.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -41,7 +42,7 @@ public class WNBaobabSavanna extends WNBiome {
                 .parent(null));
 
 
-
+        WNBiomeFeatures.removeAllDefaultFlowers(this);
         this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
@@ -66,7 +67,12 @@ public class WNBaobabSavanna extends WNBiome {
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
 
 
-        WNBiomeFeatures.addTree(this,new SavannaTreeFeature(NoFeatureConfig::deserialize,true),15);
+        WNBiomeFeatures.addTree(this,new SavannaTreeFeature(NoFeatureConfig::deserialize,true),4);
+        WNBiomeFeatures.addTree(this,new acacia1(NoFeatureConfig::deserialize,true),2);
+        WNBiomeFeatures.addTree(this,new acacia2(NoFeatureConfig::deserialize,true),2);
+        WNBiomeFeatures.addTree(this,new acacia3(NoFeatureConfig::deserialize,true),2);
+        WNBiomeFeatures.addTree(this,new acacia4(NoFeatureConfig::deserialize,true),2);
+        WNBiomeFeatures.addTree(this,new acacia5(NoFeatureConfig::deserialize,true),2);
         WNBiomeFeatures.addTree(this,new baobab1(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new baobab2(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new baobab3(NoFeatureConfig::deserialize,true),1);

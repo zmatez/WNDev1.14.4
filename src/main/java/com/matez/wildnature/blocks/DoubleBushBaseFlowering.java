@@ -90,11 +90,13 @@ public class DoubleBushBaseFlowering extends TallFlowerBlock {
     @Override
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         super.neighborChanged( state,  worldIn,  pos,  blockIn,  fromPos,  isMoving);
-        if(worldIn.getBlockState(fromPos).getBlock() instanceof DoubleBushBaseFlowering) {
-            if (worldIn.getBlockState(pos.down()).getBlock() instanceof DoubleBushBaseFlowering) {
-                worldIn.setBlockState(pos, state.with(FLOWERING, worldIn.getBlockState(fromPos).get(FLOWERING)));
-            } else if (worldIn.getBlockState(pos.up()).getBlock() instanceof DoubleBushBaseFlowering) {
-                worldIn.setBlockState(pos, state.with(FLOWERING, worldIn.getBlockState(fromPos).get(FLOWERING)));
+        if(fromPos.getZ() == pos.getZ() && fromPos.getX() == pos.getX() && (fromPos.getY() == pos.getY() || fromPos.getY() == pos.getY()-1 || fromPos.getY() == pos.getY()+1)) {
+            if (worldIn.getBlockState(fromPos).getBlock() instanceof DoubleBushBaseFlowering) {
+                if (worldIn.getBlockState(pos.down()).getBlock() instanceof DoubleBushBaseFlowering) {
+                    worldIn.setBlockState(pos, state.with(FLOWERING, worldIn.getBlockState(fromPos).get(FLOWERING)));
+                } else if (worldIn.getBlockState(pos.up()).getBlock() instanceof DoubleBushBaseFlowering) {
+                    worldIn.setBlockState(pos, state.with(FLOWERING, worldIn.getBlockState(fromPos).get(FLOWERING)));
+                }
             }
         }
     }
@@ -129,6 +131,7 @@ public class DoubleBushBaseFlowering extends TallFlowerBlock {
         if(Utilities.rint(0, CommonConfig.flowerBloomChance.get())==0){
             if(!state.get(FLOWERING)) {
                 worldIn.setBlockState(pos, state.with(FLOWERING, true));
+                worldIn.notifyBlockUpdate(pos,state.with(FLOWERING, true),worldIn.getBlockState(pos),2);
             }else{
                 ItemStack stack = new ItemStack(this, 1);
                 spawnAsEntity(worldIn,pos,stack);

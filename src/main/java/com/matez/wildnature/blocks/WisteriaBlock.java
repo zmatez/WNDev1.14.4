@@ -3,11 +3,12 @@ package com.matez.wildnature.blocks;
 import com.matez.wildnature.lists.WNBlocks;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.state.StateContainer;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -17,7 +18,7 @@ import net.minecraft.world.storage.loot.LootContext;
 import java.util.List;
 import java.util.Random;
 
-public class WisteriaBlock extends EndRodBlock {
+public class WisteriaBlock extends DirectionalBlock {
     private static final double height = 16D;
     protected static final VoxelShape UP = Block.makeCuboidShape(4.0D, 0D, 4.0D, 12.0D, 1.0D, 12.0D);
     protected static final VoxelShape DOWN = Block.makeCuboidShape(4.0D, 15.0D, 4.0D, 12.0D, 16.0D, 12.0D);
@@ -29,7 +30,7 @@ public class WisteriaBlock extends EndRodBlock {
     private Item item;
 
     public WisteriaBlock(Properties properties, Item.Properties builder, ResourceLocation regName) {
-        super(properties.hardnessAndResistance(1.4F,0.4F).sound(SoundType.GLASS).lightValue(8));
+        super(properties.hardnessAndResistance(0F,0.01F).sound(SoundType.SWEET_BERRY_BUSH));
 
 
         this.setRegistryName(regName);
@@ -42,8 +43,44 @@ public class WisteriaBlock extends EndRodBlock {
     }
 
     @Override
-    public int getLightValue(BlockState state, IEnviromentBlockReader world, BlockPos pos) {
-        return 0;
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        Direction direction = state.get(FACING);
+        BlockState wall = worldIn.getBlockState(pos.offset(direction.getOpposite()));
+        if(wall.isIn(BlockTags.LEAVES)||wall.isIn(BlockTags.LOGS)){
+            return true;
+        }
+        return false;
+    }
+
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        Direction direction = context.getFace();
+        BlockState blockstate = context.getWorld().getBlockState(context.getPos().offset(direction.getOpposite()));
+        BlockState out = blockstate.getBlock() == this && blockstate.get(FACING) == direction ? this.getDefaultState().with(FACING, direction.getOpposite()) : this.getDefaultState().with(FACING, direction);
+        if(out.get(FACING)==Direction.UP){
+            return null;
+        }
+        return out;
+    }
+
+    /**
+     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+     * blockstate.
+     * fine.
+     */
+    public BlockState rotate(BlockState state, Rotation rot) {
+        return state.with(FACING, rot.rotate(state.get(FACING)));
+    }
+
+    /**
+     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
+     * blockstate.
+     */
+    public BlockState mirror(BlockState state, Mirror mirrorIn) {
+        return state.with(FACING, mirrorIn.mirror(state.get(FACING)));
+    }
+
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(FACING);
     }
 
     @Override
@@ -56,12 +93,6 @@ public class WisteriaBlock extends EndRodBlock {
         return list;
     }
 
-    public int getOpacity(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return 0;
-    }
-
-
-
     public boolean isSolid(BlockState state) {
         return false;
     }
@@ -73,6 +104,7 @@ public class WisteriaBlock extends EndRodBlock {
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
+
     public boolean causesSuffocation(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return false;
     }
@@ -96,17 +128,6 @@ public class WisteriaBlock extends EndRodBlock {
         return DOWN;
     }
 
-    @Override
-    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-
-    }
-
-    @Override
-    public void onNeighborChange(BlockState state, IWorldReader world, BlockPos pos, BlockPos neighbor) {
-
-
-
-    }
 
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {

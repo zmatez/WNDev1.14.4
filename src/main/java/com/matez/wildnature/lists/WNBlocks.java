@@ -22,6 +22,7 @@ public class WNBlocks {
     public static Block OAK_BRANCH;
     public static Block SPRUCE_BRANCH;
     public static Block BIRCH_BRANCH;
+    public static Block JUNGLE_BRANCH;
     public static Block ACACIA_BRANCH;
     public static Block DARK_OAK_BRANCH;
 
@@ -502,7 +503,9 @@ public class WNBlocks {
 
     public static Block NUYTSIA_LEAVES;
     public static Block NUYTSIA_SAPLING;
-    
+    public static Block MAGNOLIA_SAPLING;
+    public static Block FORSYTHIA_SAPLING;
+
     public static Block PALM_LOG;
     public static Block PALM_WOOD;
     public static Block PALM_STRIPPED_LOG;
@@ -757,7 +760,71 @@ public class WNBlocks {
     public static Block LARGE_BUSH_LEAVES;
     public static Block DENSE_BUSH_LEAVES;
     public static Block SMALL_BUSH_LEAVES;
+
+    //VANILLA TWEAKS
+    public static Block OAK_PARQUET;
+    public static Block BIRCH_PARQUET;
+    public static Block SPRUCE_PARQUET;
+    public static Block JUNGLE_PARQUET;
+    public static Block ACACIA_PARQUET;
+    public static Block DARK_OAK_PARQUET;
+
+    public static Block OAK_PARQUET_SLAB;
+    public static Block BIRCH_PARQUET_SLAB;
+    public static Block SPRUCE_PARQUET_SLAB;
+    public static Block JUNGLE_PARQUET_SLAB;
+    public static Block ACACIA_PARQUET_SLAB;
+    public static Block DARK_OAK_PARQUET_SLAB;
+
+    public static Block OAK_PARQUET_STAIRS;
+    public static Block BIRCH_PARQUET_STAIRS;
+    public static Block SPRUCE_PARQUET_STAIRS;
+    public static Block JUNGLE_PARQUET_STAIRS;
+    public static Block ACACIA_PARQUET_STAIRS;
+    public static Block DARK_OAK_PARQUET_STAIRS;
+
+    public static Block OAK_PARQUET_VERTICAL_SLAB;
+    public static Block BIRCH_PARQUET_VERTICAL_SLAB;
+    public static Block SPRUCE_PARQUET_VERTICAL_SLAB;
+    public static Block JUNGLE_PARQUET_VERTICAL_SLAB;
+    public static Block ACACIA_PARQUET_VERTICAL_SLAB;
+    public static Block DARK_OAK_PARQUET_VERTICAL_SLAB;
+
+    public static Block OAK_PARQUET_CORNER_SLAB;
+    public static Block BIRCH_PARQUET_CORNER_SLAB;
+    public static Block SPRUCE_PARQUET_CORNER_SLAB;
+    public static Block JUNGLE_PARQUET_CORNER_SLAB;
+    public static Block ACACIA_PARQUET_CORNER_SLAB;
+    public static Block DARK_OAK_PARQUET_CORNER_SLAB;
     
+    public static Block OAK_LOG_FENCE;
+    public static Block BIRCH_LOG_FENCE;
+    public static Block SPRUCE_LOG_FENCE;
+    public static Block JUNGLE_LOG_FENCE;
+    public static Block ACACIA_LOG_FENCE;
+    public static Block DARK_OAK_LOG_FENCE;
+
+    public static Block OAK_LOG_FENCE_GATE;
+    public static Block BIRCH_LOG_FENCE_GATE;
+    public static Block SPRUCE_LOG_FENCE_GATE;
+    public static Block JUNGLE_LOG_FENCE_GATE;
+    public static Block ACACIA_LOG_FENCE_GATE;
+    public static Block DARK_OAK_LOG_FENCE_GATE;
+
+    public static Block OAK_LOG_BUTTON;
+    public static Block BIRCH_LOG_BUTTON;
+    public static Block SPRUCE_LOG_BUTTON;
+    public static Block JUNGLE_LOG_BUTTON;
+    public static Block ACACIA_LOG_BUTTON;
+    public static Block DARK_OAK_LOG_BUTTON;
+
+    public static Block OAK_LOG_PRESSURE_PLATE;
+    public static Block BIRCH_LOG_PRESSURE_PLATE;
+    public static Block SPRUCE_LOG_PRESSURE_PLATE;
+    public static Block JUNGLE_LOG_PRESSURE_PLATE;
+    public static Block ACACIA_LOG_PRESSURE_PLATE;
+    public static Block DARK_OAK_LOG_PRESSURE_PLATE;
+
     ///////////////////FLOWERS
 
     public static Block CHERRY_FLOWER;
@@ -938,7 +1005,7 @@ public class WNBlocks {
     public static Block CATTAIL;
     public static Block BIRD_OF_PARADISE;
     public static Block RAPESEED;
-    public static Block COFFEE_BUSH,COFFEE_SAPLING;
+    public static Block COFFEE_BUSH, COFFEE_SAPLING;
     public static Block CORN_BUSH;
     public static Block FESTUCA;
     public static Block REEDS;
@@ -1027,7 +1094,7 @@ public class WNBlocks {
     public static Block MELISSA_PLANT;
     public static Block MINT_PLANT;
     public static Block WHITE_TEA;
-    
+
     ///////////////////MUSHROOMS
     public static Block MUSHROOM1_PORCINO;
     public static Block MUSHROOM2_SLIPPERY_JACK;
@@ -1084,6 +1151,468 @@ public class WNBlocks {
     public static Block MANGO_LEAVES, MANGO_SAPLING;
 
 
+    //VERTICAL SLABS
+    public static Block OAK_VERTICAL_SLAB;
+    public static Block BIRCH_VERTICAL_SLAB;
+    public static Block SPRUCE_VERTICAL_SLAB;
+    public static Block JUNGLE_VERTICAL_SLAB;
+    public static Block ACACIA_VERTICAL_SLAB;
+    public static Block DARK_OAK_VERTICAL_SLAB;
+    public static Block ROSACEAE_VERTICAL_SLAB;
+    public static Block BAOBAB_VERTICAL_SLAB;
+    public static Block BEECH_VERTICAL_SLAB;
+    public static Block CEDAR_VERTICAL_SLAB;
+    public static Block CHERRY_VERTICAL_SLAB;
+    public static Block CITRUS_VERTICAL_SLAB;
+    public static Block EBONY_VERTICAL_SLAB;
+    public static Block EUCALYPTUS_VERTICAL_SLAB;
+    public static Block JACARANDA_VERTICAL_SLAB;
+    public static Block LARCH_VERTICAL_SLAB;
+    public static Block MAHOGANY_VERTICAL_SLAB;
+    public static Block MANGROVE_VERTICAL_SLAB;
+    public static Block MAPLE_VERTICAL_SLAB;
+    public static Block PALM_VERTICAL_SLAB;
+    public static Block PLUM_VERTICAL_SLAB;
+    public static Block REDWOOD_VERTICAL_SLAB;
+    public static Block WILLOW_VERTICAL_SLAB;
+    public static Block GLOWING_CAVE_OAK_VERTICAL_SLAB;
+
+
+    public static Block ROSACEAE_PARQUET_VERTICAL_SLAB;
+    public static Block BAOBAB_PARQUET_VERTICAL_SLAB;
+    public static Block BEECH_PARQUET_VERTICAL_SLAB;
+    public static Block CEDAR_PARQUET_VERTICAL_SLAB;
+    public static Block CHERRY_PARQUET_VERTICAL_SLAB;
+    public static Block CITRUS_PARQUET_VERTICAL_SLAB;
+    public static Block EBONY_PARQUET_VERTICAL_SLAB;
+    public static Block EUCALYPTUS_PARQUET_VERTICAL_SLAB;
+    public static Block JACARANDA_PARQUET_VERTICAL_SLAB;
+    public static Block LARCH_PARQUET_VERTICAL_SLAB;
+    public static Block MAHOGANY_PARQUET_VERTICAL_SLAB;
+    public static Block MANGROVE_PARQUET_VERTICAL_SLAB;
+    public static Block MAPLE_PARQUET_VERTICAL_SLAB;
+    public static Block PALM_PARQUET_VERTICAL_SLAB;
+    public static Block PLUM_PARQUET_VERTICAL_SLAB;
+    public static Block REDWOOD_PARQUET_VERTICAL_SLAB;
+    public static Block WILLOW_PARQUET_VERTICAL_SLAB;
+    public static Block GLOWING_CAVE_OAK_PARQUET_VERTICAL_SLAB;
+
+
+    public static Block GRANITE_VERTICAL_SLAB;
+    public static Block DIORITE_VERTICAL_SLAB;
+    public static Block ANDESITE_VERTICAL_SLAB;
+    public static Block BASALT_VERTICAL_SLAB;
+    public static Block CONGLOMERATE_VERTICAL_SLAB;
+    public static Block GNEISS_VERTICAL_SLAB;
+    public static Block LIMESTONE_VERTICAL_SLAB;
+    public static Block MARBLE_VERTICAL_SLAB;
+    public static Block PEGMATITE_VERTICAL_SLAB;
+    public static Block SLATE_VERTICAL_SLAB;
+
+    public static Block GRANITE_POLISHED_VERTICAL_SLAB;
+    public static Block DIORITE_POLISHED_VERTICAL_SLAB;
+    public static Block ANDESITE_POLISHED_VERTICAL_SLAB;
+    public static Block BASALT_POLISHED_VERTICAL_SLAB;
+    public static Block CONGLOMERATE_POLISHED_VERTICAL_SLAB;
+    public static Block GNEISS_POLISHED_VERTICAL_SLAB;
+    public static Block LIMESTONE_POLISHED_VERTICAL_SLAB;
+    public static Block MARBLE_POLISHED_VERTICAL_SLAB;
+    public static Block PEGMATITE_POLISHED_VERTICAL_SLAB;
+    public static Block SLATE_POLISHED_VERTICAL_SLAB;
+
+    public static Block GRANITE_COBBLE_VERTICAL_SLAB;
+    public static Block DIORITE_COBBLE_VERTICAL_SLAB;
+    public static Block ANDESITE_COBBLE_VERTICAL_SLAB;
+    public static Block BASALT_COBBLE_VERTICAL_SLAB;
+    public static Block CONGLOMERATE_COBBLE_VERTICAL_SLAB;
+    public static Block GNEISS_COBBLE_VERTICAL_SLAB;
+    public static Block LIMESTONE_COBBLE_VERTICAL_SLAB;
+    public static Block MARBLE_COBBLE_VERTICAL_SLAB;
+    public static Block PEGMATITE_COBBLE_VERTICAL_SLAB;
+    public static Block SLATE_COBBLE_VERTICAL_SLAB;
+
+    public static Block GRANITE_MOSSY_COBBLE_VERTICAL_SLAB;
+    public static Block DIORITE_MOSSY_COBBLE_VERTICAL_SLAB;
+    public static Block ANDESITE_MOSSY_COBBLE_VERTICAL_SLAB;
+    public static Block BASALT_MOSSY_COBBLE_VERTICAL_SLAB;
+    public static Block CONGLOMERATE_MOSSY_COBBLE_VERTICAL_SLAB;
+    public static Block GNEISS_MOSSY_COBBLE_VERTICAL_SLAB;
+    public static Block LIMESTONE_MOSSY_COBBLE_VERTICAL_SLAB;
+    public static Block MARBLE_MOSSY_COBBLE_VERTICAL_SLAB;
+    public static Block PEGMATITE_MOSSY_COBBLE_VERTICAL_SLAB;
+    public static Block SLATE_MOSSY_COBBLE_VERTICAL_SLAB;
+
+    public static Block GRANITE_BRICKS_VERTICAL_SLAB;
+    public static Block DIORITE_BRICKS_VERTICAL_SLAB;
+    public static Block ANDESITE_BRICKS_VERTICAL_SLAB;
+    public static Block BASALT_BRICKS_VERTICAL_SLAB;
+    public static Block CONGLOMERATE_BRICKS_VERTICAL_SLAB;
+    public static Block GNEISS_BRICKS_VERTICAL_SLAB;
+    public static Block LIMESTONE_BRICKS_VERTICAL_SLAB;
+    public static Block MARBLE_BRICKS_VERTICAL_SLAB;
+    public static Block PEGMATITE_BRICKS_VERTICAL_SLAB;
+    public static Block SLATE_BRICKS_VERTICAL_SLAB;
+
+    public static Block GRANITE_BRICKS_MOSSY_VERTICAL_SLAB;
+    public static Block DIORITE_BRICKS_MOSSY_VERTICAL_SLAB;
+    public static Block ANDESITE_BRICKS_MOSSY_VERTICAL_SLAB;
+    public static Block BASALT_BRICKS_MOSSY_VERTICAL_SLAB;
+    public static Block CONGLOMERATE_BRICKS_MOSSY_VERTICAL_SLAB;
+    public static Block GNEISS_BRICKS_MOSSY_VERTICAL_SLAB;
+    public static Block LIMESTONE_BRICKS_MOSSY_VERTICAL_SLAB;
+    public static Block MARBLE_BRICKS_MOSSY_VERTICAL_SLAB;
+    public static Block PEGMATITE_BRICKS_MOSSY_VERTICAL_SLAB;
+    public static Block SLATE_BRICKS_MOSSY_VERTICAL_SLAB;
+
+    public static Block GRANITE_BRICKS_CHISELED_VERTICAL_SLAB;
+    public static Block DIORITE_BRICKS_CHISELED_VERTICAL_SLAB;
+    public static Block ANDESITE_BRICKS_CHISELED_VERTICAL_SLAB;
+    public static Block BASALT_BRICKS_CHISELED_VERTICAL_SLAB;
+    public static Block CONGLOMERATE_BRICKS_CHISELED_VERTICAL_SLAB;
+    public static Block GNEISS_BRICKS_CHISELED_VERTICAL_SLAB;
+    public static Block LIMESTONE_BRICKS_CHISELED_VERTICAL_SLAB;
+    public static Block MARBLE_BRICKS_CHISELED_VERTICAL_SLAB;
+    public static Block PEGMATITE_BRICKS_CHISELED_VERTICAL_SLAB;
+    public static Block SLATE_BRICKS_CHISELED_VERTICAL_SLAB;
+
+    public static Block GRANITE_BRICKS_CRACKED_VERTICAL_SLAB;
+    public static Block DIORITE_BRICKS_CRACKED_VERTICAL_SLAB;
+    public static Block ANDESITE_BRICKS_CRACKED_VERTICAL_SLAB;
+    public static Block BASALT_BRICKS_CRACKED_VERTICAL_SLAB;
+    public static Block CONGLOMERATE_BRICKS_CRACKED_VERTICAL_SLAB;
+    public static Block GNEISS_BRICKS_CRACKED_VERTICAL_SLAB;
+    public static Block LIMESTONE_BRICKS_CRACKED_VERTICAL_SLAB;
+    public static Block MARBLE_BRICKS_CRACKED_VERTICAL_SLAB;
+    public static Block PEGMATITE_BRICKS_CRACKED_VERTICAL_SLAB;
+    public static Block SLATE_BRICKS_CRACKED_VERTICAL_SLAB;
+
+    public static Block GRANITE_CORNER_SLAB;
+    public static Block DIORITE_CORNER_SLAB;
+    public static Block ANDESITE_CORNER_SLAB;
+    public static Block BASALT_CORNER_SLAB;
+    public static Block CONGLOMERATE_CORNER_SLAB;
+    public static Block GNEISS_CORNER_SLAB;
+    public static Block LIMESTONE_CORNER_SLAB;
+    public static Block MARBLE_CORNER_SLAB;
+    public static Block PEGMATITE_CORNER_SLAB;
+    public static Block SLATE_CORNER_SLAB;
+
+    public static Block GRANITE_POLISHED_CORNER_SLAB;
+    public static Block DIORITE_POLISHED_CORNER_SLAB;
+    public static Block ANDESITE_POLISHED_CORNER_SLAB;
+    public static Block BASALT_POLISHED_CORNER_SLAB;
+    public static Block CONGLOMERATE_POLISHED_CORNER_SLAB;
+    public static Block GNEISS_POLISHED_CORNER_SLAB;
+    public static Block LIMESTONE_POLISHED_CORNER_SLAB;
+    public static Block MARBLE_POLISHED_CORNER_SLAB;
+    public static Block PEGMATITE_POLISHED_CORNER_SLAB;
+    public static Block SLATE_POLISHED_CORNER_SLAB;
+
+    public static Block GRANITE_COBBLE_CORNER_SLAB;
+    public static Block DIORITE_COBBLE_CORNER_SLAB;
+    public static Block ANDESITE_COBBLE_CORNER_SLAB;
+    public static Block BASALT_COBBLE_CORNER_SLAB;
+    public static Block CONGLOMERATE_COBBLE_CORNER_SLAB;
+    public static Block GNEISS_COBBLE_CORNER_SLAB;
+    public static Block LIMESTONE_COBBLE_CORNER_SLAB;
+    public static Block MARBLE_COBBLE_CORNER_SLAB;
+    public static Block PEGMATITE_COBBLE_CORNER_SLAB;
+    public static Block SLATE_COBBLE_CORNER_SLAB;
+
+    public static Block GRANITE_MOSSY_COBBLE_CORNER_SLAB;
+    public static Block DIORITE_MOSSY_COBBLE_CORNER_SLAB;
+    public static Block ANDESITE_MOSSY_COBBLE_CORNER_SLAB;
+    public static Block BASALT_MOSSY_COBBLE_CORNER_SLAB;
+    public static Block CONGLOMERATE_MOSSY_COBBLE_CORNER_SLAB;
+    public static Block GNEISS_MOSSY_COBBLE_CORNER_SLAB;
+    public static Block LIMESTONE_MOSSY_COBBLE_CORNER_SLAB;
+    public static Block MARBLE_MOSSY_COBBLE_CORNER_SLAB;
+    public static Block PEGMATITE_MOSSY_COBBLE_CORNER_SLAB;
+    public static Block SLATE_MOSSY_COBBLE_CORNER_SLAB;
+
+    public static Block GRANITE_BRICKS_CORNER_SLAB;
+    public static Block DIORITE_BRICKS_CORNER_SLAB;
+    public static Block ANDESITE_BRICKS_CORNER_SLAB;
+    public static Block BASALT_BRICKS_CORNER_SLAB;
+    public static Block CONGLOMERATE_BRICKS_CORNER_SLAB;
+    public static Block GNEISS_BRICKS_CORNER_SLAB;
+    public static Block LIMESTONE_BRICKS_CORNER_SLAB;
+    public static Block MARBLE_BRICKS_CORNER_SLAB;
+    public static Block PEGMATITE_BRICKS_CORNER_SLAB;
+    public static Block SLATE_BRICKS_CORNER_SLAB;
+
+    public static Block GRANITE_BRICKS_MOSSY_CORNER_SLAB;
+    public static Block DIORITE_BRICKS_MOSSY_CORNER_SLAB;
+    public static Block ANDESITE_BRICKS_MOSSY_CORNER_SLAB;
+    public static Block BASALT_BRICKS_MOSSY_CORNER_SLAB;
+    public static Block CONGLOMERATE_BRICKS_MOSSY_CORNER_SLAB;
+    public static Block GNEISS_BRICKS_MOSSY_CORNER_SLAB;
+    public static Block LIMESTONE_BRICKS_MOSSY_CORNER_SLAB;
+    public static Block MARBLE_BRICKS_MOSSY_CORNER_SLAB;
+    public static Block PEGMATITE_BRICKS_MOSSY_CORNER_SLAB;
+    public static Block SLATE_BRICKS_MOSSY_CORNER_SLAB;
+
+    public static Block GRANITE_BRICKS_CHISELED_CORNER_SLAB;
+    public static Block DIORITE_BRICKS_CHISELED_CORNER_SLAB;
+    public static Block ANDESITE_BRICKS_CHISELED_CORNER_SLAB;
+    public static Block BASALT_BRICKS_CHISELED_CORNER_SLAB;
+    public static Block CONGLOMERATE_BRICKS_CHISELED_CORNER_SLAB;
+    public static Block GNEISS_BRICKS_CHISELED_CORNER_SLAB;
+    public static Block LIMESTONE_BRICKS_CHISELED_CORNER_SLAB;
+    public static Block MARBLE_BRICKS_CHISELED_CORNER_SLAB;
+    public static Block PEGMATITE_BRICKS_CHISELED_CORNER_SLAB;
+    public static Block SLATE_BRICKS_CHISELED_CORNER_SLAB;
+
+    public static Block GRANITE_BRICKS_CRACKED_CORNER_SLAB;
+    public static Block DIORITE_BRICKS_CRACKED_CORNER_SLAB;
+    public static Block ANDESITE_BRICKS_CRACKED_CORNER_SLAB;
+    public static Block BASALT_BRICKS_CRACKED_CORNER_SLAB;
+    public static Block CONGLOMERATE_BRICKS_CRACKED_CORNER_SLAB;
+    public static Block GNEISS_BRICKS_CRACKED_CORNER_SLAB;
+    public static Block LIMESTONE_BRICKS_CRACKED_CORNER_SLAB;
+    public static Block MARBLE_BRICKS_CRACKED_CORNER_SLAB;
+    public static Block PEGMATITE_BRICKS_CRACKED_CORNER_SLAB;
+    public static Block SLATE_BRICKS_CRACKED_CORNER_SLAB;
+
+
+    public static Block GRANITE_HALF_STAIRS;
+    public static Block DIORITE_HALF_STAIRS;
+    public static Block ANDESITE_HALF_STAIRS;
+    public static Block BASALT_HALF_STAIRS;
+    public static Block CONGLOMERATE_HALF_STAIRS;
+    public static Block GNEISS_HALF_STAIRS;
+    public static Block LIMESTONE_HALF_STAIRS;
+    public static Block MARBLE_HALF_STAIRS;
+    public static Block PEGMATITE_HALF_STAIRS;
+    public static Block SLATE_HALF_STAIRS;
+
+    public static Block GRANITE_POLISHED_HALF_STAIRS;
+    public static Block DIORITE_POLISHED_HALF_STAIRS;
+    public static Block ANDESITE_POLISHED_HALF_STAIRS;
+    public static Block BASALT_POLISHED_HALF_STAIRS;
+    public static Block CONGLOMERATE_POLISHED_HALF_STAIRS;
+    public static Block GNEISS_POLISHED_HALF_STAIRS;
+    public static Block LIMESTONE_POLISHED_HALF_STAIRS;
+    public static Block MARBLE_POLISHED_HALF_STAIRS;
+    public static Block PEGMATITE_POLISHED_HALF_STAIRS;
+    public static Block SLATE_POLISHED_HALF_STAIRS;
+
+    public static Block GRANITE_COBBLE_HALF_STAIRS;
+    public static Block DIORITE_COBBLE_HALF_STAIRS;
+    public static Block ANDESITE_COBBLE_HALF_STAIRS;
+    public static Block BASALT_COBBLE_HALF_STAIRS;
+    public static Block CONGLOMERATE_COBBLE_HALF_STAIRS;
+    public static Block GNEISS_COBBLE_HALF_STAIRS;
+    public static Block LIMESTONE_COBBLE_HALF_STAIRS;
+    public static Block MARBLE_COBBLE_HALF_STAIRS;
+    public static Block PEGMATITE_COBBLE_HALF_STAIRS;
+    public static Block SLATE_COBBLE_HALF_STAIRS;
+
+    public static Block GRANITE_MOSSY_COBBLE_HALF_STAIRS;
+    public static Block DIORITE_MOSSY_COBBLE_HALF_STAIRS;
+    public static Block ANDESITE_MOSSY_COBBLE_HALF_STAIRS;
+    public static Block BASALT_MOSSY_COBBLE_HALF_STAIRS;
+    public static Block CONGLOMERATE_MOSSY_COBBLE_HALF_STAIRS;
+    public static Block GNEISS_MOSSY_COBBLE_HALF_STAIRS;
+    public static Block LIMESTONE_MOSSY_COBBLE_HALF_STAIRS;
+    public static Block MARBLE_MOSSY_COBBLE_HALF_STAIRS;
+    public static Block PEGMATITE_MOSSY_COBBLE_HALF_STAIRS;
+    public static Block SLATE_MOSSY_COBBLE_HALF_STAIRS;
+
+    public static Block GRANITE_BRICKS_HALF_STAIRS;
+    public static Block DIORITE_BRICKS_HALF_STAIRS;
+    public static Block ANDESITE_BRICKS_HALF_STAIRS;
+    public static Block BASALT_BRICKS_HALF_STAIRS;
+    public static Block CONGLOMERATE_BRICKS_HALF_STAIRS;
+    public static Block GNEISS_BRICKS_HALF_STAIRS;
+    public static Block LIMESTONE_BRICKS_HALF_STAIRS;
+    public static Block MARBLE_BRICKS_HALF_STAIRS;
+    public static Block PEGMATITE_BRICKS_HALF_STAIRS;
+    public static Block SLATE_BRICKS_HALF_STAIRS;
+
+    public static Block GRANITE_BRICKS_MOSSY_HALF_STAIRS;
+    public static Block DIORITE_BRICKS_MOSSY_HALF_STAIRS;
+    public static Block ANDESITE_BRICKS_MOSSY_HALF_STAIRS;
+    public static Block BASALT_BRICKS_MOSSY_HALF_STAIRS;
+    public static Block CONGLOMERATE_BRICKS_MOSSY_HALF_STAIRS;
+    public static Block GNEISS_BRICKS_MOSSY_HALF_STAIRS;
+    public static Block LIMESTONE_BRICKS_MOSSY_HALF_STAIRS;
+    public static Block MARBLE_BRICKS_MOSSY_HALF_STAIRS;
+    public static Block PEGMATITE_BRICKS_MOSSY_HALF_STAIRS;
+    public static Block SLATE_BRICKS_MOSSY_HALF_STAIRS;
+
+    public static Block GRANITE_BRICKS_CHISELED_HALF_STAIRS;
+    public static Block DIORITE_BRICKS_CHISELED_HALF_STAIRS;
+    public static Block ANDESITE_BRICKS_CHISELED_HALF_STAIRS;
+    public static Block BASALT_BRICKS_CHISELED_HALF_STAIRS;
+    public static Block CONGLOMERATE_BRICKS_CHISELED_HALF_STAIRS;
+    public static Block GNEISS_BRICKS_CHISELED_HALF_STAIRS;
+    public static Block LIMESTONE_BRICKS_CHISELED_HALF_STAIRS;
+    public static Block MARBLE_BRICKS_CHISELED_HALF_STAIRS;
+    public static Block PEGMATITE_BRICKS_CHISELED_HALF_STAIRS;
+    public static Block SLATE_BRICKS_CHISELED_HALF_STAIRS;
+
+    public static Block GRANITE_BRICKS_CRACKED_HALF_STAIRS;
+    public static Block DIORITE_BRICKS_CRACKED_HALF_STAIRS;
+    public static Block ANDESITE_BRICKS_CRACKED_HALF_STAIRS;
+    public static Block BASALT_BRICKS_CRACKED_HALF_STAIRS;
+    public static Block CONGLOMERATE_BRICKS_CRACKED_HALF_STAIRS;
+    public static Block GNEISS_BRICKS_CRACKED_HALF_STAIRS;
+    public static Block LIMESTONE_BRICKS_CRACKED_HALF_STAIRS;
+    public static Block MARBLE_BRICKS_CRACKED_HALF_STAIRS;
+    public static Block PEGMATITE_BRICKS_CRACKED_HALF_STAIRS;
+    public static Block SLATE_BRICKS_CRACKED_HALF_STAIRS;
+
+    //CORNER SLABS
+    public static Block OAK_CORNER_SLAB;
+    public static Block BIRCH_CORNER_SLAB;
+    public static Block SPRUCE_CORNER_SLAB;
+    public static Block JUNGLE_CORNER_SLAB;
+    public static Block ACACIA_CORNER_SLAB;
+    public static Block DARK_OAK_CORNER_SLAB;
+    public static Block ROSACEAE_CORNER_SLAB;
+    public static Block BAOBAB_CORNER_SLAB;
+    public static Block BEECH_CORNER_SLAB;
+    public static Block CEDAR_CORNER_SLAB;
+    public static Block CHERRY_CORNER_SLAB;
+    public static Block CITRUS_CORNER_SLAB;
+    public static Block EBONY_CORNER_SLAB;
+    public static Block EUCALYPTUS_CORNER_SLAB;
+    public static Block JACARANDA_CORNER_SLAB;
+    public static Block LARCH_CORNER_SLAB;
+    public static Block MAHOGANY_CORNER_SLAB;
+    public static Block MANGROVE_CORNER_SLAB;
+    public static Block MAPLE_CORNER_SLAB;
+    public static Block PALM_CORNER_SLAB;
+    public static Block PLUM_CORNER_SLAB;
+    public static Block REDWOOD_CORNER_SLAB;
+    public static Block WILLOW_CORNER_SLAB;
+    public static Block GLOWING_CAVE_OAK_CORNER_SLAB;
+
+
+    public static Block ROSACEAE_PARQUET_CORNER_SLAB;
+    public static Block BAOBAB_PARQUET_CORNER_SLAB;
+    public static Block BEECH_PARQUET_CORNER_SLAB;
+    public static Block CEDAR_PARQUET_CORNER_SLAB;
+    public static Block CHERRY_PARQUET_CORNER_SLAB;
+    public static Block CITRUS_PARQUET_CORNER_SLAB;
+    public static Block EBONY_PARQUET_CORNER_SLAB;
+    public static Block EUCALYPTUS_PARQUET_CORNER_SLAB;
+    public static Block JACARANDA_PARQUET_CORNER_SLAB;
+    public static Block LARCH_PARQUET_CORNER_SLAB;
+    public static Block MAHOGANY_PARQUET_CORNER_SLAB;
+    public static Block MANGROVE_PARQUET_CORNER_SLAB;
+    public static Block MAPLE_PARQUET_CORNER_SLAB;
+    public static Block PALM_PARQUET_CORNER_SLAB;
+    public static Block PLUM_PARQUET_CORNER_SLAB;
+    public static Block REDWOOD_PARQUET_CORNER_SLAB;
+    public static Block WILLOW_PARQUET_CORNER_SLAB;
+    public static Block GLOWING_CAVE_OAK_PARQUET_CORNER_SLAB;
+
+    //BEAMS
+    public static Block OAK_BEAM;
+    public static Block BIRCH_BEAM;
+    public static Block SPRUCE_BEAM;
+    public static Block JUNGLE_BEAM;
+    public static Block ACACIA_BEAM;
+    public static Block DARK_OAK_BEAM;
+    public static Block ROSACEAE_BEAM;
+    public static Block BAOBAB_BEAM;
+    public static Block BEECH_BEAM;
+    public static Block CEDAR_BEAM;
+    public static Block CHERRY_BEAM;
+    public static Block CITRUS_BEAM;
+    public static Block EBONY_BEAM;
+    public static Block EUCALYPTUS_BEAM;
+    public static Block JACARANDA_BEAM;
+    public static Block LARCH_BEAM;
+    public static Block MAHOGANY_BEAM;
+    public static Block MANGROVE_BEAM;
+    public static Block MAPLE_BEAM;
+    public static Block PALM_BEAM;
+    public static Block PLUM_BEAM;
+    public static Block REDWOOD_BEAM;
+    public static Block WILLOW_BEAM;
+    public static Block GLOWING_CAVE_OAK_BEAM;
+
+    public static Block OAK_STRIPPED_BEAM;
+    public static Block BIRCH_STRIPPED_BEAM;
+    public static Block SPRUCE_STRIPPED_BEAM;
+    public static Block JUNGLE_STRIPPED_BEAM;
+    public static Block ACACIA_STRIPPED_BEAM;
+    public static Block DARK_OAK_STRIPPED_BEAM;
+    public static Block ROSACEAE_STRIPPED_BEAM;
+    public static Block BAOBAB_STRIPPED_BEAM;
+    public static Block BEECH_STRIPPED_BEAM;
+    public static Block CEDAR_STRIPPED_BEAM;
+    public static Block CHERRY_STRIPPED_BEAM;
+    public static Block CITRUS_STRIPPED_BEAM;
+    public static Block EBONY_STRIPPED_BEAM;
+    public static Block EUCALYPTUS_STRIPPED_BEAM;
+    public static Block JACARANDA_STRIPPED_BEAM;
+    public static Block LARCH_STRIPPED_BEAM;
+    public static Block MAHOGANY_STRIPPED_BEAM;
+    public static Block MANGROVE_STRIPPED_BEAM;
+    public static Block MAPLE_STRIPPED_BEAM;
+    public static Block PALM_STRIPPED_BEAM;
+    public static Block PLUM_STRIPPED_BEAM;
+    public static Block REDWOOD_STRIPPED_BEAM;
+    public static Block WILLOW_STRIPPED_BEAM;
+    public static Block GLOWING_CAVE_OAK_STRIPPED_BEAM;
+    
+
+    /*WNBlocks.ROSACEAE_VERTICAL_SLAB = new constructor("rosaceae_vertical_slab");
+    WNBlocks.BAOBAB_VERTICAL_SLAB = new constructor("baobab_vertical_slab");
+    WNBlocks.BEECH_VERTICAL_SLAB = new constructor("beech_vertical_slab");
+    WNBlocks.CEDAR_VERTICAL_SLAB = new constructor("cedar_vertical_slab");
+    WNBlocks.CHERRY_VERTICAL_SLAB = new constructor("cherry_vertical_slab");
+    WNBlocks.CITRUS_VERTICAL_SLAB = new constructor("citrus_vertical_slab");
+    WNBlocks.EBONY_VERTICAL_SLAB = new constructor("ebony_vertical_slab");
+    WNBlocks.EUCALYPTUS_VERTICAL_SLAB = new constructor("eucalyptus_vertical_slab");
+    WNBlocks.JACARANDA_VERTICAL_SLAB = new constructor("jacaranda_vertical_slab");
+    WNBlocks.LARCH_VERTICAL_SLAB = new constructor("larch_vertical_slab");
+    WNBlocks.MAHOGANY_VERTICAL_SLAB = new constructor("mahogany_vertical_slab");
+    WNBlocks.MANGROVE_VERTICAL_SLAB = new constructor("mangrove_vertical_slab");
+    WNBlocks.MAPLE_VERTICAL_SLAB = new constructor("maple_vertical_slab");
+    WNBlocks.PALM_VERTICAL_SLAB = new constructor("palm_vertical_slab");
+    WNBlocks.PLUM_VERTICAL_SLAB = new constructor("plum_vertical_slab");
+    WNBlocks.REDWOOD_VERTICAL_SLAB = new constructor("redwood_vertical_slab");
+    WNBlocks.WILLOW_VERTICAL_SLAB = new constructor("willow_vertical_slab");
+    WNBlocks.GLOWING_CAVE_OAK_VERTICAL_SLAB = new constructor("glowing_cave_oak_vertical_slab");
+
+    WNBlocks.ROSACEAE_PARQUET_VERTICAL_SLAB = new constructor("rosaceae_parquet_vertical_slab");
+    WNBlocks.BAOBAB_PARQUET_VERTICAL_SLAB = new constructor("baobab_parquet_vertical_slab");
+    WNBlocks.BEECH_PARQUET_VERTICAL_SLAB = new constructor("beech_parquet_vertical_slab");
+    WNBlocks.CEDAR_PARQUET_VERTICAL_SLAB = new constructor("cedar_parquet_vertical_slab");
+    WNBlocks.CHERRY_PARQUET_VERTICAL_SLAB = new constructor("cherry_parquet_vertical_slab");
+    WNBlocks.CITRUS_PARQUET_VERTICAL_SLAB = new constructor("citrus_parquet_vertical_slab");
+    WNBlocks.EBONY_PARQUET_VERTICAL_SLAB = new constructor("ebony_parquet_vertical_slab");
+    WNBlocks.EUCALYPTUS_PARQUET_VERTICAL_SLAB = new constructor("eucalyptus_parquet_vertical_slab");
+    WNBlocks.JACARANDA_PARQUET_VERTICAL_SLAB = new constructor("jacaranda_parquet_vertical_slab");
+    WNBlocks.LARCH_PARQUET_VERTICAL_SLAB = new constructor("larch_parquet_vertical_slab");
+    WNBlocks.MAHOGANY_PARQUET_VERTICAL_SLAB = new constructor("mahogany_parquet_vertical_slab");
+    WNBlocks.MANGROVE_PARQUET_VERTICAL_SLAB = new constructor("mangrove_parquet_vertical_slab");
+    WNBlocks.MAPLE_PARQUET_VERTICAL_SLAB = new constructor("maple_parquet_vertical_slab");
+    WNBlocks.PALM_PARQUET_VERTICAL_SLAB = new constructor("palm_parquet_vertical_slab");
+    WNBlocks.PLUM_PARQUET_VERTICAL_SLAB = new constructor("plum_parquet_vertical_slab");
+    WNBlocks.REDWOOD_PARQUET_VERTICAL_SLAB = new constructor("redwood_parquet_vertical_slab");
+    WNBlocks.WILLOW_PARQUET_VERTICAL_SLAB = new constructor("willow_parquet_vertical_slab");
+    WNBlocks.GLOWING_CAVE_OAK_PARQUET_VERTICAL_SLAB = new constructor("glowing_cave_oak_parquet_vertical_slab");
+    */
+
+    //CAMPFIRES
+    public static Block STONE_FIREPIT;
+
+    public static Block GRANITE_FIREPIT;
+    public static Block DIORITE_FIREPIT;
+    public static Block ANDESITE_FIREPIT;
+    public static Block BASALT_FIREPIT;
+    public static Block CONGLOMERATE_FIREPIT;
+    public static Block GNEISS_FIREPIT;
+    public static Block LIMESTONE_FIREPIT;
+    public static Block MARBLE_FIREPIT;
+    public static Block PEGMATITE_FIREPIT;
+    public static Block SLATE_FIREPIT;
 
     ///////////////////GRASSES
 
@@ -1093,6 +1622,7 @@ public class WNBlocks {
     public static Block DESERT_GRASS_BLOCK;
     public static Block DRIED_GRASS_BLOCK;
     public static Block OVERGROWN_STONE;
+    public static Block ALGAE_BLOCK;
 
     public static Block BROWN_PODZOL;
     public static Block BROWN_MYCELIUM;
@@ -1116,8 +1646,12 @@ public class WNBlocks {
     public static Block DRIED_FARMLAND;
 
     public static Block MUD;
+
     ///////////////////ROCKS
 
+    public static Block GRANITE_ROCK;
+    public static Block DIORITE_ROCK;
+    public static Block ANDESITE_ROCK;
     public static Block BASALT_ROCK;
     public static Block CARBONATITE_ROCK;
     public static Block CHALK_ROCK;
@@ -1138,11 +1672,14 @@ public class WNBlocks {
     public static Block SLATE_ROCK;
     public static Block SYENITE_ROCK;
     public static Block UMBER_ROCK;
-    
+
     public static Block FROZEN_STONE;
     public static Block HARDENED_SANDSTONE;
     public static Block RED_HARDENED_SANDSTONE;
 
+    public static Block GRANITE_POLISHED;
+    public static Block DIORITE_POLISHED;
+    public static Block ANDESITE_POLISHED;
     public static Block BASALT_POLISHED;
     public static Block CARBONATITE_POLISHED;
     public static Block CHALK_POLISHED;
@@ -1168,6 +1705,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_POLISHED;
     public static Block RED_HARDENED_SANDSTONE_POLISHED;
 
+    public static Block GRANITE_SLAB;
+    public static Block DIORITE_SLAB;
+    public static Block ANDESITE_SLAB;
     public static Block BASALT_SLAB;
     public static Block CARBONATITE_SLAB;
     public static Block CHALK_SLAB;
@@ -1193,6 +1733,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_SLAB;
     public static Block RED_HARDENED_SANDSTONE_SLAB;
 
+    public static Block GRANITE_POLISHED_SLAB;
+    public static Block DIORITE_POLISHED_SLAB;
+    public static Block ANDESITE_POLISHED_SLAB;
     public static Block BASALT_POLISHED_SLAB;
     public static Block CARBONATITE_POLISHED_SLAB;
     public static Block CHALK_POLISHED_SLAB;
@@ -1218,6 +1761,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_POLISHED_SLAB;
     public static Block RED_HARDENED_SANDSTONE_POLISHED_SLAB;
 
+    public static Block GRANITE_STAIRS;
+    public static Block DIORITE_STAIRS;
+    public static Block ANDESITE_STAIRS;
     public static Block BASALT_STAIRS;
     public static Block CARBONATITE_STAIRS;
     public static Block CHALK_STAIRS;
@@ -1243,6 +1789,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_STAIRS;
 
+    public static Block GRANITE_POLISHED_STAIRS;
+    public static Block DIORITE_POLISHED_STAIRS;
+    public static Block ANDESITE_POLISHED_STAIRS;
     public static Block BASALT_POLISHED_STAIRS;
     public static Block CARBONATITE_POLISHED_STAIRS;
     public static Block CHALK_POLISHED_STAIRS;
@@ -1268,6 +1817,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_POLISHED_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_POLISHED_STAIRS;
 
+    public static Block GRANITE_BUTTON;
+    public static Block DIORITE_BUTTON;
+    public static Block ANDESITE_BUTTON;
     public static Block BASALT_BUTTON;
     public static Block CARBONATITE_BUTTON;
     public static Block CHALK_BUTTON;
@@ -1293,6 +1845,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BUTTON;
     public static Block RED_HARDENED_SANDSTONE_BUTTON;
 
+    public static Block GRANITE_PRESSURE_PLATE;
+    public static Block DIORITE_PRESSURE_PLATE;
+    public static Block ANDESITE_PRESSURE_PLATE;
     public static Block BASALT_PRESSURE_PLATE;
     public static Block CARBONATITE_PRESSURE_PLATE;
     public static Block CHALK_PRESSURE_PLATE;
@@ -1318,6 +1873,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_PRESSURE_PLATE;
     public static Block RED_HARDENED_SANDSTONE_PRESSURE_PLATE;
 
+    public static Block GRANITE_WALL;
+    public static Block DIORITE_WALL;
+    public static Block ANDESITE_WALL;
     public static Block BASALT_WALL;
     public static Block CARBONATITE_WALL;
     public static Block CHALK_WALL;
@@ -1343,6 +1901,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_WALL;
     public static Block RED_HARDENED_SANDSTONE_WALL;
 
+    public static Block GRANITE_POLISHED_WALL;
+    public static Block DIORITE_POLISHED_WALL;
+    public static Block ANDESITE_POLISHED_WALL;
     public static Block BASALT_POLISHED_WALL;
     public static Block CARBONATITE_POLISHED_WALL;
     public static Block CHALK_POLISHED_WALL;
@@ -1368,6 +1929,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_POLISHED_WALL;
     public static Block RED_HARDENED_SANDSTONE_POLISHED_WALL;
 
+    public static Block GRANITE_PILLAR;
+    public static Block DIORITE_PILLAR;
+    public static Block ANDESITE_PILLAR;
     public static Block BASALT_PILLAR;
     public static Block CARBONATITE_PILLAR;
     public static Block CHALK_PILLAR;
@@ -1393,6 +1957,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_PILLAR;
     public static Block RED_HARDENED_SANDSTONE_PILLAR;
 
+    public static Block GRANITE_BRICKS;
+    public static Block DIORITE_BRICKS;
+    public static Block ANDESITE_BRICKS;
     public static Block BASALT_BRICKS;
     public static Block CARBONATITE_BRICKS;
     public static Block CHALK_BRICKS;
@@ -1418,6 +1985,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS;
     public static Block RED_HARDENED_SANDSTONE_BRICKS;
 
+    public static Block GRANITE_BRICKS_MOSSY;
+    public static Block DIORITE_BRICKS_MOSSY;
+    public static Block ANDESITE_BRICKS_MOSSY;
     public static Block BASALT_BRICKS_MOSSY;
     public static Block CARBONATITE_BRICKS_MOSSY;
     public static Block CHALK_BRICKS_MOSSY;
@@ -1443,6 +2013,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_MOSSY;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_MOSSY;
 
+    public static Block GRANITE_BRICKS_CHISELED;
+    public static Block DIORITE_BRICKS_CHISELED;
+    public static Block ANDESITE_BRICKS_CHISELED;
     public static Block BASALT_BRICKS_CHISELED;
     public static Block CARBONATITE_BRICKS_CHISELED;
     public static Block CHALK_BRICKS_CHISELED;
@@ -1468,6 +2041,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_CHISELED;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_CHISELED;
 
+    public static Block GRANITE_BRICKS_CRACKED;
+    public static Block DIORITE_BRICKS_CRACKED;
+    public static Block ANDESITE_BRICKS_CRACKED;
     public static Block BASALT_BRICKS_CRACKED;
     public static Block CARBONATITE_BRICKS_CRACKED;
     public static Block CHALK_BRICKS_CRACKED;
@@ -1493,6 +2069,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_CRACKED;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_CRACKED;
 
+    public static Block GRANITE_COBBLE;
+    public static Block DIORITE_COBBLE;
+    public static Block ANDESITE_COBBLE;
     public static Block BASALT_COBBLE;
     public static Block CARBONATITE_COBBLE;
     public static Block CHALK_COBBLE;
@@ -1518,6 +2097,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_COBBLE;
     public static Block RED_HARDENED_SANDSTONE_COBBLE;
 
+    public static Block GRANITE_COBBLE_MOSSY;
+    public static Block DIORITE_COBBLE_MOSSY;
+    public static Block ANDESITE_COBBLE_MOSSY;
     public static Block BASALT_COBBLE_MOSSY;
     public static Block CARBONATITE_COBBLE_MOSSY;
     public static Block CHALK_COBBLE_MOSSY;
@@ -1543,6 +2125,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_COBBLE_MOSSY;
     public static Block RED_HARDENED_SANDSTONE_COBBLE_MOSSY;
 
+    public static Block GRANITE_SMALL_BRICKS;
+    public static Block DIORITE_SMALL_BRICKS;
+    public static Block ANDESITE_SMALL_BRICKS;
     public static Block BASALT_SMALL_BRICKS;
     public static Block CARBONATITE_SMALL_BRICKS;
     public static Block CHALK_SMALL_BRICKS;
@@ -1568,6 +2153,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_SMALL_BRICKS;
     public static Block RED_HARDENED_SANDSTONE_SMALL_BRICKS;
 
+    public static Block GRANITE_LONG_BRICKS;
+    public static Block DIORITE_LONG_BRICKS;
+    public static Block ANDESITE_LONG_BRICKS;
     public static Block BASALT_LONG_BRICKS;
     public static Block CARBONATITE_LONG_BRICKS;
     public static Block CHALK_LONG_BRICKS;
@@ -1593,6 +2181,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_LONG_BRICKS;
     public static Block RED_HARDENED_SANDSTONE_LONG_BRICKS;
 
+    public static Block GRANITE_BRICKS_WALL;
+    public static Block DIORITE_BRICKS_WALL;
+    public static Block ANDESITE_BRICKS_WALL;
     public static Block BASALT_BRICKS_WALL;
     public static Block CARBONATITE_BRICKS_WALL;
     public static Block CHALK_BRICKS_WALL;
@@ -1618,6 +2209,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_WALL;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_WALL;
 
+    public static Block GRANITE_BRICKS_MOSSY_WALL;
+    public static Block DIORITE_BRICKS_MOSSY_WALL;
+    public static Block ANDESITE_BRICKS_MOSSY_WALL;
     public static Block BASALT_BRICKS_MOSSY_WALL;
     public static Block CARBONATITE_BRICKS_MOSSY_WALL;
     public static Block CHALK_BRICKS_MOSSY_WALL;
@@ -1643,6 +2237,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_MOSSY_WALL;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_MOSSY_WALL;
 
+    public static Block GRANITE_BRICKS_CHISELED_WALL;
+    public static Block DIORITE_BRICKS_CHISELED_WALL;
+    public static Block ANDESITE_BRICKS_CHISELED_WALL;
     public static Block BASALT_BRICKS_CHISELED_WALL;
     public static Block CARBONATITE_BRICKS_CHISELED_WALL;
     public static Block CHALK_BRICKS_CHISELED_WALL;
@@ -1668,6 +2265,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_CHISELED_WALL;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_CHISELED_WALL;
 
+    public static Block GRANITE_BRICKS_CRACKED_WALL;
+    public static Block DIORITE_BRICKS_CRACKED_WALL;
+    public static Block ANDESITE_BRICKS_CRACKED_WALL;
     public static Block BASALT_BRICKS_CRACKED_WALL;
     public static Block CARBONATITE_BRICKS_CRACKED_WALL;
     public static Block CHALK_BRICKS_CRACKED_WALL;
@@ -1693,6 +2293,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_CRACKED_WALL;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_CRACKED_WALL;
 
+    public static Block GRANITE_COBBLE_WALL;
+    public static Block DIORITE_COBBLE_WALL;
+    public static Block ANDESITE_COBBLE_WALL;
     public static Block BASALT_COBBLE_WALL;
     public static Block CARBONATITE_COBBLE_WALL;
     public static Block CHALK_COBBLE_WALL;
@@ -1718,6 +2321,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_COBBLE_WALL;
     public static Block RED_HARDENED_SANDSTONE_COBBLE_WALL;
 
+    public static Block GRANITE_MOSSY_COBBLE_WALL;
+    public static Block DIORITE_MOSSY_COBBLE_WALL;
+    public static Block ANDESITE_MOSSY_COBBLE_WALL;
     public static Block BASALT_MOSSY_COBBLE_WALL;
     public static Block CARBONATITE_MOSSY_COBBLE_WALL;
     public static Block CHALK_MOSSY_COBBLE_WALL;
@@ -1743,6 +2349,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_MOSSY_COBBLE_WALL;
     public static Block RED_HARDENED_SANDSTONE_MOSSY_COBBLE_WALL;
 
+    public static Block GRANITE_BRICKS_STAIRS;
+    public static Block DIORITE_BRICKS_STAIRS;
+    public static Block ANDESITE_BRICKS_STAIRS;
     public static Block BASALT_BRICKS_STAIRS;
     public static Block CARBONATITE_BRICKS_STAIRS;
     public static Block CHALK_BRICKS_STAIRS;
@@ -1768,6 +2377,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_STAIRS;
 
+    public static Block GRANITE_BRICKS_MOSSY_STAIRS;
+    public static Block DIORITE_BRICKS_MOSSY_STAIRS;
+    public static Block ANDESITE_BRICKS_MOSSY_STAIRS;
     public static Block BASALT_BRICKS_MOSSY_STAIRS;
     public static Block CARBONATITE_BRICKS_MOSSY_STAIRS;
     public static Block CHALK_BRICKS_MOSSY_STAIRS;
@@ -1793,6 +2405,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_MOSSY_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_MOSSY_STAIRS;
 
+    public static Block GRANITE_BRICKS_CHISELED_STAIRS;
+    public static Block DIORITE_BRICKS_CHISELED_STAIRS;
+    public static Block ANDESITE_BRICKS_CHISELED_STAIRS;
     public static Block BASALT_BRICKS_CHISELED_STAIRS;
     public static Block CARBONATITE_BRICKS_CHISELED_STAIRS;
     public static Block CHALK_BRICKS_CHISELED_STAIRS;
@@ -1818,6 +2433,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_CHISELED_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_CHISELED_STAIRS;
 
+    public static Block GRANITE_BRICKS_CRACKED_STAIRS;
+    public static Block DIORITE_BRICKS_CRACKED_STAIRS;
+    public static Block ANDESITE_BRICKS_CRACKED_STAIRS;
     public static Block BASALT_BRICKS_CRACKED_STAIRS;
     public static Block CARBONATITE_BRICKS_CRACKED_STAIRS;
     public static Block CHALK_BRICKS_CRACKED_STAIRS;
@@ -1843,6 +2461,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_CRACKED_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_CRACKED_STAIRS;
 
+    public static Block GRANITE_COBBLE_STAIRS;
+    public static Block DIORITE_COBBLE_STAIRS;
+    public static Block ANDESITE_COBBLE_STAIRS;
     public static Block BASALT_COBBLE_STAIRS;
     public static Block CARBONATITE_COBBLE_STAIRS;
     public static Block CHALK_COBBLE_STAIRS;
@@ -1868,6 +2489,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_COBBLE_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_COBBLE_STAIRS;
 
+    public static Block GRANITE_MOSSY_COBBLE_STAIRS;
+    public static Block DIORITE_MOSSY_COBBLE_STAIRS;
+    public static Block ANDESITE_MOSSY_COBBLE_STAIRS;
     public static Block BASALT_MOSSY_COBBLE_STAIRS;
     public static Block CARBONATITE_MOSSY_COBBLE_STAIRS;
     public static Block CHALK_MOSSY_COBBLE_STAIRS;
@@ -1892,8 +2516,11 @@ public class WNBlocks {
     public static Block FROZEN_STONE_MOSSY_COBBLE_STAIRS;
     public static Block HARDENED_SANDSTONE_MOSSY_COBBLE_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_MOSSY_COBBLE_STAIRS;
-    
 
+
+    public static Block GRANITE_BRICKS_SLAB;
+    public static Block DIORITE_BRICKS_SLAB;
+    public static Block ANDESITE_BRICKS_SLAB;
     public static Block BASALT_BRICKS_SLAB;
     public static Block CARBONATITE_BRICKS_SLAB;
     public static Block CHALK_BRICKS_SLAB;
@@ -1919,6 +2546,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_SLAB;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_SLAB;
 
+    public static Block GRANITE_BRICKS_MOSSY_SLAB;
+    public static Block DIORITE_BRICKS_MOSSY_SLAB;
+    public static Block ANDESITE_BRICKS_MOSSY_SLAB;
     public static Block BASALT_BRICKS_MOSSY_SLAB;
     public static Block CARBONATITE_BRICKS_MOSSY_SLAB;
     public static Block CHALK_BRICKS_MOSSY_SLAB;
@@ -1944,6 +2574,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_MOSSY_SLAB;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_MOSSY_SLAB;
 
+    public static Block GRANITE_BRICKS_CHISELED_SLAB;
+    public static Block DIORITE_BRICKS_CHISELED_SLAB;
+    public static Block ANDESITE_BRICKS_CHISELED_SLAB;
     public static Block BASALT_BRICKS_CHISELED_SLAB;
     public static Block CARBONATITE_BRICKS_CHISELED_SLAB;
     public static Block CHALK_BRICKS_CHISELED_SLAB;
@@ -1969,6 +2602,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_CHISELED_SLAB;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_CHISELED_SLAB;
 
+    public static Block GRANITE_BRICKS_CRACKED_SLAB;
+    public static Block DIORITE_BRICKS_CRACKED_SLAB;
+    public static Block ANDESITE_BRICKS_CRACKED_SLAB;
     public static Block BASALT_BRICKS_CRACKED_SLAB;
     public static Block CARBONATITE_BRICKS_CRACKED_SLAB;
     public static Block CHALK_BRICKS_CRACKED_SLAB;
@@ -1994,6 +2630,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_CRACKED_SLAB;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_CRACKED_SLAB;
 
+    public static Block GRANITE_COBBLE_SLAB;
+    public static Block DIORITE_COBBLE_SLAB;
+    public static Block ANDESITE_COBBLE_SLAB;
     public static Block BASALT_COBBLE_SLAB;
     public static Block CARBONATITE_COBBLE_SLAB;
     public static Block CHALK_COBBLE_SLAB;
@@ -2019,6 +2658,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_COBBLE_SLAB;
     public static Block RED_HARDENED_SANDSTONE_COBBLE_SLAB;
 
+    public static Block GRANITE_MOSSY_COBBLE_SLAB;
+    public static Block DIORITE_MOSSY_COBBLE_SLAB;
+    public static Block ANDESITE_MOSSY_COBBLE_SLAB;
     public static Block BASALT_MOSSY_COBBLE_SLAB;
     public static Block CARBONATITE_MOSSY_COBBLE_SLAB;
     public static Block CHALK_MOSSY_COBBLE_SLAB;
@@ -2044,6 +2686,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_MOSSY_COBBLE_SLAB;
     public static Block RED_HARDENED_SANDSTONE_MOSSY_COBBLE_SLAB;
 
+    public static Block GRANITE_TRAPDOOR;
+    public static Block DIORITE_TRAPDOOR;
+    public static Block ANDESITE_TRAPDOOR;
     public static Block BASALT_TRAPDOOR;
     public static Block CARBONATITE_TRAPDOOR;
     public static Block CHALK_TRAPDOOR;
@@ -2069,6 +2714,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_TRAPDOOR;
     public static Block RED_HARDENED_SANDSTONE_TRAPDOOR;
 
+    public static Block GRANITE_COBBLE_TRAPDOOR;
+    public static Block DIORITE_COBBLE_TRAPDOOR;
+    public static Block ANDESITE_COBBLE_TRAPDOOR;
     public static Block BASALT_COBBLE_TRAPDOOR;
     public static Block CARBONATITE_COBBLE_TRAPDOOR;
     public static Block CHALK_COBBLE_TRAPDOOR;
@@ -2094,6 +2742,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_COBBLE_TRAPDOOR;
     public static Block RED_HARDENED_SANDSTONE_COBBLE_TRAPDOOR;
 
+    public static Block GRANITE_FENCE;
+    public static Block DIORITE_FENCE;
+    public static Block ANDESITE_FENCE;
     public static Block BASALT_FENCE;
     public static Block CARBONATITE_FENCE;
     public static Block CHALK_FENCE;
@@ -2119,6 +2770,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_FENCE;
     public static Block RED_HARDENED_SANDSTONE_FENCE;
 
+    public static Block GRANITE_COBBLE_FENCE;
+    public static Block DIORITE_COBBLE_FENCE;
+    public static Block ANDESITE_COBBLE_FENCE;
     public static Block BASALT_COBBLE_FENCE;
     public static Block CARBONATITE_COBBLE_FENCE;
     public static Block CHALK_COBBLE_FENCE;
@@ -2144,6 +2798,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_COBBLE_FENCE;
     public static Block RED_HARDENED_SANDSTONE_COBBLE_FENCE;
 
+    public static Block GRANITE_ANCIENT_BRICKS;
+    public static Block DIORITE_ANCIENT_BRICKS;
+    public static Block ANDESITE_ANCIENT_BRICKS;
     public static Block BASALT_ANCIENT_BRICKS;
     public static Block CARBONATITE_ANCIENT_BRICKS;
     public static Block CHALK_ANCIENT_BRICKS;
@@ -2169,6 +2826,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ANCIENT_BRICKS;
     public static Block RED_HARDENED_SANDSTONE_ANCIENT_BRICKS;
 
+    public static Block GRANITE_BRICKS_ENGRAVED_0;
+    public static Block DIORITE_BRICKS_ENGRAVED_0;
+    public static Block ANDESITE_BRICKS_ENGRAVED_0;
     public static Block BASALT_BRICKS_ENGRAVED_0;
     public static Block CARBONATITE_BRICKS_ENGRAVED_0;
     public static Block CHALK_BRICKS_ENGRAVED_0;
@@ -2194,6 +2854,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_ENGRAVED_0;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_ENGRAVED_0;
 
+    public static Block GRANITE_BRICKS_ENGRAVED_1;
+    public static Block DIORITE_BRICKS_ENGRAVED_1;
+    public static Block ANDESITE_BRICKS_ENGRAVED_1;
     public static Block BASALT_BRICKS_ENGRAVED_1;
     public static Block CARBONATITE_BRICKS_ENGRAVED_1;
     public static Block CHALK_BRICKS_ENGRAVED_1;
@@ -2219,6 +2882,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_ENGRAVED_1;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_ENGRAVED_1;
 
+    public static Block GRANITE_BRICKS_ENGRAVED_2;
+    public static Block DIORITE_BRICKS_ENGRAVED_2;
+    public static Block ANDESITE_BRICKS_ENGRAVED_2;
     public static Block BASALT_BRICKS_ENGRAVED_2;
     public static Block CARBONATITE_BRICKS_ENGRAVED_2;
     public static Block CHALK_BRICKS_ENGRAVED_2;
@@ -2244,6 +2910,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_ENGRAVED_2;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_ENGRAVED_2;
 
+    public static Block GRANITE_BRICKS_ENGRAVED_3;
+    public static Block DIORITE_BRICKS_ENGRAVED_3;
+    public static Block ANDESITE_BRICKS_ENGRAVED_3;
     public static Block BASALT_BRICKS_ENGRAVED_3;
     public static Block CARBONATITE_BRICKS_ENGRAVED_3;
     public static Block CHALK_BRICKS_ENGRAVED_3;
@@ -2269,6 +2938,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_BRICKS_ENGRAVED_3;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_ENGRAVED_3;
 
+    public static Block GRANITE_BRICKS_ENGRAVED_4;
+    public static Block DIORITE_BRICKS_ENGRAVED_4;
+    public static Block ANDESITE_BRICKS_ENGRAVED_4;
     public static Block BASALT_BRICKS_ENGRAVED_4;
     public static Block CARBONATITE_BRICKS_ENGRAVED_4;
     public static Block CHALK_BRICKS_ENGRAVED_4;
@@ -2293,9 +2965,12 @@ public class WNBlocks {
     public static Block FROZEN_STONE_BRICKS_ENGRAVED_4;
     public static Block HARDENED_SANDSTONE_BRICKS_ENGRAVED_4;
     public static Block RED_HARDENED_SANDSTONE_BRICKS_ENGRAVED_4;
-    
+
     //
 
+    public static Block GRANITE_COBBLE_ENGRAVED_0;
+    public static Block DIORITE_COBBLE_ENGRAVED_0;
+    public static Block ANDESITE_COBBLE_ENGRAVED_0;
     public static Block BASALT_COBBLE_ENGRAVED_0;
     public static Block CARBONATITE_COBBLE_ENGRAVED_0;
     public static Block CHALK_COBBLE_ENGRAVED_0;
@@ -2321,6 +2996,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_COBBLE_ENGRAVED_0;
     public static Block RED_HARDENED_SANDSTONE_COBBLE_ENGRAVED_0;
 
+    public static Block GRANITE_COBBLE_ENGRAVED_1;
+    public static Block DIORITE_COBBLE_ENGRAVED_1;
+    public static Block ANDESITE_COBBLE_ENGRAVED_1;
     public static Block BASALT_COBBLE_ENGRAVED_1;
     public static Block CARBONATITE_COBBLE_ENGRAVED_1;
     public static Block CHALK_COBBLE_ENGRAVED_1;
@@ -2346,6 +3024,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_COBBLE_ENGRAVED_1;
     public static Block RED_HARDENED_SANDSTONE_COBBLE_ENGRAVED_1;
 
+    public static Block GRANITE_COBBLE_ENGRAVED_2;
+    public static Block DIORITE_COBBLE_ENGRAVED_2;
+    public static Block ANDESITE_COBBLE_ENGRAVED_2;
     public static Block BASALT_COBBLE_ENGRAVED_2;
     public static Block CARBONATITE_COBBLE_ENGRAVED_2;
     public static Block CHALK_COBBLE_ENGRAVED_2;
@@ -2371,6 +3052,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_COBBLE_ENGRAVED_2;
     public static Block RED_HARDENED_SANDSTONE_COBBLE_ENGRAVED_2;
 
+    public static Block GRANITE_COBBLE_ENGRAVED_3;
+    public static Block DIORITE_COBBLE_ENGRAVED_3;
+    public static Block ANDESITE_COBBLE_ENGRAVED_3;
     public static Block BASALT_COBBLE_ENGRAVED_3;
     public static Block CARBONATITE_COBBLE_ENGRAVED_3;
     public static Block CHALK_COBBLE_ENGRAVED_3;
@@ -2396,6 +3080,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_COBBLE_ENGRAVED_3;
     public static Block RED_HARDENED_SANDSTONE_COBBLE_ENGRAVED_3;
 
+    public static Block GRANITE_COBBLE_ENGRAVED_4;
+    public static Block DIORITE_COBBLE_ENGRAVED_4;
+    public static Block ANDESITE_COBBLE_ENGRAVED_4;
     public static Block BASALT_COBBLE_ENGRAVED_4;
     public static Block CARBONATITE_COBBLE_ENGRAVED_4;
     public static Block CHALK_COBBLE_ENGRAVED_4;
@@ -2420,9 +3107,12 @@ public class WNBlocks {
     public static Block FROZEN_STONE_COBBLE_ENGRAVED_4;
     public static Block HARDENED_SANDSTONE_COBBLE_ENGRAVED_4;
     public static Block RED_HARDENED_SANDSTONE_COBBLE_ENGRAVED_4;
-    
+
     //
 
+    public static Block GRANITE_POLISHED_ENGRAVED_0;
+    public static Block DIORITE_POLISHED_ENGRAVED_0;
+    public static Block ANDESITE_POLISHED_ENGRAVED_0;
     public static Block BASALT_POLISHED_ENGRAVED_0;
     public static Block CARBONATITE_POLISHED_ENGRAVED_0;
     public static Block CHALK_POLISHED_ENGRAVED_0;
@@ -2448,6 +3138,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_POLISHED_ENGRAVED_0;
     public static Block RED_HARDENED_SANDSTONE_POLISHED_ENGRAVED_0;
 
+    public static Block GRANITE_POLISHED_ENGRAVED_1;
+    public static Block DIORITE_POLISHED_ENGRAVED_1;
+    public static Block ANDESITE_POLISHED_ENGRAVED_1;
     public static Block BASALT_POLISHED_ENGRAVED_1;
     public static Block CARBONATITE_POLISHED_ENGRAVED_1;
     public static Block CHALK_POLISHED_ENGRAVED_1;
@@ -2473,6 +3166,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_POLISHED_ENGRAVED_1;
     public static Block RED_HARDENED_SANDSTONE_POLISHED_ENGRAVED_1;
 
+    public static Block GRANITE_POLISHED_ENGRAVED_2;
+    public static Block DIORITE_POLISHED_ENGRAVED_2;
+    public static Block ANDESITE_POLISHED_ENGRAVED_2;
     public static Block BASALT_POLISHED_ENGRAVED_2;
     public static Block CARBONATITE_POLISHED_ENGRAVED_2;
     public static Block CHALK_POLISHED_ENGRAVED_2;
@@ -2498,6 +3194,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_POLISHED_ENGRAVED_2;
     public static Block RED_HARDENED_SANDSTONE_POLISHED_ENGRAVED_2;
 
+    public static Block GRANITE_POLISHED_ENGRAVED_3;
+    public static Block DIORITE_POLISHED_ENGRAVED_3;
+    public static Block ANDESITE_POLISHED_ENGRAVED_3;
     public static Block BASALT_POLISHED_ENGRAVED_3;
     public static Block CARBONATITE_POLISHED_ENGRAVED_3;
     public static Block CHALK_POLISHED_ENGRAVED_3;
@@ -2523,6 +3222,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_POLISHED_ENGRAVED_3;
     public static Block RED_HARDENED_SANDSTONE_POLISHED_ENGRAVED_3;
 
+    public static Block GRANITE_POLISHED_ENGRAVED_4;
+    public static Block DIORITE_POLISHED_ENGRAVED_4;
+    public static Block ANDESITE_POLISHED_ENGRAVED_4;
     public static Block BASALT_POLISHED_ENGRAVED_4;
     public static Block CARBONATITE_POLISHED_ENGRAVED_4;
     public static Block CHALK_POLISHED_ENGRAVED_4;
@@ -2548,10 +3250,13 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_POLISHED_ENGRAVED_4;
     public static Block RED_HARDENED_SANDSTONE_POLISHED_ENGRAVED_4;
 
-    
+
     //ROOF
-    
-    
+
+
+    public static Block GRANITE_ROOF_0;
+    public static Block DIORITE_ROOF_0;
+    public static Block ANDESITE_ROOF_0;
     public static Block BASALT_ROOF_0;
     public static Block CARBONATITE_ROOF_0;
     public static Block CHALK_ROOF_0;
@@ -2577,6 +3282,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_0;
     public static Block RED_HARDENED_SANDSTONE_ROOF_0;
 
+    public static Block GRANITE_ROOF;
+    public static Block DIORITE_ROOF;
+    public static Block ANDESITE_ROOF;
     public static Block BASALT_ROOF;
     public static Block CARBONATITE_ROOF;
     public static Block CHALK_ROOF;
@@ -2602,6 +3310,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF;
     public static Block RED_HARDENED_SANDSTONE_ROOF;
 
+    public static Block GRANITE_ROOF_2;
+    public static Block DIORITE_ROOF_2;
+    public static Block ANDESITE_ROOF_2;
     public static Block BASALT_ROOF_2;
     public static Block CARBONATITE_ROOF_2;
     public static Block CHALK_ROOF_2;
@@ -2627,6 +3338,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_2;
     public static Block RED_HARDENED_SANDSTONE_ROOF_2;
 
+    public static Block GRANITE_ROOF_3;
+    public static Block DIORITE_ROOF_3;
+    public static Block ANDESITE_ROOF_3;
     public static Block BASALT_ROOF_3;
     public static Block CARBONATITE_ROOF_3;
     public static Block CHALK_ROOF_3;
@@ -2652,6 +3366,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_3;
     public static Block RED_HARDENED_SANDSTONE_ROOF_3;
 
+    public static Block GRANITE_ROOF_4;
+    public static Block DIORITE_ROOF_4;
+    public static Block ANDESITE_ROOF_4;
     public static Block BASALT_ROOF_4;
     public static Block CARBONATITE_ROOF_4;
     public static Block CHALK_ROOF_4;
@@ -2678,6 +3395,9 @@ public class WNBlocks {
     public static Block RED_HARDENED_SANDSTONE_ROOF_4;
 
 
+    public static Block GRANITE_ROOF_0_SLAB;
+    public static Block DIORITE_ROOF_0_SLAB;
+    public static Block ANDESITE_ROOF_0_SLAB;
     public static Block BASALT_ROOF_0_SLAB;
     public static Block CARBONATITE_ROOF_0_SLAB;
     public static Block CHALK_ROOF_0_SLAB;
@@ -2703,6 +3423,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_0_SLAB;
     public static Block RED_HARDENED_SANDSTONE_ROOF_0_SLAB;
 
+    public static Block GRANITE_ROOF_SLAB;
+    public static Block DIORITE_ROOF_SLAB;
+    public static Block ANDESITE_ROOF_SLAB;
     public static Block BASALT_ROOF_SLAB;
     public static Block CARBONATITE_ROOF_SLAB;
     public static Block CHALK_ROOF_SLAB;
@@ -2728,6 +3451,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_SLAB;
     public static Block RED_HARDENED_SANDSTONE_ROOF_SLAB;
 
+    public static Block GRANITE_ROOF_2_SLAB;
+    public static Block DIORITE_ROOF_2_SLAB;
+    public static Block ANDESITE_ROOF_2_SLAB;
     public static Block BASALT_ROOF_2_SLAB;
     public static Block CARBONATITE_ROOF_2_SLAB;
     public static Block CHALK_ROOF_2_SLAB;
@@ -2753,6 +3479,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_2_SLAB;
     public static Block RED_HARDENED_SANDSTONE_ROOF_2_SLAB;
 
+    public static Block GRANITE_ROOF_3_SLAB;
+    public static Block DIORITE_ROOF_3_SLAB;
+    public static Block ANDESITE_ROOF_3_SLAB;
     public static Block BASALT_ROOF_3_SLAB;
     public static Block CARBONATITE_ROOF_3_SLAB;
     public static Block CHALK_ROOF_3_SLAB;
@@ -2778,6 +3507,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_3_SLAB;
     public static Block RED_HARDENED_SANDSTONE_ROOF_3_SLAB;
 
+    public static Block GRANITE_ROOF_4_SLAB;
+    public static Block DIORITE_ROOF_4_SLAB;
+    public static Block ANDESITE_ROOF_4_SLAB;
     public static Block BASALT_ROOF_4_SLAB;
     public static Block CARBONATITE_ROOF_4_SLAB;
     public static Block CHALK_ROOF_4_SLAB;
@@ -2803,6 +3535,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_4_SLAB;
     public static Block RED_HARDENED_SANDSTONE_ROOF_4_SLAB;
 
+    public static Block GRANITE_ROOF_0_STAIRS;
+    public static Block DIORITE_ROOF_0_STAIRS;
+    public static Block ANDESITE_ROOF_0_STAIRS;
     public static Block BASALT_ROOF_0_STAIRS;
     public static Block CARBONATITE_ROOF_0_STAIRS;
     public static Block CHALK_ROOF_0_STAIRS;
@@ -2828,6 +3563,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_0_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_ROOF_0_STAIRS;
 
+    public static Block GRANITE_ROOF_STAIRS;
+    public static Block DIORITE_ROOF_STAIRS;
+    public static Block ANDESITE_ROOF_STAIRS;
     public static Block BASALT_ROOF_STAIRS;
     public static Block CARBONATITE_ROOF_STAIRS;
     public static Block CHALK_ROOF_STAIRS;
@@ -2853,6 +3591,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_ROOF_STAIRS;
 
+    public static Block GRANITE_ROOF_2_STAIRS;
+    public static Block DIORITE_ROOF_2_STAIRS;
+    public static Block ANDESITE_ROOF_2_STAIRS;
     public static Block BASALT_ROOF_2_STAIRS;
     public static Block CARBONATITE_ROOF_2_STAIRS;
     public static Block CHALK_ROOF_2_STAIRS;
@@ -2878,6 +3619,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_2_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_ROOF_2_STAIRS;
 
+    public static Block GRANITE_ROOF_3_STAIRS;
+    public static Block DIORITE_ROOF_3_STAIRS;
+    public static Block ANDESITE_ROOF_3_STAIRS;
     public static Block BASALT_ROOF_3_STAIRS;
     public static Block CARBONATITE_ROOF_3_STAIRS;
     public static Block CHALK_ROOF_3_STAIRS;
@@ -2903,6 +3647,9 @@ public class WNBlocks {
     public static Block HARDENED_SANDSTONE_ROOF_3_STAIRS;
     public static Block RED_HARDENED_SANDSTONE_ROOF_3_STAIRS;
 
+    public static Block GRANITE_ROOF_4_STAIRS;
+    public static Block DIORITE_ROOF_4_STAIRS;
+    public static Block ANDESITE_ROOF_4_STAIRS;
     public static Block BASALT_ROOF_4_STAIRS;
     public static Block CARBONATITE_ROOF_4_STAIRS;
     public static Block CHALK_ROOF_4_STAIRS;
@@ -2936,296 +3683,50 @@ public class WNBlocks {
     public static Block SLAB_CORNER;
     public static Block SLAB_VERTICAL;
 
+    //STONE ADDONS
+    public static Block STONE_SMALL_BRICKS;
+    public static Block STONE_LONG_BRICKS;
+    public static Block STONE_ANCIENT_BRICKS;
+    public static Block STONE_PILLAR;
+    public static Block CHISELED_STONE_BRICKS_SLAB;
+    public static Block CRACKED_STONE_BRICKS_SLAB;
+    public static Block STONE_VERTICAL_SLAB;
+    public static Block SMOOTH_STONE_VERTICAL_SLAB;
+    public static Block COBBLESTONE_VERTICAL_SLAB;
+    public static Block MOSSY_COBBLESTONE_VERTICAL_SLAB;
+    public static Block STONE_BRICKS_VERTICAL_SLAB;
+    public static Block MOSSY_STONE_BRICKS_VERTICAL_SLAB;
+    public static Block CHISELED_STONE_BRICKS_VERTICAL_SLAB;
+    public static Block CRACKED_STONE_BRICKS_VERTICAL_SLAB;
+    public static Block STONE_CORNER_SLAB;
+    public static Block SMOOTH_STONE_CORNER_SLAB;
+    public static Block COBBLESTONE_CORNER_SLAB;
+    public static Block MOSSY_COBBLESTONE_CORNER_SLAB;
+    public static Block STONE_BRICKS_CORNER_SLAB;
+    public static Block MOSSY_STONE_BRICKS_CORNER_SLAB;
+    public static Block CHISELED_STONE_BRICKS_CORNER_SLAB;
+    public static Block CRACKED_STONE_BRICKS_CORNER_SLAB;
+    public static Block CHISELED_STONE_BRICKS_STAIRS;
+    public static Block CRACKED_STONE_BRICKS_STAIRS;
+    public static Block SMOOTH_STONE_STAIRS;
+    public static Block STONE_HALF_STAIRS;
+    public static Block SMOOTH_STONE_HALF_STAIRS;
+    public static Block COBBLESTONE_HALF_STAIRS;
+    public static Block MOSSY_COBBLESTONE_HALF_STAIRS;
+    public static Block STONE_BRICKS_HALF_STAIRS;
+    public static Block MOSSY_STONE_BRICKS_HALF_STAIRS;
+    public static Block CHISELED_STONE_BRICKS_HALF_STAIRS;
+    public static Block CRACKED_STONE_BRICKS_HALF_STAIRS;
+    public static Block SMOOTH_STONE_WALL;
+    public static Block STONE_TRAPDOOR;
+    public static Block COBBLESTONE_TRAPDOOR;
+    public static Block STONE_FENCE;
+    public static Block COBBLESTONE_FENCE;
+    public static Block STONE_ROOF;
+    public static Block STONE_ROOF_SLAB;
+    public static Block STONE_ROOF_STAIRS;
 
-    //VERTICAL SLABS
-    public static Block ASPEN_CORNER_SLAB;
-    public static Block ASPEN_CORNER_SLAB_PARQUET;
-    public static Block ASPEN_CORNER_SLAB_TOP;
-    public static Block BAOBAB_CORNER_SLAB;
-    public static Block BAOBAB_CORNER_SLAB_PARQUET;
-    public static Block BASALT_CORNER_SLAB;
-    public static Block BASALT_CORNER_SLAB_BRICKS;
-    public static Block BASALT_CORNER_SLAB_BRICKS_CHISELED;
-    public static Block BASALT_CORNER_SLAB_BRICKS_CRACKED;
-    public static Block BASALT_CORNER_SLAB_BRICKS_LONG;
-    public static Block BASALT_CORNER_SLAB_BRICKS_MOSSY;
-    public static Block BASALT_CORNER_SLAB_BRICKS_SMALL;
-    public static Block BASALT_CORNER_SLAB_COBBLE;
-    public static Block BASALT_CORNER_SLAB_COBBLE_MOSSY;
-    public static Block BASALT_POLISHED_CORNER_SLAB;
-    public static Block BASALT_ROOF_CORNER_SLAB;
-    public static Block BEECH_CORNER_SLAB;
-    public static Block BEECH_CORNER_SLAB_PARQUET;
-    public static Block CEDAR_CORNER_SLAB;
-    public static Block CEDAR_CORNER_SLAB_PARQUET;
-    public static Block CHERRY_CORNER_SLAB;
-    public static Block CHERRY_CORNER_SLAB_PARQUET;
-    public static Block CITRUS_CORNER_SLAB;
-    public static Block CITRUS_CORNER_SLAB_PARQUET;
-    public static Block CONGLOMERATE_CORNER_SLAB;
-    public static Block CONGLOMERATE_CORNER_SLAB_BRICKS;
-    public static Block CONGLOMERATE_CORNER_SLAB_BRICKS_CHISELED;
-    public static Block CONGLOMERATE_CORNER_SLAB_BRICKS_CRACKED;
-    public static Block CONGLOMERATE_CORNER_SLAB_BRICKS_LONG;
-    public static Block CONGLOMERATE_CORNER_SLAB_BRICKS_MOSSY;
-    public static Block CONGLOMERATE_CORNER_SLAB_BRICKS_SMALL;
-    public static Block CONGLOMERATE_CORNER_SLAB_COBBLE;
-    public static Block CONGLOMERATE_CORNER_SLAB_COBBLE_MOSSY;
-    public static Block CONGLOMERATE_POLISHED_CORNER_SLAB;
-    public static Block CONGLOMERATE_ROOF_CORNER_SLAB;
-    public static Block EBONY_CORNER_SLAB;
-    public static Block EBONY_CORNER_SLAB_PARQUET;
-    public static Block EUCALYPTUS_CORNER_SLAB;
-    public static Block EUCALYPTUS_CORNER_SLAB_PARQUET;
-    public static Block FIR_CORNER_SLAB;
-    public static Block FIR_CORNER_SLAB_PARQUET;
-    public static Block GLOWING_CAVE_OAK_CORNER_SLAB;
-    public static Block GLOWING_CAVE_OAK_CORNER_SLAB_PARQUET;
-    public static Block GNEISS_CORNER_SLAB;
-    public static Block GNEISS_CORNER_SLAB_BRICKS;
-    public static Block GNEISS_CORNER_SLAB_BRICKS_CHISELED;
-    public static Block GNEISS_CORNER_SLAB_BRICKS_CRACKED;
-    public static Block GNEISS_CORNER_SLAB_BRICKS_LONG;
-    public static Block GNEISS_CORNER_SLAB_BRICKS_MOSSY;
-    public static Block GNEISS_CORNER_SLAB_BRICKS_SMALL;
-    public static Block GNEISS_CORNER_SLAB_COBBLE;
-    public static Block GNEISS_CORNER_SLAB_COBBLE_MOSSY;
-    public static Block GNEISS_POLISHED_CORNER_SLAB;
-    public static Block GNEISS_ROOF_CORNER_SLAB;
-    public static Block HAZEL_CORNER_SLAB;
-    public static Block HAZEL_CORNER_SLAB_PARQUET;
-    public static Block HORNBEAM_CORNER_SLAB;
-    public static Block HORNBEAM_CORNER_SLAB_PARQUET;
-    public static Block JACARANDA_CORNER_SLAB;
-    public static Block JACARANDA_CORNER_SLAB_PARQUET;
-    public static Block LARCH_CORNER_SLAB;
-    public static Block LARCH_CORNER_SLAB_PARQUET;
-    public static Block LARCH_CORNER_SLAB_TOP;
-    public static Block LIMESTONE_CORNER_SLAB;
-    public static Block LIMESTONE_CORNER_SLAB_BRICKS;
-    public static Block LIMESTONE_CORNER_SLAB_BRICKS_CHISELED;
-    public static Block LIMESTONE_CORNER_SLAB_BRICKS_CRACKED;
-    public static Block LIMESTONE_CORNER_SLAB_BRICKS_LONG;
-    public static Block LIMESTONE_CORNER_SLAB_BRICKS_MOSSY;
-    public static Block LIMESTONE_CORNER_SLAB_BRICKS_SMALL;
-    public static Block LIMESTONE_CORNER_SLAB_COBBLE;
-    public static Block LIMESTONE_CORNER_SLAB_COBBLE_MOSSY;
-    public static Block LIMESTONE_POLISHED_CORNER_SLAB;
-    public static Block LIMESTONE_ROOF_CORNER_SLAB;
-    public static Block MAHOGANY_CORNER_SLAB;
-    public static Block MAHOGANY_CORNER_SLAB_PARQUET;
-    public static Block MANGROVE_CORNER_SLAB;
-    public static Block MANGROVE_CORNER_SLAB_PARQUET;
-    public static Block MANGROVE_CORNER_SLAB_TOP;
-    public static Block MAPLE_CORNER_SLAB;
-    public static Block MAPLE_CORNER_SLAB_PARQUET;
-    public static Block MAPLE_CORNER_SLAB_TOP;
-    public static Block MARBLE_CORNER_SLAB;
-    public static Block MARBLE_CORNER_SLAB_BRICKS;
-    public static Block MARBLE_CORNER_SLAB_BRICKS_CHISELED;
-    public static Block MARBLE_CORNER_SLAB_BRICKS_CRACKED;
-    public static Block MARBLE_CORNER_SLAB_BRICKS_LONG;
-    public static Block MARBLE_CORNER_SLAB_BRICKS_MOSSY;
-    public static Block MARBLE_CORNER_SLAB_BRICKS_SMALL;
-    public static Block MARBLE_CORNER_SLAB_COBBLE;
-    public static Block MARBLE_CORNER_SLAB_COBBLE_MOSSY;
-    public static Block MARBLE_POLISHED_CORNER_SLAB;
-    public static Block MARBLE_ROOF_CORNER_SLAB;
-    public static Block PALM_CORNER_SLAB;
-    public static Block PALM_CORNER_SLAB_PARQUET;
-    public static Block PEAR_CORNER_SLAB;
-    public static Block PEAR_CORNER_SLAB_PARQUET;
-    public static Block PEGMATITE_CORNER_SLAB;
-    public static Block PEGMATITE_CORNER_SLAB_BRICKS;
-    public static Block PEGMATITE_CORNER_SLAB_BRICKS_CHISELED;
-    public static Block PEGMATITE_CORNER_SLAB_BRICKS_CRACKED;
-    public static Block PEGMATITE_CORNER_SLAB_BRICKS_LONG;
-    public static Block PEGMATITE_CORNER_SLAB_BRICKS_MOSSY;
-    public static Block PEGMATITE_CORNER_SLAB_BRICKS_SMALL;
-    public static Block PEGMATITE_CORNER_SLAB_COBBLE;
-    public static Block PEGMATITE_CORNER_SLAB_COBBLE_MOSSY;
-    public static Block PEGMATITE_POLISHED_CORNER_SLAB;
-    public static Block PEGMATITE_ROOF_CORNER_SLAB;
-    public static Block PINE_CORNER_SLAB;
-    public static Block PINE_CORNER_SLAB_PARQUET;
-    public static Block PLUM_CORNER_SLAB;
-    public static Block PLUM_CORNER_SLAB_PARQUET;
-    public static Block PLUM_CORNER_SLAB_TOP;
-    public static Block POPLAR_CORNER_SLAB;
-    public static Block POPLAR_CORNER_SLAB_PARQUET;
-    public static Block POPLAR_CORNER_SLAB_TOP;
-    public static Block REDWOOD_CORNER_SLAB;
-    public static Block REDWOOD_CORNER_SLAB_PARQUET;
-    public static Block ROSACEAE_CORNER_SLAB;
-    public static Block ROSACEAE_CORNER_SLAB_PARQUET;
-    public static Block ROWAN_CORNER_SLAB;
-    public static Block ROWAN_CORNER_SLAB_PARQUET;
-    public static Block SLATE_CORNER_SLAB;
-    public static Block SLATE_CORNER_SLAB_BRICKS;
-    public static Block SLATE_CORNER_SLAB_BRICKS_CHISELED;
-    public static Block SLATE_CORNER_SLAB_BRICKS_CRACKED;
-    public static Block SLATE_CORNER_SLAB_BRICKS_LONG;
-    public static Block SLATE_CORNER_SLAB_BRICKS_MOSSY;
-    public static Block SLATE_CORNER_SLAB_BRICKS_SMALL;
-    public static Block SLATE_CORNER_SLAB_COBBLE;
-    public static Block SLATE_CORNER_SLAB_COBBLE_MOSSY;
-    public static Block SLATE_POLISHED_CORNER_SLAB;
-    public static Block SLATE_ROOF_CORNER_SLAB;
-    public static Block STRAWBALE_AGED_BROWN_CORNER_SLAB;
-    public static Block STRAWBALE_AGED_CORNER_SLAB;
-    public static Block STRAWBALE_CORNER_SLAB;
-    public static Block STRAWBALE_OLD_BROWN_CORNER_SLAB;
-    public static Block STRAWBALE_OLD_CORNER_SLAB;
-    public static Block UNTIED_STRAWBALE_CORNER_SLAB;
-    public static Block WILLOW_CORNER_SLAB;
-    public static Block WILLOW_CORNER_SLAB_PARQUET;
-    public static Block BASALT_VERTICAL_SLAB_BRICKS_CRACKED;
-    public static Block BASALT_VERTICAL_SLAB_BRICKS_LONG;
-    public static Block BASALT_VERTICAL_SLAB_BRICKS_MOSSY;
-    public static Block BASALT_VERTICAL_SLAB_BRICKS_SMALL;
-    public static Block BASALT_VERTICAL_SLAB_COBBLE;
-    public static Block BASALT_VERTICAL_SLAB_COBBLE_MOSSY;
-    public static Block BEECH_VERTICAL_SLAB;
-    public static Block BEECH_VERTICAL_SLAB_PARQUET;
-    public static Block CEDAR_VERTICAL_SLAB;
-    public static Block CEDAR_VERTICAL_SLAB_PARQUET;
-    public static Block CHERRY_VERTICAL_SLAB;
-    public static Block CHERRY_VERTICAL_SLAB_PARQUET;
-    public static Block CITRUS_VERTICAL_SLAB;
-    public static Block CITRUS_VERTICAL_SLAB_PARQUET;
-    public static Block CONGLOMERATE_POLISHED_VERTICAL_SLAB;
-    public static Block CONGLOMERATE_ROOF_VERTICAL_SLAB;
-    public static Block CONGLOMERATE_VERTICAL_SLAB;
-    public static Block CONGLOMERATE_VERTICAL_SLAB_BRICKS;
-    public static Block CONGLOMERATE_VERTICAL_SLAB_BRICKS_CHISELED;
-    public static Block CONGLOMERATE_VERTICAL_SLAB_BRICKS_CRACKED;
-    public static Block CONGLOMERATE_VERTICAL_SLAB_BRICKS_LONG;
-    public static Block CONGLOMERATE_VERTICAL_SLAB_BRICKS_MOSSY;
-    public static Block CONGLOMERATE_VERTICAL_SLAB_BRICKS_SMALL;
-    public static Block CONGLOMERATE_VERTICAL_SLAB_COBBLE;
-    public static Block CONGLOMERATE_VERTICAL_SLAB_COBBLE_MOSSY;
-    public static Block EBONY_VERTICAL_SLAB;
-    public static Block EBONY_VERTICAL_SLAB_PARQUET;
-    public static Block EUCALYPTUS_VERTICAL_SLAB;
-    public static Block EUCALYPTUS_VERTICAL_SLAB_PARQUET;
-    public static Block FIR_VERTICAL_SLAB;
-    public static Block FIR_VERTICAL_SLAB_PARQUET;
-    public static Block GLOWING_CAVE_OAK_VERTICAL_SLAB;
-    public static Block GLOWING_CAVE_OAK_VERTICAL_SLAB_PARQUET;
-    public static Block GNEISS_POLISHED_VERTICAL_SLAB;
-    public static Block GNEISS_ROOF_VERTICAL_SLAB;
-    public static Block GNEISS_VERTICAL_SLAB;
-    public static Block GNEISS_VERTICAL_SLAB_BRICKS;
-    public static Block GNEISS_VERTICAL_SLAB_BRICKS_CHISELED;
-    public static Block GNEISS_VERTICAL_SLAB_BRICKS_CRACKED;
-    public static Block GNEISS_VERTICAL_SLAB_BRICKS_LONG;
-    public static Block GNEISS_VERTICAL_SLAB_BRICKS_MOSSY;
-    public static Block GNEISS_VERTICAL_SLAB_BRICKS_SMALL;
-    public static Block GNEISS_VERTICAL_SLAB_COBBLE;
-    public static Block GNEISS_VERTICAL_SLAB_COBBLE_MOSSY;
-    public static Block HAZEL_VERTICAL_SLAB;
-    public static Block HAZEL_VERTICAL_SLAB_PARQUET;
-    public static Block HORNBEAM_VERTICAL_SLAB;
-    public static Block HORNBEAM_VERTICAL_SLAB_PARQUET;
-    public static Block JACARANDA_VERTICAL_SLAB;
-    public static Block JACARANDA_VERTICAL_SLAB_PARQUET;
-    public static Block LARCH_VERTICAL_SLAB;
-    public static Block LARCH_VERTICAL_SLAB_PARQUET;
-    public static Block LARCH_VERTICAL_SLAB_TOP;
-    public static Block LIMESTONE_POLISHED_VERTICAL_SLAB;
-    public static Block LIMESTONE_ROOF_VERTICAL_SLAB;
-    public static Block LIMESTONE_VERTICAL_SLAB;
-    public static Block LIMESTONE_VERTICAL_SLAB_BRICKS;
-    public static Block LIMESTONE_VERTICAL_SLAB_BRICKS_CHISELED;
-    public static Block LIMESTONE_VERTICAL_SLAB_BRICKS_CRACKED;
-    public static Block LIMESTONE_VERTICAL_SLAB_BRICKS_LONG;
-    public static Block LIMESTONE_VERTICAL_SLAB_BRICKS_MOSSY;
-    public static Block LIMESTONE_VERTICAL_SLAB_BRICKS_SMALL;
-    public static Block LIMESTONE_VERTICAL_SLAB_COBBLE;
-    public static Block LIMESTONE_VERTICAL_SLAB_COBBLE_MOSSY;
-    public static Block MAHOGANY_VERTICAL_SLAB;
-    public static Block MAHOGANY_VERTICAL_SLAB_PARQUET;
-    public static Block MANGROVE_VERTICAL_SLAB;
-    public static Block MANGROVE_VERTICAL_SLAB_PARQUET;
-    public static Block MANGROVE_VERTICAL_SLAB_TOP;
-    public static Block MAPLE_VERTICAL_SLAB;
-    public static Block MAPLE_VERTICAL_SLAB_PARQUET;
-    public static Block MAPLE_VERTICAL_SLAB_TOP;
-    public static Block MARBLE_POLISHED_VERTICAL_SLAB;
-    public static Block MARBLE_ROOF_VERTICAL_SLAB;
-    public static Block MARBLE_VERTICAL_SLAB;
-    public static Block MARBLE_VERTICAL_SLAB_BRICKS;
-    public static Block MARBLE_VERTICAL_SLAB_BRICKS_CHISELED;
-    public static Block MARBLE_VERTICAL_SLAB_BRICKS_CRACKED;
-    public static Block MARBLE_VERTICAL_SLAB_BRICKS_LONG;
-    public static Block MARBLE_VERTICAL_SLAB_BRICKS_MOSSY;
-    public static Block MARBLE_VERTICAL_SLAB_BRICKS_SMALL;
-    public static Block MARBLE_VERTICAL_SLAB_COBBLE;
-    public static Block MARBLE_VERTICAL_SLAB_COBBLE_MOSSY;
-    public static Block PALM_VERTICAL_SLAB;
-    public static Block PALM_VERTICAL_SLAB_PARQUET;
-    public static Block PEAR_VERTICAL_SLAB;
-    public static Block PEAR_VERTICAL_SLAB_PARQUET;
-    public static Block PEGMATITE_POLISHED_VERTICAL_SLAB;
-    public static Block PEGMATITE_ROOF_VERTICAL_SLAB;
-    public static Block PEGMATITE_VERTICAL_SLAB;
-    public static Block PEGMATITE_VERTICAL_SLAB_BRICKS;
-    public static Block PEGMATITE_VERTICAL_SLAB_BRICKS_CHISELED;
-    public static Block PEGMATITE_VERTICAL_SLAB_BRICKS_CRACKED;
-    public static Block PEGMATITE_VERTICAL_SLAB_BRICKS_LONG;
-    public static Block PEGMATITE_VERTICAL_SLAB_BRICKS_MOSSY;
-    public static Block PEGMATITE_VERTICAL_SLAB_BRICKS_SMALL;
-    public static Block PEGMATITE_VERTICAL_SLAB_COBBLE;
-    public static Block PEGMATITE_VERTICAL_SLAB_COBBLE_MOSSY;
-    public static Block PINE_VERTICAL_SLAB;
-    public static Block PINE_VERTICAL_SLAB_PARQUET;
-    public static Block PLUM_VERTICAL_SLAB;
-    public static Block PLUM_VERTICAL_SLAB_PARQUET;
-    public static Block PLUM_VERTICAL_SLAB_TOP;
-    public static Block POPLAR_VERTICAL_SLAB;
-    public static Block POPLAR_VERTICAL_SLAB_PARQUET;
-    public static Block POPLAR_VERTICAL_SLAB_TOP;
-    public static Block REDWOOD_VERTICAL_SLAB;
-    public static Block REDWOOD_VERTICAL_SLAB_PARQUET;
-    public static Block ROSACEAE_VERTICAL_SLAB;
-    public static Block ROSACEAE_VERTICAL_SLAB_PARQUET;
-    public static Block ROWAN_VERTICAL_SLAB;
-    public static Block ROWAN_VERTICAL_SLAB_PARQUET;
-    public static Block SLATE_POLISHED_VERTICAL_SLAB;
-    public static Block SLATE_ROOF_VERTICAL_SLAB;
-    public static Block SLATE_VERTICAL_SLAB;
-    public static Block SLATE_VERTICAL_SLAB_BRICKS;
-    public static Block SLATE_VERTICAL_SLAB_BRICKS_CHISELED;
-    public static Block SLATE_VERTICAL_SLAB_BRICKS_CRACKED;
-    public static Block SLATE_VERTICAL_SLAB_BRICKS_LONG;
-    public static Block SLATE_VERTICAL_SLAB_BRICKS_MOSSY;
-    public static Block SLATE_VERTICAL_SLAB_BRICKS_SMALL;
-    public static Block SLATE_VERTICAL_SLAB_COBBLE;
-    public static Block SLATE_VERTICAL_SLAB_COBBLE_MOSSY;
-    public static Block STRAWBALE_AGED_BROWN_VERTICAL_SLAB;
-    public static Block STRAWBALE_AGED_VERTICAL_SLAB;
-    public static Block STRAWBALE_OLD_BROWN_VERTICAL_SLAB;
-    public static Block STRAWBALE_OLD_VERTICAL_SLAB;
-    public static Block STRAWBALE_VERTICAL_SLAB;
-    public static Block UNTIED_STRAWBALE_VERTICAL_SLAB;
-    public static Block WILLOW_VERTICAL_SLAB;
-    public static Block WILLOW_VERTICAL_SLAB_PARQUET;
-    public static Block ASPEN_VERTICAL_SLAB;
-    public static Block ASPEN_VERTICAL_SLAB_PARQUET;
-    public static Block ASPEN_VERTICAL_SLAB_TOP;
-    public static Block BAOBAB_VERTICAL_SLAB;
-    public static Block BAOBAB_VERTICAL_SLAB_PARQUET;
-    public static Block BASALT_POLISHED_VERTICAL_SLAB;
-    public static Block BASALT_ROOF_VERTICAL_SLAB;
-    public static Block BASALT_VERTICAL_SLAB;
-    public static Block BASALT_VERTICAL_SLAB_BRICKS;
-    public static Block BASALT_VERTICAL_SLAB_BRICKS_CHISELED;
-    //END VERTICAL SLABS
-
-
-
-
-
+    public static Block SANDSTONE_BRICKS, SANDSTONE_ANCIENT_BRICKS;
 
     public static Block GLOWING_CRYSTAL_BLUE;
     public static Block GLOWING_CRYSTAL_ORANGE;
@@ -3234,11 +3735,6 @@ public class WNBlocks {
     public static Block GLOWING_CRYSTAL_WHITE;
     public static Block PEBBLE;
     public static Block STONE_SPIKE;
-    public static Block STONE_SPIKE_MEDIUM_A;
-    public static Block STONE_SPIKE_MEDIUM_B;
-    public static Block STONE_SPIKE_BIG_A;
-    public static Block STONE_SPIKE_BIG_B;
-
 
 
     //REDSTONE
@@ -3277,10 +3773,12 @@ public class WNBlocks {
 
 
     //STRAWBALE & OTHER
-    public static Block UNTIED_STRAWBALE,STRAWBALE,STRAWBALE_AGED,STRAWBALE_AGED_BROWN,STRAWBALE_OLD,STRAWBALE_OLD_BROWN;
-    public static Block UNTIED_STRAWBALE_SLAB,STRAWBALE_SLAB,STRAWBALE_AGED_SLAB,STRAWBALE_AGED_BROWN_SLAB,STRAWBALE_OLD_SLAB,STRAWBALE_OLD_BROWN_SLAB;
-    public static Block UNTIED_STRAWBALE_STAIRS,STRAWBALE_STAIRS,STRAWBALE_AGED_STAIRS,STRAWBALE_AGED_BROWN_STAIRS,STRAWBALE_OLD_STAIRS,STRAWBALE_OLD_BROWN_STAIRS;
+    public static Block UNTIED_STRAWBALE, STRAWBALE, STRAWBALE_AGED, STRAWBALE_AGED_BROWN, STRAWBALE_OLD, STRAWBALE_OLD_BROWN;
+    public static Block UNTIED_STRAWBALE_SLAB, STRAWBALE_SLAB, STRAWBALE_AGED_SLAB, STRAWBALE_AGED_BROWN_SLAB, STRAWBALE_OLD_SLAB, STRAWBALE_OLD_BROWN_SLAB;
+    public static Block UNTIED_STRAWBALE_STAIRS, STRAWBALE_STAIRS, STRAWBALE_AGED_STAIRS, STRAWBALE_AGED_BROWN_STAIRS, STRAWBALE_OLD_STAIRS, STRAWBALE_OLD_BROWN_STAIRS;
     public static Block LIGHTNING_BUG;
+    public static Block GLOWSHROOM_LANTERN;
+    public static Block ICESHROOM_LANTERN;
     public static Block SAND_RED_FULL;
     public static Block SAND_RED_HALF;
     public static Block SAND_RED_SLIGHT;
@@ -3291,27 +3789,151 @@ public class WNBlocks {
     public static Block SALT_BLOCK;
     public static Block WHITE_SAND;
     public static Block WHITE_SANDSTONE;
-    
-    
+    public static Block FOREST_SAND;
+    public static Block QUICKSAND;
 
     //FURNITURE
-    public static Block ANDIRONS,ANVIL,CHAIR,HALFTABLE,HANGINGSHELF,SHELF,SMALLTABLE,STOOL,WEAPONSRACK;
-    public static Block PLATE_QUARTZ,BOWL_QUARTZ,CUP_QUARTZ,PLATE_WOOD,BOWL_WOOD,CUP_WOOD,PLATE_DARK_WOOD,BOWL_DARK_WOOD,CUP_DARK_WOOD;
+    public static Block ANDIRONS, ANVIL, CHAIR, HALFTABLE, HANGINGSHELF, SHELF, SMALLTABLE, STOOL, WEAPONSRACK;
+    public static Block PLATE_QUARTZ, BOWL_QUARTZ, CUP_QUARTZ, PLATE_WOOD, BOWL_WOOD, CUP_WOOD, PLATE_DARK_WOOD, BOWL_DARK_WOOD, CUP_DARK_WOOD;
 
+    public static Block OAK_BENCH;
+    public static Block SPRUCE_BENCH;
+    public static Block BIRCH_BENCH;
+    public static Block JUNGLE_BENCH;
+    public static Block ACACIA_BENCH;
+    public static Block DARK_OAK_BENCH;
+    public static Block ROSACEAE_BENCH;
+    public static Block BAOBAB_BENCH;
+    public static Block BEECH_BENCH;
+    public static Block CEDAR_BENCH;
+    public static Block CHERRY_BENCH;
+    public static Block CITRUS_BENCH;
+    public static Block EBONY_BENCH;
+    public static Block EUCALYPTUS_BENCH;
+    public static Block JACARANDA_BENCH;
+    public static Block LARCH_BENCH;
+    public static Block MAHOGANY_BENCH;
+    public static Block MANGROVE_BENCH;
+    public static Block MAPLE_BENCH;
+    public static Block PALM_BENCH;
+    public static Block PLUM_BENCH;
+    public static Block REDWOOD_BENCH;
+    public static Block WILLOW_BENCH;
+    public static Block GLOWING_CAVE_OAK_BENCH;
+
+    public static Block OAK_CHAIR;
+    public static Block SPRUCE_CHAIR;
+    public static Block BIRCH_CHAIR;
+    public static Block JUNGLE_CHAIR;
+    public static Block ACACIA_CHAIR;
+    public static Block DARK_OAK_CHAIR;
+    public static Block ROSACEAE_CHAIR;
+    public static Block BAOBAB_CHAIR;
+    public static Block BEECH_CHAIR;
+    public static Block CEDAR_CHAIR;
+    public static Block CHERRY_CHAIR;
+    public static Block CITRUS_CHAIR;
+    public static Block EBONY_CHAIR;
+    public static Block EUCALYPTUS_CHAIR;
+    public static Block JACARANDA_CHAIR;
+    public static Block LARCH_CHAIR;
+    public static Block MAHOGANY_CHAIR;
+    public static Block MANGROVE_CHAIR;
+    public static Block MAPLE_CHAIR;
+    public static Block PALM_CHAIR;
+    public static Block PLUM_CHAIR;
+    public static Block REDWOOD_CHAIR;
+    public static Block WILLOW_CHAIR;
+    public static Block GLOWING_CAVE_OAK_CHAIR;
+
+    public static Block OAK_ROUND_TABLE;
+    public static Block SPRUCE_ROUND_TABLE;
+    public static Block BIRCH_ROUND_TABLE;
+    public static Block JUNGLE_ROUND_TABLE;
+    public static Block ACACIA_ROUND_TABLE;
+    public static Block DARK_OAK_ROUND_TABLE;
+    public static Block ROSACEAE_ROUND_TABLE;
+    public static Block BAOBAB_ROUND_TABLE;
+    public static Block BEECH_ROUND_TABLE;
+    public static Block CEDAR_ROUND_TABLE;
+    public static Block CHERRY_ROUND_TABLE;
+    public static Block CITRUS_ROUND_TABLE;
+    public static Block EBONY_ROUND_TABLE;
+    public static Block EUCALYPTUS_ROUND_TABLE;
+    public static Block JACARANDA_ROUND_TABLE;
+    public static Block LARCH_ROUND_TABLE;
+    public static Block MAHOGANY_ROUND_TABLE;
+    public static Block MANGROVE_ROUND_TABLE;
+    public static Block MAPLE_ROUND_TABLE;
+    public static Block PALM_ROUND_TABLE;
+    public static Block PLUM_ROUND_TABLE;
+    public static Block REDWOOD_ROUND_TABLE;
+    public static Block WILLOW_ROUND_TABLE;
+    public static Block GLOWING_CAVE_OAK_ROUND_TABLE;
+
+    public static Block OAK_SQUARE_TABLE;
+    public static Block SPRUCE_SQUARE_TABLE;
+    public static Block BIRCH_SQUARE_TABLE;
+    public static Block JUNGLE_SQUARE_TABLE;
+    public static Block ACACIA_SQUARE_TABLE;
+    public static Block DARK_OAK_SQUARE_TABLE;
+    public static Block ROSACEAE_SQUARE_TABLE;
+    public static Block BAOBAB_SQUARE_TABLE;
+    public static Block BEECH_SQUARE_TABLE;
+    public static Block CEDAR_SQUARE_TABLE;
+    public static Block CHERRY_SQUARE_TABLE;
+    public static Block CITRUS_SQUARE_TABLE;
+    public static Block EBONY_SQUARE_TABLE;
+    public static Block EUCALYPTUS_SQUARE_TABLE;
+    public static Block JACARANDA_SQUARE_TABLE;
+    public static Block LARCH_SQUARE_TABLE;
+    public static Block MAHOGANY_SQUARE_TABLE;
+    public static Block MANGROVE_SQUARE_TABLE;
+    public static Block MAPLE_SQUARE_TABLE;
+    public static Block PALM_SQUARE_TABLE;
+    public static Block PLUM_SQUARE_TABLE;
+    public static Block REDWOOD_SQUARE_TABLE;
+    public static Block WILLOW_SQUARE_TABLE;
+    public static Block GLOWING_CAVE_OAK_SQUARE_TABLE;
+
+    public static Block OAK_STOOL;
+    public static Block SPRUCE_STOOL;
+    public static Block BIRCH_STOOL;
+    public static Block JUNGLE_STOOL;
+    public static Block ACACIA_STOOL;
+    public static Block DARK_OAK_STOOL;
+    public static Block ROSACEAE_STOOL;
+    public static Block BAOBAB_STOOL;
+    public static Block BEECH_STOOL;
+    public static Block CEDAR_STOOL;
+    public static Block CHERRY_STOOL;
+    public static Block CITRUS_STOOL;
+    public static Block EBONY_STOOL;
+    public static Block EUCALYPTUS_STOOL;
+    public static Block JACARANDA_STOOL;
+    public static Block LARCH_STOOL;
+    public static Block MAHOGANY_STOOL;
+    public static Block MANGROVE_STOOL;
+    public static Block MAPLE_STOOL;
+    public static Block PALM_STOOL;
+    public static Block PLUM_STOOL;
+    public static Block REDWOOD_STOOL;
+    public static Block WILLOW_STOOL;
+    public static Block GLOWING_CAVE_OAK_STOOL;
 
     //EATABLES
-    public static Block BLACK_CURRANT_CAKE,CANDY_CAKE,CARROT_CAKE,CHERRY_CAKE,CHOCO_CAKE,CHOKEBERRY_CAKE,DARK_CHOCOLATE_CAKE,GRAPEFRUIT_CAKE,HAWTHORN_CAKE,KAMCHATKA_CAKE,LEMON_CAKE,MAZUREK,MILK_CHOCOLATE_CAKE,MINT_GOOSEBERRY_CAKE,ORANGE_CAKE,PINEAPPLE_CAKE,QUINCE_CAKE,RASPBERRY_CAKE,STRAWBERRY_CAKE,WHITE_CHOCOLATE_CAKE,YEAST_DOUGH;
+    public static Block BLACK_CURRANT_CAKE, CANDY_CAKE, CARROT_CAKE, CHERRY_CAKE, CHOCO_CAKE, CHOKEBERRY_CAKE, DARK_CHOCOLATE_CAKE, GRAPEFRUIT_CAKE, HAWTHORN_CAKE, KAMCHATKA_CAKE, LEMON_CAKE, MAZUREK, MILK_CHOCOLATE_CAKE, MINT_GOOSEBERRY_CAKE, ORANGE_CAKE, PINEAPPLE_CAKE, QUINCE_CAKE, RASPBERRY_CAKE, STRAWBERRY_CAKE, WHITE_CHOCOLATE_CAKE, YEAST_DOUGH;
 
-    public static Block TIN_ORE,TIN_BLOCK;
-    public static Block COPPER_ORE,COPPER_BLOCK;
+    public static Block TIN_ORE, TIN_BLOCK;
+    public static Block COPPER_ORE, COPPER_BLOCK;
     public static Block STEEL_BLOCK;
     public static Block BRONZE_BLOCK;
-    public static Block AMETHYST_ORE,AMETHYST_BLOCK;
-    public static Block SAPPHIRE_ORE,SAPPHIRE_BLOCK;
-    public static Block MALACHITE_ORE,MALACHITE_BLOCK;
-    public static Block SILVER_ORE,SILVER_BLOCK;
-    public static Block AMBER_ORE,AMBER_BLOCK;
-    public static Block RUBY_ORE,RUBY_BLOCK;
+    public static Block AMETHYST_ORE, AMETHYST_BLOCK;
+    public static Block SAPPHIRE_ORE, SAPPHIRE_BLOCK;
+    public static Block MALACHITE_ORE, MALACHITE_BLOCK;
+    public static Block SILVER_ORE, SILVER_BLOCK;
+    public static Block AMBER_ORE, AMBER_BLOCK;
+    public static Block RUBY_ORE, RUBY_BLOCK;
     public static Block SALT_ORE;
 
 

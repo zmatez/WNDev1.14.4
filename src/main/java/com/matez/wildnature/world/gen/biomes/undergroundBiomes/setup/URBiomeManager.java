@@ -25,6 +25,8 @@ public class URBiomeManager {
     public static URBiome TROPICAL_RIVER = register(new TropicalRiver("tropical_river", Biome.Category.JUNGLE,null,30,1f,0x123123,0x321321));
     public static URBiome ICY_RIVER = register(new IcyRiver("icy_river", null, Biome.TempCategory.COLD,15,1f,0x123123,0x321321));
 
+    //public static URBiome STALAGMITE_CAVERN = register(new StalagmiteCavern("stalagmite_cavern",null,null,3,1f,0x123123,0x321321));
+
     static {
         URBiome[] biomes = new URBiome[]{
                 STONE_RIVER,

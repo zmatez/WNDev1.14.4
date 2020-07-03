@@ -3,9 +3,7 @@ package com.matez.wildnature.blocks;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.lists.WNItems;
 import com.matez.wildnature.other.Utilities;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -64,9 +62,9 @@ public class WildRosePlant extends CropBase {
     @Override
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if(state.get(AGE)==getMaxAge()){
-            //worldIn.setBlockState(pos,worldIn.getBlockState(pos).with(AGE,getMaxAge()-Utilities.rint(1,2)));
-            //spawnAsEntity(worldIn,pos,new ItemStack(WNItems.BLACKBERRY, Utilities.rint(1,2)));
-            //worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_SWEET_BERRIES_PICK_FROM_BUSH, SoundCategory.BLOCKS, 1.0F, 0.8F + worldIn.rand.nextFloat() * 0.4F);
+            worldIn.setBlockState(pos,worldIn.getBlockState(pos).with(AGE,getMaxAge()-Utilities.rint(1,2)));
+            spawnAsEntity(worldIn,pos,new ItemStack(WNItems.WILD_ROSE_FRUIT, Utilities.rint(1,2)));
+            worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_SWEET_BERRIES_PICK_FROM_BUSH, SoundCategory.BLOCKS, 1.0F, 0.8F + worldIn.rand.nextFloat() * 0.4F);
 
             return true;
         }
@@ -100,7 +98,7 @@ public class WildRosePlant extends CropBase {
 
     public boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.PODZOL || block == Blocks.FARMLAND;
+        return block instanceof SnowyDirtBlock || block instanceof FarmlandBlock;
     }
 
 }

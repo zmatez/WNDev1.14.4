@@ -23,7 +23,7 @@ public class WNItemColors {
             return blockColors.getColor(blockstate, (IEnviromentBlockReader)null, (BlockPos)null, p_210235_2_);
         }, WNBlocks.BROWN_GRASS_BLOCK, WNBlocks.DESERT_GRASS_BLOCK, WNBlocks.DRIED_GRASS_BLOCK, WNBlocks.MOLD_GRASS_BLOCK, WNBlocks.TROPICAL_GRASS_BLOCK, WNBlocks.OVERGROWN_STONE,
                 WNBlocks.ASPEN_LEAVES, WNBlocks.BAOBAB_LEAVES, WNBlocks.BEECH_LEAVES, WNBlocks.CEDAR_LEAVES, WNBlocks.HAZEL_LEAVES, WNBlocks.HORNBEAM_LEAVES, WNBlocks.MAHOGANY_LEAVES,
-                WNBlocks.MANGROVE_LEAVES, WNBlocks.MAPLE_LEAVES, WNBlocks.POPLAR_LEAVES, WNBlocks.WILLOW_LEAVES);
+                WNBlocks.MANGROVE_LEAVES, WNBlocks.MAPLE_LEAVES, WNBlocks.POPLAR_LEAVES, WNBlocks.WILLOW_LEAVES, WNBlocks.SMALL_BUSH_LEAVES, WNBlocks.LARGE_BUSH_LEAVES, WNBlocks.DENSE_BUSH_LEAVES);
         colors.register((p_210239_0_, p_210239_1_) -> {
             return p_210239_1_ > 0 ? -1 : ((IDyeableItem)p_210239_0_.getItem()).getColor(p_210239_0_);
         }, WNItems.SILVER_SWORD, WNItems.SILVER_PICKAXE, WNItems.SILVER_AXE, WNItems.SILVER_SHOVEL, WNItems.SILVER_HOE, WNItems.SILVER_INGOT);

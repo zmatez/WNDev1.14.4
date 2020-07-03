@@ -9,7 +9,6 @@ import net.minecraft.world.gen.layer.traits.ICastleTransformer;
 
 public enum WNShoreLayer implements ICastleTransformer {
    INSTANCE;
-
    private static final int BEACH = Registry.BIOME.getId(Biomes.BEACH);
    private static final int SNOWY_BEACH = Registry.BIOME.getId(Biomes.SNOWY_BEACH);
    private static final int DESERT = Registry.BIOME.getId(Biomes.DESERT);
@@ -46,6 +45,49 @@ public enum WNShoreLayer implements ICastleTransformer {
    private static final int ICELANDS = Registry.BIOME.getId(WNBiomes.Icelands);
    private static final int DAINTREE_RIVER = Registry.BIOME.getId(WNBiomes.DaintreeRiver);
    private static final int DAINTREE_CLIFFS = Registry.BIOME.getId(WNBiomes.DaintreeCliffs);
+   private static final int POLDERS = Registry.BIOME.getId(WNBiomes.Polders);
+   private static final int POLDERS_EDGE = Registry.BIOME.getId(WNBiomes.PoldersEdge);
+
+   private static final int TATRA_FOOTHILLS = Registry.BIOME.getId(WNBiomes.TatraFoothills);
+   private static final int TATRA_LOWER_FOREST = Registry.BIOME.getId(WNBiomes.TatraLowerForest);
+   private static final int TATRA_UPPER_FOREST = Registry.BIOME.getId(WNBiomes.TatraUpperForest);
+   private static final int TATRA_MOUNTAINS = Registry.BIOME.getId(WNBiomes.TatraMountains);
+   private static final int TATRA_GREENED_PEAK = Registry.BIOME.getId(WNBiomes.TatraGreenedPeak);
+   private static final int TATRA_KASPROWY_PEAK = Registry.BIOME.getId(WNBiomes.TatraKasprowyPeak);
+   private static final int CHOCHOLOWSKA_GLADE = Registry.BIOME.getId(WNBiomes.ChocholowskaGlade);
+   private static final int FIREWEED_VALLEY = Registry.BIOME.getId(WNBiomes.FireweedValley);
+   private static final int CRACOW_GORGE = Registry.BIOME.getId(WNBiomes.CracowGorge);
+   private static final int MORSKIE_OKO = Registry.BIOME.getId(WNBiomes.MorskieOko);
+   private static final int GIEWONT = Registry.BIOME.getId(WNBiomes.Giewont);
+   private static final int RYSY = Registry.BIOME.getId(WNBiomes.Rysy);
+   private static final int TATRA_STREAM = Registry.BIOME.getId(WNBiomes.TatraStream);
+
+   private static final int SNOWY_TATRA_FOOTHILLS = Registry.BIOME.getId(WNBiomes.SnowyTatraFoothills);
+   private static final int SNOWY_TATRA_LOWER_FOREST = Registry.BIOME.getId(WNBiomes.SnowyTatraLowerForest);
+   private static final int SNOWY_TATRA_UPPER_FOREST = Registry.BIOME.getId(WNBiomes.SnowyTatraUpperForest);
+   private static final int SNOWY_TATRA_MOUNTAINS = Registry.BIOME.getId(WNBiomes.SnowyTatraMountains);
+   private static final int SNOWY_TATRA_KASPROWY_PEAK = Registry.BIOME.getId(WNBiomes.SnowyTatraKasprowyPeak);
+   private static final int SNOWY_CHOCHOLOWSKA_GLADE = Registry.BIOME.getId(WNBiomes.SnowyChocholowskaGlade);
+   private static final int SNOWY_FIREWEED_VALLEY = Registry.BIOME.getId(WNBiomes.SnowyFireweedValley);
+   private static final int SNOWY_CRACOW_GORGE = Registry.BIOME.getId(WNBiomes.SnowyCracowGorge);
+   private static final int FROZEN_MORSKIE_OKO = Registry.BIOME.getId(WNBiomes.FrozenMorskieOko);
+   private static final int SNOWY_GIEWONT = Registry.BIOME.getId(WNBiomes.SnowyGiewont);
+
+
+   private static boolean isTatra(int biomeNear){
+      return biomeNear==TATRA_FOOTHILLS || biomeNear==TATRA_LOWER_FOREST || biomeNear==TATRA_UPPER_FOREST
+              || biomeNear==TATRA_MOUNTAINS  || biomeNear==TATRA_GREENED_PEAK  || biomeNear==TATRA_KASPROWY_PEAK
+              || biomeNear==CHOCHOLOWSKA_GLADE  || biomeNear==FIREWEED_VALLEY  || biomeNear==CRACOW_GORGE
+              || biomeNear==MORSKIE_OKO  || biomeNear==GIEWONT  || biomeNear==RYSY;
+   }
+
+   private static boolean isSnowyTatra(int biomeNear){
+      return biomeNear==SNOWY_TATRA_LOWER_FOREST || biomeNear==SNOWY_TATRA_UPPER_FOREST
+              || biomeNear==SNOWY_TATRA_MOUNTAINS || biomeNear==SNOWY_TATRA_KASPROWY_PEAK
+              || biomeNear==SNOWY_CHOCHOLOWSKA_GLADE  || biomeNear==SNOWY_FIREWEED_VALLEY  || biomeNear==SNOWY_CRACOW_GORGE
+              || biomeNear==FROZEN_MORSKIE_OKO  || biomeNear==SNOWY_GIEWONT  || biomeNear==RYSY;
+   }
+
    public int apply(INoiseRandom context, int north, int west, int south, int east, int center) {
       Biome biome = Registry.BIOME.getByValue(center);
       if (center == MUSHROOM_FIELDS) {
@@ -60,10 +102,26 @@ public enum WNShoreLayer implements ICastleTransformer {
          return center;
       }else if(center==DAINTREE_CLIFFS){
          return center;
+      }else if(center==CRACOW_GORGE){
+         return center;
+      }else if(isTatra(center)){
+         return center;
+      }else if(isSnowyTatra(center)){
+         return center;
+      }else if(isPolderComaptible(center)){
+         return center;
       }else if(isIceCanyonCompatible(north)||isIceCanyonCompatible(south)||isIceCanyonCompatible(west)||isIceCanyonCompatible(east)){
          return CANYON_RIVER;
       }else if(isDaintreeCanyonCompatible(north)||isDaintreeCanyonCompatible(south)||isDaintreeCanyonCompatible(west)||isDaintreeCanyonCompatible(east)){
-         return CANYON_RIVER;
+         return DAINTREE_RIVER;
+      }else if(isCracowGorgeCompatible(north)||isCracowGorgeCompatible(south)||isCracowGorgeCompatible(west)||isCracowGorgeCompatible(east)){
+         return TATRA_STREAM;
+      }else if(isTatra(north)||isTatra(south)||isTatra(west)||isTatra(east)){
+         return TATRA_FOOTHILLS;
+      }else if(isSnowyTatra(north)||isSnowyTatra(south)||isSnowyTatra(west)||isSnowyTatra(east)){
+      return SNOWY_TATRA_FOOTHILLS;
+      }else if(isPolderComaptible(north)||isPolderComaptible(south)||isPolderComaptible(west)||isPolderComaptible(east)){
+         return POLDERS_EDGE;
       }
       else if (center == MAHOGANY_RAINFOREST || center==MAHOGANY_CLIFFS || center == TROPICAL_ISLAND || center == TROPICAL_CLIFFS || center == MADAGASCAR || center == MADAGASCAR_VALLEY) {
          if (WNLayerUtil.isShallowOcean(north) || WNLayerUtil.isShallowOcean(west) || WNLayerUtil.isShallowOcean(south) || WNLayerUtil.isShallowOcean(east)) {
@@ -113,6 +171,12 @@ public enum WNShoreLayer implements ICastleTransformer {
    }
    private static boolean isDaintreeCanyonCompatible(int biomeNear){
       return biomeNear==DAINTREE_CLIFFS || biomeNear==DAINTREE_RIVER;
+   }
+   private static boolean isCracowGorgeCompatible(int biomeNear){
+      return biomeNear==CRACOW_GORGE || biomeNear==TATRA_STREAM;
+   }
+   private static boolean isPolderComaptible(int biomeNear){
+      return biomeNear==POLDERS || biomeNear==POLDERS_EDGE;
    }
    private boolean isMesa(int p_151633_1_) {
       return p_151633_1_ == BADLANDS || p_151633_1_ == WOODED_BADLANDS_PLATEAU || p_151633_1_ == BADLANDS_PLATEAU || p_151633_1_ == ERODED_BADLANDS || p_151633_1_ == MODIFIED_WOODED_BADLANDS_PLATEAU || p_151633_1_ == MODIFIED_BADLANDS_PLATEAU;

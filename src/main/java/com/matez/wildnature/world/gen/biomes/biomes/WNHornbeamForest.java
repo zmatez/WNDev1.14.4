@@ -17,6 +17,10 @@ import com.matez.wildnature.world.gen.structures.nature.woods.cedar.weeping_ceda
 import com.matez.wildnature.world.gen.structures.nature.woods.cedar.weeping_cedar_3;
 import com.matez.wildnature.world.gen.structures.nature.woods.cedar.weeping_cedar_4;
 import com.matez.wildnature.world.gen.structures.nature.woods.deco.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel1;
+import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel2;
+import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel3;
+import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel4;
 import com.matez.wildnature.world.gen.structures.nature.woods.hornbeam.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.*;
@@ -91,8 +95,8 @@ public class WNHornbeamForest extends WNBiome {
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),6);
 
 
-        WNBiomeFeatures.addTree(this,new tree_hornbeam1(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),7);
-        WNBiomeFeatures.addTree(this,new tree_hornbeam2(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),7);
+        WNBiomeFeatures.addTree(this,new tree_hornbeam1(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),8);
+        WNBiomeFeatures.addTree(this,new tree_hornbeam2(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),8);
         WNBiomeFeatures.addTree(this,new tree_hornbeam4(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),7);
         WNBiomeFeatures.addTree(this,new tree_hornbeam5(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),7);
         WNBiomeFeatures.addTree(this,new tree_hornbeam7(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),7);
@@ -107,6 +111,11 @@ public class WNHornbeamForest extends WNBiome {
         WNBiomeFeatures.addTree(this,new rowan2(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new rowan3(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new rowan4(NoFeatureConfig::deserialize,true),1);
+
+        WNBiomeFeatures.addTree(this,new hazel1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new hazel2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new hazel3(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new hazel4(NoFeatureConfig::deserialize,true),1);
 
         WNBiomeFeatures.addTree(this,new pointy_birch1(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new pointy_birch2(NoFeatureConfig::deserialize,true),1);

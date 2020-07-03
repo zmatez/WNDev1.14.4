@@ -36,7 +36,7 @@ public class CaveStarFeature extends Feature<BushConfig> {
          for (Direction allowedDirection : allowedDirections) {
             BlockPos blockpos = pos.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
             BlockPos checkPos = blockpos.offset(allowedDirection);
-            if (worldIn.isAirBlock(blockpos) && (!worldIn.getDimension().isNether() || checkPos.getY() < worldIn.getWorld().getDimension().getHeight()) && worldIn.getBlockState(checkPos).isSolid()) {
+            if (worldIn.isAirBlock(blockpos) &&  checkPos.getY() < worldIn.getWorld().getDimension().getHeight() && worldIn.getBlockState(checkPos).isSolid()) {
                worldIn.setBlockState(blockpos, blockstate.with(CaveStarBlock.FACING,allowedDirection.getOpposite()), 2);
                ++i;
             }

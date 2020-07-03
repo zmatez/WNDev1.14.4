@@ -25,6 +25,7 @@ public class WNMixRiverLayer implements IAreaTransformer2, IDimOffset0Transforme
     private static final int RIVER = Registry.BIOME.getId(WNBiomes.River);
 
     private static final int POLDERS = Registry.BIOME.getId(WNBiomes.Polders);
+    private static final int POLDERS_EDGE = Registry.BIOME.getId(WNBiomes.PoldersEdge);
 
     private static final int JUNGLE = Registry.BIOME.getId(Biomes.JUNGLE);
     private static final int JUNGLE2 = Registry.BIOME.getId(Biomes.JUNGLE_EDGE);
@@ -47,6 +48,10 @@ public class WNMixRiverLayer implements IAreaTransformer2, IDimOffset0Transforme
 
     private static final int DAINTREE_CLIFFS = Registry.BIOME.getId(WNBiomes.DaintreeCliffs);
     private static final int DAINTREE_RIVER = Registry.BIOME.getId(WNBiomes.DaintreeRiver);
+
+    private static final int CRACOW_GORGE = Registry.BIOME.getId(WNBiomes.CracowGorge);
+    private static final int TATRA_STREAM = Registry.BIOME.getId(WNBiomes.TatraStream);
+
     public int apply(INoiseRandom p_215723_1_, IArea p_215723_2_, IArea p_215723_3_, int p_215723_4_, int p_215723_5_) {
         int i = p_215723_2_.getValue(this.func_215721_a(p_215723_4_), this.func_215722_b(p_215723_5_));
         int j = p_215723_3_.getValue(this.func_215721_a(p_215723_4_), this.func_215722_b(p_215723_5_));
@@ -75,6 +80,10 @@ public class WNMixRiverLayer implements IAreaTransformer2, IDimOffset0Transforme
             return i;
         }else if(i==DAINTREE_CLIFFS){
             return i;
+        }else if(i==CRACOW_GORGE){
+            return i;
+        }else if(i==POLDERS || i==POLDERS_EDGE){
+            return i;
         }else if (j == RIVER) {
             if(Registry.BIOME.getId(surfaceBiome.getRiver())==CANYON_RIVER){
                 return CANYON_RIVER;
@@ -82,6 +91,8 @@ public class WNMixRiverLayer implements IAreaTransformer2, IDimOffset0Transforme
                 return ICELAND_RIVER;
             }else if(Registry.BIOME.getId(surfaceBiome.getRiver())==DAINTREE_RIVER){
                 return DAINTREE_RIVER;
+            }else if(Registry.BIOME.getId(surfaceBiome.getRiver())==TATRA_STREAM){
+                return TATRA_STREAM;
             }
             else if (surfaceBiome.getPrecipitation()== Biome.RainType.SNOW) {
                 return FROZEN_RIVER;
@@ -91,8 +102,8 @@ public class WNMixRiverLayer implements IAreaTransformer2, IDimOffset0Transforme
             } else if(Registry.BIOME.getId(surfaceBiome.getRiver())==NILE_RIVER || i == DESERT || i == DESERT2 || i == DESERT3 || db.contains(i)){
                 return NILE_RIVER;
 
-            }else if(j==POLDERS || i==POLDERS){
-                return POLDERS;
+            }else if(j==POLDERS || j==POLDERS_EDGE){
+                return POLDERS_EDGE;
             }
             else {
                 return i != MUSHROOM_FIELDS && i != MUSHROOM_FIELD_SHORE ? j & 255 : MUSHROOM_FIELD_SHORE;

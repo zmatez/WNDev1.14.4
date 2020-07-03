@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab_top",
-    "textures": {
-        "bottom": "wildnature:blocks/hornbeam/hornbeam_parquet",
-        "top": "wildnature:blocks/hornbeam/hornbeam_parquet",
-        "side": "wildnature:blocks/hornbeam/hornbeam_parquet"
-    }
-}

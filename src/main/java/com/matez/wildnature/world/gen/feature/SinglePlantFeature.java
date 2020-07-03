@@ -17,8 +17,10 @@ import java.util.function.Function;
 
 public class SinglePlantFeature extends Feature<NoFeatureConfig> {
     private BlockWeighList list;
-    public SinglePlantFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> p_i49869_1_, BlockWeighList list) {
+    private int spawnChance = 0;
+    public SinglePlantFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> p_i49869_1_, BlockWeighList list, int spawnChance) {
         super(p_i49869_1_);
+        this.spawnChance=spawnChance;
         this.list=list;
     }
 
@@ -26,32 +28,34 @@ public class SinglePlantFeature extends Feature<NoFeatureConfig> {
         if(!worldIn.getDimension().isSurfaceWorld()){
             return false;
         }
-        BlockState state = Utilities.getWeighBlock(list);
-        if(state!=null) {
-            for (BlockState blockstate = worldIn.getBlockState(pos); (blockstate.isAir() || blockstate.isIn(BlockTags.LEAVES)) && pos.getY() > 0; blockstate = worldIn.getBlockState(pos)) {
-                pos = pos.down();
-            }
-
-            int i = 0;
-            boolean placed = false;
-
-            for (int j = 0; j < 128; ++j) {
-                BlockPos blockpos = pos.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
-                try {
-                    if (worldIn.isAirBlock(blockpos) && state.isValidPosition(worldIn, blockpos)) {
-                        worldIn.setBlockState(blockpos, state, 2);
-                        ++i;
-                        placed=true;
-                    }
-
-                    if(placed){
-                        break;
-                    }
-                } catch (NullPointerException e) {
+        if(spawnChance==0 || Utilities.rint(0,spawnChance,rand)==0) {
+            BlockState state = Utilities.getWeighBlock(list);
+            if (state != null) {
+                for (BlockState blockstate = worldIn.getBlockState(pos); (blockstate.isAir() || blockstate.isIn(BlockTags.LEAVES)) && pos.getY() > 0; blockstate = worldIn.getBlockState(pos)) {
+                    pos = pos.down();
                 }
-            }
 
-            return i > 0;
+                int i = 0;
+                boolean placed = false;
+
+                for (int j = 0; j < 128; ++j) {
+                    BlockPos blockpos = pos.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
+                    try {
+                        if (worldIn.isAirBlock(blockpos) && state.isValidPosition(worldIn, blockpos)) {
+                            worldIn.setBlockState(blockpos, state, 2);
+                            ++i;
+                            placed = true;
+                        }
+
+                        if (placed) {
+                            break;
+                        }
+                    } catch (NullPointerException e) {
+                    }
+                }
+
+                return i > 0;
+            }
         }
         return false;
     }

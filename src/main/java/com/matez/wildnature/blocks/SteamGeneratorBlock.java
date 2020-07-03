@@ -141,8 +141,13 @@ public class SteamGeneratorBlock extends BlockBase {
     }
 
     public static <T extends IParticleData> int spawnParticle(ServerWorld world, T type, double posX, double posY, double posZ, int particleCount, double xSpeed, double ySpeed, double zSpeed, double speed) {
+        if(world.isRemote){
+            return 0;
+        }
         WNSSpawnParticlePacket sspawnparticlepacket = new WNSSpawnParticlePacket(type, false, (float)posX, (float)posY, (float)posZ, (float)xSpeed, (float)ySpeed, (float)zSpeed, (float)speed, particleCount);
+
         int i = 0;
+
 
         for(int j = 0; j < world.getPlayers().size(); ++j) {
             ServerPlayerEntity serverplayerentity = world.getPlayers().get(j);

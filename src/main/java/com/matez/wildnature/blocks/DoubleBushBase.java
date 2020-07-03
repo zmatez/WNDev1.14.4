@@ -1,13 +1,18 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -67,10 +72,21 @@ public class DoubleBushBase extends TallFlowerBlock {
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
         boolean silkTouch = false;
         List<ItemStack> list = super.getDrops(state, builder);
-        if(list.isEmpty() && !silkTouch && state.get(HALF)== DoubleBlockHalf.LOWER){
+        if(list.isEmpty() && !silkTouch && state.get(HALF)== DoubleBlockHalf.LOWER && Utilities.rint(0, CommonConfig.flowerDropChance.get())==0){
             list.add(new ItemStack(item, 1));
         }
 
         return list;
+    }
+
+    @Override
+    public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity entity) {
+        if(entity.inventory.getCurrentItem().getItem()== Items.SHEARS && !entity.abilities.isCreativeMode){
+            spawnAsEntity(world,pos,new ItemStack(Item.getItemFromBlock(state.getBlock())));
+            world.playSound((double)pos.getX(),(double)pos.getY(),(double)pos.getZ(),this.getSoundType(state,world,pos,entity).getBreakSound(), SoundCategory.BLOCKS,this.getSoundType(state,world,pos,entity).pitch,this.getSoundType(state,world,pos,entity).volume,false);
+            super.onBlockHarvested(world,pos,state,entity);
+        }else{
+            super.onBlockHarvested(world,pos,state,entity);
+        }
     }
 }

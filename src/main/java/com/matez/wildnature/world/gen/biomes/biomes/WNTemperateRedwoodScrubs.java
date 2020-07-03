@@ -9,6 +9,7 @@ import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.feature.WNBlobConfig;
 import com.matez.wildnature.world.gen.feature.WNBlobFeature;
+import com.matez.wildnature.world.gen.feature.WNTreeVinesFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.cedar.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.cherry.wild_cherry1;
@@ -30,11 +31,13 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.BushConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
+import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -111,6 +114,7 @@ public class WNTemperateRedwoodScrubs extends WNBiome {
         WNBiomeFeatures.addTree(this,new pointy_oak_2(NoFeatureConfig::deserialize,true),2);
         WNBiomeFeatures.addTree(this,new pointy_oak_3(NoFeatureConfig::deserialize,true),2);
         WNBiomeFeatures.addTree(this,new pointy_oak_4(NoFeatureConfig::deserialize,true),2);
+        this.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION, Biome.createDecoratedFeature(new WNTreeVinesFeature(BushConfig::deserialize), new BushConfig(WNBlocks.ROSEVINE_RED.getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 65, 0, 80)));
 
 
         WNBiomeFeatures.addTree(this,new pear1(NoFeatureConfig::deserialize,true),1);

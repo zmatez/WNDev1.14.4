@@ -1,8 +1,10 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.items.PsylocybinShroomItem;
 import com.matez.wildnature.lists.WNBlocks;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -19,7 +21,11 @@ public class MushroomBase extends MushroomBlock {
         super(properties.doesNotBlockMovement().sound(SoundType.PLANT).hardnessAndResistance(0.1F,0F).tickRandomly());
 
         this.setRegistryName(regName);
-        item = new BlockItem(this,builder).setRegistryName(regName);
+        if(this==WNBlocks.PSILOCYBIN_MUSHROOM){
+            item = new PsylocybinShroomItem(this, builder.food(new Food.Builder().hunger(2).saturation(6).setAlwaysEdible().build())).setRegistryName(regName);
+        }else {
+            item = new BlockItem(this, builder).setRegistryName(regName);
+        }
 
         WNBlocks.MUSHROOMS.add(this);
         WNBlocks.BLOCKS.add(this);

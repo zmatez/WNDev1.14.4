@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/gypsum/gypsum",
-        "top": "wildnature:blocks/rocks/gypsum/gypsum",
-        "side": "wildnature:blocks/rocks/gypsum/gypsum"
-    }
-}

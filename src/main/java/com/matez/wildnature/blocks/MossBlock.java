@@ -23,7 +23,7 @@ public class MossBlock extends BushBase {
     }
 
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return worldIn.getBlockState(pos.down()).isSolid();
+        return worldIn.getBlockState(pos.down()).isSolid() &&worldIn.getBlockState(pos.down()).isNormalCube(worldIn,pos) ;
     }
 
 }

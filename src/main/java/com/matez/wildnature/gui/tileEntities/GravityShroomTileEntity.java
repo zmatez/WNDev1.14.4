@@ -7,9 +7,12 @@ import com.matez.wildnature.gui.initGuis;
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.registry.ParticleRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundCategory;
@@ -40,9 +43,17 @@ public class GravityShroomTileEntity extends TileEntity implements ITickableTile
                         /*if(!(world.getBlockState(pos.down()).isAir() && world.getBlockState(pos.down(2)).isAir() && world.getBlockState(pos.down(3)).isAir())) {
                             p.setMotion(p.getMotion().getX(),10.0d,p.getMotion().getZ());
                         }*/
-                        p.setMotion(p.getMotion().getX(),10.0d,p.getMotion().getZ());
+                        if(p.getActivePotionEffect(Effects.GLOWING)==null) {
+                            p.setGlowing(true);
+                        }
+                        p.addPotionEffect(new EffectInstance(Effects.JUMP_BOOST,1,252,true,false));
+
                         steamParticle(p.getPositionVector(), null, (ServerWorld) world, rand);
                     } else {
+                        if(p.getActivePotionEffect(Effects.GLOWING)==null) {
+                            p.setGlowing(false);
+                        }
+
                         if (world.getBlockState(pos).getBlock() instanceof GravityShroom && world.getBlockState(pos).get(GravityShroom.GRAVITY)) {
                             world.setBlockState(pos, world.getBlockState(pos).with(GravityShroom.GRAVITY, false));
                         }

@@ -1,7 +1,0 @@
-{
-    "parent": "wildnature:block/slab_vertical",
-    "textures": {
-    	"particle": "wildnature:blocks/rocks/carbonatite/carbonatite_roof_3_vertical_slab",
-    	"material": "wildnature:blocks/rocks/carbonatite/carbonatite_roof_3_vertical_slab"
-  }
-}

@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/poplar/poplar_parquet",
-        "top": "wildnature:blocks/poplar/poplar_parquet",
-        "side": "wildnature:blocks/poplar/poplar_parquet"
-    }
-}

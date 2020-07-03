@@ -40,14 +40,18 @@ public class WNCommand {
             return BiomeArgument.findTeleportBiome(context.getSource(), player, BiomeArgument.getValue(context, "biome"));
         })))).then(Commands.literal("list").then(Commands.argument("page",IntegerArgumentType.integer(1)).executes((context -> {
             return new BiomeListCommand((PlayerEntity)context.getSource().getEntity()).showPage(IntegerArgumentType.getInteger(context,"page"));
-        }))))).then(Commands.literal("undergroundRiverBiome").then(Commands.literal("locate").requires((perm) -> {
+        })))).then(Commands.literal("sub").then(Commands.argument("biome",new BiomeArgument()).then(Commands.argument("page",IntegerArgumentType.integer(1)).executes((context -> {
+            return new BiomeListCommand((PlayerEntity)context.getSource().getEntity()).showPage(IntegerArgumentType.getInteger(context,"page"));
+        })))))).then(Commands.literal("undergroundRiverBiome").then(Commands.literal("locate").requires((perm) -> {
             return perm.hasPermissionLevel(2);
         }).then(Commands.argument("biome",new CaveBiomeArgument()).executes((context -> {
             ServerPlayerEntity player = context.getSource().asPlayer();
             return CaveBiomeArgument.findTeleportURBiome(context.getSource(), player, CaveBiomeArgument.getValue(context, "biome"));
         })))).then(Commands.literal("list").then(Commands.argument("page",IntegerArgumentType.integer(1)).executes((context -> {
             return new BiomeListCommand((PlayerEntity)context.getSource().getEntity()).showPage(IntegerArgumentType.getInteger(context,"page"));
-        }))))).then(Commands.literal("path").then(Commands.literal("locate").requires((perm) -> {
+        }))).executes(context -> {
+            return new BiomeListCommand((PlayerEntity)context.getSource().getEntity()).showPage(1);
+        }))).then(Commands.literal("path").then(Commands.literal("locate").requires((perm) -> {
             return perm.hasPermissionLevel(2);
         }).executes(context -> {
             return LocatePath.findTeleportBiome(context.getSource(),context.getSource().asPlayer());
@@ -66,8 +70,16 @@ public class WNCommand {
                                                         .then(Commands.argument("name", StringArgumentType.string())
                                                                 .then(Commands.argument("fullJava", BoolArgumentType.bool())
                                                                         .executes((context -> {
-            return new ExportToFile().export(context, new MutableBoundingBox(BlockPosArgument.getLoadedBlockPos(context, "pos1"), BlockPosArgument.getLoadedBlockPos(context, "pos2")),StringArgumentType.getString(context,"name"),BlockStateArgument.getBlockState(context,"centerToBlock"),BoolArgumentType.getBool(context,"fullJava"));
-        })))))))).then(Commands.literal("test").requires((perm) -> {
+            return new ExportToFile().export(context, new MutableBoundingBox(BlockPosArgument.getLoadedBlockPos(context, "pos1"), BlockPosArgument.getLoadedBlockPos(context, "pos2")),StringArgumentType.getString(context,"name"),BlockStateArgument.getBlockState(context,"centerToBlock"),BoolArgumentType.getBool(context,"fullJava"),false);
+        }))))))).then(Commands.argument("pos1",BlockPosArgument.blockPos())
+                                        .then(Commands.argument("pos2",BlockPosArgument.blockPos())
+                                                .then(Commands.argument("centerToBlock", BlockStateArgument.blockState())
+                                                        .then(Commands.argument("name", StringArgumentType.string())
+                                                                .then(Commands.argument("fullJava", BoolArgumentType.bool())
+                                                                        .then(Commands.argument("saveTileEntities", BoolArgumentType.bool())
+                                                                        .executes((context -> {
+                                                                            return new ExportToFile().export(context, new MutableBoundingBox(BlockPosArgument.getLoadedBlockPos(context, "pos1"), BlockPosArgument.getLoadedBlockPos(context, "pos2")),StringArgumentType.getString(context,"name"),BlockStateArgument.getBlockState(context,"centerToBlock"),BoolArgumentType.getBool(context,"fullJava"),BoolArgumentType.getBool(context,"saveTileEntities"));
+                                                                        }))))))))).then(Commands.literal("test").requires((perm) -> {
                             return perm.hasPermissionLevel(2);
 
                         }).executes((context -> {

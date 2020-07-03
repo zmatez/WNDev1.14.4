@@ -21,11 +21,11 @@ public class WNMorskieOko extends WNBiome {
                 .topography(WNBiomeBuilder.Topography.HIGH_MOUNTAINS)
                 .climate(WNBiomeBuilder.Climate.CONTINENTAL_COOL)
                 .depth(-1F)
-                .scale(0.3F)
+                .scale(0.5F)
                 .temperature(0.2F)
                 .downfall(0.8F)
-                .waterColor(4159204)
-                .waterFogColor(329011)
+                .waterColor(0x38AEFF)
+                .waterFogColor(0x1EB7E4)
                 .parent(null));
 
 
@@ -35,7 +35,6 @@ public class WNMorskieOko extends WNBiome {
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
-        WNBiomeFeatures.addLakes(this);
         WNBiomeFeatures.addMonsterRooms(this);
         WNBiomeFeatures.addDoubleFlowers(this);
         WNBiomeFeatures.addStoneVariants(this);

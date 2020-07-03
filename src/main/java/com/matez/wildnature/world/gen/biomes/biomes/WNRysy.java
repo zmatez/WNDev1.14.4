@@ -33,7 +33,7 @@ public class WNRysy extends WNBiome {
                 .climate(WNBiomeBuilder.Climate.CONTINENTAL_COOL)
                 .depth(4F)
                 .scale(2F)
-                .temperature(0.2F)
+                .temperature(-0.7F)
                 .downfall(0.8F)
                 .waterColor(4159204)
                 .waterFogColor(329011)

@@ -216,7 +216,7 @@ public class FlowerRegistry {
                 WNBlocks.HEATH_WHITE = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("heath_white")),
                 WNBlocks.MISCANTHUS_GRASS = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("miscanthus_grass")),
                 WNBlocks.FIRE_WEED = new FireWeedBush(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("fire_weed")),
-                WNBlocks.MONKSHOOD_BLUE = new DoubleBushBaseFlowering(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("monkshood_blue")),
+                WNBlocks.MONKSHOOD_BLUE = new MonkshoodBlueBlock(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("monkshood_blue")),
                 WNBlocks.SNOWDROP = new FloweringBushBase(Block.Properties.create(Material.PLANTS),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("snowdrop")),
 
 

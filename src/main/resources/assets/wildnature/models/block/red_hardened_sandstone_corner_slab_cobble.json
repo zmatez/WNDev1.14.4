@@ -1,7 +1,0 @@
-{
-    "parent": "wildnature:block/slab_corner",
-    "textures": {
-    	"particle": "wildnature:blocks/rocks/red_hardened_sandstone/red_hardened_sandstone_corner_slab_cobble",
-    	"material": "wildnature:blocks/rocks/red_hardened_sandstone/red_hardened_sandstone_corner_slab_cobble"
-  }
-}

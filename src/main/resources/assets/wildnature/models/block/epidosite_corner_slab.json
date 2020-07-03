@@ -1,7 +1,0 @@
-{
-    "parent": "wildnature:block/slab_corner",
-    "textures": {
-    	"particle": "wildnature:blocks/rocks/epidosite/epidosite_corner_slab",
-    	"material": "wildnature:blocks/rocks/epidosite/epidosite_corner_slab"
-  }
-}

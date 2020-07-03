@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/aspen/aspen_parquet",
-        "top": "wildnature:blocks/aspen/aspen_parquet",
-        "side": "wildnature:blocks/aspen/aspen_parquet"
-    }
-}

@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/chalk/chalk",
-        "top": "wildnature:blocks/rocks/chalk/chalk",
-        "side": "wildnature:blocks/rocks/chalk/chalk"
-    }
-}

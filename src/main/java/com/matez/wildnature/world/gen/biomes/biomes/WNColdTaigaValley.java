@@ -15,10 +15,7 @@ import com.matez.wildnature.world.gen.structures.nature.woods.another_spruce.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.beech.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.larch.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.pine.thin_pine1;
-import com.matez.wildnature.world.gen.structures.nature.woods.pine.thin_pine2;
-import com.matez.wildnature.world.gen.structures.nature.woods.pine.thin_pine3;
-import com.matez.wildnature.world.gen.structures.nature.woods.pine.thin_pine4;
+import com.matez.wildnature.world.gen.structures.nature.woods.pine.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.rowan.rowan3;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga11;
@@ -120,6 +117,11 @@ public class WNColdTaigaValley extends WNBiome {
         WNBiomeFeatures.addTree(this,new thin_pine2(NoFeatureConfig::deserialize,true),7);
         WNBiomeFeatures.addTree(this,new thin_pine3(NoFeatureConfig::deserialize,true),7);
         WNBiomeFeatures.addTree(this,new thin_pine4(NoFeatureConfig::deserialize,true),7);
+
+        WNBiomeFeatures.addTree(this,new tall_pine1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new tall_pine2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new tall_pine3(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new tall_pine4(NoFeatureConfig::deserialize,true),1);
 
         WNBiomeFeatures.addTree(this,new spiky_birch_1(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new spiky_birch_2(NoFeatureConfig::deserialize,true),1);

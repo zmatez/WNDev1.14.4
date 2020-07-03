@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/phyllite/phyllite_roof_4",
-        "top": "wildnature:blocks/rocks/phyllite/phyllite_roof_4",
-        "side": "wildnature:blocks/rocks/phyllite/phyllite_roof_4"
-    }
-}

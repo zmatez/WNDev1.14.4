@@ -1,7 +1,0 @@
-{
-    "parent": "wildnature:block/slab_corner",
-    "textures": {
-    	"particle": "wildnature:blocks/rocks/gabbro/gabbro_corner_slab_bricks_mossy_top",
-    	"material": "wildnature:blocks/rocks/gabbro/gabbro_corner_slab_bricks_mossy_top"
-  }
-}

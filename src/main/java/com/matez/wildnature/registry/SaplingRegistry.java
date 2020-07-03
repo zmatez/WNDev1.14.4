@@ -14,14 +14,13 @@ import com.matez.wildnature.world.gen.structures.nature.woods.cherry.cherry2;
 import com.matez.wildnature.world.gen.structures.nature.woods.cherry.cherry3;
 import com.matez.wildnature.world.gen.structures.nature.woods.cherry.cherry4;
 import com.matez.wildnature.world.gen.structures.nature.woods.citrus.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.deco.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.ebony.ebony1;
 import com.matez.wildnature.world.gen.structures.nature.woods.ebony.ebony2;
 import com.matez.wildnature.world.gen.structures.nature.woods.ebony.ebony3;
 import com.matez.wildnature.world.gen.structures.nature.woods.ebony.ebony4;
 import com.matez.wildnature.world.gen.structures.nature.woods.eucalyptus.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.fir.tree_fir1;
-import com.matez.wildnature.world.gen.structures.nature.woods.fir.tree_fir18;
-import com.matez.wildnature.world.gen.structures.nature.woods.fir.tree_fir9;
+import com.matez.wildnature.world.gen.structures.nature.woods.fir.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.larch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.mahogany.mahogany1;
 import com.matez.wildnature.world.gen.structures.nature.woods.mahogany.mahogany2;
@@ -98,6 +97,11 @@ public class SaplingRegistry {
         weighList.add(new beech11(NoFeatureConfig::deserialize,false),10);
         weighList.add(new beech12(NoFeatureConfig::deserialize,false),10);
         Tree beechTrees = new SchemTree(weighList);
+        weighList = new TreeWeighList();
+        weighList.add(new leafy_beech_1(NoFeatureConfig::deserialize,true,null,SchemFeature.notDecayingLeaf(WNBlocks.PURPLE_BEECH_LEAVES)),10);
+        weighList.add(new leafy_beech_2(NoFeatureConfig::deserialize,true,null,SchemFeature.notDecayingLeaf(WNBlocks.PURPLE_BEECH_LEAVES)),10);
+        weighList.add(new leafy_beech_3(NoFeatureConfig::deserialize,true,null,SchemFeature.notDecayingLeaf(WNBlocks.PURPLE_BEECH_LEAVES)),10);
+        Tree purpleBeechTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
 
         weighList.add(new cedar1(NoFeatureConfig::deserialize,false),10);
@@ -176,14 +180,10 @@ public class SaplingRegistry {
 
         Tree firTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_taiga14(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_SILVER_LEAVES)),10);
-        weighList.add(new tree_taiga15(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_SILVER_LEAVES)),10);
-        weighList.add(new tree_taiga16(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_SILVER_LEAVES)),10);
-        weighList.add(new tree_taiga17(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_SILVER_LEAVES)),10);
-        weighList.add(new tree_taiga18(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_SILVER_LEAVES)),10);
-        weighList.add(new tree_fir1(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_SILVER_LEAVES)),10);
-        weighList.add(new tree_fir9(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_SILVER_LEAVES)),10);
-        weighList.add(new tree_fir18(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_SILVER_LEAVES)),2);
+        weighList.add(new silver_fir1(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new silver_fir2(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new silver_fir3(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new silver_fir4(NoFeatureConfig::deserialize,false),10);
 
 
         Tree firSilverTrees = new SchemTree(weighList);
@@ -417,13 +417,26 @@ public class SaplingRegistry {
         weighList.add(new nuytsia6(NoFeatureConfig::deserialize,false),10);
         Tree nuytsiaTrees= new SchemTree(weighList);
         weighList = new TreeWeighList();
-
+        weighList.add(new magnolia1(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new magnolia2(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new magnolia3(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new magnolia4(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new magnolia5(NoFeatureConfig::deserialize,false),10);
+        Tree magnoliaTrees= new SchemTree(weighList);
+        weighList = new TreeWeighList();
+        weighList.add(new forsythia1(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new forsythia2(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new forsythia3(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new forsythia4(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new forsythia5(NoFeatureConfig::deserialize,false),10);
+        Tree forsythiaTrees= new SchemTree(weighList);
         saplings = new Block[]{
                 WNBlocks.APPLE_SAPLING = new SaplingBase(appleTrees, Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("apple_sapling")),
-                WNBlocks.PARADISE_APPLE_SAPLING = new SaplingBase(appleTrees, Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("paradise_apple_sapling")),
+                WNBlocks.PARADISE_APPLE_SAPLING = new SaplingBase(paradiseAppleTrees, Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("paradise_apple_sapling")),
                 WNBlocks.ASPEN_SAPLING = new SaplingBase(aspenTrees, Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("aspen_sapling")),
                 WNBlocks.BAOBAB_SAPLING = new SaplingBase(baobabTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("baobab_sapling")),
                 WNBlocks.BEECH_SAPLING = new SaplingBase(beechTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("beech_sapling")),
+                WNBlocks.PURPLE_BEECH_SAPLING = new SaplingBase(purpleBeechTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("purple_beech_sapling")),
                 WNBlocks.CEDAR_SAPLING = new SaplingBase(cedarTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("cedar_sapling")),
                 WNBlocks.CHERRY_SAPLING = new SaplingBase(cherryTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("cherry_sapling")),
                 WNBlocks.CHERRY_PINK_SAPLING = new SaplingBase(cherryPinkTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("cherry_pink_sapling")),
@@ -431,7 +444,7 @@ public class SaplingRegistry {
                 WNBlocks.EBONY_SAPLING = new SaplingBase(ebonyTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("ebony_sapling")),
                 WNBlocks.EUCALYPTUS_SAPLING = new SaplingBase(eucalyptusTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("eucalyptus_sapling")),
                 WNBlocks.FIR_SAPLING = new SaplingBase(firTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("fir_sapling")),
-                WNBlocks.FIR_SILVER_SAPLING = new SaplingBase(firTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("fir_silver_sapling")),
+                WNBlocks.FIR_SILVER_SAPLING = new SaplingBase(firSilverTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("fir_silver_sapling")),
                 WNBlocks.HAZEL_SAPLING = new SaplingBase(hazelTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hazel_sapling")),
                 WNBlocks.HORNBEAM_SAPLING = new SaplingBase(hornbeamTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("hornbeam_sapling")),
                 WNBlocks.JACARANDA_SAPLING = new SaplingBase(jacarandaTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("jacaranda_sapling")),
@@ -462,7 +475,9 @@ public class SaplingRegistry {
                 WNBlocks.PEACH_SAPLING = new SaplingBase(peachTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("peach_sapling")),
                 WNBlocks.POMEGRANATE_SAPLING = new SaplingBase(pomegranateTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("pomegranate_sapling")),
                 WNBlocks.MANGO_SAPLING = new SaplingBase(mangoTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("mango_sapling")),
-                WNBlocks.NUYTSIA_SAPLING = new SaplingBase(nuytsiaTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("nuytsia_sapling"))
+                WNBlocks.NUYTSIA_SAPLING = new SaplingBase(nuytsiaTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("nuytsia_sapling")),
+                WNBlocks.MAGNOLIA_SAPLING = new SaplingBase(magnoliaTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("magnolia_sapling")),
+                WNBlocks.FORSYTHIA_SAPLING = new SaplingBase(forsythiaTrees,Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(),new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("forsythia_sapling"))
 
 
         };

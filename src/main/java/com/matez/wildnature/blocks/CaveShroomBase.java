@@ -1,6 +1,7 @@
 package com.matez.wildnature.blocks;
 
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.lists.WNItems;
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.registry.ParticleRegistry;
 import net.minecraft.block.Block;
@@ -19,7 +20,10 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class CaveShroomBase extends MushroomBase {
@@ -94,5 +98,21 @@ public class CaveShroomBase extends MushroomBase {
         }
         BlockPos blockpos = pos.down();
         return isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos) && worldIn.getLightSubtracted(pos, 0) < 10;
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        List<ItemStack> l = new ArrayList<>();
+
+        if(state.getBlock()== WNBlocks.GLOWING_SLIMESHROOM_GREEN || state.getBlock()== WNBlocks.HANGING_GLOWING_SLIMESHROOM_GREEN){
+            l.add(new ItemStack(WNItems.GLOWSHROOM_DUST,Utilities.rint(0,1)));
+            return l;
+        }
+        if(state.getBlock()== WNBlocks.GLOWING_SLIMESHROOM_BLUE || state.getBlock()== WNBlocks.HANGING_GLOWING_SLIMESHROOM_BLUE){
+            l.add(new ItemStack(WNItems.ICESHROOM_DUST,Utilities.rint(0,1)));
+            return l;
+        }
+
+        return super.getDrops(state, builder);
     }
 }

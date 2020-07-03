@@ -1,6 +1,7 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.blocks.CropBase;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.biomes.surface.CustomSurfaceBuilder;
@@ -8,6 +9,7 @@ import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.feature.ScatteredPlantFeature;
 import com.matez.wildnature.world.gen.feature.WNBlobConfig;
 import com.matez.wildnature.world.gen.feature.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
@@ -22,6 +24,7 @@ import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga11;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga12;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SweetBerryBushBlock;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -73,6 +76,7 @@ public class WNBerryTaiga extends WNBiome {
         WNBiomeFeatures.addGrass(this,15,Blocks.LARGE_FERN.getDefaultState(),true);
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
+        WNBiomeFeatures.addBerryBushes(this);
         WNBiomeFeatures.addBerryBushes(this);
         WNBiomeFeatures.addBerryBushes(this);
         WNBiomeFeatures.addTaigaRocks(this);

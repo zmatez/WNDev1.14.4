@@ -9,6 +9,8 @@ import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.feature.WNBlobConfig;
 import com.matez.wildnature.world.gen.feature.WNBlobFeature;
+import com.matez.wildnature.world.gen.feature.WNTreeVinesFeature;
+import com.matez.wildnature.world.gen.feature.WNWisteriaFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.cedar.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.cherry.*;
@@ -34,11 +36,13 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.BushConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
+import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -177,14 +181,18 @@ public class WNVibrantForest extends WNBiome {
         WNBiomeFeatures.addTree(this,new wild_cherry4(NoFeatureConfig::deserialize,true),2);
 
 
-        WNBiomeFeatures.addTree(this,new high_oak_1(NoFeatureConfig::deserialize,true),5);
-        WNBiomeFeatures.addTree(this,new high_oak_2(NoFeatureConfig::deserialize,true),5);
-        WNBiomeFeatures.addTree(this,new high_oak_3(NoFeatureConfig::deserialize,true),5);
-        WNBiomeFeatures.addTree(this,new high_oak_4(NoFeatureConfig::deserialize,true),5);
+        //WNBiomeFeatures.addTree(this,new high_oak_1(NoFeatureConfig::deserialize,true),5);
+        //WNBiomeFeatures.addTree(this,new high_oak_2(NoFeatureConfig::deserialize,true),5);
+        //WNBiomeFeatures.addTree(this,new high_oak_3(NoFeatureConfig::deserialize,true),5);
+        //WNBiomeFeatures.addTree(this,new high_oak_4(NoFeatureConfig::deserialize,true),5);
         WNBiomeFeatures.addTree(this,new branchy_oak_1(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new branchy_oak_2(NoFeatureConfig::deserialize,true),1);
 
         this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(Blocks.PODZOL.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(3)));
+        this.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION, Biome.createDecoratedFeature(new WNTreeVinesFeature(BushConfig::deserialize), new BushConfig(WNBlocks.ROSEVINE_YELLOW.getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(2, 65, 0, 80)));
+        this.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION, Biome.createDecoratedFeature(new WNTreeVinesFeature(BushConfig::deserialize), new BushConfig(WNBlocks.ROSEVINE_PINK.getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(2, 65, 0, 80)));
+        this.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION, Biome.createDecoratedFeature(new WNTreeVinesFeature(BushConfig::deserialize), new BushConfig(WNBlocks.ROSEVINE_RED.getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 65, 0, 80)));
+        this.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION, Biome.createDecoratedFeature(new WNWisteriaFeature(BushConfig::deserialize), new BushConfig(WNBlocks.WISTERIA_PINK.getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(3, 65, 0, 80)));
 
         plantRate=2;
         treeRate=10;
@@ -195,13 +203,9 @@ public class WNVibrantForest extends WNBiome {
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.CHICKEN, 10, 4, 4));
         this.addSpawn(EntityClassification.AMBIENT, new SpawnListEntry(EntityType.BAT, 10, 8, 8));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SPIDER, 100, 4, 4));
-        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ZOMBIE, 95, 4, 4));
-        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ZOMBIE_VILLAGER, 5, 1, 1));
-        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SKELETON, 100, 4, 4));
-        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.CREEPER, 5, 4, 4));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SLIME, 100, 4, 4));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ENDERMAN, 10, 1, 4));
-        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH, 5, 1, 1));
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH, 10, 1, 1));
 
     }
 

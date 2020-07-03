@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/rowan/rowan_parquet",
-        "top": "wildnature:blocks/rowan/rowan_parquet",
-        "side": "wildnature:blocks/rowan/rowan_parquet"
-    }
-}

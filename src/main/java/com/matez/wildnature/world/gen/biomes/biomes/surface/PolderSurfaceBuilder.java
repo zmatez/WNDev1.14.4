@@ -5,6 +5,7 @@ import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -34,17 +35,19 @@ public class PolderSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
     public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
         int i = 0;
 
-        if(isSameBiomeNear(chunkIn,biomeIn,new BlockPos(x,startHeight,z))) {
-            int height = startHeight;
-            while (height > startHeight - max) {
+        int lowestHeight = 0;
+        for (int height = seaLevel - 1; height > seaLevel-1 - max; height--) {
+            if(chunkIn.getBlockState(new BlockPos(x,height,z)).getFluidState().getFluid()== Fluids.WATER) {
                 chunkIn.setBlockState(new BlockPos(x, height, z), Blocks.AIR.getDefaultState(), false);
-                height--;
+                lowestHeight = height;
+            }else {
+                continue;
             }
-            buildPolderSurface(random, chunkIn, biomeIn, x, z, height, noise, defaultBlock, defaultFluid, config.getTop(), config.getUnder(), seaLevel);
 
-        }else {
-            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG);
         }
+        buildPolderSurface(random, chunkIn, biomeIn, x, z, lowestHeight-1, noise, defaultBlock, defaultFluid, config.getTop(), config.getUnder(), seaLevel);
+
+
 
     }
 

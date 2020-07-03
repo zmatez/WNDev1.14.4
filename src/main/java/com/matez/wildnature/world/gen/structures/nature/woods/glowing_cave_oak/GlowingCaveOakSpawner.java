@@ -57,7 +57,6 @@ public class GlowingCaveOakSpawner extends AbstractTreeFeature<NoFeatureConfig> 
             }
         }
 
-        Main.LOGGER.debug("YEAH Generating tree at " + position + " : icy: " + icy);
         if (icy) {
             int index = Utilities.rint(0, icyCaveOaks.size() - 1, rand);
             return icyCaveOaks.get(index).place((IWorld)worldIn,((IWorld) worldIn).getChunkProvider().getChunkGenerator(),rand, position,new NoFeatureConfig());

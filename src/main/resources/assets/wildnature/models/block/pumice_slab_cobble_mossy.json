@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/pumice/pumice_cobble_mossy",
-        "top": "wildnature:blocks/rocks/pumice/pumice_cobble_mossy",
-        "side": "wildnature:blocks/rocks/pumice/pumice_cobble_mossy"
-    }
-}

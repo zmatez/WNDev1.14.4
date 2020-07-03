@@ -1,6 +1,8 @@
 package com.matez.wildnature.blocks;
 
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.lists.WNItems;
+import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
@@ -53,7 +55,11 @@ public class CaveStarBlock extends EndRodBlock {
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
         List<ItemStack> list = super.getDrops(state, builder);
         if(list.isEmpty()){
-            list.add(new ItemStack(item, 1));
+            if(Utilities.rint(0,5)==0) {
+                list.add(new ItemStack(item, 1));
+            }else{
+                list.add(new ItemStack(WNItems.ICESHROOM_DUST, Utilities.rint(0,1)));
+            }
         }
 
         return list;

@@ -1,6 +1,7 @@
 package com.matez.wildnature.blocks;
 
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.lists.WNItems;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -76,11 +77,15 @@ public class CaveBush extends BushBase {
             return l;
         }
         if(state.getBlock()== WNBlocks.GLOW_SHROOM || state.getBlock()== WNBlocks.LARGE_GLOWSHROOM){
-            l.add(new ItemStack(Items.GLOWSTONE_DUST,Utilities.rint(0,2)));
+            l.add(new ItemStack(WNItems.GLOWSHROOM_DUST,Utilities.rint(0,2)));
             return l;
         }
         if(state.getBlock()== WNBlocks.ICE_SHROOM){
-            l.add(new ItemStack(Items.GLOWSTONE_DUST,Utilities.rint(0,1)));
+            l.add(new ItemStack(WNItems.ICESHROOM_DUST,Utilities.rint(0,1)));
+            return l;
+        }
+        if(state.getBlock()== WNBlocks.MAGMA_SHROOM){
+            l.add(new ItemStack(Items.FIRE_CHARGE,Utilities.rint(0,3)==0 ? 1 : 0));
             return l;
         }
         if(state.getBlock()== WNBlocks.STONE_GRASS || state.getBlock()== WNBlocks.ICE_GRASS|| state.getBlock()== WNBlocks.STALACTITE|| state.getBlock()== WNBlocks.STALAGMITE|| state.getBlock()== WNBlocks.LARGE_STALAGMITE|| state.getBlock()== WNBlocks.LARGE_STALACTITE|| state.getBlock()== WNBlocks.ICYCLE|| state.getBlock()== WNBlocks.LARGE_ICYCLE){

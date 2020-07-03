@@ -1,7 +1,9 @@
 package com.matez.wildnature.world.gen.feature;
 
+import com.matez.wildnature.blocks.BelladonnaBlock;
 import com.matez.wildnature.blocks.CropBase;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.blocks.YuccaBlock;
 import com.matez.wildnature.other.BlockWeighList;
 import com.matez.wildnature.other.Utilities;
 import com.mojang.datafixers.Dynamic;
@@ -65,8 +67,18 @@ public class PlantFeature extends Feature<NoFeatureConfig> {
                         }
                         if(state.getBlock() instanceof DoublePlantBlock){
                             if(worldIn.getBlockState(pos.up()).isAir()){
-                                worldIn.setBlockState(blockpos, state.with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER), 2);
-                                worldIn.setBlockState(blockpos.up(), state.with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER), 2);
+                                if(state.getBlock() instanceof BelladonnaBlock){
+                                    state = state.with(BelladonnaBlock.STAGE,Utilities.rint(2,3));
+                                }
+                                if(state.getBlock() instanceof YuccaBlock){
+                                    ((YuccaBlock)state.getBlock()).setBlock(worldIn,pos, Utilities.rint(0, 1) == 0);
+                                }else {
+                                    worldIn.setBlockState(blockpos, state.with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER), 2);
+                                    worldIn.setBlockState(blockpos.up(), state.with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER), 2);
+                                    if(state.getBlock() instanceof BelladonnaBlock){
+                                        break;
+                                    }
+                                }
                             }
                         }else {
                             worldIn.setBlockState(blockpos, state, 2);

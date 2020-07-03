@@ -21,9 +21,6 @@ public enum GroupLayer implements IAreaTransformer2, IDimOffset1Transformer {
     public int apply(INoiseRandom noise, IArea area1, IArea area2, int int1, int int2) {
         int i = area1.getValue(this.func_215721_a(int1 + 1), this.func_215722_b(int2 + 1));
         int j = area2.getValue(this.func_215721_a(int1 + 1), this.func_215722_b(int2 + 1));
-        if (i > 255) {
-            LOGGER.debug("old! {}", (int)i);
-        }
 
         int k = (j - 2) % ConfigSettings.biomeGroupChance;
 

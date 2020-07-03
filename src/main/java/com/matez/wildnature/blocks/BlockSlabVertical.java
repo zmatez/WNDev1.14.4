@@ -1,10 +1,14 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.lists.WNItems;
+import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItem;
@@ -16,8 +20,10 @@ import net.minecraft.state.*;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -29,7 +35,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BlockSlabVertical extends Block implements IWaterLoggable {
+public class BlockSlabVertical extends BlockBase implements IWaterLoggable {
     private static final VoxelShape NORTH_SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 8.0D);
     private static final VoxelShape EAST_SHAPE = Block.makeCuboidShape(8.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
     private static final VoxelShape SOUTH_SHAPE = Block.makeCuboidShape(0.0D, 0.0D, 8.0D, 16.0D, 16.0D, 16.0D);
@@ -37,19 +43,8 @@ public class BlockSlabVertical extends Block implements IWaterLoggable {
     public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.Plane.HORIZONTAL);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public Item item;
-
-
     public BlockSlabVertical(Properties properties, Item.Properties builder, ResourceLocation regName) {
-        super(properties);
-
-        this.setRegistryName(regName);
-        item = new BlockItem(this,builder).setRegistryName(regName);
-
-
-        WNBlocks.BLOCKS.add(this);
-        WNBlocks.ITEMBLOCKS.add(item);
-
+        super(properties,builder,regName);
     }
 
     @Override
@@ -95,5 +90,18 @@ public class BlockSlabVertical extends Block implements IWaterLoggable {
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
         builder.add(FACING, WATERLOGGED);
+    }
+
+    @Override
+    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if(player.getHeldItem(handIn).getItem()== WNItems.CHISEL && Utilities.getDistance(player.getPosition(),pos)>=1){
+            String cornerId = this.getRegistryName().toString().replace("vertical","corner");
+            Block b = Main.getBlockByID(cornerId);
+            if(b instanceof BlockSlabCorner){
+                worldIn.setBlockState(pos,b.getDefaultState().with(BlockSlabCorner.FACING,state.get(FACING).getOpposite()).with(BlockSlabCorner.WATERLOGGED,state.get(WATERLOGGED)));
+                return true;
+            }
+        }
+        return false;
     }
 }

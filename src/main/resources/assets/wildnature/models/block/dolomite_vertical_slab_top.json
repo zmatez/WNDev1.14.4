@@ -1,7 +1,0 @@
-{
-    "parent": "wildnature:block/slab_vertical",
-    "textures": {
-    	"particle": "wildnature:blocks/rocks/dolomite/dolomite_vertical_slab_top",
-    	"material": "wildnature:blocks/rocks/dolomite/dolomite_vertical_slab_top"
-  }
-}

@@ -1,5 +1,6 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.biomes.surface.CustomSurfaceBuilder;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch10;
@@ -60,6 +61,10 @@ public class WNPoplarForest extends WNBiome {
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:pasque_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:clover").getDefaultState(),3);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:leaf_pile").getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HYDRANGEA_WHITE.getDefaultState(),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HOLLYHOCK_RED.getDefaultState(),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CARNATION_RED.getDefaultState(),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GLADIOLUS_ORANGE.getDefaultState(),1);
         WNBiomeFeatures.addTree(this,new tree_birch10(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:poplar_leaves"))),6);
         WNBiomeFeatures.addTree(this,new tree_birch1(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:poplar_leaves"))),4);
         WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),10);

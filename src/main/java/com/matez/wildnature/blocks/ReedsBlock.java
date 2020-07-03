@@ -1,5 +1,6 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.lists.WNBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -79,9 +80,12 @@ public class ReedsBlock extends BushBase implements IWaterLoggable {
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         BlockPos blockpos = context.getPos();
+        if (isValidPosition(WNBlocks.REEDS.getDefaultState().with(REED_HALF, REEDS_HALF.BOTTOM), context.getWorld(), context.getPos())) {
 
-        IFluidState ifluidstate = context.getWorld().getFluidState(blockpos);
-        return blockpos.getY() < context.getWorld().getDimension().getHeight() - 2 && context.getWorld().getBlockState(blockpos.up()).isReplaceable(context) && context.getWorld().getBlockState(blockpos.up(2)).isReplaceable(context) ? this.getDefaultState().with(WATERLOGGED, Boolean.valueOf(ifluidstate.getFluid() == Fluids.WATER)) : null;
+            IFluidState ifluidstate = context.getWorld().getFluidState(blockpos);
+            return blockpos.getY() < context.getWorld().getDimension().getHeight() - 2 && context.getWorld().getBlockState(blockpos.up()).isReplaceable(context) && context.getWorld().getBlockState(blockpos.up(2)).isReplaceable(context) ? this.getDefaultState().with(WATERLOGGED, Boolean.valueOf(ifluidstate.getFluid() == Fluids.WATER)) : null;
+        }
+        return null;
     }
 
 
@@ -141,25 +145,31 @@ public class ReedsBlock extends BushBase implements IWaterLoggable {
 
                         }
                     }
-                    if (state.getBlock() == this) //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
-                        return worldIn.getBlockState(blockpos).canSustainPlant(worldIn, blockpos, Direction.UP, this);
-                    return this.isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos);
+                    if(!(worldIn.getBlockState(blockpos.up()).getBlock() instanceof ReedsBlock) && !(worldIn.getBlockState(blockpos.up(2)).getBlock() instanceof ReedsBlock) && !(worldIn.getBlockState(blockpos.up(3)).getBlock() instanceof ReedsBlock)) {
+                        if (state.getBlock() == this) //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
+                            return worldIn.getBlockState(blockpos).canSustainPlant(worldIn, blockpos, Direction.UP, this);
+                        return this.isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos);
+                    }
                 }
             }
             return false;
         }else{
-            BlockPos blockpos = pos.down();
-            if(worldIn.getBlockState(blockpos).getBlock() instanceof ReedsBlock){
-                if(state.get(REED_HALF)==REEDS_HALF.TOP){
-                    return worldIn.getBlockState(blockpos).get(REED_HALF)==REEDS_HALF.MEDIUM;
-                }else if(state.get(REED_HALF) == REEDS_HALF.MEDIUM){
-                    return worldIn.getBlockState(blockpos).get(REED_HALF)==REEDS_HALF.BOTTOM;
+            if(worldIn.getBlockState(pos.up()).getBlock()==Blocks.AIR || worldIn.getBlockState(pos.up(2)).getBlock()==Blocks.AIR || worldIn.getBlockState(pos.up(3)).getBlock()==Blocks.AIR) {
 
+                BlockPos blockpos = pos.down();
+                if (worldIn.getBlockState(blockpos).getBlock() instanceof ReedsBlock) {
+                    if (state.get(REED_HALF) == REEDS_HALF.TOP) {
+                        return worldIn.getBlockState(blockpos).get(REED_HALF) == REEDS_HALF.MEDIUM;
+                    } else if (state.get(REED_HALF) == REEDS_HALF.MEDIUM) {
+                        return worldIn.getBlockState(blockpos).get(REED_HALF) == REEDS_HALF.BOTTOM;
+
+                    }
                 }
+                if (state.getBlock() == this) //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
+                    return worldIn.getBlockState(blockpos).canSustainPlant(worldIn, blockpos, Direction.UP, this);
+                return this.isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos);
             }
-            if (state.getBlock() == this) //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
-                return worldIn.getBlockState(blockpos).canSustainPlant(worldIn, blockpos, Direction.UP, this);
-            return this.isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos);
+            return false;
         }
     }
 

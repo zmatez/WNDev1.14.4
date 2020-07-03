@@ -8,12 +8,15 @@ import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.BlockWeighList;
 import com.matez.wildnature.world.gen.feature.*;
+import com.matez.wildnature.world.gen.feature.ScatteredPlantFeature;
 import com.matez.wildnature.world.gen.feature.WaterlilyFeature;
 import com.matez.wildnature.world.gen.structures.nature.rocks.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.glowing_cave_oak.GlowingCaveOakSpawner;
+import com.matez.wildnature.world.gen.structures.nature.woods.glowshroom.GlowshroomSpawner;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SweetBerryBushBlock;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.world.biome.BeachBiome;
@@ -37,6 +40,9 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         defaultPlantBlacklist.add(biomeIn);
     }
 
+    public static void addBerryBushes(Biome biomeIn) {
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new ScatteredPlantFeature(NoFeatureConfig::deserialize, Blocks.SWEET_BERRY_BUSH.getDefaultState().with(SweetBerryBushBlock.AGE, Integer.valueOf(3))), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(1)));
+    }
 
 	public static void addGrass(Biome biomeIn) {
         biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.GRASS, new GrassFeatureConfig(Blocks.GRASS.getDefaultState()), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(9)));
@@ -274,6 +280,12 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         }
     }
 
+    public static void addRiverPlants(Biome biomeIn) {
+        if (BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.RIVER) || biomeIn==WNBiomes.River || biomeIn==WNBiomes.AmazonRiver || biomeIn==WNBiomes.NileRiver || biomeIn==WNBiomes.TropicalLake || biomeIn==WNBiomes.WarmLake || biomeIn==WNBiomes.ColdLake ) {
+            biomeIn.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(new ReedsFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.riverCaneRarity.get(), 55, 0, 65)));
+        }
+    }
+
     public static void addFruits(Biome biomeIn){
         biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new WNFruitFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.fruitBushRarity.get(),64,0,100)));
 
@@ -288,15 +300,16 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         BlockWeighList l = new BlockWeighList();
 
         if(BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.FOREST)){
-            l.add(Main.getBlockByID("wildnature:poison_ivy").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-            l.add(Main.getBlockByID("wildnature:spidergrass").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-
-
+            l.add(Main.getBlockByID("wildnature:poison_ivy").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+            l.add(Main.getBlockByID("wildnature:spidergrass").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
         }
         if(biomeIn.getTempCategory()== Biome.TempCategory.WARM || biomeIn.getTempCategory()== Biome.TempCategory.MEDIUM){
             l.add(Main.getBlockByID("wildnature:grass_thistle").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         }
-        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new SinglePlantFeature(NoFeatureConfig::deserialize,l), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(CommonConfig.poisonIvyRarity.get())));
+        if(biomeIn.getTempCategory()!= Biome.TempCategory.COLD){
+            l.add(Main.getBlockByID("wildnature:nettle").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        }
+        biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new SinglePlantFeature(NoFeatureConfig::deserialize,l,5), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP, new FrequencyConfig(CommonConfig.poisonIvyRarity.get())));
 
     }
 
@@ -304,7 +317,7 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         if(BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.SANDY) && biomeIn.getTempCategory()== Biome.TempCategory.WARM && biomeIn!= Biomes.BEACH && biomeIn!=WNBiomes.TintedDesert && biomeIn!=WNBiomes.TintedDesertHills || biomeIn==WNBiomes.WhiteBeach || biomeIn==WNBiomes.Oasis){
             BlockWeighList l = new BlockWeighList();
             l.add(Main.getBlockByID("wildnature:small_cacti").getDefaultState(),1);
-            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new SinglePlantFeature(NoFeatureConfig::deserialize,l), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(CommonConfig.smallCactiRarity.get())));
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new SinglePlantFeature(NoFeatureConfig::deserialize,l,0), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(CommonConfig.smallCactiRarity.get())));
 
 
         }
@@ -386,6 +399,14 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new GlowingCaveOakSpawner(NoFeatureConfig::deserialize,false,false), new NoFeatureConfig(), Placement.COUNT_RANGE, new CountRangeConfig(2, 5, 0, 35)));
         }else if (biomeIn.getTempCategory() == Biome.TempCategory.OCEAN) {
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new GlowingCaveOakSpawner(NoFeatureConfig::deserialize,false,false), new NoFeatureConfig(), Placement.COUNT_RANGE, new CountRangeConfig(2, 5, 0, 35)));
+        }
+    }
+
+    public static void addGlowshrooms(Biome biomeIn) {
+        if (biomeIn.getTempCategory() == Biome.TempCategory.WARM && biomeIn.getCategory()!= Biome.Category.DESERT && biomeIn.getCategory()!= Biome.Category.MESA) {
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new GlowshroomSpawner(NoFeatureConfig::deserialize,false), new NoFeatureConfig(), Placement.COUNT_RANGE, new CountRangeConfig(7, 5, 0, 45)));
+        }else if (biomeIn.getTempCategory() == Biome.TempCategory.OCEAN) {
+            biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new GlowshroomSpawner(NoFeatureConfig::deserialize,false), new NoFeatureConfig(), Placement.COUNT_RANGE, new CountRangeConfig(10, 5, 0, 35)));
         }
     }
 

@@ -1,5 +1,6 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.fir.*;
@@ -13,8 +14,10 @@ import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.fir.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.*;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -22,6 +25,8 @@ import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNTatraFoothills extends WNBiome {
     public WNTatraFoothills(String name) {
@@ -31,9 +36,9 @@ public class WNTatraFoothills extends WNBiome {
                 .category(Category.EXTREME_HILLS)
                 .topography(WNBiomeBuilder.Topography.HIGH_MOUNTAINS)
                 .climate(WNBiomeBuilder.Climate.CONTINENTAL_COOL)
-                .depth(1.3F)
+                .depth(0.8F)
                 .scale(0.4F)
-                .temperature(0.2F)
+                .temperature(0.3F)
                 .downfall(0.8F)
                 .waterColor(4159204)
                 .waterFogColor(329011)
@@ -54,73 +59,27 @@ public class WNTatraFoothills extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,18);
+        WNBiomeFeatures.addGrass(this,15);
+        WNBiomeFeatures.addGrass(this,5, WNBlocks.MEDIUM_GRASS.getDefaultState());
+        WNBiomeFeatures.addGrass(this,25, Blocks.TALL_GRASS.getDefaultState(), true);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_purple").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
         WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:bluebell").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CROCUS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PRIMROSE_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.FIRE_WEED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
 
-        BlockState pineLog = Main.getBlockByID("minecraft:spruce_log").getDefaultState();
-        BlockState pineLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"));
-        BlockState firLog = Main.getBlockByID("minecraft:spruce_log").getDefaultState();
-        BlockState firLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("wildnature:fir_leaves"));
-        BlockState spruceLog = Main.getBlockByID("minecraft:spruce_log").getDefaultState();
-        BlockState spruceLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"));
-        BlockState birchLog = Main.getBlockByID("minecraft:birch_log").getDefaultState();
-        BlockState birchLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("minecraft:birch_leaves"));
-        int x = 0;
-        while(x<3){
-            BlockState LOG = null;
-            BlockState LEAVES = null;
-            if(x==0){
-                LOG = pineLog;
-                LEAVES = pineLeaves;
-            }else if(x==1){
-                LOG = firLog;
-                LEAVES = firLeaves;
-            }else if(x==2){
-                LOG = spruceLog;
-                LEAVES = spruceLeaves;
-            }
-            WNBiomeFeatures.addTree(this,new tree_taiga1(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga2(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga4(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga5(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga8(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga9(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga14(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga16(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga17(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga18(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir7(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir9(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir13(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir19(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir20(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            x++;
-        }
-
-        WNBiomeFeatures.addTree(this,new tree_birch1(NoFeatureConfig::deserialize,true,birchLog,birchLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_birch2(NoFeatureConfig::deserialize,true,birchLog,birchLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_birch7(NoFeatureConfig::deserialize,true,birchLog,birchLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_birch10(NoFeatureConfig::deserialize,true,birchLog,birchLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_birch11(NoFeatureConfig::deserialize,true,birchLog,birchLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_birch12(NoFeatureConfig::deserialize,true,birchLog,birchLeaves),1);
 
 
         plantRate=4;
         treeRate=4;
 
         applyPlants();
-        applyTrees();
 
-        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
-        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.PIG, 10, 4, 4));
-        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.CHICKEN, 10, 4, 4));
+        this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.PIG, 3, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.COW, 8, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.WOLF, 5, 4, 4));
         this.addSpawn(EntityClassification.AMBIENT, new SpawnListEntry(EntityType.BAT, 10, 8, 8));
@@ -135,6 +94,12 @@ public class WNTatraFoothills extends WNBiome {
 
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public int getGrassColor(BlockPos pos)
+    {
+        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0065D, (double)pos.getZ() * 0.0065D);
+        return customColor(noise,-0.1D,0xB5DA62,0x9DD858);
+    }
 
 
 

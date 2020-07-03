@@ -12,6 +12,6 @@ public class wnItemGroupDeco extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(Registry.ITEM.getOrDefault(new ResourceLocation("wildnature:chair")));
+        return new ItemStack(Registry.ITEM.getOrDefault(new ResourceLocation("wildnature:maple_chair")));
     }
 }

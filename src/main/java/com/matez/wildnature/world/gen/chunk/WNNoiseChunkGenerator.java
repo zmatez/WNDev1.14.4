@@ -1,11 +1,13 @@
 package com.matez.wildnature.world.gen.chunk;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.commands.LocatePath;
 import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.world.gen.biomes.undergroundBiomes.setup.URBiome;
 import com.matez.wildnature.world.gen.biomes.undergroundBiomes.setup.URBiomeManager;
+import com.matez.wildnature.world.gen.noise.OpenSimplex2S;
 import com.matez.wildnature.world.gen.noise.VoronoiGenerator;
 import com.matez.wildnature.world.gen.noise.sponge.module.source.Perlin;
 import com.matez.wildnature.world.gen.noise.sponge.module.source.RidgedMulti;
@@ -42,10 +44,12 @@ import net.minecraftforge.common.BiomeDictionary;
 
 public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extends ChunkGenerator<T> {
    private static final float[] field_222561_h = Util.make(new float[13824], (p_222557_0_) -> {
-      for(int i = 0; i < 24; ++i) {
-         for(int j = 0; j < 24; ++j) {
-            for(int k = 0; k < 24; ++k) {
-               p_222557_0_[i * 24 * 24 + j * 24 + k] = (float)func_222554_b(j - 12, k - 12, i - 12);
+      int a = 24;
+      int b = 12;
+      for(int i = 0; i < a; ++i) {
+         for(int j = 0; j < a; ++j) {
+            for(int k = 0; k < a; ++k) {
+               p_222557_0_[i * a * a + j * a + k] = (float)func_222554_b(j - b, k - b, i - b);
             }
          }
       }
@@ -64,7 +68,7 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
    private final INoiseGenerator surfaceDepthNoise;
    protected final BlockState defaultBlock;
    protected final BlockState defaultFluid;
-   private final RidgedMulti pathNoise;
+   private final OpenSimplex2S pathNoise;
    private double frequency = CommonConfig.pathFrequency.get();
 
    private final RidgedMulti ridgedMultiNoise;
@@ -86,11 +90,7 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
       this.field_222569_p = new OctavesNoiseGenerator(this.randomSeed, 16);
       this.field_222570_q = new OctavesNoiseGenerator(this.randomSeed, 8);
       this.surfaceDepthNoise = (INoiseGenerator)(usePerlin ? new PerlinNoiseGenerator(this.randomSeed, 4) : new OctavesNoiseGenerator(this.randomSeed, 4));
-      this.pathNoise =new RidgedMulti();
-      pathNoise.setSeed((int)worldIn.getSeed());
-      pathNoise.setFrequency(0.005);
-      pathNoise.setOctaveCount(1);
-      pathNoise.setLacunarity(0.0);
+      this.pathNoise =new OpenSimplex2S(worldIn.getSeed());
       this.ridgedMultiNoise =new RidgedMulti();
       ridgedMultiNoise.setSeed((int)worldIn.getSeed());
       ridgedMultiNoise.setFrequency(0.005);
@@ -235,6 +235,7 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
       Biome[] abiome = chunkIn.getBiomes();
       int extraSurfaceBiomeDistance = 10;
 
+
       for(int relativeX = 0; relativeX < 16; ++relativeX) {
          for(int relativeZ = 0; relativeZ < 16; ++relativeZ) {
             int x = xChunkPos + relativeX;
@@ -243,16 +244,18 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
             double d1 = this.surfaceDepthNoise.func_215460_a((double)x * 0.0625D, (double)z * 0.0625D, 0.0625D, (double)relativeX * 0.0625D);
 
             Biome biome = abiome[relativeZ * 16 + relativeX];
-
             biome.buildSurface(sharedseedrandom, chunkIn, x, z, startHeight, d1, this.getSettings().getDefaultBlock(), this.getSettings().getDefaultFluid(), this.getSeaLevel(), this.world.getSeed());
 
-
-
             if(CommonConfig.generatePaths.get()) {
-               double vnoise = ridgedMultiNoise.getValue(x, 1, z);
-               if (vnoise >= 0.62 && vnoise <= 0.65) {
+               double[] noises = getPathNoise(x,z,0.005, 0.01, 0.001,50,1);
+               double vnoise = noises[0];
+               double cnoise = noises[1];
+
+
+               if (vnoise != 1) {
                   if (BiomeDictionary.getTypes(biome).contains(BiomeDictionary.Type.FOREST) && BiomeDictionary.getTypes(biome).contains(BiomeDictionary.Type.DENSE)) {
                      int pathY = startHeight;
+                     //double amountToPushTerrainDownBy = 1 - vnoise / threshold;
                      Block theme = biome.getSurfaceBuilderConfig().getTop().getBlock();
 
                      BlockState b = chunkIn.getBlockState(new BlockPos(x, startHeight - 1, z));
@@ -306,16 +309,6 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
                      }
 
                      if (toPlace != null) {
-                        int avgHeight = (int)((getMaxHeightNearPathBlock(x,pathY,z,chunkIn)+getMinHeightNearPathBlock(x,pathY,z,chunkIn))/2);
-                        if(avgHeight<pathY){
-                           for(int a = avgHeight; a < pathY; a++){
-                              chunkIn.setBlockState(new BlockPos(x, a, z), Blocks.AIR.getDefaultState(), false);
-                           }
-                        }else if(avgHeight>pathY){
-                           for(int a = avgHeight; a > pathY; a--){
-                              chunkIn.setBlockState(new BlockPos(x, a, z), biome.getSurfaceBuilderConfig().getUnder(), false);
-                           }
-                        }
                         if (Utilities.rint(0, 5) != 0) {
                            chunkIn.setBlockState(new BlockPos(x, pathY - 1, z), toPlace.getDefaultState(), false);
                         }
@@ -332,46 +325,6 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
             }
 
             //underwaterRivers
-            /*if(!CommonConfig.generateUndergroundRivers.get()) {
-               double vnoise = underwaterRiverGenerator.noise(x, z, riverFrequency);
-               if(Utilities.rint(0,10)==0){
-                  Main.LOGGER.debug("N: " + vnoise);
-               }
-               if (vnoise >=0.24 && vnoise<=0.32) {
-                  BlockPos pos = new BlockPos(x, 13, z);
-                  int height = calculateHeightByCenter(vnoise,0.24,0.32,1,10);
-                  int startPointY = -(int)height/2;//pos.y - startPointY -> block being set
-                  for(int a = pos.getY() - startPointY; a > pos.getY() - height; a--){
-                     if(a>10) {
-                        chunkIn.setBlockState(new BlockPos(pos.getX(), a, pos.getZ()), Blocks.CAVE_AIR.getDefaultState(), false);
-                     }else{
-                        chunkIn.setBlockState(new BlockPos(pos.getX(), a, pos.getZ()), Blocks.WATER.getDefaultState(), false);
-
-                     }
-
-                  }
-               }
-            }*/
-
-            /*double vnoise = ridgetMultiNoise.getValue(x,100,z);
-            if(vnoise>maxNoise){
-               maxNoise=vnoise;
-               Main.LOGGER.debug("max: " + maxNoise);
-            }
-            if (vnoise >=0 && vnoise<=1) {
-               BlockPos pos = new BlockPos(x, 13, z);
-               int height = calculateHeightByCenter(vnoise,0,1,3,20);
-               int startPointY = -(int)height/2;//pos.y - startPointY -> block being set
-               for(int a = pos.getY() - startPointY; a > pos.getY() - height; a--){
-                  if(a>10) {
-                     chunkIn.setBlockState(new BlockPos(pos.getX(), a, pos.getZ()), Blocks.CAVE_AIR.getDefaultState(), false);
-                  }else{
-                     chunkIn.setBlockState(new BlockPos(pos.getX(), a, pos.getZ()), Blocks.WATER.getDefaultState(), false);
-
-                  }
-
-               }
-            }*/
             if(CommonConfig.generateUndergroundRivers.get()) {
                URBiome riverBiome = URBiomeManager.getBiomeAt(chunkIn,new BlockPos(x,1,z),world.getSeed());
 
@@ -420,6 +373,32 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
       this.makeBedrock(chunkIn, sharedseedrandom);
    }
 
+   /**
+    *
+    * @param x x
+    * @param z z
+    * @param freq frequency, def 0.005
+    * @param threshold def 0.01
+    * @param noiseMultiplier def 50
+    * @return noise, centerNoise
+    */
+   private double[] getPathNoise(int x, int z, double freq, double threshold, double centerThreshold, double noiseMultiplier, double centerNoiseMultiplier){
+      OpenSimplex2S.Values2D1 results = new OpenSimplex2S.Values2D1();
+      pathNoise.noise2(x* freq, z* freq, results);
+
+      double slope = Math.sqrt(results.dx*results.dx + results.dy*results.dy);
+      double estDistanceToZero = Math.abs(results.value / slope);
+      double vnoise = 1;
+      if (estDistanceToZero < threshold) {
+         vnoise = -(estDistanceToZero*noiseMultiplier);
+      };
+      double cnoise = 1;
+      if (estDistanceToZero < centerThreshold) {
+         cnoise = -(estDistanceToZero*centerNoiseMultiplier);
+      };
+      return new double[]{vnoise,cnoise};
+   }
+
    private int getMaxHeightNearPathBlock(int x, int y, int z, IChunk chunk){
       int highest = 0;
       int terrainPosDiffCheck = 4;
@@ -439,11 +418,16 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
          int rx = x + xChange;
          int rz = z + zChange;
 
-         for(int ty = (highest == 0 ? y : highest); ty > 0 && ty <= 256; ty++){
-            if(chunk.getBlockState(new BlockPos(rx,ty,rz)).isSolid()){
-               if(ty>highest){
-                  highest = ty;
-                  break;
+         if(ridgedMultiNoise.getValue(rx, 1, rz) >= 0.62 && ridgedMultiNoise.getValue(rx, 1, rz) <= 0.65) {
+
+            if (rx >= chunk.getPos().getXStart() && rz >= chunk.getPos().getZStart() && rx < chunk.getPos().getXStart() + 16 && rx < chunk.getPos().getZStart() + 16) {
+               for (int ty = (highest == 0 ? y : highest); ty > 0 && ty <= 256; ty++) {
+                  if (chunk.getBlockState(new BlockPos(rx, ty, rz)).isSolid()) {
+                     if (ty > highest) {
+                        highest = ty;
+                        break;
+                     }
+                  }
                }
             }
          }
@@ -469,12 +453,16 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
          }
          int rx = x + xChange;
          int rz = z + zChange;
+         if(ridgedMultiNoise.getValue(rx, 1, rz) >= 0.62 && ridgedMultiNoise.getValue(rx, 1, rz) <= 0.65) {
 
-         for(int ty = (lowest == 256 ? y : lowest); ty > 0 && ty <= 256; ty--){
-            if(chunk.getBlockState(new BlockPos(rx,ty,rz)).isSolid() && chunk.getBlockState(new BlockPos(rx,ty+1,rz)).isAir()){
-               if(ty<lowest){
-                  lowest = ty;
-                  break;
+            if (rx >= chunk.getPos().getXStart() && rz >= chunk.getPos().getZStart() && rx < chunk.getPos().getXStart() + 16 && rx < chunk.getPos().getZStart() + 16) {
+               for (int ty = (lowest == 256 ? y : lowest); ty > 0 && ty <= 256; ty--) {
+                  if (chunk.getBlockState(new BlockPos(rx, ty, rz)).isSolid() && chunk.getBlockState(new BlockPos(rx, ty + 1, rz)).isAir()) {
+                     if (ty < lowest) {
+                        lowest = ty;
+                        break;
+                     }
+                  }
                }
             }
          }

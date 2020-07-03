@@ -62,6 +62,7 @@ public class WNGlobalBiomeFeatures {
             }
             if(CommonConfig.generateRiverCanes.get()){
                 WNBiomeFeatures.addRiverCane(biome);
+                WNBiomeFeatures.addRiverPlants(biome);
             }
             if(CommonConfig.generateSmallCacti.get()){
                 WNBiomeFeatures.addSmallCacti(biome);
@@ -75,7 +76,12 @@ public class WNGlobalBiomeFeatures {
             if(CommonConfig.generateMoss.get()){
                 WNBiomeFeatures.addMoss(biome);
             }
-            WNBiomeFeatures.addGlowingCaveOaks(biome);
+            if(CommonConfig.generateGlowingCaveOaks.get()){
+                WNBiomeFeatures.addGlowingCaveOaks(biome);
+            }
+            if(CommonConfig.generateBigGlowshrooms.get()){
+                WNBiomeFeatures.addGlowshrooms(biome);
+            }
 
             //carvers
             if(CommonConfig.generateUndergroundRivers.get()){

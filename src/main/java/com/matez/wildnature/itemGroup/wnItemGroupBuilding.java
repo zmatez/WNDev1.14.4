@@ -12,6 +12,6 @@ public class wnItemGroupBuilding extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(Registry.ITEM.getOrDefault(new ResourceLocation("wildnature:conglomerate_roof")));
+        return new ItemStack(Registry.ITEM.getOrDefault(new ResourceLocation("wildnature:cherry_parquet")));
     }
 }

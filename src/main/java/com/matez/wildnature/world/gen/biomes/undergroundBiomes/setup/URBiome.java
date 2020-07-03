@@ -103,7 +103,7 @@ public class URBiome {
      * @param maxHeight max height example: 6
      * @return
      */
-    private int calculateHeightByCenter(double noise, double minNoise, double maxNoise, int minHeight, int maxHeight, int maxHeightIfCavern, double cavernWhenNoise){
+    public int calculateHeightByCenter(double noise, double minNoise, double maxNoise, int minHeight, int maxHeight, int maxHeightIfCavern, double cavernWhenNoise){
         double noiseCenter = ((maxNoise-minNoise)/2)+minNoise;//28.99999995
         double noisePercent = 0;
 

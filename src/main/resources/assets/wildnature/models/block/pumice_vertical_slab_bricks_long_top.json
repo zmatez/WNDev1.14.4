@@ -1,7 +1,0 @@
-{
-    "parent": "wildnature:block/slab_vertical",
-    "textures": {
-    	"particle": "wildnature:blocks/rocks/pumice/pumice_vertical_slab_bricks_long_top",
-    	"material": "wildnature:blocks/rocks/pumice/pumice_vertical_slab_bricks_long_top"
-  }
-}

@@ -30,6 +30,7 @@ public class CommonConfig {
     public static ForgeConfigSpec.BooleanValue generatePoisonIves,generateCrystals,generateStalagmites,generatePebbles,generateCobweb,generateRockFormations,generateFruitBushes,generateVegeCrops,generateVines,generateSmallCacti,generateShells,generateMoss;
     public static ForgeConfigSpec.DoubleValue ambientSoundsVolume;
     public static ForgeConfigSpec.BooleanValue waterLakeGeneration,lavaLakeGeneration,waterSpringGeneration,lavaSpringGeneration;
+    public static ForgeConfigSpec.BooleanValue generateGlowingCaveOaks,generateBigGlowshrooms;
 
     public static ForgeConfigSpec.IntValue biomeSize,riverSize;
     public static ForgeConfigSpec.IntValue maxSearchRadius,biomeGroupSpawningSize, biomeGroupChance;
@@ -264,6 +265,14 @@ public class CommonConfig {
                 .comment("Should generate rock formations?\nDefault: true")
                 .define("biome.feature.rock_formations",true);
 
+        generateGlowingCaveOaks = builder
+                .comment("Should generate glowing cave oaks?\nDefault: true")
+                .define("biome.feature.glowingCaveOaks",true);
+
+        generateBigGlowshrooms = builder
+                .comment("Should generate big glowshrooms?\nDefault: true")
+                .define("biome.feature.bigGlowshrooms",true);
+
         generatePoisonIves = builder
                 .comment("Should generate poison ives & spidergrass?\nDefault: true")
                 .define("biome.feature.special_plants",true);
@@ -317,7 +326,7 @@ public class CommonConfig {
                 .defineInRange("biome.feature.fruit_bushes_chance",1, 0, 500);
 
         poisonIvyRarity = builder
-                .comment("Posion ivy & spidergrass rarity\nSmaller = more rare\nDefault: 2")
+                .comment("Posion ivy & spidergrass & thistle & nettle rarity\nSmaller = more rare\nDefault: 2")
                 .defineInRange("biome.feature.ivy_rarity",2, 0, 500);
 
         riverCaneRarity = builder

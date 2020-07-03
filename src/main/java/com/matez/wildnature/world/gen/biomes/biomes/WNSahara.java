@@ -1,9 +1,11 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.other.BlockWeighList;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.feature.SinglePlantFeature;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -12,6 +14,7 @@ import net.minecraft.world.biome.DesertBiome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.placement.FrequencyConfig;
@@ -24,7 +27,7 @@ public class WNSahara extends WNBiome {
     public WNSahara(String name) {
         super(name,(new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.SAND_CONFIG)
-                .precipitation(RainType.RAIN)
+                .precipitation(RainType.NONE)
                 .category(Category.DESERT)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
                 .climate(WNBiomeBuilder.Climate.DRY_TROPICAL)
@@ -52,7 +55,9 @@ public class WNSahara extends WNBiome {
         WNBiomeFeatures.addSprings(this);
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.CACTUS, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(7)));
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DEAD_BUSH, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(20)));
-        WNBiomeFeatures.addPlant(this, WNBlocks.PRICKLY_PEAR_CACTUS.getDefaultState(),1);
+        BlockWeighList l = new BlockWeighList();
+        l.add(WNBlocks.PRICKLY_PEAR_CACTUS.getDefaultState(),1);
+        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new SinglePlantFeature(NoFeatureConfig::deserialize,l,0), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(5)));
 
 
         plantRate=2;

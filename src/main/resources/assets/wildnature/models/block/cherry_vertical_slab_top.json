@@ -1,7 +1,0 @@
-{
-    "parent": "wildnature:block/slab_vertical",
-    "textures": {
-    	"particle": "wildnature:blocks/cherry/cherry_vertical_slab_top",
-    	"material": "wildnature:blocks/cherry/cherry_vertical_slab_top"
-  }
-}

@@ -1,9 +1,12 @@
 package com.matez.wildnature.world.gen.feature;
 
 import com.matez.wildnature.blocks.CornPlant;
+import com.matez.wildnature.blocks.DoubleBushBase;
 import com.matez.wildnature.blocks.GreenBeansBush;
+import com.matez.wildnature.other.BlockWeighList;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -25,14 +28,14 @@ public class WNBushFeature extends Feature<BushConfig> {
       BlockState blockstate = config.state;
 
       if(config.state.getBlock() instanceof GreenBeansBush){
-         new GreenBeanFeature(NoFeatureConfig::deserialize).place(worldIn,generator,rand,pos,new NoFeatureConfig());
-
-         return true;
+         return new GreenBeanFeature(NoFeatureConfig::deserialize).place(worldIn,generator,rand,pos,new NoFeatureConfig());
       }
       else if(config.state.getBlock() instanceof CornPlant){
-         new CornFeature(NoFeatureConfig::deserialize).place(worldIn,generator,rand,pos,new NoFeatureConfig());
-
-         return true;
+         return new CornFeature(NoFeatureConfig::deserialize).place(worldIn,generator,rand,pos,new NoFeatureConfig());
+      }else if(config.state.getBlock() instanceof DoublePlantBlock){
+         BlockWeighList l = new BlockWeighList();
+         l.add(config.state,1);
+         return new PlantFeature(NoFeatureConfig::deserialize,l).place(worldIn,generator,rand,pos,new NoFeatureConfig());
       }else {
          for (int j = 0; j < 64; ++j) {
             BlockPos blockpos = pos.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
@@ -41,6 +44,7 @@ public class WNBushFeature extends Feature<BushConfig> {
                ++i;
             }
          }
+
 
          return i > 0;
       }

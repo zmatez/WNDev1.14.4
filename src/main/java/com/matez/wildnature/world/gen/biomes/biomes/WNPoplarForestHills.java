@@ -1,5 +1,6 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch10;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
@@ -63,7 +64,10 @@ public class WNPoplarForestHills extends WNBiome {
         WNBiomeFeatures.addTree(this,new tree_birch10(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:poplar_leaves"))),6);
         WNBiomeFeatures.addTree(this,new tree_birch1(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:poplar_leaves"))),4);
         WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),10);
-
+        WNBiomeFeatures.addPlant(this, WNBlocks.HYDRANGEA_WHITE.getDefaultState(),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HOLLYHOCK_RED.getDefaultState(),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CARNATION_RED.getDefaultState(),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GLADIOLUS_ORANGE.getDefaultState(),1);
         treeRate=14;
 
         applyPlants();

@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/fir/fir_parquet",
-        "top": "wildnature:blocks/fir/fir_parquet",
-        "side": "wildnature:blocks/fir/fir_parquet"
-    }
-}

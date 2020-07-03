@@ -1,9 +1,14 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.lists.WNItems;
+import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.IWaterLoggable;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItem;
@@ -12,15 +17,18 @@ import net.minecraft.item.Item;
 import net.minecraft.state.*;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 
-public class BlockSlabCorner extends Block implements IWaterLoggable {
+public class BlockSlabCorner extends BlockBase implements IWaterLoggable {
     protected static final VoxelShape NORTH_SHAPE_R = Block.makeCuboidShape(8.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
     protected static final VoxelShape NORTH_SHAPE_L = Block.makeCuboidShape(0.0D, 0.0D, 8.0D, 8.0D, 16.0D, 16.0D);
     private static final VoxelShape NORTH_SHAPE = VoxelShapes.or(NORTH_SHAPE_L, VoxelShapes.or(NORTH_SHAPE_R));
@@ -36,19 +44,31 @@ public class BlockSlabCorner extends Block implements IWaterLoggable {
     public static final DirectionProperty FACING = DirectionProperty.create("facing", Direction.Plane.HORIZONTAL);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public Item item;
 
 
     public BlockSlabCorner(Properties properties, Item.Properties builder, ResourceLocation regName) {
-        super(properties);
+        super(properties,builder,regName);
+    }
 
-        this.setRegistryName(regName);
-        item = new BlockItem(this,builder).setRegistryName(regName);
+    public BlockSlabCorner(Properties properties,  ResourceLocation regName) {
+        super(properties,regName);
+    }
 
-
-        WNBlocks.BLOCKS.add(this);
-        WNBlocks.ITEMBLOCKS.add(item);
-
+    @Override
+    public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if(item!=null) {
+            return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+        }else{
+            if(player.getHeldItem(handIn).getItem()== WNItems.CHISEL && Utilities.getDistance(player.getPosition(),pos)>=1){
+                String verticalId = this.getRegistryName().toString().replace("corner","vertical");
+                Block b = Main.getBlockByID(verticalId);
+                if(b instanceof BlockSlabVertical){
+                    worldIn.setBlockState(pos,b.getDefaultState().with(BlockSlabVertical.FACING,state.get(FACING).getOpposite()).with(BlockSlabVertical.WATERLOGGED,state.get(WATERLOGGED)));
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     @Override

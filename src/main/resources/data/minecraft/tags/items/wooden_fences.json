@@ -48,6 +48,8 @@
     "wildnature:eucalyptus_fence",
     "wildnature:eucalyptus_log_fence",
     "wildnature:citrus_fence",
-    "wildnature:citrus_log_fence"
+    "wildnature:citrus_log_fence",
+    "wildnature:glowing_cave_oak_fence",
+    "wildnature:glowing_cave_oak_log_fence"
   ]
 }

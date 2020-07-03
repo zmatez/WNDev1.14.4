@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab_top",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/epidosite/epidosite_bricks_mossy",
-        "top": "wildnature:blocks/rocks/epidosite/epidosite_bricks_mossy",
-        "side": "wildnature:blocks/rocks/epidosite/epidosite_bricks_mossy"
-    }
-}

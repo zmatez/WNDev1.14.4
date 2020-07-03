@@ -107,7 +107,7 @@ public class WNGreenwood extends WNBiome {
         WNBiomeFeatures.addTree(this,new oaklands_shrub1(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new oaklands_shrub2(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new oaklands_shrub5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true,Blocks.DARK_OAK_LOG.getDefaultState(),Blocks.DARK_OAK_LEAVES.getDefaultState()),10);
+        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true,Blocks.DARK_OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(Blocks.DARK_OAK_LEAVES)),10);
 
         this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(Blocks.PODZOL.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(3)));
 

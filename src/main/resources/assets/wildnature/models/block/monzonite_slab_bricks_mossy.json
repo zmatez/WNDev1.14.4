@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/monzonite/monzonite_bricks_mossy",
-        "top": "wildnature:blocks/rocks/monzonite/monzonite_bricks_mossy",
-        "side": "wildnature:blocks/rocks/monzonite/monzonite_bricks_mossy"
-    }
-}

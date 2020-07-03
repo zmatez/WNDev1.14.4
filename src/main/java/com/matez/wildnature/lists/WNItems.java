@@ -57,6 +57,7 @@ public class WNItems {
     public static Item CRANBERRIES;
     public static Item BLACKBERRY;
     public static Item BELLADONNA_FRUIT;
+    public static Item WILD_ROSE_FRUIT;
 
 
     //CITRUS
@@ -290,6 +291,8 @@ public class WNItems {
     public static Item RUBY_CRYSTAL, RUBY_SHARD, RUBY_SWORD, RUBY_PICKAXE, RUBY_AXE, RUBY_SHOVEL, RUBY_HOE;
     public static Item SILVER_INGOT, SILVER_SWORD, SILVER_PICKAXE, SILVER_AXE, SILVER_SHOVEL, SILVER_HOE;
 
+    public static Item JELLY_BALL_WHITE, JELLY_BALL_RED,JELLY_BALL_PINK,JELLY_BALL_ORANGE,JELLY_BALL_BLUE;
+    public static Item GLOWSHROOM_DUST, ICESHROOM_DUST;
     public static Item POUCH;
 
     //

@@ -26,8 +26,7 @@ public class tree_bpine6 extends SchemFeature {
     @Override
     public Set<BlockPos> setBlocks() {
 
-        
-Block(-7,0,-7,DIRT);
+
 Block(-4,4,-4,LEAVES);
 Block(-4,5,-4,LEAVES);
 Block(-4,6,-4,LEAVES);
@@ -40,7 +39,6 @@ Block(-4,19,-4,LEAVES);
 Block(-4,20,-4,LEAVES);
 Block(-4,22,-4,LEAVES);
 Block(-4,25,-4,LEAVES);
-Block(-3,0,-4,DIRT);
 Block(-3,1,-4,LOG);
 Block(-3,2,-4,LOG);
 Block(-3,3,-4,LOG);

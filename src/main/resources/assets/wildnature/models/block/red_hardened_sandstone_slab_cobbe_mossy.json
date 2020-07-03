@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/red_hardened_sandstone/red_hardened_sandstone_cobbe_mossy",
-        "top": "wildnature:blocks/rocks/red_hardened_sandstone/red_hardened_sandstone_cobbe_mossy",
-        "side": "wildnature:blocks/rocks/red_hardened_sandstone/red_hardened_sandstone_cobbe_mossy"
-    }
-}

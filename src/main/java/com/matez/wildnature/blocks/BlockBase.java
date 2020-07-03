@@ -22,9 +22,7 @@ public class BlockBase extends Block {
     public Item item;
 
     private static Properties Properties(Properties properties){
-
         return properties;
-
     }
 
     public BlockBase(Properties properties, Item.Properties builder, ResourceLocation regName) {
@@ -37,6 +35,14 @@ public class BlockBase extends Block {
         WNBlocks.BLOCKS.add(this);
         WNBlocks.ITEMBLOCKS.add(item);
 
+    }
+
+    public BlockBase(Properties properties, ResourceLocation regName) {
+        super(Properties(properties));
+
+        this.setRegistryName(regName);
+
+        WNBlocks.BLOCKS.add(this);
     }
 
     private String drop;

@@ -1,7 +1,0 @@
-{
-    "parent": "wildnature:block/slab_vertical",
-    "textures": {
-    	"particle": "wildnature:blocks/rocks/gabbro/gabbro_vertical_slab_top",
-    	"material": "wildnature:blocks/rocks/gabbro/gabbro_vertical_slab_top"
-  }
-}

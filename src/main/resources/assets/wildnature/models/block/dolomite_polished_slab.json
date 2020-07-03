@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/dolomite/dolomite_polished",
-        "top": "wildnature:blocks/rocks/dolomite/dolomite_polished",
-        "side": "wildnature:blocks/rocks/dolomite/dolomite_polished"
-    }
-}

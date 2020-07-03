@@ -1,6 +1,5 @@
 package com.matez.wildnature;
 
-import com.matez.wildnature.blocks.GrassBase;
 import com.matez.wildnature.commands.BiomeArgument;
 import com.matez.wildnature.compatibility.WNMinecraftCopatibility;
 import com.matez.wildnature.compatibility.WNMobSpawnFix;
@@ -27,7 +26,6 @@ import com.matez.wildnature.proxy.IProxy;
 import com.matez.wildnature.proxy.ServerProxy;
 import com.matez.wildnature.registry.*;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomes;
-import com.matez.wildnature.world.gen.chunk.SmoothChunkGenerator;
 import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorType;
 import com.matez.wildnature.world.gen.feature.RockGen;
 import com.matez.wildnature.world.gen.provider.WNBiomeProviderType;
@@ -55,9 +53,6 @@ import net.minecraft.command.arguments.ArgumentTypes;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.fish.AbstractFishEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
@@ -66,7 +61,6 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.network.PacketDirection;
 import net.minecraft.network.ProtocolType;
-import net.minecraft.network.play.server.SSpawnParticlePacket;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
@@ -77,14 +71,12 @@ import net.minecraft.server.dedicated.ServerProperties;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
@@ -398,7 +390,9 @@ public class Main {
                     WNItems.GRAPES_PURPLE = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("grapes_purple")),
                     WNItems.GRAPES_YELLOW = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("grapes_yellow")),
 
-                    WNItems.BELLADONNA_FRUIT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("belladonna_fruit")),
+                    WNItems.WILD_ROSE_FRUIT = new Item(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("wild_rose_fruit")),
+
+                    WNItems.BELLADONNA_FRUIT = new BelladonnaItem(new Item.Properties().group(ItemGroup.FOOD).food(Foods.APPLE)).setRegistryName(location("belladonna_fruit")),
 
 
                     //CITRUS
@@ -659,26 +653,26 @@ public class Main {
                     WNItems.COMPOT_PLUM_APPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("compot_plum_apple")),
                     WNItems.COMPOT_WHITE_CURRANT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("compot_white_currant")),
 
-                    WNItems.JUICE_APPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_apple")),
-                    WNItems.JUICE_GRAPE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_grape")),
-                    WNItems.JUICE_GRAPEFRUIT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_grapefruit")),
-                    WNItems.JUICE_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_lemon")),
-                    WNItems.JUICE_MANGO_PINEAPPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_mango_pineapple")),
-                    WNItems.JUICE_ORANGE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_orange")),
-                    WNItems.JUICE_PEACH = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_peach")),
-                    WNItems.JUICE_PINEAPPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("juice_pineapple")),
-                    WNItems.LEMONADE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("lemonade")),
+                    WNItems.JUICE_APPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass_cup")).setRegistryName(location("juice_apple")),
+                    WNItems.JUICE_GRAPE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass_cup")).setRegistryName(location("juice_grape")),
+                    WNItems.JUICE_GRAPEFRUIT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass_cup")).setRegistryName(location("juice_grapefruit")),
+                    WNItems.JUICE_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass_cup")).setRegistryName(location("juice_lemon")),
+                    WNItems.JUICE_MANGO_PINEAPPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass_cup")).setRegistryName(location("juice_mango_pineapple")),
+                    WNItems.JUICE_ORANGE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass_cup")).setRegistryName(location("juice_orange")),
+                    WNItems.JUICE_PEACH = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass_cup")).setRegistryName(location("juice_peach")),
+                    WNItems.JUICE_PINEAPPLE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass_cup")).setRegistryName(location("juice_pineapple")),
+                    WNItems.LEMONADE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass_cup")).setRegistryName(location("lemonade")),
 
-                    WNItems.TEA_BLACK = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_black")),
-                    WNItems.TEA_BLACK_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_black_lemon")),
-                    WNItems.TEA_GREEN = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_green")),
-                    WNItems.TEA_GREEN_CHERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_green_cherry")),
-                    WNItems.TEA_GREEN_QUINCE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_green_quince")),
-                    WNItems.TEA_MELISSA_PEACH = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_melissa_peach")),
-                    WNItems.TEA_MINT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_mint")),
-                    WNItems.TEA_MINT_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_mint_lemon")),
-                    WNItems.TEA_WHITE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_white")),
-                    WNItems.TEA_WHITE_ORANGE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:jug")).setRegistryName(location("tea_white_orange")),
+                    WNItems.TEA_BLACK = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass")).setRegistryName(location("tea_black")),
+                    WNItems.TEA_BLACK_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass")).setRegistryName(location("tea_black_lemon")),
+                    WNItems.TEA_GREEN = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass")).setRegistryName(location("tea_green")),
+                    WNItems.TEA_GREEN_CHERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass")).setRegistryName(location("tea_green_cherry")),
+                    WNItems.TEA_GREEN_QUINCE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass")).setRegistryName(location("tea_green_quince")),
+                    WNItems.TEA_MELISSA_PEACH = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass")).setRegistryName(location("tea_melissa_peach")),
+                    WNItems.TEA_MINT = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass")).setRegistryName(location("tea_mint")),
+                    WNItems.TEA_MINT_LEMON = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass")).setRegistryName(location("tea_mint_lemon")),
+                    WNItems.TEA_WHITE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass")).setRegistryName(location("tea_white")),
+                    WNItems.TEA_WHITE_ORANGE = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).food(DRINK).maxStackSize(1),("wildnature:glass")).setRegistryName(location("tea_white_orange")),
 
 
                     WNItems.JAM_BLACKBERRY = new DrinkItem(new Item.Properties().group(ItemGroup.FOOD).maxStackSize(1),("wildnature:jar")).setRegistryName(location("jam_blackberry")),
@@ -710,7 +704,15 @@ public class Main {
                     WNItems.CRYSTAL_TORCH = new WallOrFloorItem(getBlockByID("wildnature:crystal_torch"), getBlockByID("wildnature:crystal_torch_wall"), (new Item.Properties()).group(WILDNATURE_DECO_GROUP)).setRegistryName("wildnature:crystal_torch"),
                     WNItems.DUNGEON_REDSTONE_TORCH = new WallOrFloorItem(getBlockByID("wildnature:dungeon_redstone_torch"), getBlockByID("wildnature:dungeon_redstone_torch_wall"), (new Item.Properties()).group(ItemGroup.REDSTONE)).setRegistryName("wildnature:dungeon_redstone_torch"),
                     WNItems.RS_PISTON1 = new BlockNamedItem(Main.getBlockByID("wildnature:rs_piston1"),new Item.Properties().group(ItemGroup.REDSTONE)).setRegistryName(location("rs_piston1")),
-                    WNItems.GEYSER_ESSENCE = new GeyserEssenceItem(new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("geyser_essence"))
+                    WNItems.GEYSER_ESSENCE = new GeyserEssenceItem(new Item.Properties().group(WILDNATURE_GROUP)).setRegistryName(location("geyser_essence")),
+                    WNItems.JELLY_BALL_BLUE = new Item(new Item.Properties().group(WILDNATURE_GROUP).maxStackSize(16)).setRegistryName(location("jelly_ball_blue")),
+                    WNItems.JELLY_BALL_ORANGE = new Item(new Item.Properties().group(WILDNATURE_GROUP).maxStackSize(16)).setRegistryName(location("jelly_ball_orange")),
+                    WNItems.JELLY_BALL_PINK = new Item(new Item.Properties().group(WILDNATURE_GROUP).maxStackSize(16)).setRegistryName(location("jelly_ball_pink")),
+                    WNItems.JELLY_BALL_RED = new Item(new Item.Properties().group(WILDNATURE_GROUP).maxStackSize(16)).setRegistryName(location("jelly_ball_red")),
+                    WNItems.JELLY_BALL_WHITE = new Item(new Item.Properties().group(WILDNATURE_GROUP).maxStackSize(16)).setRegistryName(location("jelly_ball_white")),
+                    WNItems.GLOWSHROOM_DUST = new Item(new Item.Properties().group(WILDNATURE_UNDERGROUND_GROUP)).setRegistryName(location("glowshroom_dust")),
+                    WNItems.ICESHROOM_DUST = new Item(new Item.Properties().group(WILDNATURE_UNDERGROUND_GROUP)).setRegistryName(location("iceshroom_dust"))
+
 
             );
 
@@ -744,7 +746,7 @@ public class Main {
 
 
             event.getRegistry().registerAll(
-                    EntityRegistry.GOBLIN,EntityRegistry.DRAKE,EntityRegistry.DUCK,EntityRegistry.DUCKLING,EntityRegistry.BOAR,EntityRegistry.PIRANHA,EntityRegistry.DRAGONFLY,EntityRegistry.SPARROW_MALE,EntityRegistry.BUCK,EntityRegistry.DOE,EntityRegistry.FAWN
+                    EntityRegistry.SEAT,EntityRegistry.GOBLIN,EntityRegistry.DRAKE,EntityRegistry.DUCK,EntityRegistry.DUCKLING,EntityRegistry.BOAR,EntityRegistry.PIRANHA,EntityRegistry.DRAGONFLY,EntityRegistry.SPARROW_MALE,EntityRegistry.BUCK,EntityRegistry.DOE,EntityRegistry.FAWN
             );
 
         }
@@ -825,7 +827,7 @@ public class Main {
                     com.matez.wildnature.world.gen.biomes.setup.WNBiomes.FrozenRiver,
                     com.matez.wildnature.world.gen.biomes.setup.WNBiomes.AmazonRiver,
                     com.matez.wildnature.world.gen.biomes.setup.WNBiomes.NileRiver,
-                    WNBiomes.CanyonRiver, WNBiomes.IcelandRiver, WNBiomes.DaintreeRiver
+                    WNBiomes.CanyonRiver, WNBiomes.IcelandRiver, WNBiomes.DaintreeRiver, WNBiomes.TatraStream
 
             );
 

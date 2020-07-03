@@ -23,7 +23,7 @@ public class WNBlockColors {
 
         colors.register((p1, p2, p3, p4) -> {
             return p2 != null && p3 != null ? BiomeColors.getFoliageColor(p2, p3) : FoliageColors.getDefault();
-        }, WNBlocks.BEECH_LEAVES, WNBlocks.ASPEN_LEAVES, WNBlocks.BAOBAB_LEAVES, WNBlocks.CEDAR_LEAVES, WNBlocks.HAZEL_LEAVES,WNBlocks.HORNBEAM_LEAVES, WNBlocks.MAHOGANY_LEAVES, WNBlocks.MANGROVE_LEAVES, WNBlocks.MAPLE_LEAVES, WNBlocks.POPLAR_LEAVES, WNBlocks.WILLOW_LEAVES, WNBlocks.MAGNOLIA_LEAVES);
+        }, WNBlocks.BEECH_LEAVES, WNBlocks.ASPEN_LEAVES, WNBlocks.BAOBAB_LEAVES, WNBlocks.CEDAR_LEAVES, WNBlocks.HAZEL_LEAVES,WNBlocks.HORNBEAM_LEAVES, WNBlocks.MAHOGANY_LEAVES, WNBlocks.MANGROVE_LEAVES, WNBlocks.MAPLE_LEAVES, WNBlocks.POPLAR_LEAVES, WNBlocks.WILLOW_LEAVES, WNBlocks.MAGNOLIA_LEAVES, WNBlocks.DENSE_BUSH_LEAVES, WNBlocks.SMALL_BUSH_LEAVES, WNBlocks.LARGE_BUSH_LEAVES);
 
         colors.register((p1, p2, p3, p4) -> {
             return p2 != null && p3 != null ? BiomeColors.getFoliageColor(p2, p3) : FoliageColors.getDefault();

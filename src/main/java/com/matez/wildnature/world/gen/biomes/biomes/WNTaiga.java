@@ -138,6 +138,11 @@ public class WNTaiga extends WNBiome {
         WNBiomeFeatures.addTree(this,new thin_pine3(NoFeatureConfig::deserialize,true),3);
         WNBiomeFeatures.addTree(this,new thin_pine4(NoFeatureConfig::deserialize,true),3);
 
+        WNBiomeFeatures.addTree(this,new tall_pine1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new tall_pine2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new tall_pine3(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new tall_pine4(NoFeatureConfig::deserialize,true),1);
+
         WNBiomeFeatures.addTree(this,new thin_birch1(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new thin_birch2(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new thin_birch3(NoFeatureConfig::deserialize,true),1);

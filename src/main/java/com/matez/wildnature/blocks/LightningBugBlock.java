@@ -5,6 +5,7 @@ import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -32,7 +33,7 @@ public class LightningBugBlock extends EndRodBlock {
     private Item item;
 
     public LightningBugBlock(Properties properties, Item.Properties builder, ResourceLocation regName) {
-        super(properties.hardnessAndResistance(1.4F,0.4F).sound(SoundType.GLASS).lightValue(8));
+        super(properties.hardnessAndResistance(1.4F,0.4F).sound(SoundType.SWEET_BERRY_BUSH).lightValue(8));
 
 
         this.setRegistryName(regName);
@@ -42,6 +43,16 @@ public class LightningBugBlock extends EndRodBlock {
         WNBlocks.BLOCKS.add(this);
         WNBlocks.ITEMBLOCKS.add(item);
 
+    }
+
+    @Override
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        Direction direction = state.get(FACING);
+        BlockState wall = worldIn.getBlockState(pos.offset(direction.getOpposite()));
+        if(wall.isIn(BlockTags.LEAVES)||wall.isIn(BlockTags.LOGS)){
+            return true;
+        }
+        return false;
     }
 
     @Override

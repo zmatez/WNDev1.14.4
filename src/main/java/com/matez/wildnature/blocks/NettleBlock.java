@@ -23,9 +23,9 @@ public class NettleBlock extends FloweringBushBase {
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if(state.getBlock() instanceof FloweringBushBase && entityIn instanceof LivingEntity && state.get(FLOWERING) && CommonConfig.poisonIvyHurts.get()){
             if(CommonConfig.poisonIvyPoisons.get()) {
-                ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.POISON, Utilities.rint(30, 90), 1, true, false));
+                ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.WEAKNESS, Utilities.rint(30, 90), 1, true, false));
             }
-            if(Utilities.rint(0,15)==0){
+            if(Utilities.rint(0,100)==0){
                 ((LivingEntity)entityIn).attackEntityFrom(DamageSource.SWEET_BERRY_BUSH,(float)(0.0F+CommonConfig.poisonIvyDamage.get()));
             }
         }

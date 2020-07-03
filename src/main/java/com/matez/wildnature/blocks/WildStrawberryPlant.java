@@ -3,9 +3,7 @@ package com.matez.wildnature.blocks;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.lists.WNItems;
 import com.matez.wildnature.other.Utilities;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -103,7 +101,7 @@ public class WildStrawberryPlant extends CropBase {
 
     public boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.PODZOL || block == Blocks.FARMLAND;
+        return block instanceof SnowyDirtBlock || block instanceof FarmlandBlock;
     }
 
     public Block.OffsetType getOffsetType() {

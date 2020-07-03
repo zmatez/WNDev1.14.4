@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -75,6 +76,9 @@ public class PricklyPearBlock extends DesertBush implements IGrowable {
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if(state.getBlock() instanceof FloweringBushBase && state.get(AGE)!=0 && CommonConfig.flowerDisappearsOnWalk.get() && !(entityIn instanceof ItemEntity)){
             worldIn.setBlockState(pos,worldIn.getBlockState(pos).with(AGE,1));
+        }
+        if(Utilities.rint(0,4)==0 && entityIn instanceof LivingEntity){
+            ((LivingEntity)entityIn).attackEntityFrom(DamageSource.CACTUS,(float)(0.5f));
         }
     }
 

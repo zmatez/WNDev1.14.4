@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab",
-    "textures": {
-        "bottom": "wildnature:blocks/rocks/pyroxenite/pyroxenite",
-        "top": "wildnature:blocks/rocks/pyroxenite/pyroxenite",
-        "side": "wildnature:blocks/rocks/pyroxenite/pyroxenite"
-    }
-}

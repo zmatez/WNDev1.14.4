@@ -3,12 +3,9 @@ package com.matez.wildnature.world.gen.provider;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.gui.screen.WNWorldConfigScreen;
-import com.matez.wildnature.gui.screen.WNWorldLoadProgressScreen;
-import com.matez.wildnature.world.gen.biomes.biomes.terrain.BiomeTerrain;
 import com.matez.wildnature.world.gen.biomes.layer.WNBiomeLayer;
 import com.matez.wildnature.world.gen.biomes.setup.WNGenSettings;
-import com.matez.wildnature.world.gen.chunk.SmoothChunkGenerator;
-import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorEarth;
+import com.matez.wildnature.world.gen.chunk.WNSimplexChunkGenerator;
 import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorOverworld;
 import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorType;
 import net.minecraft.block.Blocks;
@@ -21,7 +18,6 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.BiomeProviderType;
 import net.minecraft.world.biome.provider.OverworldBiomeProviderSettings;
-import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.area.IArea;
@@ -48,7 +44,7 @@ public class WNWorldType extends WorldType {
             ChunkGeneratorType<WNGenSettings, WNChunkGeneratorOverworld> gen = WNChunkGeneratorType.WILDNATURE;
             ChunkGeneratorType<NetherGenSettings, NetherChunkGenerator> genNether = ChunkGeneratorType.CAVES;
             ChunkGeneratorType<EndGenerationSettings, EndChunkGenerator> genEnd = ChunkGeneratorType.FLOATING_ISLANDS;
-            ChunkGeneratorType<WNGenSettings, SmoothChunkGenerator> genTest = WNChunkGeneratorType.SIMPLEX_TEST;
+            ChunkGeneratorType<WNGenSettings, WNSimplexChunkGenerator> genTest = WNChunkGeneratorType.SIMPLEX_TEST;
 
 
             WNGenSettings overworldgensettings1 = gen.createSettings();

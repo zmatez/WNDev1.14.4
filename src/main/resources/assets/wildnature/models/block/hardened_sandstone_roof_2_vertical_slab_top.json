@@ -1,7 +1,0 @@
-{
-    "parent": "wildnature:block/slab_vertical",
-    "textures": {
-    	"particle": "wildnature:blocks/rocks/hardened_sandstone/hardened_sandstone_roof_2_vertical_slab_top",
-    	"material": "wildnature:blocks/rocks/hardened_sandstone/hardened_sandstone_roof_2_vertical_slab_top"
-  }
-}

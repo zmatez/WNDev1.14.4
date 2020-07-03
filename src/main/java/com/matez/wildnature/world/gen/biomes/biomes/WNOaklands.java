@@ -2,12 +2,14 @@ package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.biomes.surface.CustomSurfaceBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.feature.WNBlobConfig;
 import com.matez.wildnature.world.gen.feature.WNBlobFeature;
+import com.matez.wildnature.world.gen.feature.WNTreeVinesFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.rowan.rowan1;
 import com.matez.wildnature.world.gen.structures.nature.woods.rowan.rowan4;
@@ -20,11 +22,13 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.BushConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
+import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -94,6 +98,7 @@ public class WNOaklands extends WNBiome {
         WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),3);
 
         this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(Blocks.PODZOL.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(3)));
+        this.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION, Biome.createDecoratedFeature(new WNTreeVinesFeature(BushConfig::deserialize), new BushConfig(WNBlocks.GRAPE_VINE_PURPLE.getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 65, 0, 80)));
 
         plantRate=2;
         treeRate=14;

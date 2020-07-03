@@ -10,6 +10,7 @@ import com.matez.wildnature.entity.type.animal.duck.*;
 import com.matez.wildnature.entity.type.animal.fish.PiranhaEntity;
 import com.matez.wildnature.entity.type.animal.insect.DragonflyEntity;
 import com.matez.wildnature.entity.type.monster.GoblinEntity;
+import com.matez.wildnature.gui.tileEntities.seat.SeatEntity;
 import com.matez.wildnature.lists.WNItems;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -47,6 +48,9 @@ public class EntityRegistry {
 
     //birds
     public static EntityType<SparrowEntity> SPARROW_MALE = (EntityType<SparrowEntity>) EntityType.Builder.<SparrowEntity>create(SparrowEntity::new, EntityClassification.CREATURE).size(0.3F, 0.4F).build("wildnature:sparrow_male").setRegistryName("wildnature:sparrow_female");
+
+    //SEAT
+    public static EntityType<SeatEntity> SEAT = (EntityType<SeatEntity>) EntityType.Builder.<SeatEntity>create(SeatEntity::new, EntityClassification.CREATURE).size(0.3F, 0.4F).build("wildnature:seat").setRegistryName("wildnature:seat");
 
 
     public static void registerSpawningEggs(final RegistryEvent.Register<Item> register){

@@ -46,7 +46,7 @@ public class WNLayerUtil extends LayerUtil {
     	IAreaFactory<T> biomeFactory = WNWeightedBiomeLayer.INSTANCE.apply(context.apply(200L), landFactory);
     	biomeFactory = AddBambooForestLayer.INSTANCE.apply(context.apply(1001L), biomeFactory);
     	biomeFactory = LayerUtil.repeat(1000L, ZoomLayer.NORMAL, biomeFactory, 2, context);
-    	biomeFactory = EdgeBiomeLayer.INSTANCE.apply(context.apply(1000L), biomeFactory);
+    	biomeFactory = WNEdgeBiomeLayer.INSTANCE.apply(context.apply(1000L), biomeFactory);
     	
     	return biomeFactory;
     }

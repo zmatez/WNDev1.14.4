@@ -1,5 +1,9 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.feature.CaveVineFeature;
+import com.matez.wildnature.world.gen.feature.WNTreeVinesFeature;
+import com.matez.wildnature.world.gen.feature.WNVinesFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak1;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak2;
@@ -14,9 +18,13 @@ import com.matez.wildnature.world.gen.structures.nature.woods.orchard.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
+import net.minecraft.world.gen.placement.CountRangeConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -78,6 +86,9 @@ public class WNOrchard extends WNBiome {
         WNBiomeFeatures.addTree(this,new pear1(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new pear2(NoFeatureConfig::deserialize,true),1);
         WNBiomeFeatures.addTree(this,new pear3(NoFeatureConfig::deserialize,true),1);
+
+        this.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION, Biome.createDecoratedFeature(new WNTreeVinesFeature(BushConfig::deserialize), new BushConfig(WNBlocks.GRAPE_VINE_YELLOW.getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 65, 0, 80)));
+
 
         /*
          WNBiomeFeatures.addTree(this,new tree_oak2(NoFeatureConfig::deserialize,true,Crack.getBlockByID("wildnature:apple_log").getDefaultState(),tree_birch1.notDecayingLeaf(Crack.getBlockByID("wildnature:apple_leaves"))),2);
