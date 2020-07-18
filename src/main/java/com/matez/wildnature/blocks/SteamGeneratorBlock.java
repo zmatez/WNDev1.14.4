@@ -1,5 +1,6 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.event.ClientPlayerEventHandler;
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.packets.WNSSpawnParticlePacket;
@@ -33,6 +34,7 @@ import net.minecraftforge.fml.DistExecutor;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class SteamGeneratorBlock extends BlockBase {
@@ -141,7 +143,11 @@ public class SteamGeneratorBlock extends BlockBase {
     }
 
     public static <T extends IParticleData> int spawnParticle(ServerWorld world, T type, double posX, double posY, double posZ, int particleCount, double xSpeed, double ySpeed, double zSpeed, double speed) {
-        if(world.isRemote){
+        try{
+        if(Objects.requireNonNull(Minecraft.getInstance().getIntegratedServer()).getWorld(world.getDimension().getType())!=world){
+            return 0;
+        }}catch (Exception e){
+            Main.LOGGER.warn("I am trying to register own particle packet, but I don't know how. If you know, write to me on Discord!\nFor now, it will give you these warns on server when the particle packet needs to be sent. (when using steam generator for example) Sorry!");
             return 0;
         }
         WNSSpawnParticlePacket sspawnparticlepacket = new WNSSpawnParticlePacket(type, false, (float)posX, (float)posY, (float)posZ, (float)xSpeed, (float)ySpeed, (float)zSpeed, (float)speed, particleCount);

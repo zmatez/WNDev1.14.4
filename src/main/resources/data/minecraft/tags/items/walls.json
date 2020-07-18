@@ -2,11 +2,8 @@
   "replace": false,
   "values": [
     "wildnature:smooth_stone_wall",
-    "wildnature:granite_wall",
     "wildnature:granite_polished_wall",
-    "wildnature:diorite_wall",
     "wildnature:diorite_polished_wall",
-    "wildnature:andesite_wall",
     "wildnature:andesite_polished_wall",
     "wildnature:basalt_wall",
     "wildnature:basalt_polished_wall",

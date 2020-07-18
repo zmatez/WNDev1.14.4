@@ -21,6 +21,14 @@ import com.matez.wildnature.world.gen.structures.nature.woods.ebony.ebony3;
 import com.matez.wildnature.world.gen.structures.nature.woods.ebony.ebony4;
 import com.matez.wildnature.world.gen.structures.nature.woods.eucalyptus.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.fir.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel1;
+import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel2;
+import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel3;
+import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel4;
+import com.matez.wildnature.world.gen.structures.nature.woods.jacaranda.jacaranda1;
+import com.matez.wildnature.world.gen.structures.nature.woods.jacaranda.jacaranda2;
+import com.matez.wildnature.world.gen.structures.nature.woods.jacaranda.jacaranda3;
+import com.matez.wildnature.world.gen.structures.nature.woods.jacaranda.jacaranda4;
 import com.matez.wildnature.world.gen.structures.nature.woods.larch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.mahogany.mahogany1;
 import com.matez.wildnature.world.gen.structures.nature.woods.mahogany.mahogany2;
@@ -188,9 +196,11 @@ public class SaplingRegistry {
 
         Tree firSilverTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_oak20(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.HAZEL_LEAVES)),10);
-        weighList.add(new tree_oak21(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.HAZEL_LEAVES)),10);
-        weighList.add(new tree_oak3(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.HAZEL_LEAVES)),10);
+        weighList.add(new hazel1(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new hazel2(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new hazel3(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new hazel4(NoFeatureConfig::deserialize,false),10);
+
 
         Tree hazelTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
@@ -200,11 +210,10 @@ public class SaplingRegistry {
         weighList.add(new tree_hornbeam7(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),10);
         Tree hornbeamTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new cherry1(NoFeatureConfig::deserialize,false, WNBlocks.JACARANDA_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.JACARANDA_LEAVES)),10);
-        weighList.add(new cherry2(NoFeatureConfig::deserialize,false, WNBlocks.JACARANDA_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.JACARANDA_LEAVES)),10);
-        weighList.add(new cherry3(NoFeatureConfig::deserialize,false, WNBlocks.JACARANDA_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.JACARANDA_LEAVES)),10);
-        weighList.add(new cherry4(NoFeatureConfig::deserialize,false, WNBlocks.JACARANDA_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.JACARANDA_LEAVES)),10);
-
+        weighList.add(new jacaranda1(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new jacaranda2(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new jacaranda3(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new jacaranda4(NoFeatureConfig::deserialize,false),10);
         Tree jacarandaTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
         weighList.add(new tree_larch1(NoFeatureConfig::deserialize,false, WNBlocks.LARCH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);

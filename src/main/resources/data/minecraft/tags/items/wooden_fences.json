@@ -50,6 +50,14 @@
     "wildnature:citrus_fence",
     "wildnature:citrus_log_fence",
     "wildnature:glowing_cave_oak_fence",
-    "wildnature:glowing_cave_oak_log_fence"
+    "wildnature:glowing_cave_oak_log_fence",
+    "wildnature:stone_fence",
+    "wildnature:cobblestone_fence",
+    "wildnature:granite_fence",
+    "wildnature:granite_cobble_fence",
+    "wildnature:diorite_fence",
+    "wildnature:diorite_cobble_fence",
+    "wildnature:andesite_fence",
+    "wildnature:andesite_cobble_fence"
   ]
 }

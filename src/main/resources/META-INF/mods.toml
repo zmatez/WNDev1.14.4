@@ -31,15 +31,17 @@ And to our awesome community too :)
 Thanks to Sunekaer for upgrading code
 ''' #optional
 # A text field displayed in the mod UI
-authors="matez_, Sipke, ids_nl, mesaacr, Marion, Niels, pokky4, Skidush, saltagra, Terebo, J Brimstone, ZippyMagician, jopiesik, 5paceX, _KROPEK_, Bonniethebunny, IHaveABed, RhinoW, VIP_Cosmic, Vangas" #optional
+authors="matez_, Sipke, ids_nl, mesaacr, Marion, Niels, pokky4, Skidush, saltagra, Terebo, J Brimstone, ZippyMagician, jopiesik, 5paceX, _KROPEK_, Bonniethebunny, IHaveABed, RhinoW, VIP_Cosmic, Vangas, TheCrimsonPinch, MarshmallowQuokka" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-A Wilder Experience!
+A Wilder Experience
 
 Want a cape and and access to early releases? Become a patron!
-https://wildnaturemod.com/donate
+| https://wildnaturemod.com/donate |
 
 Official WildNature server! See modpack and IP at: https://wildnaturemod.com/server
+
+Join our Discord! http://bit.ly/wildnature-discord
 
 +----------------------------------------------+
  |            Want a Minecraft Modded Server?               |

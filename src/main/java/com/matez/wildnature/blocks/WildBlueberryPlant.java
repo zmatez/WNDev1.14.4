@@ -93,8 +93,6 @@ public class WildBlueberryPlant extends CropBase {
 
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
         BlockPos blockpos = pos.down();
-        if (state.getBlock() == this) //Forge: This function is called during world gen and placement, before this block is set, so if we are not 'here' then assume it's the pre-check.
-            return worldIn.getBlockState(blockpos).canSustainPlant(worldIn, blockpos, Direction.UP, this);
         return this.isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos);
     }
 

@@ -12,6 +12,8 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
+import net.minecraft.world.gen.surfacebuilders.DefaultSurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -19,13 +21,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNSaltFlats extends WNBiome {
     public WNSaltFlats(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new FlatSurfaceBuilder(SurfaceBuilderConfig::deserialize), new SurfaceBuilderConfig(Main.getBlockByID("wildnature:salt_block").getDefaultState(),Main.getBlockByID("wildnature:salt_block").getDefaultState(),Main.getBlockByID("minecraft:gravel").getDefaultState()))
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(Main.getBlockByID("wildnature:salt_block").getDefaultState(),Main.getBlockByID("wildnature:salt_block").getDefaultState(),Main.getBlockByID("minecraft:gravel").getDefaultState()))
                 .precipitation(RainType.NONE)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
                 .climate(WNBiomeBuilder.Climate.CONTINENTAL_WARM)
-                .depth(0.15F)
-                .scale(0.03F)
+                .depth(-0.11F)
+                .scale(0.00F)
                 .temperature(0.1F)
                 .downfall(0.0F)
                 .waterColor(4159204)

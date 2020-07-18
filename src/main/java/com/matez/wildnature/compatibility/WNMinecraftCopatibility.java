@@ -11,6 +11,7 @@ import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.FireBlock;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.HoeItem;
+import net.minecraft.item.Items;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -130,12 +131,12 @@ public class WNMinecraftCopatibility {
 
 
     public static void registerCompostable(float chance, IItemProvider itemIn) {
-
-        ComposterBlock.CHANCES.put(itemIn.asItem(), chance);
+        if(itemIn.asItem()!= Items.AIR) {
+            ComposterBlock.CHANCES.put(itemIn.asItem(), chance);
+        }
     }
 
-    public static void registerFlammable(Block blockIn, int encouragement, int flammability)
-    {
+    public static void registerFlammable(Block blockIn, int encouragement, int flammability) {
         if(blockIn==Blocks.AIR){
             return;
         }

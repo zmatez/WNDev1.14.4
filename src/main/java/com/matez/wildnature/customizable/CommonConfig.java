@@ -17,7 +17,7 @@ public class CommonConfig {
     public final ForgeConfigSpec.Builder builder;
 
     public static ForgeConfigSpec.ConfigValue<String> currentVersion;
-    public static ForgeConfigSpec.BooleanValue changePanorama, newLoadingWorldScreen, generateOnlyWildNature;
+    public static ForgeConfigSpec.BooleanValue changePanorama, newLoadingWorldScreen, generateOnlyWildNature,generateOnlyWildNatureBiomeLimit;
     public static ForgeConfigSpec.BooleanValue useWNOnServer;
     public static ForgeConfigSpec.DoubleValue riverDepth;
     public static ForgeConfigSpec.BooleanValue messageOnJoin;
@@ -233,6 +233,10 @@ public class CommonConfig {
         generateOnlyWildNature = builder
                 .comment("Generate only WildNature biomes?\nDefault: false")
                 .define("biome.generate_only_wildnature",false);
+
+        generateOnlyWildNatureBiomeLimit = builder
+                .comment("Generate only WildNature biomes DEFAULT = FALSE?\nWhy? We have too many biomes! It will be fixed soon. For more info join WildNature Discord!\n\nDefault: false")
+                .define("biome.generate_only_wildnature_biomeLimit",true);
 
         blacklistBiome = builder
                 .comment("Insert biome ids that shouldn't generate naturally. Example - wildnature:grasslands,wildnature:bog").define("biome.blacklist", "");

@@ -69,12 +69,6 @@ public class GrassBase extends GrassBlock {
         }catch (Exception e){
         }
 
-        if(world instanceof IWorldReader) {
-            if (plant.getBlock().isValidPosition(Blocks.GRASS_BLOCK.getDefaultState(), (IWorldReader)world, pos)) {
-                return true;
-            }
-        }
-
         if(plant.getBlock() instanceof WildBlueberryPlant || plant.getBlock() instanceof WildRosePlant || plant.getBlock() instanceof WildStrawberryPlant || plant.getBlock() instanceof CurrantPlant ||
         plant.getBlock() instanceof QuincePlant || plant.getBlock() instanceof BlackberryPlant || plant.getBlock() instanceof BlackLilacPlant || plant.getBlock() instanceof CranberryPlant)
 

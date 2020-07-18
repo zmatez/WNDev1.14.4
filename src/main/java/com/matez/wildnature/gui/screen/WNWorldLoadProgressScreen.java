@@ -70,9 +70,10 @@ public class WNWorldLoadProgressScreen extends Screen {
         int centerWidth = this.width / 2;
         int centerHeight = this.height / 2;
 
-        drawChunkIndicator(progress, centerWidth, centerHeight + 30, 2, 0);
+
 
         renderChunks(this.progress, centerWidth, centerHeight,this.width,this.height);
+        drawChunkIndicator(progress, centerWidth, centerHeight + 30, 2, 0);
         FontRenderer var10001 = this.font;
         this.drawCenteredString(var10001, lvt_4_1_, centerWidth, centerHeight - 9 / 2 + 30, 16777215);
         drawLoading(centerWidth,centerHeight-30);
