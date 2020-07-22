@@ -28,9 +28,7 @@ public class KnifeCrafting extends SpecialRecipe {
             ItemStack itemstack = inv.getStackInSlot(k);
             if (!itemstack.isEmpty()) {
                 if (itemstack.getItem()== WNItems.CHEF_KNIFE) {
-                    if(itemstack.getOrCreateTag().isEmpty()) {
-                        ++i;
-                    }
+                    ++i;
                 } else {
                     ++j;
                 }
@@ -49,8 +47,6 @@ public class KnifeCrafting extends SpecialRecipe {
         ItemStack chopping = ItemStack.EMPTY;
         int knifeSlot = 0;
 
-
-
         for(int i = 0; i < inv.getSizeInventory(); ++i) {
             ItemStack itemstack1 = inv.getStackInSlot(i);
             if (!itemstack1.isEmpty()) {
@@ -64,17 +60,17 @@ public class KnifeCrafting extends SpecialRecipe {
             }
         }
 
-        ItemStack knifeCopy = knife.copy();
+
+        ItemStack knifeCopy = new ItemStack(knife.getItem());
         Item chop = chopping.getItem();
         ItemStack item = getValidItem(chop);
-        if(item!=null){
-            CompoundNBT nbt = knife.getOrCreateTag();
-            Utilities.saveItem(nbt,chopping);
+        if(item!=null && !knife.isEmpty() && !chopping.isEmpty()){
+            CompoundNBT nbt = knife.copy().getOrCreateTag();
+            Utilities.saveItem(nbt,new ItemStack(chop));
             knifeCopy.setTag(nbt);
         }
 
-
-        return knifeCopy.copy();
+        return knifeCopy;
     }
 
     public static ItemStack getValidItem(Item chop){

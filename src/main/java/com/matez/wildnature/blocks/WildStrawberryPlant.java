@@ -99,7 +99,7 @@ public class WildStrawberryPlant extends CropBase {
 
     public boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block instanceof SnowyDirtBlock || block instanceof FarmlandBlock;
+        return block instanceof SnowyDirtBlock || block instanceof FarmlandBlock  || block instanceof PodzolBase;
     }
 
     public Block.OffsetType getOffsetType() {

@@ -14,11 +14,13 @@ public class fallen_ebony2 extends SchemFeature {
     public fallen_ebony2(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace) {
         super(config, doBlockNofityOnPlace);
         Main.treesList.add(this);
+        terrainIncrease=1;
     }
 
     public fallen_ebony2(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace, BlockState log, BlockState leaves) {
         super(config, doBlockNofityOnPlace);
         Main.treesList.add(this);
+        terrainIncrease=1;
         LOG = log;
         LEAVES =leaves;
     }

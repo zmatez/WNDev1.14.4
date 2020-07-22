@@ -5,6 +5,8 @@ import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.world.gen.biomes.undergroundBiomes.setup.URBiome;
 import com.matez.wildnature.world.gen.biomes.undergroundBiomes.setup.URBiomeManager;
+import com.matez.wildnature.world.gen.chunk.WNNoiseChunkGenerator;
+import com.matez.wildnature.world.gen.noise.sponge.module.source.RidgedMulti;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -27,6 +29,7 @@ import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.Heightmap;
@@ -39,8 +42,8 @@ public class CaveBiomeArgument implements ArgumentType<URBiome>
 {
     private static int radius = -1, quality = 10,maxRadius = 10000;
     private static boolean speedSearch = false;
-    public static final DynamicCommandExceptionType INVALID_URBiome_EXCEPTION = new DynamicCommandExceptionType((URBiome) -> {
-        return new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(new StringTextComponent(TextFormatting.RED + "This URBiome is invalid."));
+    public static final DynamicCommandExceptionType INVALID_URBIOME_EXCEPTION = new DynamicCommandExceptionType((URBiome) -> {
+        return new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(new StringTextComponent(TextFormatting.RED + "This biome is invalid."));
     });
 
     public static CaveBiomeArgument createArgument()
@@ -54,12 +57,11 @@ public class CaveBiomeArgument implements ArgumentType<URBiome>
         ResourceLocation location = ResourceLocation.read(reader);
 
         for (URBiome object : URBiomeManager.riverBiomes.getObjects()) {
-            if(location.toString().equals(object.getName())){
+            if(location.getPath().equals(object.getName())){
                 return object;
             }
         }
-
-        return null;
+        throw INVALID_URBIOME_EXCEPTION.create(location);
     }
 
     public static URBiome getValue(CommandContext<CommandSource> context, String name) throws CommandSyntaxException
@@ -84,8 +86,13 @@ public class CaveBiomeArgument implements ArgumentType<URBiome>
     {
         ArrayList<URBiome> URBiomes = new ArrayList<>(Arrays.asList(URBiome));
 
-        StringTextComponent s2 = new StringTextComponent(TextFormatting.AQUA + "Trying to find one of " + TextFormatting.GOLD + URBiomes.size() + TextFormatting.AQUA+" URBiomes...");
+        StringTextComponent s2;
+        if(URBiomes.size()==1){
+            s2 = new StringTextComponent(TextFormatting.AQUA + "Trying to find " + TextFormatting.GOLD + "wildnature:" + URBiome[0].getName() + TextFormatting.AQUA+" biome...");
+        }else{
+            s2 = new StringTextComponent(TextFormatting.AQUA + "Trying to find one of " + TextFormatting.GOLD + URBiomes.size() + TextFormatting.AQUA+" biomes...");
 
+        }
 
 
 
@@ -97,14 +104,23 @@ public class CaveBiomeArgument implements ArgumentType<URBiome>
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                URBiomePos URBiomePos = lookForURBiome(world, (int)player.posX, (int)player.posZ,player,URBiome);
+                RidgedMulti multi = WNNoiseChunkGenerator.getCaveNoise();
+                URBiomePos URBiomePos = null;
+                if(multi==null){
+                    StringTextComponent s3 = new StringTextComponent(TextFormatting.RED + "No biomes are generated on this world! Please use WildNature world type.");
+                    player.sendStatusMessage(new StringTextComponent(TextFormatting.RED + "Unable to find biome"), true);
 
+                    s3.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.DARK_RED + "Operation Failed :/")));
+                    Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s3));
+                }else {
+                    URBiomePos = lookForURBiome(multi,world, (int) player.posX, (int) player.posZ, player, URBiome);
+                }
 
                 if (URBiomePos != null && URBiomePos.URBiome !=null && URBiomePos.pos!=null)
                 {
                     BlockPos closestURBiomePos = URBiomePos.pos;
                     double x = (double)closestURBiomePos.getX();
-                    double y = (double) getTopBlock(world, closestURBiomePos.getX(), closestURBiomePos.getZ()).getY();
+                    double y = (double)13.0;
                     double z = (double)closestURBiomePos.getZ();
 
                     if (!world.getDimension().isSurfaceWorld())
@@ -113,8 +129,8 @@ public class CaveBiomeArgument implements ArgumentType<URBiome>
                     }
 
                     //player.connection.setPlayerLocation(x, y, z, player.rotationYaw, player.rotationPitch);
-                    Main.LOGGER.info("Found " + URBiomePos.URBiome.getName() + " URBiome at " + x + " " + y + " " + z + ". This taken " + radius + " attempts.");
-                    StringTextComponent s3 = new StringTextComponent(TextFormatting.AQUA + "Found " + TextFormatting.LIGHT_PURPLE + new TranslationTextComponent(URBiomePos.URBiome.getName()).getFormattedText() + TextFormatting.AQUA+" URBiome at ");
+                    Main.LOGGER.info("Found " + URBiomePos.URBiome.getName() + " urbiome at " + x + " " + y + " " + z + ". This taken " + radius + " attempts.");
+                    StringTextComponent s3 = new StringTextComponent(TextFormatting.AQUA + "Found " + TextFormatting.LIGHT_PURPLE + new TranslationTextComponent(URBiomePos.URBiome.getName()).getFormattedText() + TextFormatting.AQUA+" biome at ");
                     StringTextComponent s4 = new StringTextComponent(TextFormatting.YELLOW + ""+x+" " + y + " " + z);
                     StringTextComponent s42 = new StringTextComponent(TextFormatting.AQUA + " - " + TextFormatting.GOLD + (int)Utilities.getDistance(new BlockPos(player.posX,player.posY,player.posZ),new BlockPos(x,y,z)) + TextFormatting.AQUA+" blocks away.");
                     s4.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.GOLD+"Click to copy to the command prompt")));
@@ -124,20 +140,20 @@ public class CaveBiomeArgument implements ArgumentType<URBiome>
                     s5.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.GOLD+"Click here")));
                     s5.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/tp " + player.getName().getString() + " " + x + " " + y + " " + z));
                     Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s5));
-                    player.sendStatusMessage(new StringTextComponent(TextFormatting.GREEN+"Found URBiome " + TextFormatting.AQUA+ (int)Utilities.getDistance(new BlockPos(player.posX,player.posY,player.posZ),new BlockPos(x,y,z)) + TextFormatting.GREEN+" blocks away"),true);
+                    player.sendStatusMessage(new StringTextComponent(TextFormatting.GREEN+"Found biome " + TextFormatting.AQUA+ (int)Utilities.getDistance(new BlockPos(player.posX,player.posY,player.posZ),new BlockPos(x,y,z)) + TextFormatting.GREEN+" blocks away"),true);
 
                 }
                 else
                 {
                     if(URBiomes.size()==1) {
-                        StringTextComponent s3 = new StringTextComponent(TextFormatting.RED + "Unable to find " + TextFormatting.LIGHT_PURPLE + URBiomes.get(0).getName() + TextFormatting.RED + " URBiome.");
-                        player.sendStatusMessage(new StringTextComponent(TextFormatting.RED + "Unable to find URBiome"), true);
+                        StringTextComponent s3 = new StringTextComponent(TextFormatting.RED + "Unable to find " + TextFormatting.LIGHT_PURPLE + URBiomes.get(0).getName() + TextFormatting.RED + " biome.");
+                        player.sendStatusMessage(new StringTextComponent(TextFormatting.RED + "Unable to find biome"), true);
 
                         s3.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.DARK_RED + "Operation Failed :/")));
                         Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s3));
                     }else{
-                        StringTextComponent s3 = new StringTextComponent(TextFormatting.RED + "Unable to find any of " + TextFormatting.LIGHT_PURPLE + URBiomes.size() + TextFormatting.RED + " URBiomes.");
-                        player.sendStatusMessage(new StringTextComponent(TextFormatting.RED + "Unable to find URBiomes"), true);
+                        StringTextComponent s3 = new StringTextComponent(TextFormatting.RED + "Unable to find any of " + TextFormatting.LIGHT_PURPLE + URBiomes.size() + TextFormatting.RED + " biomes.");
+                        player.sendStatusMessage(new StringTextComponent(TextFormatting.RED + "Unable to find biomes"), true);
 
                         s3.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(TextFormatting.DARK_RED + "Operation Failed :/")));
                         Main.sendChatMessage(player, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(s3));
@@ -179,7 +195,7 @@ public class CaveBiomeArgument implements ArgumentType<URBiome>
         return new BlockPos(x, chunk.getTopBlockY(Heightmap.Type.MOTION_BLOCKING, x & 15, z & 15), z);
     }
 
-    public static URBiomePos lookForURBiome(World world, int startX, int startZ, PlayerEntity player, URBiome... URBiomeToFind)
+    public static URBiomePos lookForURBiome(RidgedMulti noise, World world, int startX, int startZ, PlayerEntity player, URBiome... URBiomeToFind)
     {
         ArrayList<URBiome> URBiomes = new ArrayList<>(Arrays.asList(URBiomeToFind));
         speedSearch=true;
@@ -189,14 +205,19 @@ public class CaveBiomeArgument implements ArgumentType<URBiome>
             ArrayList<BlockPos> pos = drawCircle(startX,startZ,currDist);
             player.sendStatusMessage(new StringTextComponent(TextFormatting.YELLOW+"Searching in radius " + TextFormatting.GOLD + currDist + TextFormatting.YELLOW + "/" + TextFormatting.GOLD + + maxDistance),true);
 
+
             int x = 0;
             for (BlockPos vec : pos) {
+
                 x++;
+                double vnoise = noise.getValue(vec.getX(), 1, vec.getZ());
+                if (vnoise >= 0.60 && vnoise <= 2) {
                 for (URBiome URBiome : URBiomes) {
-                    if(URBiomeManager.getBiomeAt(world.getChunk(new BlockPos((int)vec.getX(),1,(int)vec.getZ())),new BlockPos((int)vec.getX(),1,(int)vec.getZ()),world.getSeed())==URBiome){
+                    if (URBiomeManager.getBiomeAt(world.getChunk(new BlockPos((int) vec.getX(), 1, (int) vec.getZ())), new BlockPos((int) vec.getX(), 1, (int) vec.getZ()), world.getSeed()) == URBiome) {
                         radius = currDist;
-                        return new URBiomePos(new BlockPos((int)vec.getX(),0,(int)vec.getZ()),URBiome);
+                        return new URBiomePos(new BlockPos((int) vec.getX(), 0, (int) vec.getZ()), URBiome);
                     }
+                }
                 }
 
             }

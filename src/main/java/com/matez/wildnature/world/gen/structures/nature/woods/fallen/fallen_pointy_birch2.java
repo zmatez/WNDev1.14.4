@@ -14,11 +14,13 @@ public class fallen_pointy_birch2 extends SchemFeature {
     public fallen_pointy_birch2(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace) {
         super(config, doBlockNofityOnPlace);
         Main.treesList.add(this);
+        terrainIncrease=1;
     }
 
     public fallen_pointy_birch2(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace, BlockState log, BlockState leaves) {
         super(config, doBlockNofityOnPlace);
         Main.treesList.add(this);
+        terrainIncrease=1;
         LOG = log;
         LEAVES =leaves;
     }

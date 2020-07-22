@@ -27,7 +27,7 @@ public class WNWaterFeature extends Feature<CountConfig> {
       int i = 0;
       for (int j = 0; j < config.count; ++j) {
          BlockPos blockpos = pos.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));
-         if (worldIn.isAirBlock(blockpos.up()) && worldIn.getBlockState(blockpos).isSolid() && !Utilities.isBlockNear(worldIn,blockpos, Blocks.AIR)) {
+         if (worldIn.isAirBlock(blockpos.up()) && worldIn.getBlockState(blockpos).isSolid() && !Utilities.isUnsolidBlockNear(worldIn,blockpos)) {
             worldIn.setBlockState(blockpos, Blocks.WATER.getDefaultState(), 2);
             ++i;
          }

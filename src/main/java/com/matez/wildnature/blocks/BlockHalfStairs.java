@@ -1,5 +1,6 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.lists.WNItems;
 import net.minecraft.block.Block;
@@ -15,10 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.*;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -546,6 +544,85 @@ public class BlockHalfStairs extends BlockBase implements IWaterLoggable {
         public String getName() {
             return name;
         }
+
+        public VariantType rotate(Rotation rot){
+            if(rot==Rotation.CLOCKWISE_90){
+                if(this==TOP){
+                    return RIGHT;
+                }else if(this==RIGHT){
+                    return BOTTOM;
+                }else if(this==BOTTOM){
+                    return LEFT;
+                }else if(this==LEFT){
+                    return TOP;
+                }
+            }else if(rot==Rotation.CLOCKWISE_180){
+                if(this==TOP){
+                    return BOTTOM;
+                }else if(this==RIGHT){
+                    return LEFT;
+                }else if(this==BOTTOM){
+                    return TOP;
+                }else if(this==LEFT){
+                    return RIGHT;
+                }
+            }else if(rot==Rotation.COUNTERCLOCKWISE_90){
+                if(this==TOP){
+                    return LEFT;
+                }else if(this==RIGHT){
+                    return TOP;
+                }else if(this==BOTTOM){
+                    return RIGHT;
+                }else if(this==LEFT){
+                    return BOTTOM;
+                }
+            }
+            return this;
+        }
+        /*public VariantType mirror(Mirror mir){
+            if(mir==Mirror.FRONT_BACK){
+                if(this==TOP){
+                    return BOTTOM;
+                }else if(this==RIGHT){
+                    return LEFT;
+                }else if(this==BOTTOM){
+                    return TOP;
+                }else if(this==LEFT){
+                    return RIGHT;
+                }
+            }else if(mir==Mirror.LEFT_RIGHT){
+
+            }*/
+        }
+
+    /**
+     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+     * blockstate.
+     * @deprecated call via {@link #( Rotation )} whenever possible. Implementing/overriding is
+     * fine.
+     */
+    public BlockState rotate(BlockState state, Rotation rot) {
+        if(state.get(FACING)==Direction.UP || state.get(FACING)==Direction.DOWN){
+            return state.with(VARIANT,state.get(VARIANT).rotate(rot));
+        }
+        return state.with(FACING, rot.rotate(state.get(FACING)));
+    }
+
+    /**
+     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
+     * blockstate.
+     * @deprecated call via {@link #(Mirror)} whenever possible. Implementing/overriding is fine.
+     */
+    public BlockState mirror(BlockState state, Mirror mirrorIn) {
+        return state.with(FACING, mirrorIn.mirror(state.get(FACING)));
+    }
+
+    @Override
+    public BlockState rotate(BlockState state, IWorld world, BlockPos pos, Rotation rot) {
+        if(state.get(FACING)==Direction.UP || state.get(FACING)==Direction.DOWN){
+            return state.with(VARIANT,state.get(VARIANT).rotate(rot));
+        }
+        return state.with(FACING, rot.rotate(state.get(FACING)));
     }
 }
 

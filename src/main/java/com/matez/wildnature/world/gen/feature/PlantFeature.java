@@ -63,7 +63,7 @@ public class PlantFeature extends Feature<NoFeatureConfig> {
                             if(property==null){
                                 property = ((CropBase)state.getBlock()).getAgeProperty();
                             }
-                            state = state.with(property,Utilities.rint(0,((CropBase)state.getBlock()).getMaxAge()));
+                            state = state.with(property,Utilities.rint(1,((CropBase)state.getBlock()).getMaxAge()));
                         }
                         if(state.getBlock() instanceof DoublePlantBlock){
                             if(worldIn.getBlockState(pos.up()).isAir()){

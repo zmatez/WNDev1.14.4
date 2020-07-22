@@ -3,6 +3,7 @@ package com.matez.wildnature.world.gen.biomes.layer;
 import com.google.common.collect.ImmutableList;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
+import com.matez.wildnature.world.gen.noise.sponge.module.source.Voronoi;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
@@ -94,7 +95,7 @@ public class WNLayerUtil extends LayerUtil {
 
         IAreaFactory<T> lvt_8_1_ = null;
 
-        if(!CommonConfig.generateOnlyWildNatureBiomeLimit.get()) {
+        if(!CommonConfig.generateOnlyWildNature.get()) {
             lvt_8_1_ = worldTypeIn.getBiomeLayer(iareafactory, settings, contextFactory);
         }else {
             lvt_8_1_ = createBiomeFactory(contextFactory, lvt_7_1_);
@@ -131,7 +132,9 @@ public class WNLayerUtil extends LayerUtil {
         lvt_8_1_ = SmoothLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply(1000L), lvt_8_1_);
         lvt_8_1_ = WNMixRiverLayer.INSTANCE.apply((IExtendedNoiseRandom)contextFactory.apply(100L), lvt_8_1_, lvt_7_1_);
         lvt_8_1_ = MixOceansLayer.INSTANCE.apply(contextFactory.apply(100L), lvt_8_1_, iareafactory1);
-        IAreaFactory<T> iareafactory5 = VoroniZoomLayer.INSTANCE.apply(contextFactory.apply(10L), lvt_8_1_);
+
+        IAreaFactory<T> iareafactory5 = FuzzedBiomeMagnifier.INSTANCE.apply(contextFactory.apply(10L), lvt_8_1_);
+
         return ImmutableList.of(lvt_8_1_, iareafactory5, lvt_8_1_);
     }
 

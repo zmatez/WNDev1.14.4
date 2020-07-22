@@ -48,10 +48,6 @@ public class BiomeListCommand {
             Main.sendChatMessage(entity, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(new StringTextComponent(TextFormatting.RED+"Unknown page. Use values from " + TextFormatting.GOLD + "1" + TextFormatting.RED+" to " + TextFormatting.GOLD + maxPages+TextFormatting.RED+".")));
             return 0;
         }
-        if(page==1){
-            Main.sendChatMessage(entity, new StringTextComponent("").appendSibling(Main.WNPrefix).appendSibling(new StringTextComponent(TextFormatting.RED +""+ TextFormatting.BOLD+"Note: " + TextFormatting.RESET + TextFormatting.RED + "WN Generator generates only WN biomes now. You can disable this option, but you'll see why it is enabled. We're exceeding 1.14 biome limit with Vanilla biomes, and what even with other mods.. We're trying to solve this, if you want to help join our Discord! (/wn info)")));
-
-        }
         StringTextComponent s = new StringTextComponent(TextFormatting.GREEN+"Biome List "+TextFormatting.GRAY+" - - - "+TextFormatting.LIGHT_PURPLE+" page " + TextFormatting.AQUA + page + TextFormatting.DARK_AQUA + "/"+TextFormatting.AQUA+maxPages);
         ITextComponent hovermsg = new StringTextComponent(TextFormatting.GRAY + "Showing " + TextFormatting.DARK_AQUA+ list.size() + TextFormatting.GRAY+" biomes")
                 .appendSibling(new StringTextComponent(TextFormatting.GRAY+"\n"+"Including " + TextFormatting.DARK_AQUA + WNBiomes.registerBiomes.size() +TextFormatting.GRAY+ " WildNature biomes"));

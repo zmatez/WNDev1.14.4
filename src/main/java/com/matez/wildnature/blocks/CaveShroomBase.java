@@ -72,17 +72,6 @@ public class CaveShroomBase extends MushroomBase {
     }
 
     @Override
-    public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity entity) {
-        if(entity.inventory.getCurrentItem().getItem()== Items.SHEARS && !entity.abilities.isCreativeMode){
-            spawnAsEntity(world,pos,new ItemStack(Item.getItemFromBlock(state.getBlock())));
-            world.playSound((double)pos.getX(),(double)pos.getY(),(double)pos.getZ(),this.getSoundType(state,world,pos,entity).getBreakSound(), SoundCategory.BLOCKS,this.getSoundType(state,world,pos,entity).pitch,this.getSoundType(state,world,pos,entity).volume,false);
-            super.onBlockHarvested(world,pos,state,entity);
-        }else{
-            super.onBlockHarvested(world,pos,state,entity);
-        }
-    }
-
-    @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         if(reversed){
             return SHAPER;
@@ -100,18 +89,33 @@ public class CaveShroomBase extends MushroomBase {
         return isValidGround(worldIn.getBlockState(blockpos), worldIn, blockpos) && worldIn.getLightSubtracted(pos, 0) < 10;
     }
 
+
+
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
         List<ItemStack> l = new ArrayList<>();
 
-        if(state.getBlock()== WNBlocks.GLOWING_SLIMESHROOM_GREEN || state.getBlock()== WNBlocks.HANGING_GLOWING_SLIMESHROOM_GREEN){
+        if(state.getBlock()== WNBlocks.GLOWING_SLIMESHROOM_GREEN || state.getBlock()== WNBlocks.HANGING_GLOWING_SLIMESHROOM_GREEN || state.getBlock()==WNBlocks.GLOW_SHROOM
+                || state.getBlock()==WNBlocks.GLOWING_SHADOWSHROOM  || state.getBlock()==WNBlocks.DRAGON_SHROOM  || state.getBlock()==WNBlocks.GRAVITYSHROOM
+                || state.getBlock()==WNBlocks.JELLYSHROOM  || state.getBlock()==WNBlocks.TUBESHROOM || state.getBlock()==WNBlocks.SUNSHROOM){
             l.add(new ItemStack(WNItems.GLOWSHROOM_DUST,Utilities.rint(0,1)));
             return l;
         }
-        if(state.getBlock()== WNBlocks.GLOWING_SLIMESHROOM_BLUE || state.getBlock()== WNBlocks.HANGING_GLOWING_SLIMESHROOM_BLUE){
+
+        if(state.getBlock()==WNBlocks.MAGMA_SHROOM){
+            l.add(new ItemStack(Items.FIRE_CHARGE,Utilities.rint(0,1)));
+            return l;
+        }
+
+        if(state.getBlock()== WNBlocks.GLOWING_SLIMESHROOM_BLUE || state.getBlock()== WNBlocks.HANGING_GLOWING_SLIMESHROOM_BLUE || state.getBlock()==WNBlocks.ICE_SHROOM){
             l.add(new ItemStack(WNItems.ICESHROOM_DUST,Utilities.rint(0,1)));
             return l;
         }
+
+        if(Utilities.rint(0,4)==0) {
+            l.add(new ItemStack(this.getItem(), 1));
+        }
+
 
         return super.getDrops(state, builder);
     }

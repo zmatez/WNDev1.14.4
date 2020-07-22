@@ -19,9 +19,7 @@ import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.*;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.Vec2f;
@@ -45,6 +43,26 @@ public class BlockSlabVertical extends BlockBase implements IWaterLoggable {
 
     public BlockSlabVertical(Properties properties, Item.Properties builder, ResourceLocation regName) {
         super(properties,builder,regName);
+    }
+
+
+    /**
+     * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
+     * blockstate.
+     * @deprecated call via {@link #( Rotation )} whenever possible. Implementing/overriding is
+     * fine.
+     */
+    public BlockState rotate(BlockState state, Rotation rot) {
+        return state.with(FACING, rot.rotate(state.get(FACING)));
+    }
+
+    /**
+     * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
+     * blockstate.
+     * @deprecated call via {@link #( Mirror )} whenever possible. Implementing/overriding is fine.
+     */
+    public BlockState mirror(BlockState state, Mirror mirrorIn) {
+        return state.with(FACING, mirrorIn.mirror(state.get(FACING)));
     }
 
     @Override

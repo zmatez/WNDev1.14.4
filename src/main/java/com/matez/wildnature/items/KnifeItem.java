@@ -5,6 +5,7 @@ import com.matez.wildnature.lists.WNItems;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -36,6 +37,9 @@ public class KnifeItem extends SwordItem {
         if(s!=null && !s.isEmpty()){
             playerEntity.inventory.addItemStackToInventory(KnifeCrafting.getValidItem(s.getItem()));
             stack.setTag(new CompoundNBT());
+            stack.damageItem(1, playerEntity, (p_220045_0_) -> {
+                p_220045_0_.sendBreakAnimation(hand);
+            });
             return new ActionResult<>(ActionResultType.SUCCESS, stack);
         }
         return a;

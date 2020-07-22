@@ -1,21 +1,28 @@
 package com.matez.wildnature.blocks;
 
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.lists.WNItems;
+import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SixWayBlock;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class HugeMushroomBase extends BlockBase {
@@ -68,5 +75,21 @@ public class HugeMushroomBase extends BlockBase {
         UP = SixWayBlock.UP;
         DOWN = SixWayBlock.DOWN;
         field_196462_B = SixWayBlock.FACING_TO_PROPERTY_MAP;
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        List<ItemStack> l = new ArrayList<>();
+        if (state.getBlock() == WNBlocks.GLOWSHROOM_BLOCK || state.getBlock() == WNBlocks.GLOWSHROOM_STEM) {
+            l.add(new ItemStack(WNItems.GLOWSHROOM_DUST, Utilities.rint(1, 2)));
+            if(Utilities.rint(0,3)==0) {
+                l.add(new ItemStack(Items.GLOWSTONE_DUST, 1));
+            }
+            if(Utilities.rint(0,3)==0) {
+                l.add(new ItemStack(this.getItem(), 1));
+            }
+            return l;
+        }
+        return super.getDrops(state,builder);
     }
 }

@@ -97,8 +97,6 @@ public class RecipeCommand {
                     }
 
                     if(iRecipe instanceof WNCookingRecipe){
-                        Main.LOGGER.debug("Getting recipe: " + CookingItem.getGroupParams(r.getGroup())[0] + " in " + CookingItem.getGroupParams(r.getGroup())[1]);
-
                         if(CookingItem.getGroupParams(r.getGroup())[0].equals("pot")){
                             item=WNItems.POT_WATER;
                         }else if(CookingItem.getGroupParams(r.getGroup())[0].equals("frying_pan")){

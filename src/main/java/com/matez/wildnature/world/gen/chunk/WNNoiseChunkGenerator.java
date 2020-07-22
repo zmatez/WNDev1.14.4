@@ -72,6 +72,7 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
    private double frequency = CommonConfig.pathFrequency.get();
 
    private final RidgedMulti ridgedMultiNoise;
+   private static RidgedMulti ridgedMultiNoiseCopy;
    private final Perlin perlinNoise, biomeNoise;
    private double latestBiomeNoise = -1;
 
@@ -96,6 +97,7 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
       ridgedMultiNoise.setFrequency(0.005);
       ridgedMultiNoise.setOctaveCount(1);
       ridgedMultiNoise.setLacunarity(0.0);
+      ridgedMultiNoiseCopy = ridgedMultiNoise;
       this.perlinNoise = new Perlin();
       perlinNoise.setSeed((int)worldIn.getSeed());
       perlinNoise.setFrequency(0.1);
@@ -108,6 +110,10 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
       biomeNoise.setOctaveCount(2);
       biomeNoise.setLacunarity(0.0);
       biomeNoise.setPersistence(0.0);
+   }
+
+   public static RidgedMulti getCaveNoise(){
+      return ridgedMultiNoiseCopy;
    }
 
    private double func_222552_a(int p_222552_1_, int p_222552_2_, int p_222552_3_, double coordScale, double heightScale, double p_222552_8_, double p_222552_10_) {

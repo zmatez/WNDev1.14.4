@@ -82,6 +82,9 @@ public class WNGlobalBiomeFeatures {
             if(CommonConfig.generateBigGlowshrooms.get()){
                 WNBiomeFeatures.addGlowshrooms(biome);
             }
+            if(CommonConfig.generateFallenTrees.get()){
+                WNBiomeFeatures.addFallenTrees(biome);
+            }
 
             //carvers
             if(CommonConfig.generateUndergroundRivers.get()){

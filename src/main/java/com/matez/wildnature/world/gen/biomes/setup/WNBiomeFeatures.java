@@ -7,10 +7,13 @@ import com.matez.wildnature.blocks.SaltOreBlock;
 import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.BlockWeighList;
+import com.matez.wildnature.other.TreeWeighList;
 import com.matez.wildnature.world.gen.feature.*;
 import com.matez.wildnature.world.gen.feature.ScatteredPlantFeature;
+import com.matez.wildnature.world.gen.feature.TreeFeature;
 import com.matez.wildnature.world.gen.feature.WaterlilyFeature;
 import com.matez.wildnature.world.gen.structures.nature.rocks.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.fallen.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.glowing_cave_oak.GlowingCaveOakSpawner;
 import com.matez.wildnature.world.gen.structures.nature.woods.glowshroom.GlowshroomSpawner;
 import net.minecraft.block.Block;
@@ -425,6 +428,51 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
         }
         if(biomeIn.getTempCategory()== Biome.TempCategory.WARM) {
             biomeIn.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(new WNMossFeature(CountConfig::deserialize), new CountConfig(64), Placement.COUNT_RANGE, new CountRangeConfig(CommonConfig.mossRarityDense.get(), 10, 0, 40)));
+        }
+    }
+
+    public static void addFallenTrees(Biome biomeIn) {
+        if (BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.FOREST)) {
+            Main.LOGGER.info("Adding fallen trees for " + biomeIn.getRegistryName());
+            boolean isDense = BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.DENSE);
+            boolean isConiferous = BiomeDictionary.getTypes(biomeIn).contains(BiomeDictionary.Type.CONIFEROUS);
+            Biome.Category category = biomeIn.getCategory();
+            TreeWeighList trees = new TreeWeighList();
+            if (biomeIn == WNBiomes.Madagascar || biomeIn == WNBiomes.DaintreeForest) {
+                trees.add(new fallen_ebony1(NoFeatureConfig::deserialize, true), 1);
+                trees.add(new fallen_ebony2(NoFeatureConfig::deserialize, true), 1);
+                trees.add(new fallen_ebony3(NoFeatureConfig::deserialize, true), 1);
+            } else if (biomeIn == WNBiomes.WeepingBirchForest || biomeIn == WNBiomes.BirchGrove || biomeIn == WNBiomes.BirchMarsh || biomeIn == WNBiomes.BirchScrubs || biomeIn == WNBiomes.SnowyBirchGrove) {
+                trees.add(new fallen_birch1(NoFeatureConfig::deserialize, true), 2);
+                trees.add(new fallen_birch2(NoFeatureConfig::deserialize, true), 2);
+                trees.add(new fallen_pointy_birch1(NoFeatureConfig::deserialize, true), 1);
+                trees.add(new fallen_pointy_birch2(NoFeatureConfig::deserialize, true), 1);
+                trees.add(new fallen_pointy_birch3(NoFeatureConfig::deserialize, true), 1);
+                trees.add(new fallen_pointy_birch4(NoFeatureConfig::deserialize, true), 1);
+            } else if (category == Biome.Category.TAIGA) {
+                trees.add(new fallen_spruce1(NoFeatureConfig::deserialize, true), 1);
+                trees.add(new fallen_spruce2(NoFeatureConfig::deserialize, true), 1);
+                trees.add(new fallen_spruce3(NoFeatureConfig::deserialize, true), 1);
+            } else if (category == Biome.Category.PLAINS) {
+                trees.add(new fallen_oak1(NoFeatureConfig::deserialize, true), 1);
+                trees.add(new fallen_oak2(NoFeatureConfig::deserialize, true), 1);
+                trees.add(new fallen_oak3(NoFeatureConfig::deserialize, true), 1);
+            } else if (category == Biome.Category.FOREST) {
+                if (isConiferous) {
+                    trees.add(new fallen_spruce1(NoFeatureConfig::deserialize, true), 1);
+                    trees.add(new fallen_spruce2(NoFeatureConfig::deserialize, true), 1);
+                    trees.add(new fallen_spruce3(NoFeatureConfig::deserialize, true), 1);
+                } else {
+                    trees.add(new fallen_oak1(NoFeatureConfig::deserialize, true), 1);
+                    trees.add(new fallen_oak2(NoFeatureConfig::deserialize, true), 1);
+                    trees.add(new fallen_oak3(NoFeatureConfig::deserialize, true), 1);
+                    trees.add(new fallen_oak4(NoFeatureConfig::deserialize, true), 1);
+                    trees.add(new fallen_birch1(NoFeatureConfig::deserialize, true), 1);
+                    trees.add(new fallen_birch2(NoFeatureConfig::deserialize, true), 1);
+                }
+            }
+
+            biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new TreeFeature(NoFeatureConfig::deserialize, trees), new NoFeatureConfig(), Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(isDense ? 1 : 0, isDense ? 0.02F : 0.3F, isDense ? 5 : 1)));
         }
     }
 

@@ -2385,6 +2385,7 @@
   "biome.wildnature.shrublands": "Shrublands",
   "biome.wildnature.hilly_shrublands": "Hilly Shrublands",
   "biome.wildnature.scrublands": "Scrublands",
+  "biome.wildnature.hazel_fields": "Hazel Fields",
   "biome.wildnature.fields": "Fields",
   "biome.wildnature.sunflower_fields": "Sunflower Fields",
   "biome.wildnature.poppy_fields": "Poppy Fields",
@@ -2467,6 +2468,7 @@
   "biome.wildnature.taiga": "Taiga",
   "biome.wildnature.taiga_hills": "Taiga Hills",
   "biome.wildnature.taiga_valley": "Taiga Valley",
+  "biome.wildnature.taiga_clearing": "Taiga Clearing",
   "biome.wildnature.wet_taiga": "Wet Taiga",
   "biome.wildnature.taiga_marsh": "Taiga Marsh",
   "biome.wildnature.berry_taiga": "Berry Taiga",
@@ -2474,6 +2476,7 @@
   "biome.wildnature.cold_taiga": "Cold Taiga",
   "biome.wildnature.cold_taiga_hills": "Cold Taiga Hills",
   "biome.wildnature.cold_taiga_valley": "Cold Taiga Valley",
+  "biome.wildnature.cold_taiga_clearing": "Cold Taiga Clearing",
   "biome.wildnature.frozen_taiga": "Frozen Taiga",
   "biome.wildnature.cold_taiga_marsh": "Cold Taiga Marsh",
   "biome.wildnature.cold_berry_taiga": "Cold Berry Taiga",
@@ -2527,6 +2530,11 @@
   "biome.wildnature.birch_marsh": "Birch Marsh",
 
   "biome.wildnature.flower_field": "Flower Field",
+  "biome.wildnature.hyacinth_fields": "Hyacinth Fields",
+  "biome.wildnature.marigold_fields": "Marigold Fields",
+  "biome.wildnature.meadow": "Meadow",
+  "biome.wildnature.wooded_meadow": "Wooded Meadow",
+
 
   "biome.wildnature.sahara": "Sahara",
   "biome.wildnature.oasis": "Oasis",

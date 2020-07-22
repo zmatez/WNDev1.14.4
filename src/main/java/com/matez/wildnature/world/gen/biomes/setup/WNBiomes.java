@@ -15,6 +15,7 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class WNBiomes {
@@ -181,6 +182,7 @@ public class WNBiomes {
     public static Biome Taiga = new WNTaiga("taiga");
     public static Biome TaigaHills = new WNTaigaHills("taiga_hills");
     public static Biome TaigaValley = new WNTaigaValley("taiga_valley");
+    public static Biome TaigaClearing = new WNTaigaClearing("taiga_clearing");
     public static Biome WetTaiga = new WNWetTaiga("wet_taiga");
     public static Biome TaigaMarsh = new WNTaigaMarsh("taiga_marsh");
     public static Biome BerryTaiga = new WNBerryTaiga("berry_taiga");
@@ -189,6 +191,7 @@ public class WNBiomes {
     public static Biome ColdTaiga = new WNColdTaiga("cold_taiga");
     public static Biome ColdTaigaHills = new WNColdTaigaHills("cold_taiga_hills");
     public static Biome ColdTaigaValley = new WNColdTaigaValley("cold_taiga_valley");
+    public static Biome ColdTaigaClearing = new WNColdTaigaClearing("cold_taiga_clearing");
     public static Biome FrozenTaiga = new WNFrozenTaiga("frozen_taiga");
     public static Biome ColdTaigaMarsh = new WNColdTaigaMarsh("cold_taiga_marsh");
     public static Biome ColdBerryTaiga = new WNColdBerryTaiga("cold_berry_taiga");
@@ -250,6 +253,12 @@ public class WNBiomes {
 
     //FLOWER FIELD
     public static Biome FlowerField = new WNFlowerField("flower_field");
+    public static Biome HyacinthFields = new WNHyacinthFields("hyacinth_fields");
+    public static Biome MarigoldFields = new WNMarigoldFields("marigold_fields");
+
+    //MEADOWS
+    public static Biome Meadow = new WNMeadow("meadow");
+    public static Biome WoodedMeadow = new WNWoodedMeadow("wooded_meadow");
 
     //SAHARA
     public static Biome Sahara = new WNSahara("sahara");
@@ -441,6 +450,10 @@ public class WNBiomes {
         register(BirchScrubs, BiomeManager.BiomeType.WARM,10, Type.FOREST, Type.PLAINS, Type.DENSE);
         register(BirchMarsh, BiomeManager.BiomeType.COOL,7, Type.FOREST, Type.PLAINS, Type.SWAMP, Type.WET);
         register(FlowerField, BiomeManager.BiomeType.WARM,7, Type.PLAINS, Type.DENSE, Type.LUSH);
+        register(Meadow, BiomeManager.BiomeType.WARM,3, Type.PLAINS, Type.DENSE, Type.LUSH);
+        register(WoodedMeadow, BiomeManager.BiomeType.WARM,5, Type.PLAINS, Type.DENSE, Type.LUSH, Type.FOREST);
+        register(MarigoldFields, BiomeManager.BiomeType.WARM,3, Type.PLAINS, Type.DENSE, Type.LUSH);
+        register(HyacinthFields, BiomeManager.BiomeType.WARM,1, Type.PLAINS, Type.DENSE, Type.LUSH, Type.RARE);
         register(Sahara, BiomeManager.BiomeType.DESERT,10, Type.DEAD, Type.DRY, Type.SANDY);
         register(Badlands, BiomeManager.BiomeType.DESERT,8, Type.DEAD, Type.DRY, Type.SANDY);
         register(Canyons, BiomeManager.BiomeType.DESERT,5, Type.DEAD, Type.DRY, Type.MESA, Type.PLATEAU);
@@ -503,16 +516,14 @@ public class WNBiomes {
         Main.LOGGER.info("Preparing for registering " + biome.getRegistryName() + " biome to generate naturally...");
         if(CommonConfig.generateBiomes.get()) {
             biomesToRegister.add(new BiomeToRegister(biome, type, weight, types));
-            // Add all biomes to weighted list
-            EnumBiomes.ALL.add(biome, weight);
+            BiomeDictionary.addTypes(biome, types);
         }
         generatorBiomes.add(biome);
     }
 
     public static void registerNonSpawn(Biome biome, Type... types){//adds biome to biome list that have to spawn naturally.
         if(CommonConfig.generateBiomes.get()) {
-            Main.LOGGER.info("Registering dictionary for unusual biome: " + biome.getRegistryName());
-
+            Main.LOGGER.info("Registering dictionary for unusual biome: " + biome.getRegistryName() + " " + new ArrayList<Type>(Arrays.asList(types)).toString());
             BiomeDictionary.addTypes(biome, types);
         }
         generatorBiomes.add(biome);
@@ -574,9 +585,11 @@ public class WNBiomes {
             }
             Main.LOGGER.info("Registered " + biome.getRegistryName() + " biome");
 
-            BiomeDictionary.addTypes(biome, types);
+
             WNBiomeManager.addBiome(type, new WNBiomeManager.BiomeEntry(biome, weight));
             WNBiomeManager.addSpawnBiome(biome);
+            // Add all biomes to weighted list
+            EnumBiomes.ALL.add(biome, weight);
         }
     }
 

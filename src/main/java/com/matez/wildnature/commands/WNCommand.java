@@ -48,7 +48,7 @@ public class WNCommand {
             ServerPlayerEntity player = context.getSource().asPlayer();
             return CaveBiomeArgument.findTeleportURBiome(context.getSource(), player, CaveBiomeArgument.getValue(context, "biome"));
         })))).then(Commands.literal("list").then(Commands.argument("page",IntegerArgumentType.integer(1)).executes((context -> {
-            return new BiomeListCommand((PlayerEntity)context.getSource().getEntity()).showPage(IntegerArgumentType.getInteger(context,"page"));
+            return new CaveBiomeListCommand((PlayerEntity)context.getSource().getEntity()).showPage(IntegerArgumentType.getInteger(context,"page"));
         }))).executes(context -> {
             return new BiomeListCommand((PlayerEntity)context.getSource().getEntity()).showPage(1);
         }))).then(Commands.literal("path").then(Commands.literal("locate").requires((perm) -> {

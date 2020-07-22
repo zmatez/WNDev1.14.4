@@ -388,6 +388,27 @@ public class Utilities {
         }
     }
 
+    public static boolean isUnsolidBlockNear(IWorld world, BlockPos pos){
+        try {
+            if (!world.getBlockState(pos.offset(Direction.NORTH)).isSolid()) {
+                return true;
+            }
+            if (!world.getBlockState(pos.offset(Direction.SOUTH)).isSolid()) {
+                return true;
+            }
+            if (!world.getBlockState(pos.offset(Direction.EAST)).isSolid()) {
+                return true;
+            }
+            if (!world.getBlockState(pos.offset(Direction.WEST)).isSolid()) {
+                return true;
+            }
+
+            return false;
+        }catch (Exception e){
+            return true;
+        }
+    }
+
     public static boolean isBlockNear(IChunk world, BlockPos pos, Block... blocks){
         for (Block block : blocks) {
             if(world.getBlockState(pos.offset(Direction.NORTH)).getBlock()==block){

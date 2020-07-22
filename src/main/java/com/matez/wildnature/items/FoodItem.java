@@ -56,7 +56,6 @@ public class FoodItem extends Item {
             stack.shrink(1);
         }
 
-
         if(stack==null){
             return new ItemStack(fillTool.getItem());
         }

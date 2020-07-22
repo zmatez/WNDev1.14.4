@@ -128,7 +128,7 @@ public class BushBase extends BushBlock implements IShearable {
 
     public boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block instanceof SnowyDirtBlock || block instanceof FarmlandBlock;
+        return block instanceof SnowyDirtBlock || block instanceof FarmlandBlock  || block instanceof PodzolBase;
     }
 
     /**

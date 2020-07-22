@@ -84,7 +84,6 @@ public abstract class WNAbstractCookingRecipe implements IRecipe<IInventory> {
 
 
 
-      Main.LOGGER.debug(ok);
       return ok;
    }
 

@@ -326,21 +326,21 @@ public class Main {
 
 
             event.getRegistry().registerAll(
-                    WNItems.ROSACEAE_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.ROSACEAE_SIGN, WNBlocks.ROSACEAE_WALL_SIGN).setRegistryName(location("rosaceae_sign")),
-                    WNItems.BAOBAB_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.BAOBAB_SIGN, WNBlocks.BAOBAB_WALL_SIGN).setRegistryName(location("baobab_sign")),
-                    WNItems.BEECH_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.BEECH_SIGN, WNBlocks.BEECH_WALL_SIGN).setRegistryName(location("beech_sign")),
-                    WNItems.CEDAR_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.CEDAR_SIGN, WNBlocks.CEDAR_WALL_SIGN).setRegistryName(location("cedar_sign")),
-                    WNItems.CHERRY_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.CHERRY_SIGN, WNBlocks.CHERRY_WALL_SIGN).setRegistryName(location("cherry_sign")),
-                    WNItems.EBONY_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.EBONY_SIGN, WNBlocks.EBONY_WALL_SIGN).setRegistryName(location("ebony_sign")),
-                    WNItems.JACARANDA_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.JACARANDA_SIGN, WNBlocks.JACARANDA_WALL_SIGN).setRegistryName(location("jacaranda_sign")),
-                    WNItems.LARCH_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.LARCH_SIGN, WNBlocks.LARCH_WALL_SIGN).setRegistryName(location("larch_sign")),
-                    WNItems.MAHOGANY_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.MAHOGANY_SIGN, WNBlocks.MAHOGANY_WALL_SIGN).setRegistryName(location("mahogany_sign")),
-                    WNItems.MANGROVE_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.MANGROVE_SIGN, WNBlocks.MANGROVE_WALL_SIGN).setRegistryName(location("mangrove_sign")),
-                    WNItems.MAPLE_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.MAPLE_SIGN, WNBlocks.MAPLE_WALL_SIGN).setRegistryName(location("maple_sign")),
-                    WNItems.PALM_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.PALM_SIGN, WNBlocks.PALM_WALL_SIGN).setRegistryName(location("palm_sign")),
-                    WNItems.PLUM_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.PLUM_SIGN, WNBlocks.PLUM_WALL_SIGN).setRegistryName(location("plum_sign")),
-                    WNItems.REDWOOD_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.REDWOOD_SIGN, WNBlocks.REDWOOD_WALL_SIGN).setRegistryName(location("redwood_sign")),
-                    WNItems.WILLOW_SIGN = new SignItem((new Item.Properties()).maxStackSize(16).group(WILDNATURE_BUILDING_GROUP), WNBlocks.WILLOW_SIGN, WNBlocks.WILLOW_WALL_SIGN).setRegistryName(location("willow_sign"))
+                    WNItems.ROSACEAE_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.ROSACEAE_SIGN, WNBlocks.ROSACEAE_WALL_SIGN).setRegistryName(location("rosaceae_sign")),
+                    WNItems.BAOBAB_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.BAOBAB_SIGN, WNBlocks.BAOBAB_WALL_SIGN).setRegistryName(location("baobab_sign")),
+                    WNItems.BEECH_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.BEECH_SIGN, WNBlocks.BEECH_WALL_SIGN).setRegistryName(location("beech_sign")),
+                    WNItems.CEDAR_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.CEDAR_SIGN, WNBlocks.CEDAR_WALL_SIGN).setRegistryName(location("cedar_sign")),
+                    WNItems.CHERRY_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.CHERRY_SIGN, WNBlocks.CHERRY_WALL_SIGN).setRegistryName(location("cherry_sign")),
+                    WNItems.EBONY_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.EBONY_SIGN, WNBlocks.EBONY_WALL_SIGN).setRegistryName(location("ebony_sign")),
+                    WNItems.JACARANDA_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.JACARANDA_SIGN, WNBlocks.JACARANDA_WALL_SIGN).setRegistryName(location("jacaranda_sign")),
+                    WNItems.LARCH_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.LARCH_SIGN, WNBlocks.LARCH_WALL_SIGN).setRegistryName(location("larch_sign")),
+                    WNItems.MAHOGANY_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.MAHOGANY_SIGN, WNBlocks.MAHOGANY_WALL_SIGN).setRegistryName(location("mahogany_sign")),
+                    WNItems.MANGROVE_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.MANGROVE_SIGN, WNBlocks.MANGROVE_WALL_SIGN).setRegistryName(location("mangrove_sign")),
+                    WNItems.MAPLE_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.MAPLE_SIGN, WNBlocks.MAPLE_WALL_SIGN).setRegistryName(location("maple_sign")),
+                    WNItems.PALM_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.PALM_SIGN, WNBlocks.PALM_WALL_SIGN).setRegistryName(location("palm_sign")),
+                    WNItems.PLUM_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.PLUM_SIGN, WNBlocks.PLUM_WALL_SIGN).setRegistryName(location("plum_sign")),
+                    WNItems.REDWOOD_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.REDWOOD_SIGN, WNBlocks.REDWOOD_WALL_SIGN).setRegistryName(location("redwood_sign")),
+                    WNItems.WILLOW_SIGN = new SignItem((new Item.Properties()).maxStackSize(16), WNBlocks.WILLOW_SIGN, WNBlocks.WILLOW_WALL_SIGN).setRegistryName(location("willow_sign"))
 
             );
 

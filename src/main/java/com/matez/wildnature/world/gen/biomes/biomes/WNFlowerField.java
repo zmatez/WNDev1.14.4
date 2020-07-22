@@ -4,6 +4,9 @@ import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.def.BigTree;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak1;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak2;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak3;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -60,8 +63,9 @@ public class WNFlowerField extends WNBiome {
         WNBiomeFeatures.addPlant(this,Blocks.WHITE_TULIP.getDefaultState(),1);
         WNBiomeFeatures.addPlant(this,Blocks.AZURE_BLUET.getDefaultState(),1);
 
-        WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.removeAllDefaultFlowers(this);
+        WNBiomeFeatures.addTree(this,new oak1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new oak2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new oak3(NoFeatureConfig::deserialize,true),1);        WNBiomeFeatures.removeAllDefaultFlowers(this);
 
         plantRate=18;
         treeRate=0;

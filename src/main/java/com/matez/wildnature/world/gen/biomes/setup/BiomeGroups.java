@@ -1,5 +1,6 @@
 package com.matez.wildnature.world.gen.biomes.setup;
 
+import com.matez.wildnature.Main;
 import com.matez.wildnature.other.BiomeWeighList;
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomes;
@@ -60,7 +61,8 @@ public class BiomeGroups {
         groups.add(new BiomeGroup("eroded_fields",new BiomeWeight(WNBiomes.ErodedFields,5,true,true),new BiomeWeight(WNBiomes.ErodedHills,7)));
         groups.add(new BiomeGroup("taiga",new BiomeWeight(WNBiomes.Taiga,13,true,true)
                 ,new BiomeWeight(WNBiomes.ColdLake,8)
-                ,new BiomeWeight(WNBiomes.TaigaValley,4)
+                ,new BiomeWeight(WNBiomes.TaigaValley,3)
+                ,new BiomeWeight(WNBiomes.TaigaClearing,4)
                 ,new BiomeWeight(WNBiomes.TaigaHills,11)
                 ,new BiomeWeight(WNBiomes.WetTaiga,4)
                 ,new BiomeWeight(WNBiomes.TaigaMarsh,3)
@@ -68,7 +70,8 @@ public class BiomeGroups {
                 ,new BiomeWeight(WNBiomes.BerryTaiga,1)));
         groups.add(new BiomeGroup("cold_taiga",new BiomeWeight(WNBiomes.ColdTaiga,13,true,true)
                 ,new BiomeWeight(WNBiomes.ColdLake,8)
-                ,new BiomeWeight(WNBiomes.ColdTaigaValley,4)
+                ,new BiomeWeight(WNBiomes.ColdTaigaValley,3)
+                ,new BiomeWeight(WNBiomes.ColdTaigaClearing,4)
                 ,new BiomeWeight(WNBiomes.ColdTaigaHills,11)
                 ,new BiomeWeight(WNBiomes.FrozenTaiga,4)
                 ,new BiomeWeight(WNBiomes.ColdTaigaMarsh,3)
@@ -87,13 +90,21 @@ public class BiomeGroups {
         groups.add(new BiomeGroup("sequoia",new BiomeWeight(WNBiomes.SequoiaForest,5,true,true),new BiomeWeight(WNBiomes.WarmLake,4),new BiomeWeight(WNBiomes.SequoiaHills,8),new BiomeWeight(WNBiomes.SequoiaValley,4)));
 
 
-        groups.forEach(biomeGroup -> {
-            biomeGroup.biomes.forEach(biome -> {
-                if(BiomeDictionary.getTypes(biome.biome).isEmpty()){
-                    WNBiomes.registerNonSpawn(biome.biome,(BiomeDictionary.Type[])BiomeDictionary.getTypes(biome.defaultBiome).toArray());
+        Main.LOGGER.info("----- Registering dictionaries for group biomes");
+        int i = 0;
+        for (BiomeGroup group : groups) {
+            ArrayList<BiomeDictionary.Type> parentTypes = new ArrayList<>(BiomeDictionary.getTypes(group.getDefault()));
+            if(parentTypes.isEmpty()){
+                Main.LOGGER.warn("Default Biome " + group.getDefault().getRegistryName() + " in group " + group.getName() + " has no registered dictionary types!");
+            }else{
+                for (BiomeWeight biome : group.biomes) {
+                    WNBiomes.registerNonSpawn(biome.getBiome(),parentTypes.toArray(new BiomeDictionary.Type[0]));
+                    i++;
                 }
-            });
-        });
+            }
+
+        }
+        Main.LOGGER.info("----- Registered dictionaries for " + i + " group biomes.");
     }
 
 

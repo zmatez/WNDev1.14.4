@@ -14,11 +14,13 @@ public class fallen_oak4 extends SchemFeature {
     public fallen_oak4(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace) {
         super(config, doBlockNofityOnPlace);
         Main.treesList.add(this);
+        terrainIncrease=1;
     }
 
     public fallen_oak4(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace, BlockState log, BlockState leaves) {
         super(config, doBlockNofityOnPlace);
         Main.treesList.add(this);
+        terrainIncrease=1;
         LOG = log;
         LEAVES =leaves;
     }

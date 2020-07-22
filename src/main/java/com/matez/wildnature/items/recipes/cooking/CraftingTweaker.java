@@ -22,20 +22,16 @@ public class CraftingTweaker {
 
         ItemStack recipe = e.getCrafting();
         Item i = recipe.getItem();
-        //Main.LOGGER.debug("Item: " + i.getDisplayName(recipe).getFormattedText());
         if(i==WNItems.CAKE_PAN || i==WNItems.FRYING_PAN || i==WNItems.POT_EMPTY || i==WNItems.POT_WATER){
             ArrayList<ItemStack> items = Utilities.loadItems(recipe.getOrCreateTag());
             if(!items.isEmpty()){
                 CraftingInventory inventory = (CraftingInventory)e.getInventory();
                 ArrayList<SlotContent> contents = new ArrayList<>();
-                //Main.LOGGER.debug("STACKING ITEMS");
                 int size = inventory.getSizeInventory();
                 for(int x = 0; x<size; x++){
                     ItemStack s = inventory.getStackInSlot(x);
-                    //Main.LOGGER.debug("STACK ITEM: " + s.getDisplayName().getFormattedText() + " " +s.getCount());
 
                     if(s.getItem()== Items.MILK_BUCKET){
-                        //Main.LOGGER.debug("BUCKET " + s.getCount());
                         contents.add(new SlotContent(x,new ItemStack(Items.BUCKET,s.getCount())));
                     }
                     else if(s.getItem()== WNItems.FLOUR){

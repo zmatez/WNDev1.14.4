@@ -1,17 +1,20 @@
 package com.matez.wildnature.blocks;
 
 import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.lists.WNItems;
 import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -30,6 +33,22 @@ public class DoubleCaveBushBase extends DoubleBushBase {
     public DoubleCaveBushBase(Properties properties, Item.Properties builder, ResourceLocation regName,boolean reversed) {
         super(properties, builder, regName);
         this.reversed=reversed;
+    }
+
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+        DoubleBlockHalf doubleblockhalf = state.get(HALF);
+        BlockPos blockpos = doubleblockhalf == DoubleBlockHalf.LOWER ? pos.up() : pos.down();
+        BlockState blockstate = worldIn.getBlockState(blockpos);
+        if (blockstate.getBlock() == this && blockstate.get(HALF) != doubleblockhalf) {
+            worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 35);
+            worldIn.playEvent(player, 2001, blockpos, Block.getStateId(blockstate));
+            if (!worldIn.isRemote && !player.isCreative()) {
+                spawnDrops(state, worldIn, pos, (TileEntity)null, player, player.getHeldItemMainhand());
+                spawnDrops(blockstate, worldIn, blockpos, (TileEntity)null, player, player.getHeldItemMainhand());
+            }
+        }
+
+        super.onBlockHarvested(worldIn, pos, state, player);
     }
 
     public boolean isValidPosition2(BlockState state, IWorldReader worldIn, BlockPos pos) {
@@ -122,11 +141,11 @@ public class DoubleCaveBushBase extends DoubleBushBase {
             return l;
         }
         if(state.getBlock()== WNBlocks.GLOW_SHROOM || state.getBlock()== WNBlocks.LARGE_GLOWSHROOM){
-            l.add(new ItemStack(Items.GLOWSTONE_DUST,Utilities.rint(0,2)));
+            l.add(new ItemStack(WNItems.GLOWSHROOM_DUST,Utilities.rint(0,2)));
             return l;
         }
         if(state.getBlock()== WNBlocks.ICE_SHROOM){
-            l.add(new ItemStack(Items.GLOWSTONE_DUST,Utilities.rint(0,1)));
+            l.add(new ItemStack(WNItems.ICESHROOM_DUST,Utilities.rint(0,1)));
             return l;
         }
         if(state.getBlock()== WNBlocks.STONE_GRASS || state.getBlock()== WNBlocks.ICE_GRASS|| state.getBlock()== WNBlocks.STALACTITE|| state.getBlock()== WNBlocks.STALAGMITE|| state.getBlock()== WNBlocks.LARGE_STALAGMITE|| state.getBlock()== WNBlocks.LARGE_STALACTITE|| state.getBlock()== WNBlocks.ICYCLE|| state.getBlock()== WNBlocks.LARGE_ICYCLE){
