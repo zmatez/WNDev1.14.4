@@ -1,14 +1,17 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.LushDesertSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.terrain.IHaveRiver;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
+import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomes;
+import com.matez.wildnature.world.gen.biomes.terrain.IHaveRiver;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
-import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.world.gen.surface.builders.LushDesertSurfaceBuilder;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -30,7 +33,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNLushDesert extends WNBiome implements IHaveRiver {
     public WNLushDesert(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new LushDesertSurfaceBuilder(SurfaceBuilderConfig::deserialize), SurfaceBuilder.SAND_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.LUSH_DESERT_SURFACE_BUILDER, SurfaceBuilder.SAND_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.DESERT)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -41,7 +44,7 @@ public class WNLushDesert extends WNBiome implements IHaveRiver {
                 .downfall(0.2F)
                 .waterColor(4159204)
                 .waterFogColor(329011)
-                .parent(null));//-7052122241400916496 -346 101 943
+                .parent(null));
 
 
 
@@ -57,20 +60,21 @@ public class WNLushDesert extends WNBiome implements IHaveRiver {
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addGrass(this,3);
         WNBiomeFeatures.addSprings(this);
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.CACTUS, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(7)));
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DEAD_BUSH, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(20)));
+        WNBiomeFeatures.addCactus(this,7);
+        WNBiomeFeatures.addDeadBushes(this,20);
 
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:azalea_orange").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:azalea_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:azalea_purple").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:azalea_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:azalea_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:azalea_red").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:pasque_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:pasque_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:pasque_purple").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.AZALEA_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.AZALEA_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LUPINE_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LUPINE_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LUPINE_VIOLET.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.MARIGOLD_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         WNBiomeFeatures.addTree(this,new SavannaTreeFeature(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),3);
+        WNBiomeFeatures.addTree(this,new shrub1(),3);
         plantRate=12;
         treeRate=3;
 

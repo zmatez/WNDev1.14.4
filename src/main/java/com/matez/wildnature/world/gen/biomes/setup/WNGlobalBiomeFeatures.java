@@ -2,21 +2,19 @@ package com.matez.wildnature.world.gen.biomes.setup;
 
 import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
-import com.matez.wildnature.world.gen.feature.WNFruitFeature;
-import com.matez.wildnature.world.gen.feature.WNVegeFeature;
+import com.matez.wildnature.world.gen.feature.features.WNFruitFeature;
+import com.matez.wildnature.world.gen.feature.features.WNVegeFeature;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.carver.EmptyCarverConfig;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.LakeChanceConfig;
 import net.minecraft.world.gen.placement.Placement;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class WNGlobalBiomeFeatures {
 
@@ -68,7 +66,7 @@ public class WNGlobalBiomeFeatures {
                 WNBiomeFeatures.addSmallCacti(biome);
             }
             if(CommonConfig.replaceDefaultTrees.get()){
-                replaceDefaultFeatures(biome);
+                //replaceDefaultFeatures(biome);
             }
             if(CommonConfig.generateShells.get()){
                 WNBiomeFeatures.addShells(biome);

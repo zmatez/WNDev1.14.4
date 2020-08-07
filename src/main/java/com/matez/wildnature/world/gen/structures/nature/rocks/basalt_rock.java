@@ -1,34 +1,26 @@
 package com.matez.wildnature.world.gen.structures.nature.rocks;
 
-import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
 import com.mojang.datafixers.Dynamic;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.block.BlockState;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 import java.util.Set;
 import java.util.function.Function;
 
 public class basalt_rock extends SchemFeature {
-    public basalt_rock(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace) {
-        super(config, doBlockNofityOnPlace);
-        Main.treesList.add(this);
-    }
-
-    public basalt_rock(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace, BlockState log, BlockState leaves) {
-        super(config, doBlockNofityOnPlace);
-        Main.treesList.add(this);
-        LOG = log;
-        LEAVES =leaves;
+    public basalt_rock() {
+        super();
+        terrainIncrease = 1;
     }
 
     @Override
     public Set<BlockPos> setBlocks() {
 
-        if(Utilities.rint(0,CommonConfig.rockFormationChance.get())==0) {
+        if (Utilities.rint(0, CommonConfig.rockFormationChance.get()) == 0) {
 
             Block(-1, 1, -2, "wildnature:basalt");
             Block(0, 1, -2, "wildnature:basalt");
@@ -90,6 +82,6 @@ public class basalt_rock extends SchemFeature {
 //           created by matez 
 //         all rights reserved   
 //     http://bit.ly/wildnature-mod
-return super.setBlocks();
+        return super.setBlocks();
     }
 }

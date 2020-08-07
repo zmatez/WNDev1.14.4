@@ -1,11 +1,15 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.Main;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +25,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNPrairieHills extends WNBiome {
     public WNPrairieHills(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, WNSurfaceBuilders.DRIED_CONFIG)
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.DRIED_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -49,14 +53,15 @@ public class WNPrairieHills extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,25,Main.getBlockByID("wildnature:prairie_grass").getDefaultState().with(FloweringBushBase.FLOWERING,true));
+        WNBiomeFeatures.addGrass(this,25,WNBlocks.PRAIRIE_GRASS.getDefaultState().with(FloweringBushBase.FLOWERING,true));
         WNBiomeFeatures.removeAllDefaultFlowers(this);
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("minecraft:grass").getDefaultState(),6);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this, Blocks.GRASS.getDefaultState(),6);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CATNIP.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
 
 
         plantRate=4;

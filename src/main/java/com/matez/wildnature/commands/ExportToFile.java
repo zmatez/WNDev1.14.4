@@ -29,8 +29,6 @@ public class ExportToFile {
     public ExportToFile(){}
 
     public int export(CommandContext<CommandSource> source, MutableBoundingBox area, String name, BlockStateInput centerTo, boolean fullJava, boolean tileEntitySave) throws CommandSyntaxException {
-
-
         ArrayList<BlockPos> list = new ArrayList<>();
         ServerWorld serverworld = source.getSource().getWorld();
         BlockPos centerBlockPos = null;
@@ -68,40 +66,26 @@ public class ExportToFile {
         }
         String start = "";
         String export = "";
-        String signature = "\n\n//   wildnature mod\n" +
-                "//           created by matez \n" +
-                "//         all rights reserved   \n" +
-                "//     https://wildnaturemod.com\n";
+        String signature = "\n\n    //            WildNature Mod\n" +
+                "    //           created by matez \n" +
+                "    //         all rights reserved   \n" +
+                "    //  dont even try to copy this code\n" +
+                "    //     https://wildnaturemod.com\n";
         String end = "";
 
         if(fullJava){
             start=(
-                    "import com.matez.wildnature.Main;\n" +
                     "import com.matez.wildnature.world.gen.structures.nature.SchemFeature;\n" +
-                    "import com.mojang.datafixers.Dynamic;\n" +
                     "import net.minecraft.util.math.BlockPos;\n" +
-                    "import net.minecraft.block.BlockState;\n" +
-                    "import net.minecraft.world.gen.feature.NoFeatureConfig;\n" +
                     "\n" +
-                    "import java.util.Set;\n" +
-                    "import java.util.function.Function;\n" +
+                    "import java.util.Set;" +
                     "\n" +
                     "public class %s% extends SchemFeature {\n" +
-                    "    public %s%(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace) {\n" +
-                    "        super(config, doBlockNofityOnPlace);\n" +
-                    "        Main.treesList.add(this);\n" +
-                    "    }\n" +
-                    "\n" +
-                    "    public %s%(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace, BlockState log, BlockState leaves) {\n" +
-                    "        super(config, doBlockNofityOnPlace);\n" +
-                    "        Main.treesList.add(this);\n" +
-                    "        LOG = log;\n" +
-                    "        LEAVES =leaves;\n" +
-                    "    }\n" +
                     "\n" +
                     "    @Override\n" +
                     "    public Set<BlockPos> setBlocks() {\n").replace("%s%",name);
-            end = "return super.setBlocks();\n" +
+
+            end = "    return super.setBlocks();\n" +
                     "    }\n" +
                     "}";
         }
@@ -111,7 +95,7 @@ public class ExportToFile {
                 continue;
             }
             BlockPos centered = centerBlockPos(blockPos,centerBlockPos);
-            export =  export + "\nBlock(" + centered.getX()+","+centered.getY()+","+centered.getZ()+",\""+ parseBlock(serverworld,blockPos,tileEntitySave)+"\");";
+            export =  export + "\n    Block(" + centered.getX()+","+centered.getY()+","+centered.getZ()+",\""+ parseBlock(serverworld,blockPos,tileEntitySave)+"\");";
         }
 
 

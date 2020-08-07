@@ -1,11 +1,12 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.world.gen.biomes.biomes.surface.Noise3xSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.Noise3xSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.configs.Noise3SurfaceBuilderConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -21,7 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNTropicalBadlands extends WNBiome {
     public WNTropicalBadlands(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new Noise3xSurfaceBuilder(SurfaceBuilderConfig::deserialize,new SurfaceBuilderConfig(Blocks.RED_TERRACOTTA.getDefaultState(),Blocks.RED_TERRACOTTA.getDefaultState(),Blocks.RED_TERRACOTTA.getDefaultState()),new SurfaceBuilderConfig(Blocks.YELLOW_TERRACOTTA.getDefaultState(),Blocks.YELLOW_TERRACOTTA.getDefaultState(),Blocks.YELLOW_TERRACOTTA.getDefaultState()), WNSurfaceBuilders.TROPICAL_CONFIG), SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.NOISE3_SURFACE_BUILDER, new Noise3SurfaceBuilderConfig(new SurfaceBuilderConfig(Blocks.RED_TERRACOTTA.getDefaultState(),Blocks.RED_TERRACOTTA.getDefaultState(),Blocks.TERRACOTTA.getDefaultState()),new SurfaceBuilderConfig(Blocks.YELLOW_TERRACOTTA.getDefaultState(),Blocks.YELLOW_TERRACOTTA.getDefaultState(),Blocks.TERRACOTTA.getDefaultState()), SurfaceRegistry.TROPICAL_CONFIG))
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -57,9 +58,9 @@ public class WNTropicalBadlands extends WNBiome {
         WNBiomeFeatures.addBambooJungleVegetation(this);
 
 
-        WNBiomeFeatures.addTree(this, new JungleTreeFeature(NoFeatureConfig::deserialize,false,8,Blocks.JUNGLE_LOG.getDefaultState(),Blocks.JUNGLE_LEAVES.getDefaultState(),true),1);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,false),3);
-        WNBiomeFeatures.addTree(this, new MegaJungleFeature(NoFeatureConfig::deserialize, false, 10, 20, Blocks.JUNGLE_LOG.getDefaultState(), Blocks.JUNGLE_LEAVES.getDefaultState()),8);
+        WNBiomeFeatures.addTree(this,new JungleTreeFeature(NoFeatureConfig::deserialize,true,8,Blocks.JUNGLE_LOG.getDefaultState(),Blocks.JUNGLE_LEAVES.getDefaultState(),true),6);
+        WNBiomeFeatures.addTree(this,new shrub1(),3);
+        WNBiomeFeatures.addTree(this, new MegaJungleFeature(NoFeatureConfig::deserialize,true,10,20,Blocks.JUNGLE_LOG.getDefaultState(),Blocks.JUNGLE_LEAVES.getDefaultState()),2);
 
 
         plantRate=4;

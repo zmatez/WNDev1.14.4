@@ -1,10 +1,10 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.world.gen.biomes.biomes.surface.OutbackSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.OutbackSurfaceBuilder;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -24,7 +24,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNOutback extends WNBiome {
     public WNOutback(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new OutbackSurfaceBuilder(SurfaceBuilderConfig::deserialize), WNSurfaceBuilders.DESERT_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.OUTBACK_SURFACE_BUILDER, SurfaceRegistry.DESERT_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -51,8 +51,8 @@ public class WNOutback extends WNBiome {
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addGrass(this,3);
         WNBiomeFeatures.addSprings(this);
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.CACTUS, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(7)));
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DEAD_BUSH, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(20)));
+        WNBiomeFeatures.addCactus(this,7);
+        WNBiomeFeatures.addDeadBushes(this,20);
         WNBiomeFeatures.removeAllDefaultFlowers(this);
 
 

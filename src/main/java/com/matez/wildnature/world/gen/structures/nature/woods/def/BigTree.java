@@ -1,44 +1,26 @@
 package com.matez.wildnature.world.gen.structures.nature.woods.def;
 
 import com.google.common.collect.Lists;
-import com.matez.wildnature.Main;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
-import com.mojang.datafixers.Dynamic;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-import java.util.Set;
-import java.util.function.Function;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.LogBlock;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.gen.IWorldGenerationReader;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Set;
 
 public class BigTree extends SchemFeature {
-    public BigTree(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn, boolean doBlockNotifyIn) {
-        super(configFactoryIn, doBlockNotifyIn);
-        Main.treesList.add(this);
-
-
-    }
-    
-    public BigTree(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn, boolean doBlockNotifyIn,BlockState log, BlockState leaves) {
-        super(configFactoryIn, doBlockNotifyIn,log,leaves);
-        Main.treesList.add(this);
-        LOG = log;
-        LEAVES =leaves;
-    }
-
     private void crossSection(IWorldGenerationReader worldIn, BlockPos pos, float p_208529_3_, MutableBoundingBox p_208529_4_, Set<BlockPos> changedBlocks) {
-        int i = (int)((double)p_208529_3_ + 0.618D);
+        int i = (int) ((double) p_208529_3_ + 0.618D);
 
-        for(int j = -i; j <= i; ++j) {
-            for(int k = -i; k <= i; ++k) {
-                if (Math.pow((double)Math.abs(j) + 0.5D, 2.0D) + Math.pow((double)Math.abs(k) + 0.5D, 2.0D) <= (double)(p_208529_3_ * p_208529_3_)) {
+        for (int j = -i; j <= i; ++j) {
+            for (int k = -i; k <= i; ++k) {
+                if (Math.pow((double) Math.abs(j) + 0.5D, 2.0D) + Math.pow((double) Math.abs(k) + 0.5D, 2.0D) <= (double) (p_208529_3_ * p_208529_3_)) {
                     BlockPos blockpos = pos.add(j, 0, k);
                     if (isAirOrLeaves(worldIn, blockpos)) {
                         this.setLogState(changedBlocks, worldIn, blockpos, LEAVES, p_208529_4_);
@@ -50,11 +32,11 @@ public class BigTree extends SchemFeature {
     }
 
     private float treeShape(int p_208527_1_, int p_208527_2_) {
-        if ((float)p_208527_2_ < (float)p_208527_1_ * 0.3F) {
+        if ((float) p_208527_2_ < (float) p_208527_1_ * 0.3F) {
             return -1.0F;
         } else {
-            float f = (float)p_208527_1_ / 2.0F;
-            float f1 = f - (float)p_208527_2_;
+            float f = (float) p_208527_1_ / 2.0F;
+            float f1 = f - (float) p_208527_2_;
             float f2 = MathHelper.sqrt(f * f - f1 * f1);
             if (f1 == 0.0F) {
                 f2 = f;
@@ -75,7 +57,7 @@ public class BigTree extends SchemFeature {
     }
 
     private void foliageCluster(IWorldGenerationReader worldIn, BlockPos pos, MutableBoundingBox p_202393_3_, Set<BlockPos> changedBlocks) {
-        for(int i = 0; i < 5; ++i) {
+        for (int i = 0; i < 5; ++i) {
             this.crossSection(worldIn, pos.up(i), this.foliageShape(i), p_202393_3_, changedBlocks);
         }
 
@@ -87,12 +69,12 @@ public class BigTree extends SchemFeature {
         } else {
             BlockPos blockpos = p_208523_4_.add(-p_208523_3_.getX(), -p_208523_3_.getY(), -p_208523_3_.getZ());
             int i = this.getGreatestDistance(blockpos);
-            float f = (float)blockpos.getX() / (float)i;
-            float f1 = (float)blockpos.getY() / (float)i;
-            float f2 = (float)blockpos.getZ() / (float)i;
+            float f = (float) blockpos.getX() / (float) i;
+            float f1 = (float) blockpos.getY() / (float) i;
+            float f2 = (float) blockpos.getZ() / (float) i;
 
-            for(int j = 0; j <= i; ++j) {
-                BlockPos blockpos1 = p_208523_3_.add((double)(0.5F + (float)j * f), (double)(0.5F + (float)j * f1), (double)(0.5F + (float)j * f2));
+            for (int j = 0; j <= i; ++j) {
+                BlockPos blockpos1 = p_208523_3_.add(0.5F + (float) j * f, 0.5F + (float) j * f1, 0.5F + (float) j * f2);
                 if (p_208523_5_) {
                     this.setLogState(p_208523_1_, worldIn, blockpos1, LOG.with(LogBlock.AXIS, this.getLoxAxis(p_208523_3_, blockpos1)), p_208523_6_);
                 } else if (!func_214587_a(worldIn, blockpos1)) {
@@ -135,7 +117,7 @@ public class BigTree extends SchemFeature {
     }
 
     private void makeFoliage(IWorldGenerationReader worldIn, int p_208525_2_, BlockPos pos, List<BigTree.FoliageCoordinates> p_208525_4_, MutableBoundingBox p_208525_5_, Set<BlockPos> changedBlocks) {
-        for(BigTree.FoliageCoordinates bigTree$foliagecoordinates : p_208525_4_) {
+        for (BigTree.FoliageCoordinates bigTree$foliagecoordinates : p_208525_4_) {
             if (this.trimBranches(p_208525_2_, bigTree$foliagecoordinates.getBranchBase() - pos.getY())) {
                 this.foliageCluster(worldIn, bigTree$foliagecoordinates, p_208525_5_, changedBlocks);
             }
@@ -144,7 +126,7 @@ public class BigTree extends SchemFeature {
     }
 
     private boolean trimBranches(int p_208522_1_, int p_208522_2_) {
-        return (double)p_208522_2_ >= (double)p_208522_1_ * 0.2D;
+        return (double) p_208522_2_ >= (double) p_208522_1_ * 0.2D;
     }
 
     private void makeTrunk(Set<BlockPos> p_208526_1_, IWorldGenerationReader p_208526_2_, BlockPos p_208526_3_, int p_208526_4_, MutableBoundingBox p_208526_5_) {
@@ -152,7 +134,7 @@ public class BigTree extends SchemFeature {
     }
 
     private void makeBranches(Set<BlockPos> p_208524_1_, IWorldGenerationReader p_208524_2_, int p_208524_3_, BlockPos p_208524_4_, List<BigTree.FoliageCoordinates> p_208524_5_, MutableBoundingBox p_208524_6_) {
-        for(BigTree.FoliageCoordinates bigTree$foliagecoordinates : p_208524_5_) {
+        for (BigTree.FoliageCoordinates bigTree$foliagecoordinates : p_208524_5_) {
             int i = bigTree$foliagecoordinates.getBranchBase();
             BlockPos blockpos = new BlockPos(p_208524_4_.getX(), i, p_208524_4_.getZ());
             if (!blockpos.equals(bigTree$foliagecoordinates) && this.trimBranches(p_208524_3_, i - p_208524_4_.getY())) {
@@ -169,13 +151,13 @@ public class BigTree extends SchemFeature {
             return false;
         } else {
             this.setDirtAt(worldIn, position.down(), position);
-            int j = (int)((double)i * 0.618D);
+            int j = (int) ((double) i * 0.618D);
             if (j >= i) {
                 j = i - 1;
             }
 
             double d0 = 1.0D;
-            int k = (int)(1.382D + Math.pow(1.0D * (double)i / 13.0D, 2.0D));
+            int k = (int) (1.382D + Math.pow(1.0D * (double) i / 13.0D, 2.0D));
             if (k < 1) {
                 k = 1;
             }
@@ -185,22 +167,22 @@ public class BigTree extends SchemFeature {
             List<BigTree.FoliageCoordinates> list = Lists.newArrayList();
             list.add(new BigTree.FoliageCoordinates(position.up(i1), l));
 
-            for(; i1 >= 0; --i1) {
+            for (; i1 >= 0; --i1) {
                 float f = this.treeShape(i, i1);
                 if (!(f < 0.0F)) {
-                    for(int j1 = 0; j1 < k; ++j1) {
+                    for (int j1 = 0; j1 < k; ++j1) {
                         double d1 = 1.0D;
-                        double d2 = 1.0D * (double)f * ((double)random.nextFloat() + 0.328D);
-                        double d3 = (double)(random.nextFloat() * 2.0F) * Math.PI;
+                        double d2 = 1.0D * (double) f * ((double) random.nextFloat() + 0.328D);
+                        double d3 = (double) (random.nextFloat() * 2.0F) * Math.PI;
                         double d4 = d2 * Math.sin(d3) + 0.5D;
                         double d5 = d2 * Math.cos(d3) + 0.5D;
-                        BlockPos blockpos = position.add(d4, (double)(i1 - 1), d5);
+                        BlockPos blockpos = position.add(d4, i1 - 1, d5);
                         BlockPos blockpos1 = blockpos.up(5);
                         if (this.makeLimb(changedBlocks, worldIn, blockpos, blockpos1, false, p_208519_5_) == -1) {
                             int k1 = position.getX() - blockpos.getX();
                             int l1 = position.getZ() - blockpos.getZ();
-                            double d6 = (double)blockpos.getY() - Math.sqrt((double)(k1 * k1 + l1 * l1)) * 0.381D;
-                            int i2 = d6 > (double)l ? l : (int)d6;
+                            double d6 = (double) blockpos.getY() - Math.sqrt(k1 * k1 + l1 * l1) * 0.381D;
+                            int i2 = d6 > (double) l ? l : (int) d6;
                             BlockPos blockpos2 = new BlockPos(position.getX(), i2, position.getZ());
                             if (this.makeLimb(changedBlocks, worldIn, blockpos2, blockpos, false, p_208519_5_) == -1) {
                                 list.add(new BigTree.FoliageCoordinates(blockpos, blockpos2.getY()));

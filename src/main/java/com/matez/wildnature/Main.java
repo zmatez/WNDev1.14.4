@@ -26,8 +26,10 @@ import com.matez.wildnature.proxy.IProxy;
 import com.matez.wildnature.proxy.ServerProxy;
 import com.matez.wildnature.registry.*;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomes;
+import com.matez.wildnature.world.gen.carvers.CarverRegistry;
 import com.matez.wildnature.world.gen.chunk.WNChunkGeneratorType;
-import com.matez.wildnature.world.gen.feature.RockGen;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
+import com.matez.wildnature.world.gen.feature.features.RockGen;
 import com.matez.wildnature.world.gen.provider.WNBiomeProviderType;
 import com.matez.wildnature.world.gen.provider.WNWorldType;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
@@ -45,6 +47,7 @@ import com.matez.wildnature.itemGroup.wnItemGroupUnderground;
 import com.matez.wildnature.items.recipes.DyeableRecipe;
 import com.matez.wildnature.items.recipes.GiftCrafting;
 import com.matez.wildnature.sounds.SoundRegistry;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.ClientResourcePackInfo;
@@ -80,6 +83,9 @@ import net.minecraft.util.text.event.HoverEvent;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.carver.WorldCarver;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
@@ -751,7 +757,23 @@ public class Main {
 
         }
 
+        @SubscribeEvent
+        public static void registerFeatures(final RegistryEvent.Register<Feature<?>> event){
+            LOGGER.info("Registering features...");
+            FeatureRegistry.registerAll(event);
+        }
 
+        @SubscribeEvent
+        public static void registerSurfaceBuilders(final RegistryEvent.Register<SurfaceBuilder<?>> event){
+            LOGGER.info("Registering surface builders...");
+            SurfaceRegistry.registerAll(event);
+        }
+
+        @SubscribeEvent
+        public static void registerCarvers(final RegistryEvent.Register<WorldCarver<?>> event){
+            LOGGER.info("Registering carvers...");
+            CarverRegistry.registerAll(event);
+        }
 
         @SubscribeEvent
         public static void registerBlocks(final RegistryEvent.Register<Block> event){

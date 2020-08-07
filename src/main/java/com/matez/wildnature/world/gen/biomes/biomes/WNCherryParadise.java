@@ -1,23 +1,25 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
+import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
-import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak2;
-import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak5;
-import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.structures.nature.woods.cherry.cherry1;
 import com.matez.wildnature.world.gen.structures.nature.woods.cherry.cherry2;
 import com.matez.wildnature.world.gen.structures.nature.woods.cherry.cherry3;
 import com.matez.wildnature.world.gen.structures.nature.woods.cherry.cherry4;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak2;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak5;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -59,41 +61,38 @@ public class WNCherryParadise extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:heather_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_purple").getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:pasque_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.YUCCA.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.MARIGOLD_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CHRYSANTHEMUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.HYACINTH_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.HYACINTH_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.HYACINTH_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.HOLLYHOCK_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CLEMATIS_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CHERRY_FLOWER.getDefaultState(),3);
 
+        WNBiomeFeatures.addTree(this,new tree_oak2().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_white_leaves"))),3);
+        WNBiomeFeatures.addTree(this,new tree_oak2().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_pink_leaves"))),4);
+        WNBiomeFeatures.addTree(this,new tree_oak5().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_white_leaves"))),3);
+        WNBiomeFeatures.addTree(this,new tree_oak5().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_pink_leaves"))),4);
 
-        WNBiomeFeatures.addTree(this,new tree_oak2(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_white_leaves"))),3);
-        WNBiomeFeatures.addTree(this,new tree_oak2(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_pink_leaves"))),4);
-        WNBiomeFeatures.addTree(this,new tree_oak5(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_white_leaves"))),3);
-        WNBiomeFeatures.addTree(this,new tree_oak5(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_pink_leaves"))),4);
+        WNBiomeFeatures.addTree(this,new cherry1().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_white_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new cherry1().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_pink_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new cherry1().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new cherry2().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_white_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new cherry2().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_pink_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new cherry2().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new cherry3().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_white_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new cherry3().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_pink_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new cherry3().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new cherry4().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_white_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new cherry4().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_pink_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new cherry4().setCustomLog(Main.getBlockByID("wildnature:cherry_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_leaves"))),1);
 
-        WNBiomeFeatures.addTree(this,new cherry1(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_white_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new cherry1(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_pink_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new cherry1(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new cherry2(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_white_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new cherry2(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_pink_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new cherry2(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new cherry3(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_white_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new cherry3(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_pink_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new cherry3(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new cherry4(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_white_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new cherry4(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_pink_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new cherry4(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:cherry_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:cherry_leaves"))),1);
-
-        /*
-         WNBiomeFeatures.addTree(this,new tree_oak2(NoFeatureConfig::deserialize,true,Crack.getBlockByID("wildnature:apple_log").getDefaultState(),tree_birch1.notDecayingLeaf(Crack.getBlockByID("wildnature:apple_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_oak5(NoFeatureConfig::deserialize,true,Crack.getBlockByID("wildnature:apple_log").getDefaultState(),tree_birch1.notDecayingLeaf(Crack.getBlockByID("wildnature:apple_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_oak4(NoFeatureConfig::deserialize,true,Crack.getBlockByID("wildnature:pear_log").getDefaultState(),tree_birch1.notDecayingLeaf(Crack.getBlockByID("wildnature:pear_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_oak5(NoFeatureConfig::deserialize,true,Crack.getBlockByID("minecraft:oak_log").getDefaultState(),tree_birch1.notDecayingLeaf(Crack.getBlockByID("minecraft:oak_leaves"))),1);
-
-         */
+        plantRate=1;
         treeRate=3;
 
-        //applyPlants();
+        applyPlants();
         applyTrees();
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.CHICKEN, 10, 4, 4));

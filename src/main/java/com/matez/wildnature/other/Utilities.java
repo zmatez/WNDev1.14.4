@@ -309,22 +309,22 @@ public class Utilities {
         return array.get(rint(0,array.size()-1,rand));
     }
 
-    public static Object getWeightedEntry(WeightedList<?> list){
+    public static <T> T getWeightedEntry(WeightedList<T> list){
         if(!(list.size()==0)){
             ArrayList<?> objects = list.getSimplifedArray();
             int x = rint(0,objects.size()-1);
 
-            return objects.get(x);
+            return (T)objects.get(x);
         }
         return null;
     }
 
-    public static Object getWeightedEntry(WeightedList<?> list,Random rand){
+    public static <T> T getWeightedEntry(WeightedList<T> list,Random rand){
         if(!(list.size()==0)){
             ArrayList<?> objects = list.getSimplifedArray();
             int x = rint(0,objects.size()-1,rand);
 
-            return objects.get(x);
+            return (T)objects.get(x);
         }
         return null;
     }

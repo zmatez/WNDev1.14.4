@@ -1,21 +1,26 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
+import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.structures.nature.woods.def.BigTree;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.oaklands_oak1;
+import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.oaklands_oak3;
+import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.oaklands_oak5;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
-import com.matez.wildnature.blocks.FloweringBushBase;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.TreeFeature;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
+import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -41,7 +46,7 @@ public class WNGoldenWoods extends WNBiome {
         this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        //this.addStructure(Feature.VILLAGE, new VillageConfig("village/plains/town_centers", 6));
+        this.addStructure(Feature.VILLAGE, new VillageConfig("village/plains/town_centers", 4));
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -56,13 +61,22 @@ public class WNGoldenWoods extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:pasque_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
 
-        WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new TreeFeature(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),2);
+        WNBiomeFeatures.addTree(this,new oak1(),2);
+        WNBiomeFeatures.addTree(this,new oak2(),2);
+        WNBiomeFeatures.addTree(this,new oak3(),2);
+        WNBiomeFeatures.addTree(this,new pointy_oak_1(),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_2(),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_3(),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_4(),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_5(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_oak1(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_oak3(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_oak5(),1);
+        WNBiomeFeatures.addTree(this,new shrub1(),4);
 
         plantRate=1;
         treeRate=18;

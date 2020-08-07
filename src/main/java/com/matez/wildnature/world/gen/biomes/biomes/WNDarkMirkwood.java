@@ -1,18 +1,21 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.CustomSurfaceBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.spooky.*;
+import com.matez.wildnature.world.gen.surface.builders.CustomSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.configs.CustomSurfaceBuilderConfig;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -22,7 +25,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNDarkMirkwood extends WNBiome {
     public WNDarkMirkwood(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new CustomSurfaceBuilder(new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG,10),new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG,1)), SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG,10),new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG,1)))
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -53,42 +56,42 @@ public class WNDarkMirkwood extends WNBiome {
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:radissium_red").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:radissium_blue").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:radissium_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:yew_bush").getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:pasque_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:viburnum_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:clover").getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:leaf_pile").getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:spidergrass").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:lampgrass").getDefaultState().with(FloweringBushBase.FLOWERING,true),6);
+        WNBiomeFeatures.addPlant(this, WNBlocks.RADISSIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.RADISSIUM_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.RADISSIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.YEW_BUSH.getDefaultState(),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.VIBURNUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.SPIDERGRASS.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LAMPGRASS.getDefaultState().with(FloweringBushBase.FLOWERING,true),6);
 
 
-        WNBiomeFeatures.addTree(this,new spooky_big1(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new spooky_big2(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new spooky_big3(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new spooky_big4(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new spooky_big5(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new spooky_big6(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new spooky_big7(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new spooky_big8(NoFeatureConfig::deserialize,true),3);
+        WNBiomeFeatures.addTree(this,new spooky_big1(),3);
+        WNBiomeFeatures.addTree(this,new spooky_big2(),3);
+        WNBiomeFeatures.addTree(this,new spooky_big3(),3);
+        WNBiomeFeatures.addTree(this,new spooky_big4(),3);
+        WNBiomeFeatures.addTree(this,new spooky_big5(),3);
+        WNBiomeFeatures.addTree(this,new spooky_big6(),3);
+        WNBiomeFeatures.addTree(this,new spooky_big7(),3);
+        WNBiomeFeatures.addTree(this,new spooky_big8(),3);
 
-        WNBiomeFeatures.addTree(this,new spooky1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky6(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky7(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky8(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky9(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky10(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky11(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky12(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky13(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spooky14(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new spooky15(NoFeatureConfig::deserialize,true),3);
+        WNBiomeFeatures.addTree(this,new spooky1(),1);
+        WNBiomeFeatures.addTree(this,new spooky2(),1);
+        WNBiomeFeatures.addTree(this,new spooky3(),1);
+        WNBiomeFeatures.addTree(this,new spooky4(),1);
+        WNBiomeFeatures.addTree(this,new spooky5(),1);
+        WNBiomeFeatures.addTree(this,new spooky6(),1);
+        WNBiomeFeatures.addTree(this,new spooky7(),1);
+        WNBiomeFeatures.addTree(this,new spooky8(),1);
+        WNBiomeFeatures.addTree(this,new spooky9(),1);
+        WNBiomeFeatures.addTree(this,new spooky10(),1);
+        WNBiomeFeatures.addTree(this,new spooky11(),1);
+        WNBiomeFeatures.addTree(this,new spooky12(),1);
+        WNBiomeFeatures.addTree(this,new spooky13(),1);
+        WNBiomeFeatures.addTree(this,new spooky14(),3);
+        WNBiomeFeatures.addTree(this,new spooky15(),3);
 
         treeRate=22;
 

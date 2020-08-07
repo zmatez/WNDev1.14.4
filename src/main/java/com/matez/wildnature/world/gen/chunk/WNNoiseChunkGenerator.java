@@ -5,10 +5,9 @@ import com.matez.wildnature.commands.LocatePath;
 import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
-import com.matez.wildnature.world.gen.biomes.undergroundBiomes.setup.URBiome;
-import com.matez.wildnature.world.gen.biomes.undergroundBiomes.setup.URBiomeManager;
+import com.matez.wildnature.world.gen.undergroundBiomes.setup.URBiome;
+import com.matez.wildnature.world.gen.undergroundBiomes.setup.URBiomeManager;
 import com.matez.wildnature.world.gen.noise.OpenSimplex2S;
-import com.matez.wildnature.world.gen.noise.VoronoiGenerator;
 import com.matez.wildnature.world.gen.noise.sponge.module.source.Perlin;
 import com.matez.wildnature.world.gen.noise.sponge.module.source.RidgedMulti;
 import it.unimi.dsi.fastutil.longs.LongIterator;
@@ -250,8 +249,12 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
             double d1 = this.surfaceDepthNoise.func_215460_a((double)x * 0.0625D, (double)z * 0.0625D, 0.0625D, (double)relativeX * 0.0625D);
 
             Biome biome = abiome[relativeZ * 16 + relativeX];
-            biome.buildSurface(sharedseedrandom, chunkIn, x, z, startHeight, d1, this.getSettings().getDefaultBlock(), this.getSettings().getDefaultFluid(), this.getSeaLevel(), this.world.getSeed());
-
+            try {
+               biome.buildSurface(sharedseedrandom, chunkIn, x, z, startHeight, d1, this.getSettings().getDefaultBlock(), this.getSettings().getDefaultFluid(), this.getSeaLevel(), this.world.getSeed());
+            }catch (Exception e){
+               Main.LOGGER.fatal("FATAL: " + e.getMessage() + " : " + biome.getRegistryName() + " / " + " " + biome.getSurfaceBuilder().getConfig());
+               e.printStackTrace();
+            }
             if(CommonConfig.generatePaths.get()) {
                double[] noises = getPathNoise(x,z,0.005, 0.01, 0.001,50,1);
                double vnoise = noises[0];

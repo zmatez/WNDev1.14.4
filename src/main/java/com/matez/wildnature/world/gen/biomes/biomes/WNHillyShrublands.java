@@ -1,20 +1,25 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
+import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.*;
-import com.matez.wildnature.blocks.FloweringBushBase;
-import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.*;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.DoublePlantConfig;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.MultipleWithChanceRandomFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.placement.FrequencyConfig;
@@ -26,7 +31,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNHillyShrublands extends WNBiome {
     public WNHillyShrublands(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, WNSurfaceBuilders.OVERGROWN_STONE_CONFIG)
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.OVERGROWN_STONE_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.PLAINS)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -57,31 +62,35 @@ public class WNHillyShrublands extends WNBiome {
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.RANDOM_RANDOM_SELECTOR, new MultipleWithChanceRandomFeatureConfig(new Feature[]{Feature.DOUBLE_PLANT, Feature.DOUBLE_PLANT, Feature.DOUBLE_PLANT, Feature.GENERAL_FOREST_FLOWER}, new IFeatureConfig[]{new DoublePlantConfig(Blocks.ROSE_BUSH.getDefaultState()), new DoublePlantConfig(Blocks.ROSE_BUSH.getDefaultState()), new DoublePlantConfig(Blocks.ROSE_BUSH.getDefaultState()), IFeatureConfig.NO_FEATURE_CONFIG}, 0), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(10)));
 
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),5);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),5);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:buttercup_orange").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:buttercup_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:azalea_red").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:azalea_orange").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:azalea_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:azalea_purple").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:azalea_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:azalea_red").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:cana_bulb_red").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:cana_bulb_orange").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:cana_bulb_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:cana_bulb_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addTreeVines(this,WNBlocks.ROSEVINE_RED.getDefaultState(),1,120);
+
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),5);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),5);
+        WNBiomeFeatures.addPlant(this,WNBlocks.BUTTERCUP_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.BUTTERCUP_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CANA_BULB_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CANA_BULB_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CANA_BULB_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CANA_BULB_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,Blocks.ROSE_BUSH.getDefaultState(),3);
 
 
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub6(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub7(NoFeatureConfig::deserialize,true),1);
+
+
+        WNBiomeFeatures.addTree(this,new shrub1(),1);
+        WNBiomeFeatures.addTree(this,new shrub2(),1);
+        WNBiomeFeatures.addTree(this,new shrub3(),1);
+        WNBiomeFeatures.addTree(this,new shrub4(),1);
+        WNBiomeFeatures.addTree(this,new shrub5(),1);
+        WNBiomeFeatures.addTree(this,new shrub6(),1);
+        WNBiomeFeatures.addTree(this,new shrub7(),1);
 
         plantRate=4;
         treeRate=6;

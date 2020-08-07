@@ -1,9 +1,11 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.world.gen.biomes.biomes.surface.CanyonSurfaceBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.CanyonSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.configs.CanyonSurfaceBuilderConfig;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -13,7 +15,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.BadlandsSurfaceBuilder;
@@ -25,7 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNCanyons extends WNBiome {
     public WNCanyons(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new CanyonSurfaceBuilder(SurfaceBuilderConfig::deserialize,new BadlandsSurfaceBuilder(SurfaceBuilderConfig::deserialize)), SurfaceBuilder.RED_SAND_WHITE_TERRACOTTA_GRAVEL_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.CANYON_SURFACE_BUILDER, new CanyonSurfaceBuilderConfig(SurfaceBuilder.RED_SAND_WHITE_TERRACOTTA_GRAVEL_CONFIG, SurfaceBuilder.BADLANDS))
                 .precipitation(RainType.RAIN)
                 .category(Category.MESA)
                 .topography(WNBiomeBuilder.Topography.HIGHLANDS)
@@ -51,9 +52,8 @@ public class WNCanyons extends WNBiome {
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addGrass(this,3);
         WNBiomeFeatures.addSprings(this);
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.CACTUS, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(10)));
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DEAD_BUSH, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(20)));
-
+        WNBiomeFeatures.addCactus(this,10);
+        WNBiomeFeatures.addDeadBushes(this,20);
 
 
         plantRate=4;

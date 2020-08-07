@@ -1,13 +1,17 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.world.gen.biomes.biomes.surface.NoiseSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.Main;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.acacia.*;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.NoiseSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.configs.Noise2SurfaceBuilderConfig;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +30,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNSafari extends WNBiome {
     public WNSafari(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new NoiseSurfaceBuilder(SurfaceBuilderConfig::deserialize, WNSurfaceBuilders.DESERT_CONFIG,SurfaceBuilder.SAND_SAND_GRAVEL_CONFIG), WNSurfaceBuilders.DESERT_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.NOISE_SURFACE_BUILDER, new Noise2SurfaceBuilderConfig( SurfaceRegistry.DESERT_CONFIG,SurfaceBuilder.SAND_SAND_GRAVEL_CONFIG))
                 .precipitation(RainType.RAIN)
                 .category(Category.SAVANNA)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -59,19 +63,19 @@ public class WNSafari extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:lupine_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:lupine_red").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:lupine_blue").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LUPINE_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LUPINE_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LUPINE_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
 
 
 
-        WNBiomeFeatures.addTree(this,new SavannaTreeFeature(NoFeatureConfig::deserialize,true),5);
-        WNBiomeFeatures.addTree(this,new acacia1(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new acacia2(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new acacia3(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new acacia4(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new acacia5(NoFeatureConfig::deserialize,true),3);
+        WNBiomeFeatures.addTree(this,new SavannaTreeFeature(NoFeatureConfig::deserialize,false),5);
+        WNBiomeFeatures.addTree(this,new acacia1(),3);
+        WNBiomeFeatures.addTree(this,new acacia2(),3);
+        WNBiomeFeatures.addTree(this,new acacia3(),3);
+        WNBiomeFeatures.addTree(this,new acacia4(),3);
+        WNBiomeFeatures.addTree(this,new acacia5(),3);
 
         plantRate=1;
         treeRate=4;

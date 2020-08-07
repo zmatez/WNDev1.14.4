@@ -1,13 +1,16 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.acacia.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.baobab.*;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.gen.feature.Feature;
@@ -23,7 +26,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 public class WNGiantSavanna extends WNBiome {
     public WNGiantSavanna(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, WNSurfaceBuilders.DRIED_CONFIG)
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.DRIED_CONFIG)
                 .precipitation(RainType.NONE)
                 .category(Category.SAVANNA)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -56,25 +59,25 @@ public class WNGiantSavanna extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:lupine_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:lupine_red").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:lupine_blue").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LUPINE_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LUPINE_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LUPINE_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
 
 
         WNBiomeFeatures.addTree(this,new SavannaTreeFeature(NoFeatureConfig::deserialize,true),5);
-        WNBiomeFeatures.addTree(this,new acacia1(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new acacia2(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new acacia3(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new acacia4(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new acacia5(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new baobab1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new baobab2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new baobab3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new baobab4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new baobab5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new big_acacia1(NoFeatureConfig::deserialize,true),10);
-        WNBiomeFeatures.addTree(this,new big_acacia2(NoFeatureConfig::deserialize,true),10);
+        WNBiomeFeatures.addTree(this,new acacia1(),3);
+        WNBiomeFeatures.addTree(this,new acacia2(),3);
+        WNBiomeFeatures.addTree(this,new acacia3(),3);
+        WNBiomeFeatures.addTree(this,new acacia4(),3);
+        WNBiomeFeatures.addTree(this,new acacia5(),3);
+        WNBiomeFeatures.addTree(this,new baobab1(),1);
+        WNBiomeFeatures.addTree(this,new baobab2(),1);
+        WNBiomeFeatures.addTree(this,new baobab3(),1);
+        WNBiomeFeatures.addTree(this,new baobab4(),1);
+        WNBiomeFeatures.addTree(this,new baobab5(),1);
+        WNBiomeFeatures.addTree(this,new big_acacia1(),10);
+        WNBiomeFeatures.addTree(this,new big_acacia2(),10);
 
         plantRate=1;
         treeRate=5;

@@ -1,30 +1,22 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.CustomSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.WNBlobConfig;
-import com.matez.wildnature.world.gen.feature.WNBlobFeature;
+import com.matez.wildnature.world.gen.feature.configs.WNBlobConfig;
+import com.matez.wildnature.world.gen.feature.features.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
-import com.matez.wildnature.world.gen.structures.nature.woods.another_spruce.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.beech.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.fallen.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.larch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.mini_pine.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.pine.thin_pine1;
-import com.matez.wildnature.world.gen.structures.nature.woods.pine.thin_pine2;
-import com.matez.wildnature.world.gen.structures.nature.woods.pine.thin_pine3;
-import com.matez.wildnature.world.gen.structures.nature.woods.pine.thin_pine4;
-import com.matez.wildnature.world.gen.structures.nature.woods.rowan.rowan3;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
-import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga11;
-import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga12;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.CustomSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.configs.CustomSurfaceBuilderConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -33,7 +25,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.placement.FrequencyConfig;
@@ -45,7 +36,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNTaigaClearing extends WNBiome {
     public WNTaigaClearing(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new CustomSurfaceBuilder(new CustomSurfaceBuilder.BlockCfg(WNSurfaceBuilders.BROWN_PODZOL_CONFIG,5),new CustomSurfaceBuilder.BlockCfg(WNSurfaceBuilders.BROWN_CONFIG,1)), SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_PODZOL_CONFIG,5),new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_CONFIG,1)))
                 .precipitation(RainType.RAIN)
                 .category(Category.TAIGA)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -89,31 +80,31 @@ public class WNTaigaClearing extends WNBiome {
         WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         WNBiomeFeatures.addPlant(this,WNBlocks.PRIMROSE_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         WNBiomeFeatures.addPlant(this,WNBlocks.PRIMROSE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:yew_bush").getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:clover").getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:leaf_pile").getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.YEW_BUSH.getDefaultState(),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
         WNBiomeFeatures.addPlant(this,WNBlocks.VIBURNUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
         WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FERNSPROUT.getDefaultState(),2);
         WNBiomeFeatures.addPlant(this,WNBlocks.BUSH_WILD_BLUEBERRY.getDefaultState(),1);
 
-        WNBiomeFeatures.addTree(this,new mini_pine1(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new mini_pine2(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new mini_pine3(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new mini_pine4(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new mini_pine5(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new mini_pine6(NoFeatureConfig::deserialize,true),2);
+        WNBiomeFeatures.addTree(this,new mini_pine1(),2);
+        WNBiomeFeatures.addTree(this,new mini_pine2(),2);
+        WNBiomeFeatures.addTree(this,new mini_pine3(),2);
+        WNBiomeFeatures.addTree(this,new mini_pine4(),2);
+        WNBiomeFeatures.addTree(this,new mini_pine5(),2);
+        WNBiomeFeatures.addTree(this,new mini_pine6(),2);
 
-        WNBiomeFeatures.addTree(this,new fallen_spruce1(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new fallen_spruce2(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new fallen_spruce3(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new fallen_birch1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new fallen_birch2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new fallen_spruce1(),2);
+        WNBiomeFeatures.addTree(this,new fallen_spruce2(),2);
+        WNBiomeFeatures.addTree(this,new fallen_spruce3(),2);
+        WNBiomeFeatures.addTree(this,new fallen_birch1(),1);
+        WNBiomeFeatures.addTree(this,new fallen_birch2(),1);
 
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),3);
+        WNBiomeFeatures.addTree(this,new shrub1(),1);
+        WNBiomeFeatures.addTree(this,new shrub1().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),3);
 
-        this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(WNBlocks.BROWN_GRASS_BLOCK.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(3)));
+        WNBiomeFeatures.addBlob(this,WNBlocks.BROWN_GRASS_BLOCK.getDefaultState(),2,true,false,3);
 
         plantRate=2;
         treeRate=3;

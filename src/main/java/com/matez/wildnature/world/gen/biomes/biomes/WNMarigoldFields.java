@@ -4,8 +4,7 @@ import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.LavenderFeature;
-import com.matez.wildnature.world.gen.feature.MarigoldFeature;
+import com.matez.wildnature.world.gen.feature.features.MarigoldFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak1;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak2;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak3;
@@ -62,11 +61,11 @@ public class WNMarigoldFields extends WNBiome {
         WNBiomeFeatures.addSprings(this);
 
         WNBiomeFeatures.addPlant(this, WNBlocks.MARIGOLD_RED.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,Blocks.GRASS.getDefaultState(),6);
+        WNBiomeFeatures.addPlant(this, Blocks.GRASS.getDefaultState(),6);
 
-        WNBiomeFeatures.addTree(this,new oak1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oak2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oak3(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new oak1(),1);
+        WNBiomeFeatures.addTree(this,new oak2(),1);
+        WNBiomeFeatures.addTree(this,new oak3(),1);
         WNBiomeFeatures.removeAllDefaultFlowers(this);
 
         plantRate=1;
@@ -75,8 +74,7 @@ public class WNMarigoldFields extends WNBiome {
         applyPlants();
         applyTrees();
 
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new MarigoldFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(90)));
-
+        WNBiomeFeatures.addMarigold(this);
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.PIG, 10, 4, 4));

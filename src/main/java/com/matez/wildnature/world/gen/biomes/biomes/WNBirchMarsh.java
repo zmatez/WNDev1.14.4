@@ -1,16 +1,21 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.CattailFeature;
-import com.matez.wildnature.world.gen.feature.WNBlobConfig;
-import com.matez.wildnature.world.gen.feature.WNBlobFeature;
+import com.matez.wildnature.world.gen.feature.configs.WNBlobConfig;
+import com.matez.wildnature.world.gen.feature.features.CattailFeature;
+import com.matez.wildnature.world.gen.feature.features.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.oaklands_shrub5;
+import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.oaklands_shrub6;
+import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.oaklands_shrub7;
+import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.oaklands_shrub8;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -46,7 +51,6 @@ public class WNBirchMarsh extends WNBiome {
                 .parent(null));
 
 
-//1833528092182891190 -8638 85 -5928
         this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
@@ -73,26 +77,27 @@ public class WNBirchMarsh extends WNBiome {
         WNBiomeFeatures.addPlant(this, WNBlocks.GLADIOLUS_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         WNBiomeFeatures.addPlant(this, WNBlocks.CARNATION_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
 
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:wild_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.WILD_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
 
-        WNBiomeFeatures.addTree(this,new spiky_birch_1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spiky_birch_2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spiky_birch_3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spiky_birch_4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_shrub5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_shrub6(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_shrub7(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_shrub8(NoFeatureConfig::deserialize,true),1);
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new CattailFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(40)));
+        WNBiomeFeatures.addTree(this,new spiky_birch_1(),1);
+        WNBiomeFeatures.addTree(this,new spiky_birch_2(),1);
+        WNBiomeFeatures.addTree(this,new spiky_birch_3(),1);
+        WNBiomeFeatures.addTree(this,new spiky_birch_4(),1);
+        WNBiomeFeatures.addTree(this,new pointy_birch1(),1);
+        WNBiomeFeatures.addTree(this,new pointy_birch2(),1);
+        WNBiomeFeatures.addTree(this,new pointy_birch3(),1);
+        WNBiomeFeatures.addTree(this,new pointy_birch4(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_shrub5(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_shrub6(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_shrub7(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_shrub8(),1);
 
-        this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(Blocks.STONE.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(2)));
-        this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(Blocks.WATER.getDefaultState(),3,true,false,true), Placement.FOREST_ROCK, new FrequencyConfig(3)));
+        WNBiomeFeatures.addCattail(this,40);
+
+        WNBiomeFeatures.addBlob(this,Blocks.STONE.getDefaultState(),2,true,false,2);
+        WNBiomeFeatures.addBlob(this,Blocks.WATER.getDefaultState(),3,true,true,true,3);
 
 
         plantRate=2;

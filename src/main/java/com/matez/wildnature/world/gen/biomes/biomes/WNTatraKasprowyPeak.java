@@ -2,17 +2,17 @@ package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.SnowyMountainSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.WNBlobConfig;
-import com.matez.wildnature.world.gen.feature.WNBlobFeature;
+import com.matez.wildnature.world.gen.feature.configs.WNBlobConfig;
+import com.matez.wildnature.world.gen.feature.features.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.mini_pine.mini_bald_pine1;
 import com.matez.wildnature.world.gen.structures.nature.woods.mini_pine.mini_bald_pine2;
 import com.matez.wildnature.world.gen.structures.nature.woods.mini_pine.mini_pine1;
 import com.matez.wildnature.world.gen.structures.nature.woods.mini_pine.mini_pine2;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.SnowyMountainSurfaceBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -21,14 +21,12 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -36,7 +34,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNTatraKasprowyPeak extends WNBiome {
     public WNTatraKasprowyPeak(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new SnowyMountainSurfaceBuilder(SurfaceBuilderConfig::deserialize), WNSurfaceBuilders.BROWN_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.SNOWY_MOUNTAIN_SURFACE_BUILDER, SurfaceRegistry.BROWN_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.EXTREME_HILLS)
                 .topography(WNBiomeBuilder.Topography.HIGH_MOUNTAINS)
@@ -60,11 +58,7 @@ public class WNTatraKasprowyPeak extends WNBiome {
         WNBiomeFeatures.addLakes(this);
         WNBiomeFeatures.addMonsterRooms(this);
         WNBiomeFeatures.addDoubleFlowers(this);
-        this.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, Blocks.GRAVEL.getDefaultState(), 33), Placement.COUNT_RANGE, new CountRangeConfig(3, 0, 0, 256)));
-        this.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, Blocks.GRANITE.getDefaultState(), 33), Placement.COUNT_RANGE, new CountRangeConfig(16, 0, 0, 80)));
-        this.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, Blocks.DIORITE.getDefaultState(), 33), Placement.COUNT_RANGE, new CountRangeConfig(5, 0, 0, 80)));
-        this.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, Blocks.ANDESITE.getDefaultState(), 33), Placement.COUNT_RANGE, new CountRangeConfig(5, 0, 0, 80)));
-
+        WNBiomeFeatures.addTatraStoneTypes(this);
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
@@ -77,14 +71,14 @@ public class WNTatraKasprowyPeak extends WNBiome {
         WNBiomeFeatures.addGrass(this,5,WNBlocks.SMALL_GRASS.getDefaultState());
         WNBiomeFeatures.addGrass(this,2,WNBlocks.MEDIUM_GRASS.getDefaultState());
         WNBiomeFeatures.addGrass(this,5,WNBlocks.MOSS.getDefaultState());
-        this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(WNBlocks.BROWN_PODZOL.getDefaultState(),3,true,false), Placement.COUNT_RANGE, new CountRangeConfig(2,60,0,90)));
-        this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(WNBlocks.BROWN_PODZOL.getDefaultState(),2,true,false), Placement.COUNT_RANGE, new CountRangeConfig(2,80,0,120)));
-        this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(WNBlocks.OVERGROWN_STONE.getDefaultState(),2,true,false), Placement.COUNT_RANGE, new CountRangeConfig(3,120,0,140)));
+        WNBiomeFeatures.addBlobWithCountRangePlacement(this,WNBlocks.BROWN_PODZOL.getDefaultState(),3,true,false,2,60,90);
+        WNBiomeFeatures.addBlobWithCountRangePlacement(this,WNBlocks.BROWN_PODZOL.getDefaultState(),2,true,false,2,80,120);
+        WNBiomeFeatures.addBlobWithCountRangePlacement(this,WNBlocks.OVERGROWN_STONE.getDefaultState(),3,true,false,3,120,140);
 
-        WNBiomeFeatures.addTree(this,new mini_bald_pine1(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new mini_bald_pine2(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new mini_pine1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new mini_pine2(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new mini_bald_pine1(),2);
+        WNBiomeFeatures.addTree(this,new mini_bald_pine2(),2);
+        WNBiomeFeatures.addTree(this,new mini_pine1(),1);
+        WNBiomeFeatures.addTree(this,new mini_pine2(),1);
 
         plantRate = 1;
         applyPlants();

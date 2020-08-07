@@ -1,19 +1,14 @@
 package com.matez.wildnature.commands;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.customizable.CommonConfig;
-import com.matez.wildnature.world.gen.biomes.setup.WNBiomes;
-import com.matez.wildnature.world.gen.biomes.undergroundBiomes.setup.URBiome;
-import com.matez.wildnature.world.gen.biomes.undergroundBiomes.setup.URBiomeManager;
+import com.matez.wildnature.world.gen.undergroundBiomes.setup.URBiome;
+import com.matez.wildnature.world.gen.undergroundBiomes.setup.URBiomeManager;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.File;

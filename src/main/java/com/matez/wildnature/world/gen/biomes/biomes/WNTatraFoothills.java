@@ -1,26 +1,20 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
-import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.fir.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.spruce.*;
 import com.matez.wildnature.Main;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.fir.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.spruce.*;
-import net.minecraft.block.BlockState;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
@@ -31,7 +25,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNTatraFoothills extends WNBiome {
     public WNTatraFoothills(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, WNSurfaceBuilders.BROWN_CONFIG)
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.BROWN_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.EXTREME_HILLS)
                 .topography(WNBiomeBuilder.Topography.HIGH_MOUNTAINS)
@@ -66,7 +60,7 @@ public class WNTatraFoothills extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:bluebell").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         WNBiomeFeatures.addPlant(this, WNBlocks.CROCUS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         WNBiomeFeatures.addPlant(this, WNBlocks.PRIMROSE_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);

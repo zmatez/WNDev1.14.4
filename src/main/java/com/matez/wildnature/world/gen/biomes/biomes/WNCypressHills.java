@@ -1,14 +1,15 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.CustomSurfaceBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.WNBlobConfig;
-import com.matez.wildnature.world.gen.feature.WNBlobFeature;
+import com.matez.wildnature.world.gen.feature.configs.WNBlobConfig;
+import com.matez.wildnature.world.gen.feature.features.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.cedar.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.cypress.cypress1;
 import com.matez.wildnature.world.gen.structures.nature.woods.cypress.cypress2;
@@ -22,6 +23,8 @@ import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.orchard.pear1;
 import com.matez.wildnature.world.gen.structures.nature.woods.orchard.pear3;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
+import com.matez.wildnature.world.gen.surface.builders.CustomSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.configs.CustomSurfaceBuilderConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -30,7 +33,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.placement.FrequencyConfig;
@@ -42,7 +44,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNCypressHills extends WNBiome {
     public WNCypressHills(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new CustomSurfaceBuilder(new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG,4),new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG,1)), SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG,4),new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG,1)))
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -79,41 +81,41 @@ public class WNCypressHills extends WNBiome {
         WNBiomeFeatures.addPlant(this,WNBlocks.THUJA.getDefaultState(),2);
         WNBiomeFeatures.addPlant(this,WNBlocks.THUJA_LARGE.getDefaultState(),2);
         WNBiomeFeatures.addPlant(this,WNBlocks.MARIGOLD_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:yew_bush").getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:clover").getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:leaf_pile").getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.YEW_BUSH.getDefaultState(),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
         WNBiomeFeatures.addPlant(this,WNBlocks.VIBURNUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
         WNBiomeFeatures.addPlant(this,WNBlocks.VIBURNUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
         WNBiomeFeatures.addPlant(this,WNBlocks.IRIS_VIOLET.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
         WNBiomeFeatures.addPlant(this,WNBlocks.IRIS_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
 
-        WNBiomeFeatures.addTree(this,new weeping_cedar_1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new weeping_cedar_2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new weeping_cedar_3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new weeping_cedar_4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new weeping_cedar_5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new weeping_cedar_6(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_oak_1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_oak_2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_oak_3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_oak_4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pear1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pear3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_smallshrub1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_smallshrub2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_smallshrub3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_shrub1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_shrub2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_shrub5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new weeping_cedar_1(),1);
+        WNBiomeFeatures.addTree(this,new weeping_cedar_2(),1);
+        WNBiomeFeatures.addTree(this,new weeping_cedar_3(),1);
+        WNBiomeFeatures.addTree(this,new weeping_cedar_4(),1);
+        WNBiomeFeatures.addTree(this,new weeping_cedar_5(),1);
+        WNBiomeFeatures.addTree(this,new weeping_cedar_6(),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_1(),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_2(),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_3(),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_4(),1);
+        WNBiomeFeatures.addTree(this,new pear1(),1);
+        WNBiomeFeatures.addTree(this,new pear3(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_smallshrub1(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_smallshrub2(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_smallshrub3(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_shrub1(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_shrub2(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_shrub5(),1);
+        WNBiomeFeatures.addTree(this,new shrub1(),1);
 
-        WNBiomeFeatures.addTree(this,new cypress1(NoFeatureConfig::deserialize,true),15);
-        WNBiomeFeatures.addTree(this,new cypress2(NoFeatureConfig::deserialize,true),15);
-        WNBiomeFeatures.addTree(this,new cypress3(NoFeatureConfig::deserialize,true),15);
-        WNBiomeFeatures.addTree(this,new cypress4(NoFeatureConfig::deserialize,true),15);
+        WNBiomeFeatures.addTree(this,new cypress1(),15);
+        WNBiomeFeatures.addTree(this,new cypress2(),15);
+        WNBiomeFeatures.addTree(this,new cypress3(),15);
+        WNBiomeFeatures.addTree(this,new cypress4(),15);
 
-        this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(Blocks.PODZOL.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(3)));
+        WNBiomeFeatures.addBlob(this,Blocks.PODZOL.getDefaultState(),2,true,false,3);
 
         plantRate=2;
         treeRate=2;

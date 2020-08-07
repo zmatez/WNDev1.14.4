@@ -1,15 +1,10 @@
 package com.matez.wildnature.world.gen.biomes.setup;
 
 import com.matez.wildnature.world.gen.biomes.biomes.*;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.SnowyMountainSurfaceBuilder;
-import com.matez.wildnature.world.gen.feature.WNWaterFeature;
 import com.matez.wildnature.world.gen.manager.WNBiomeManager;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.customizable.CommonConfig;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.placement.CountConfig;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;

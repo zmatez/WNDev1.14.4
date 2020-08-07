@@ -3,24 +3,23 @@ package com.matez.wildnature.world.gen.biomes.biomes;
 import com.google.common.collect.Lists;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.WNBlobConfig;
-import com.matez.wildnature.world.gen.feature.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.mangrove.*;
-import com.matez.wildnature.blocks.config.ConfigSettings;
-import com.matez.wildnature.world.gen.structures.nature.woods.mangrove.*;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
-import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.SeaGrassConfig;
+import net.minecraft.world.gen.feature.SphereReplaceConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.placement.FrequencyConfig;
@@ -33,7 +32,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNMangroveBayou extends WNBiome {
     public WNMangroveBayou(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.SWAMP, WNSurfaceBuilders.TROPICAL_CONFIG)
+                .surfaceBuilder(SurfaceBuilder.SWAMP, SurfaceRegistry.TROPICAL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -65,23 +64,21 @@ public class WNMangroveBayou extends WNBiome {
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addSwampVegetation(this);
         WNBiomeFeatures.func_222329_ae(this);
-        WNBiomeFeatures.addWaterlilies(this, Main.getBlockByID("wildnature:green_waterlily"),200);
-        WNBiomeFeatures.addWaterlilies(this,Main.getBlockByID("wildnature:red_waterlily"),10);
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(Feature.SEAGRASS, new SeaGrassConfig(128, 0.6D), Placement.TOP_SOLID_HEIGHTMAP, IPlacementConfig.NO_PLACEMENT_CONFIG));
-        this.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, Biome.createDecoratedFeature(Feature.DISK, new SphereReplaceConfig(Blocks.CLAY.getDefaultState(), 4, 1, Lists.newArrayList(Main.getBlockByID("wildnature:tropical_dirt").getDefaultState(), Blocks.CLAY.getDefaultState())), Placement.COUNT_TOP_SOLID, new FrequencyConfig(1)));
-        //this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(WNBlocks.MUD.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(5)));
+        WNBiomeFeatures.addWaterlilies(this, WNBlocks.GREEN_WATERLILY,200);
+        WNBiomeFeatures.addWaterlilies(this, WNBlocks.DUCKWEED,100);
+        WNBiomeFeatures.addWaterlilies(this, WNBlocks.RED_WATERLILY,2);
+        WNBiomeFeatures.addFloodedForestDecorations(this);
 
 
-        WNBiomeFeatures.addTree(this,new mangrove1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new mangrove2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new mangrove3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new mangrove4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new mangrove5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new mangrove_shrub1(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new mangrove_shrub2(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new mangrove_shrub3(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new mangrove_shrub4(NoFeatureConfig::deserialize,true),2);
-        //WNBiomeFeatures.addTree(this,new mangrove_shrub5(NoFeatureConfig::deserialize,true),2);
+        WNBiomeFeatures.addTree(this,new mangrove1(),1);
+        WNBiomeFeatures.addTree(this,new mangrove2(),1);
+        WNBiomeFeatures.addTree(this,new mangrove3(),1);
+        WNBiomeFeatures.addTree(this,new mangrove4(),1);
+        WNBiomeFeatures.addTree(this,new mangrove5(),1);
+        WNBiomeFeatures.addTree(this,new mangrove_shrub1(),2);
+        WNBiomeFeatures.addTree(this,new mangrove_shrub2(),2);
+        WNBiomeFeatures.addTree(this,new mangrove_shrub3(),2);
+        WNBiomeFeatures.addTree(this,new mangrove_shrub4(),2);
 
         plantRate=4;
         treeRate=10;

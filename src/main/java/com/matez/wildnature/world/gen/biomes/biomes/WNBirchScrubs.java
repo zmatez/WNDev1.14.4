@@ -1,16 +1,16 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.CattailFeature;
-import com.matez.wildnature.world.gen.feature.WNBlobConfig;
-import com.matez.wildnature.world.gen.feature.WNBlobFeature;
+import com.matez.wildnature.world.gen.feature.configs.WNBlobConfig;
+import com.matez.wildnature.world.gen.feature.features.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.def.BigTree;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -19,7 +19,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
@@ -76,26 +75,26 @@ public class WNBirchScrubs extends WNBiome {
         WNBiomeFeatures.addPlant(this, WNBlocks.CARNATION_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
 
 
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:wild_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.WILD_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
 
-        WNBiomeFeatures.addTree(this,new big_birch_1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new big_birch_2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new big_birch_3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new big_birch_4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new big_birch_5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new big_birch_6(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spiky_birch_1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spiky_birch_2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spiky_birch_3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new spiky_birch_4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch4(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new big_birch_1(),1);
+        WNBiomeFeatures.addTree(this,new big_birch_2(),1);
+        WNBiomeFeatures.addTree(this,new big_birch_3(),1);
+        WNBiomeFeatures.addTree(this,new big_birch_4(),1);
+        WNBiomeFeatures.addTree(this,new big_birch_5(),1);
+        WNBiomeFeatures.addTree(this,new big_birch_6(),1);
+        WNBiomeFeatures.addTree(this,new spiky_birch_1(),1);
+        WNBiomeFeatures.addTree(this,new spiky_birch_2(),1);
+        WNBiomeFeatures.addTree(this,new spiky_birch_3(),1);
+        WNBiomeFeatures.addTree(this,new spiky_birch_4(),1);
+        WNBiomeFeatures.addTree(this,new pointy_birch1(),1);
+        WNBiomeFeatures.addTree(this,new pointy_birch2(),1);
+        WNBiomeFeatures.addTree(this,new pointy_birch3(),1);
+        WNBiomeFeatures.addTree(this,new pointy_birch4(),1);
 
-        this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(Blocks.STONE.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(3)));
+        WNBiomeFeatures.addBlob(this,Blocks.STONE.getDefaultState(),2,true,false,3);
 
 
         plantRate=2;

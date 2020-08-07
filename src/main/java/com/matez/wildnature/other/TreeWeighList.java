@@ -46,7 +46,7 @@ public class TreeWeighList {
         weigh.remove(iWeigh);
     }
 
-    public void remove(Block block){
+    public void remove(AbstractTreeFeature block){
         weigh.remove(weigh.get(blocks.indexOf(block)));
         blocks.remove(block);
     }

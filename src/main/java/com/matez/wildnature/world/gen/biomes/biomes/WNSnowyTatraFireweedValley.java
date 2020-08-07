@@ -3,7 +3,6 @@ package com.matez.wildnature.world.gen.biomes.biomes;
 import com.matez.wildnature.blocks.FireWeedBush;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -13,13 +12,13 @@ import com.matez.wildnature.world.gen.structures.nature.woods.mini_pine.mini_pin
 import com.matez.wildnature.world.gen.structures.nature.woods.mini_pine.mini_pine6;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga11;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga12;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
@@ -30,7 +29,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNSnowyTatraFireweedValley extends WNBiome {
     public WNSnowyTatraFireweedValley(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, WNSurfaceBuilders.BROWN_CONFIG)
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.BROWN_CONFIG)
                 .precipitation(RainType.SNOW)
                 .category(Category.EXTREME_HILLS)
                 .topography(WNBiomeBuilder.Topography.HIGH_MOUNTAINS)
@@ -73,11 +72,11 @@ public class WNSnowyTatraFireweedValley extends WNBiome {
         WNBiomeFeatures.addPlant(this,WNBlocks.CARNATION_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         WNBiomeFeatures.addPlant(this,WNBlocks.MATTHIOLA_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
 
-        WNBiomeFeatures.addTree(this,new tree_taiga12(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(Blocks.SPRUCE_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new tree_taiga11(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(Blocks.SPRUCE_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new mini_bald_pine3(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new mini_pine6(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new mini_pine5(NoFeatureConfig::deserialize,true),2);
+        WNBiomeFeatures.addTree(this,new tree_taiga12().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Blocks.SPRUCE_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new tree_taiga11().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Blocks.SPRUCE_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new mini_bald_pine3(),2);
+        WNBiomeFeatures.addTree(this,new mini_pine6(),2);
+        WNBiomeFeatures.addTree(this,new mini_pine5(),2);
         plantRate=1;
         treeRate = 0;
         treeExtra = 1;

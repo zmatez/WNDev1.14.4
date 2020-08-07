@@ -1,15 +1,13 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel1;
-import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel2;
-import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel3;
-import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel4;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.orchard.apple1;
 import com.matez.wildnature.world.gen.structures.nature.woods.orchard.pear2;
@@ -19,7 +17,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
@@ -76,24 +73,21 @@ public class WNWoodedMeadow extends WNBiome {
         WNBiomeFeatures.addPlant(this,WNBlocks.HOLLYHOCK_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         WNBiomeFeatures.addPlant(this,WNBlocks.GLADIOLUS_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
 
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:wild_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.WILD_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
 
-        WNBiomeFeatures.addTree(this,new pointy_oak_1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_oak_2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_oak_3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new apple1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pear2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new tree_oak5(NoFeatureConfig::deserialize,true),7);
-        WNBiomeFeatures.addTree(this,new tree_oak21(NoFeatureConfig::deserialize,true),7);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new oak1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oak2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oak3(NoFeatureConfig::deserialize,true),1);
-        //this.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(new StoneHenge(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(5,64,0,90)));
-        //this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new StreamFeature(NoFeatureConfig :: deserialize),new NoFeatureConfig(), Placement.COUNT_RANGE, new CountRangeConfig(1,65,0,75)));
-
+        WNBiomeFeatures.addTree(this,new pointy_oak_1(),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_2(),1);
+        WNBiomeFeatures.addTree(this,new pointy_oak_3(),1);
+        WNBiomeFeatures.addTree(this,new apple1(),1);
+        WNBiomeFeatures.addTree(this,new pear2(),1);
+        WNBiomeFeatures.addTree(this,new tree_oak5(),7);
+        WNBiomeFeatures.addTree(this,new tree_oak21(),7);
+        WNBiomeFeatures.addTree(this,new shrub1(),3);
+        WNBiomeFeatures.addTree(this,new oak1(),1);
+        WNBiomeFeatures.addTree(this,new oak2(),1);
+        WNBiomeFeatures.addTree(this,new oak3(),1);
         plantRate=3;
         treeRate=4;
 

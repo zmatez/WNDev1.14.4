@@ -1,7 +1,7 @@
 package com.matez.wildnature.world.gen.structures.nature;
 
-import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.other.TreeWeighList;
+import com.matez.wildnature.other.Utilities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.trees.Tree;
@@ -17,14 +17,15 @@ import java.util.Random;
 public class SchemTree extends Tree {
 
     private TreeWeighList weighList;
-    public SchemTree(TreeWeighList weight){
+
+    public SchemTree(TreeWeighList weight) {
         weighList = weight;
     }
 
     @Nullable
     @Override
     public AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
-        return Utilities.getWeighTree(weighList,random);
+        return Utilities.getWeighTree(weighList, random);
     }
 
     @Override
@@ -34,11 +35,7 @@ public class SchemTree extends Tree {
             return false;
         } else {
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 4);
-            if (abstracttreefeature.place(worldIn, worldIn.getChunkProvider().getChunkGenerator(), random, pos, IFeatureConfig.NO_FEATURE_CONFIG)) {
-                return true;
-            } else {
-                return false;
-            }
+            return abstracttreefeature.place(worldIn, worldIn.getChunkProvider().getChunkGenerator(), random, pos, IFeatureConfig.NO_FEATURE_CONFIG);
         }
     }
 }

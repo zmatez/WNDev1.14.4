@@ -1,22 +1,22 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.CustomSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
-import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch10;
 import com.matez.wildnature.world.gen.structures.nature.woods.eucalyptus.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.CustomSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.configs.CustomSurfaceBuilderConfig;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -26,7 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNEucalyptusForest extends WNBiome {
     public WNEucalyptusForest(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new CustomSurfaceBuilder(new CustomSurfaceBuilder.BlockCfg(WNSurfaceBuilders.TROPICAL_CONFIG,2),new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG,3)), WNSurfaceBuilders.TROPICAL_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.TROPICAL_CONFIG,2),new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG,3)))
                 .precipitation(RainType.RAIN)
                 .category(Category.JUNGLE)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -56,30 +56,30 @@ public class WNEucalyptusForest extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addBambooJungleVegetation(this);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:orchis_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:anthurium_red").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:anthurium_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:clover").getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:leaf_pile").getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.ORCHIS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.ANTHURIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.ANTHURIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CLOVER.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
 
-        WNBiomeFeatures.addTree(this,new eucalyptus_1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_6(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_7(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_8(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_9(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_10(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub6(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub7(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub8(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_1(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_2(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_3(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_4(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_5(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_6(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_7(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_8(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_9(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_10(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_shrub1(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_shrub2(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_shrub3(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_shrub4(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_shrub5(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_shrub6(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_shrub7(),1);
+        WNBiomeFeatures.addTree(this,new eucalyptus_shrub8(),1);
 
         treeRate=12;
 

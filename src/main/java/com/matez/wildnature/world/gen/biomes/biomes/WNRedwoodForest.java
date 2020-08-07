@@ -1,14 +1,13 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.structures.nature.woods.redwood.tree_redwood1;
-import com.matez.wildnature.world.gen.structures.nature.woods.redwood.tree_redwood2;
-import com.matez.wildnature.world.gen.structures.nature.woods.redwood.tree_redwood3;
-import com.matez.wildnature.world.gen.structures.nature.woods.redwood.tree_redwood4;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.matez.wildnature.world.gen.structures.nature.woods.small_redwood.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga1;
@@ -17,7 +16,6 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -57,26 +55,26 @@ public class WNRedwoodForest extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:yew_bush").getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:clover").getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:leaf_pile").getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:pasque_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.YEW_BUSH.getDefaultState(),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
 
-        WNBiomeFeatures.addTree(this,new small_redwood1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new small_redwood2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new small_redwood3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new small_redwood4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new small_redwood5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new small_redwood6(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new small_redwood1(),1);
+        WNBiomeFeatures.addTree(this,new small_redwood2(),1);
+        WNBiomeFeatures.addTree(this,new small_redwood3(),1);
+        WNBiomeFeatures.addTree(this,new small_redwood4(),1);
+        WNBiomeFeatures.addTree(this,new small_redwood5(),1);
+        WNBiomeFeatures.addTree(this,new small_redwood6(),1);
 
         BlockState redwoodLog = Main.getBlockByID("wildnature:redwood_log").getDefaultState();
         BlockState redwoodLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("wildnature:redwood_leaves"));
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true,redwoodLog,redwoodLeaves),3);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),3);
+        WNBiomeFeatures.addTree(this,new shrub1().setCustomLog(redwoodLog).setCustomLeaf(redwoodLeaves),3);
+        WNBiomeFeatures.addTree(this,new shrub1(),3);
 
         plantRate=4;
         treeRate=15;

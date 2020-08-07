@@ -1,15 +1,16 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.blocks.DoubleBushBaseFlowering;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.BelladonnaBlock;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
-import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
 import com.matez.wildnature.world.gen.structures.nature.woods.cherry.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.citrus.citrus1;
 import com.matez.wildnature.world.gen.structures.nature.woods.citrus.citrus2;
@@ -17,9 +18,8 @@ import com.matez.wildnature.world.gen.structures.nature.woods.jungle.jungle1;
 import com.matez.wildnature.world.gen.structures.nature.woods.jungle.jungle2;
 import com.matez.wildnature.world.gen.structures.nature.woods.jungle.jungle3;
 import com.matez.wildnature.world.gen.structures.nature.woods.jungle.jungle4;
-import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak2;
-import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak5;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -38,7 +38,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNSakuraJungle extends WNBiome {
     public WNSakuraJungle(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, WNSurfaceBuilders.TROPICAL_CONFIG)
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.TROPICAL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -79,29 +79,29 @@ public class WNSakuraJungle extends WNBiome {
         WNBiomeFeatures.addPlant(this, WNBlocks.CHRYSANTHEMUM_LIGHT_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
         WNBiomeFeatures.addPlant(this, WNBlocks.GERANIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
         WNBiomeFeatures.addPlant(this, WNBlocks.CHINESE_LANTERN_FLOWER.getDefaultState().with(BelladonnaBlock.STAGE,3),1);
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("minecraft:blue_orchid").getDefaultState(),2);
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:anthurium_red").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:anthurium_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:orchis_purple").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:peace_lily").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DOUBLE_PLANT,new DoublePlantConfig(Main.getBlockByID("wildnature:bird_of_paradise").getDefaultState().with(FloweringBushBase.FLOWERING,true)), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(2)));
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DOUBLE_PLANT,new DoublePlantConfig(Main.getBlockByID("wildnature:bird_of_paradise").getDefaultState().with(FloweringBushBase.FLOWERING,true)), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(1)));
+        WNBiomeFeatures.addPlant(this, Blocks.BLUE_ORCHID.getDefaultState(),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ORCHIS_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PEACE_LILY.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BIRD_OF_PARADISE.getDefaultState().with(DoubleBushBaseFlowering.FLOWERING,true),2);
 
-        WNBiomeFeatures.addTree(this,new jungle1(NoFeatureConfig::deserialize,true),5);
-        WNBiomeFeatures.addTree(this,new jungle2(NoFeatureConfig::deserialize,true),5);
-        WNBiomeFeatures.addTree(this,new jungle3(NoFeatureConfig::deserialize,true),5);
-        WNBiomeFeatures.addTree(this,new jungle4(NoFeatureConfig::deserialize,true),5);
-        WNBiomeFeatures.addTree(this,new JungleTreeFeature(NoFeatureConfig::deserialize, false, 4, Blocks.JUNGLE_LOG.getDefaultState(), Blocks.JUNGLE_LEAVES.getDefaultState(), true),8);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize, false, Blocks.JUNGLE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(Blocks.JUNGLE_LEAVES)),15);
-        WNBiomeFeatures.addTree(this,new citrus1(NoFeatureConfig::deserialize,true, WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new citrus2(NoFeatureConfig::deserialize,true, WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new sakura1(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new sakura2(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new sakura3(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new sakura4(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new sakura5(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new sakura6(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new sakura7(NoFeatureConfig::deserialize,true),3);
+
+        WNBiomeFeatures.addTree(this,new jungle1(),5);
+        WNBiomeFeatures.addTree(this,new jungle2(),5);
+        WNBiomeFeatures.addTree(this,new jungle3(),5);
+        WNBiomeFeatures.addTree(this,new jungle4(),5);
+        WNBiomeFeatures.addTree(this,new JungleTreeFeature(NoFeatureConfig::deserialize,true,4,Blocks.JUNGLE_LOG.getDefaultState(),Blocks.JUNGLE_LEAVES.getDefaultState(),true),8);
+        WNBiomeFeatures.addTree(this,new shrub1().setCustomLog( Blocks.JUNGLE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Blocks.JUNGLE_LEAVES)),15);
+        WNBiomeFeatures.addTree(this,new citrus1().setCustomLog( WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new citrus2().setCustomLog( WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new sakura1(),2);
+        WNBiomeFeatures.addTree(this,new sakura2(),2);
+        WNBiomeFeatures.addTree(this,new sakura3(),2);
+        WNBiomeFeatures.addTree(this,new sakura4(),2);
+        WNBiomeFeatures.addTree(this,new sakura5(),2);
+        WNBiomeFeatures.addTree(this,new sakura6(),2);
+        WNBiomeFeatures.addTree(this,new sakura7(),3);
         plantRate=2;
         treeRate=10;
 

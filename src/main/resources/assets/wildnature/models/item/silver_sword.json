@@ -1,6 +1,124 @@
 {
-    "parent": "item/handheld",
-    "textures": {
-        "layer0": "wildnature:items/tools/silver_sword"
+  "credit": "Made with Blockbench",
+  "parent": "item/handheld",
+  "texture_size": [
+    32,
+    32
+  ],
+  "textures": {
+    "1": "wildnature:items/tools/silver_sword",
+    "particle": "wildnature:items/tools/silver_sword"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        -6,
+        85,
+        55
+      ],
+      "translation": [
+        0,
+        1.5,
+        2
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        -4,
+        -86,
+        -55
+      ],
+      "translation": [
+        0,
+        1.25,
+        2
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        11,
+        90,
+        29
+      ],
+      "translation": [
+        3.25,
+        0.75,
+        -1
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        12,
+        -83,
+        -31
+      ],
+      "translation": [
+        -0.25,
+        0.75,
+        -0.5
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "ground": {
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "gui": {
+      "translation": [
+        -4,
+        -4,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
+    },
+    "fixed": {
+      "translation": [
+        -3.25,
+        -4.75,
+        0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ]
     }
+  },
+  "groups": [
+    {
+      "name": "diamond_sword",
+      "origin": [
+        8,
+        8,
+        8
+      ],
+      "children": []
+    }
+  ]
 }

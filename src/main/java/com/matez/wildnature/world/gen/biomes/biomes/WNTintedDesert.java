@@ -3,7 +3,8 @@ package com.matez.wildnature.world.gen.biomes.biomes;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.TintedDesertSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.TintedDesertSurfaceBuilder;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -23,7 +24,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNTintedDesert extends WNBiome {
     public WNTintedDesert(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new TintedDesertSurfaceBuilder(SurfaceBuilderConfig::deserialize), SurfaceBuilder.SAND_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.TINTED_DESERT_SURFACE_BUILDER, SurfaceBuilder.SAND_CONFIG)
                 .precipitation(RainType.NONE)
                 .category(Category.DESERT)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -41,7 +42,6 @@ public class WNTintedDesert extends WNBiome {
         this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        //this.addStructure(Feature.VILLAGE, new VillageConfig("village/desert/town_centers", 6));
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addMonsterRooms(this);
@@ -49,9 +49,8 @@ public class WNTintedDesert extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addSprings(this);
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.CACTUS, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(7)));
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DEAD_BUSH, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(20)));
-
+        WNBiomeFeatures.addCactus(this,7);
+        WNBiomeFeatures.addDeadBushes(this,20);
 
 
         plantRate=4;

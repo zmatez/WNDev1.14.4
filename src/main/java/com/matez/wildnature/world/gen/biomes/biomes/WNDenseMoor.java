@@ -1,15 +1,15 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.CustomSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.WNBlobConfig;
-import com.matez.wildnature.world.gen.feature.WNBlobFeature;
+import com.matez.wildnature.world.gen.feature.configs.WNBlobConfig;
+import com.matez.wildnature.world.gen.feature.features.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.beech.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.thin_birch1;
@@ -23,6 +23,9 @@ import com.matez.wildnature.world.gen.structures.nature.woods.willow.small_willo
 import com.matez.wildnature.world.gen.structures.nature.woods.willow.small_willow2;
 import com.matez.wildnature.world.gen.structures.nature.woods.willow.small_willow3;
 import com.matez.wildnature.world.gen.structures.nature.woods.willow.small_willow4;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.CustomSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.configs.CustomSurfaceBuilderConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -31,7 +34,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.placement.FrequencyConfig;
@@ -43,7 +45,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNDenseMoor extends WNBiome {
     public WNDenseMoor(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new CustomSurfaceBuilder(new CustomSurfaceBuilder.BlockCfg(WNSurfaceBuilders.BROWN_PODZOL_CONFIG,5),new CustomSurfaceBuilder.BlockCfg(WNSurfaceBuilders.BROWN_CONFIG,1)), SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_PODZOL_CONFIG,5),new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_CONFIG,1)))
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -89,56 +91,56 @@ public class WNDenseMoor extends WNBiome {
         WNBiomeFeatures.addPlant(this,WNBlocks.THUJA_LARGE.getDefaultState(),1);
         WNBiomeFeatures.addPlant(this,WNBlocks.PERENNIAL_BLUE.getDefaultState(),1);
         WNBiomeFeatures.addPlant(this,WNBlocks.PERENNIAL_VIOLET.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:clover").getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:leaf_pile").getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
         WNBiomeFeatures.addPlant(this,WNBlocks.VIBURNUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         WNBiomeFeatures.addPlant(this,WNBlocks.IRIS_VIOLET.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
 
-        WNBiomeFeatures.addTree(this,new tree_pine1(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_pine2(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_pine3(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_pine4(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_pine5(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_pine6(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_bpine1(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_bpine2(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_bpine3(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_bpine4(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_bpine5(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_bpine6(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new tree_pine1().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new tree_pine2().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new tree_pine3().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new tree_pine4().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new tree_pine5().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new tree_pine6().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new tree_bpine1().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new tree_bpine2().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new tree_bpine3().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new tree_bpine4().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new tree_bpine5().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new tree_bpine6().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
 
-        WNBiomeFeatures.addTree(this,new tall_pine1(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new tall_pine2(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new tall_pine3(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new tall_pine4(NoFeatureConfig::deserialize,true),3);
+        WNBiomeFeatures.addTree(this,new tall_pine1(),3);
+        WNBiomeFeatures.addTree(this,new tall_pine2(),3);
+        WNBiomeFeatures.addTree(this,new tall_pine3(),3);
+        WNBiomeFeatures.addTree(this,new tall_pine4(),3);
 
-        WNBiomeFeatures.addTree(this,new thin_birch1(NoFeatureConfig::deserialize,true),5);
-        WNBiomeFeatures.addTree(this,new thin_birch2(NoFeatureConfig::deserialize,true),5);
-        WNBiomeFeatures.addTree(this,new thin_birch3(NoFeatureConfig::deserialize,true),5);
-        WNBiomeFeatures.addTree(this,new thin_birch4(NoFeatureConfig::deserialize,true),5);
+        WNBiomeFeatures.addTree(this,new thin_birch1(),5);
+        WNBiomeFeatures.addTree(this,new thin_birch2(),5);
+        WNBiomeFeatures.addTree(this,new thin_birch3(),5);
+        WNBiomeFeatures.addTree(this,new thin_birch4(),5);
 
-        WNBiomeFeatures.addTree(this,new beech1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new beech2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new beech3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new beech4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new beech5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new beech6(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new beech7(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new beech8(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new beech9(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new beech10(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new beech11(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new beech12(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new beech1(),1);
+        WNBiomeFeatures.addTree(this,new beech2(),1);
+        WNBiomeFeatures.addTree(this,new beech3(),1);
+        WNBiomeFeatures.addTree(this,new beech4(),1);
+        WNBiomeFeatures.addTree(this,new beech5(),1);
+        WNBiomeFeatures.addTree(this,new beech6(),1);
+        WNBiomeFeatures.addTree(this,new beech7(),1);
+        WNBiomeFeatures.addTree(this,new beech8(),1);
+        WNBiomeFeatures.addTree(this,new beech9(),1);
+        WNBiomeFeatures.addTree(this,new beech10(),1);
+        WNBiomeFeatures.addTree(this,new beech11(),1);
+        WNBiomeFeatures.addTree(this,new beech12(),1);
 
-        WNBiomeFeatures.addTree(this,new small_willow1(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new small_willow2(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new small_willow3(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new small_willow4(NoFeatureConfig::deserialize,true),2);
+        WNBiomeFeatures.addTree(this,new small_willow1(),2);
+        WNBiomeFeatures.addTree(this,new small_willow2(),2);
+        WNBiomeFeatures.addTree(this,new small_willow3(),2);
+        WNBiomeFeatures.addTree(this,new small_willow4(),2);
 
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true, Blocks.SPRUCE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this,new shrub1().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
 
-        this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(WNBlocks.BROWN_GRASS_BLOCK.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(3)));
-        this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(Blocks.COARSE_DIRT.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(1)));
+        WNBiomeFeatures.addBlob(this,WNBlocks.BROWN_GRASS_BLOCK.getDefaultState(),2,true,false,3);
+        WNBiomeFeatures.addBlob(this,Blocks.COARSE_DIRT.getDefaultState(),2,true,false,1);
         plantRate=3;
         treeRate=14;
 

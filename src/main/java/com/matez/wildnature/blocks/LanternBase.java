@@ -73,6 +73,7 @@ public class LanternBase extends BlockBase {
 
    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
       Direction direction = func_220277_j(state).getOpposite();
+
       return Block.func_220055_a(worldIn, pos.offset(direction), direction.getOpposite());
    }
 

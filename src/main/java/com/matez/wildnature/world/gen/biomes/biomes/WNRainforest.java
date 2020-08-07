@@ -1,18 +1,17 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
-import com.matez.wildnature.world.gen.structures.nature.woods.def.BigTree;
-import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.structures.nature.woods.def.BigTree;
+import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -22,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNRainforest extends WNBiome {
     public WNRainforest(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, WNSurfaceBuilders.TROPICAL_CONFIG)
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.TROPICAL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -55,9 +54,9 @@ public class WNRainforest extends WNBiome {
         WNBiomeFeatures.addSprings(this);
 
 
-        WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true, Blocks.JUNGLE_LOG.getDefaultState(),shrub1.notDecayingLeaf(Blocks.JUNGLE_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new BigTree(),3);
+        WNBiomeFeatures.addTree(this,new shrub1(),1);
+        WNBiomeFeatures.addTree(this,new shrub1().setCustomLog( Blocks.JUNGLE_LOG.getDefaultState()).setCustomLeaf(shrub1.notDecayingLeaf(Blocks.JUNGLE_LEAVES)),1);
 
         plantRate=4;
         treeRate=70;

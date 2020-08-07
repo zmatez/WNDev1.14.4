@@ -11,18 +11,6 @@ import java.util.Set;
 import java.util.function.Function;
 
 public class estatue3 extends SchemFeature {
-    public estatue3(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace) {
-        super(config, doBlockNofityOnPlace);
-        Main.treesList.add(this);
-    }
-
-    public estatue3(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace, BlockState log, BlockState leaves) {
-        super(config, doBlockNofityOnPlace);
-        Main.treesList.add(this);
-        LOG = log;
-        LEAVES =leaves;
-    }
-
     @Override
     public Set<BlockPos> setBlocks() {
 

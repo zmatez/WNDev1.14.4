@@ -1,11 +1,13 @@
 package com.matez.wildnature.world.gen.biomes.setup;
 
-import com.matez.wildnature.world.gen.feature.PlantFeature;
-import com.matez.wildnature.world.gen.feature.TreeFeature;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
+import com.matez.wildnature.world.gen.feature.configs.BlockWeightListConfig;
+import com.matez.wildnature.world.gen.feature.configs.TreeWeightListConfig;
+import com.matez.wildnature.world.gen.feature.features.PlantFeature;
+import com.matez.wildnature.world.gen.feature.features.TreeFeature;
 import com.matez.wildnature.Main;
 import com.matez.wildnature.other.BlockWeighList;
 import com.matez.wildnature.other.TreeWeighList;
-import com.matez.wildnature.world.gen.feature.MushroomFeature;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -63,11 +65,11 @@ public class WNBiome extends Biome {
     }
 
     public void applyPlants(){
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new PlantFeature(NoFeatureConfig::deserialize,plants), new NoFeatureConfig(), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(plantRate)));
+        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(FeatureRegistry.PLANT_FEATURE, new BlockWeightListConfig(plants), Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(plantRate)));
     }
 
     public void applyTrees(){
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new TreeFeature(NoFeatureConfig::deserialize,trees), new NoFeatureConfig(), Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(treeRate,treeExtraChance,treeExtra)));
+        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(FeatureRegistry.TREE_FEATURE, new TreeWeightListConfig(trees), Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(treeRate,treeExtraChance,treeExtra)));
     }
 
 

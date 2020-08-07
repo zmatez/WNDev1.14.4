@@ -1,10 +1,12 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.CrackedSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.surface.builders.CrackedSurfaceBuilder;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -19,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNCrackedDesert extends WNBiome {
     public WNCrackedDesert(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new CrackedSurfaceBuilder(SurfaceBuilderConfig::deserialize), new SurfaceBuilderConfig(Main.getBlockByID("wildnature:cracked_sandstone").getDefaultState(),Main.getBlockByID("wildnature:cracked_sandstone").getDefaultState(),Main.getBlockByID("minecraft:sand").getDefaultState()))
+                .surfaceBuilder(SurfaceRegistry.CRACKED_SURFACE_BUILDER, new SurfaceBuilderConfig(Main.getBlockByID("wildnature:cracked_sandstone").getDefaultState(),Main.getBlockByID("wildnature:cracked_sandstone").getDefaultState(),Main.getBlockByID("minecraft:sand").getDefaultState()))
                 .precipitation(RainType.NONE)
                 .category(Category.DESERT)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)

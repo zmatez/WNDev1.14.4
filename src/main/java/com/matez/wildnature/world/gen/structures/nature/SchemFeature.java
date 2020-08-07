@@ -27,180 +27,179 @@ import java.util.function.Function;
 
 public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
-    private ArrayList<BlockPos> addedBlocks = new ArrayList<>();
-    private ArrayList<BlockPos> bottomBlocks = new ArrayList<>();
-
     public BlockState LEAVES = notDecayingLeaf(Blocks.OAK_LEAVES);
     public BlockState LOG = Blocks.OAK_LOG.getDefaultState();
     public BlockState DIRT = Blocks.DIRT.getDefaultState();
     public BlockState BRANCH = LEAVES;
+    public IWorld world;
+    public BlockPos startBlockPos;
+    public Random random;
+    public int terrainIncrease = 0;
+    private ArrayList<BlockPos> addedBlocks = new ArrayList<>();
+    private ArrayList<BlockPos> bottomBlocks = new ArrayList<>();
+    private int rotation;
+    private boolean canGenerate = true;
+    private boolean virtualPlace = false;
 
-    public SchemFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace) {
-        super(config, doBlockNofityOnPlace);
+    public SchemFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn, boolean doBlockNotifyIn) {
+        super(configFactoryIn, doBlockNotifyIn);
         LOG = Blocks.OAK_LOG.getDefaultState();
-        LEAVES =notDecayingLeaf(Blocks.OAK_LEAVES);
+        LEAVES = notDecayingLeaf(Blocks.OAK_LEAVES);
         BRANCH = LEAVES;
     }
-
-
-
-    public SchemFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace,BlockState log, BlockState leaves) {
-        super(config, doBlockNofityOnPlace);
-        LOG = log;
-        LEAVES =leaves;
-        BRANCH = LEAVES;
+    public SchemFeature() {
+        this(NoFeatureConfig::deserialize, false);
     }
 
-
-
-    public void setDirt(BlockState dirt){
-        DIRT = dirt;
-    }
-
-    public static BlockState notDecayingLeaf(Block block){
-        if(block instanceof LeavesBlock){
-            return ((LeavesBlock)block).getDefaultState().with(LeavesBlock.PERSISTENT,true);
+    public static BlockState notDecayingLeaf(Block block) {
+        if (block instanceof LeavesBlock) {
+            return block.getDefaultState().with(LeavesBlock.PERSISTENT, true);
         }
         return block.getDefaultState();
     }
 
+    public SchemFeature setCustomLog(BlockState log) {
+        LOG = log;
+        return this;
+    }
 
-    public IWorld world;
-    public BlockPos startBlockPos;
-    public Random random;
-    public ArrayList<BlockStatePos> addionalBlocks = new ArrayList<>();
-    private int rotation;
-    public int terrainIncrease = 0;
+    public SchemFeature setCustomLeaf(BlockState leaf) {
+        LEAVES = leaf;
+        BRANCH = LEAVES;
+        return this;
+    }
 
-    private boolean canGenerate = true;
-    private boolean virtualPlace = false;
+    public SchemFeature setCustomLogAndLeaf(BlockState log, BlockState leaf) {
+        LOG = log;
+        LEAVES = leaf;
+        BRANCH = LEAVES;
+        return this;
+    }
+
+    public void setDirt(BlockState dirt) {
+        DIRT = dirt;
+    }
 
     @Override
     protected boolean place(Set<BlockPos> changedBlocks, IWorldGenerationReader worldIn, Random rand, BlockPos position, MutableBoundingBox p_208519_5_) {
-        if(!canGrowTree(worldIn, position.down(), getSapling())){
+        if (!canGrowTree(worldIn, position.down(), getSapling())) {
             return false;
         }
         BlockPos soilPos = position.down();
         int x = 0;
-        while (isWater(worldIn,soilPos)){
+        while (isWater(worldIn, soilPos)) {
             soilPos = soilPos.down();
             x++;
         }
-        if(x>=15){
+        if (x >= 15) {
             return false;
         }
 
-        this.world=(IWorld)worldIn;
-        this.startBlockPos=soilPos.up(terrainIncrease);
-        this.random=rand;
-        rotation= Utilities.rint(1,4,rand);
-        canGenerate=true;
+        this.world = (IWorld) worldIn;
+        this.startBlockPos = soilPos.up(terrainIncrease);
+        this.random = rand;
+        rotation = Utilities.rint(1, 4, rand);
+        canGenerate = true;
         addedBlocks.clear();
-        virtualPlace=true;
+        virtualPlace = true;
         setBlocks();
         workWithTerrain();
-        virtualPlace=false;
-        if(canGenerate) {
+        virtualPlace = false;
+        if (canGenerate) {
             setBlocks();
         }
         return true;
     }
 
-    public boolean canGrowTree(IWorldGenerationReader world, BlockPos pos,net.minecraftforge.common.IPlantable sapling){
-        return world.hasBlockState(pos, state -> state.canSustainPlant((net.minecraft.world.IBlockReader)world, pos, Direction.UP, sapling));
+    public boolean canGrowTree(IWorldGenerationReader world, BlockPos pos, net.minecraftforge.common.IPlantable sapling) {
+        return world.hasBlockState(pos, state -> state.canSustainPlant((net.minecraft.world.IBlockReader) world, pos, Direction.UP, sapling));
     }
 
-    public Set<BlockPos> setBlocks(){
+    public Set<BlockPos> setBlocks() {
         return Sets.newHashSet(addedBlocks);
     }
 
-    public void Block(int x, int y, int z, BlockState state){
+    public void Block(int x, int y, int z, BlockState state) {
         BlockPos pos = startBlockPos;
         int sx = startBlockPos.getX();
-        int sy = startBlockPos.getY()-1;
+        int sy = startBlockPos.getY() - 1;
         int sz = startBlockPos.getZ();
-        if(rotation>=1 && rotation<=4){
-            if(rotation==1){
-                pos = new BlockPos(x,y,z);//0
-            }else if(rotation==2){
-                pos = new BlockPos(x,y,z).rotate(Rotation.CLOCKWISE_180);//180
+        if (rotation >= 1 && rotation <= 4) {
+            if (rotation == 1) {
+                pos = new BlockPos(x, y, z);//0
+            } else if (rotation == 2) {
+                pos = new BlockPos(x, y, z).rotate(Rotation.CLOCKWISE_180);//180
                 state = state.rotate(Rotation.CLOCKWISE_180);
-            }else if (rotation==3){
-                pos = new BlockPos(x,y,z).rotate(Rotation.CLOCKWISE_90);//90
+            } else if (rotation == 3) {
+                pos = new BlockPos(x, y, z).rotate(Rotation.CLOCKWISE_90);//90
                 state = state.rotate(Rotation.CLOCKWISE_90);
-            }else{
-                pos = new BlockPos(x,y,z).rotate(Rotation.COUNTERCLOCKWISE_90);//-90
+            } else {
+                pos = new BlockPos(x, y, z).rotate(Rotation.COUNTERCLOCKWISE_90);//-90
                 state = state.rotate(Rotation.COUNTERCLOCKWISE_90);
             }
-            pos = new BlockPos(pos.getX()+sx,pos.getY()+sy,pos.getZ()+sz);
-        }else{
+            pos = new BlockPos(pos.getX() + sx, pos.getY() + sy, pos.getZ() + sz);
+        } else {
             throw new IllegalArgumentException("Unknown rotation for tree at " + startBlockPos.toString() + " :\nrotation = " + rotation + " (1-4)\n   Please report it to author!");
         }
 
-        //world.setBlockState(pos, state, 2);
-        //setBlockState(world,pos,state);
-        if(world.getBlockState(pos).getBlock()==Blocks.WATER && state.getBlock() instanceof IWaterLoggable){
-            state=state.with(BlockStateProperties.WATERLOGGED,true);
+        if (world.getBlockState(pos).getBlock() == Blocks.WATER && state.getBlock() instanceof IWaterLoggable) {
+            state = state.with(BlockStateProperties.WATERLOGGED, true);
         }
-        if(state.getBlock()== WNBlocks.MAGNOLIA_LEAVES || state.getBlock()==WNBlocks.FORSYTHIA_LEAVES || Utilities.rint(0,10)==0){
-            if(state.getBlock() instanceof FloweringLeaves){
-                state = state.with(FloweringLeaves.FLOWERING,true);
-            }else if(state.getBlock() instanceof FruitableLeaves){
-                state = state.with((((FruitableLeaves)state.getBlock()).getStage()),Utilities.rint(1,((FruitableLeaves)state.getBlock()).getMaxStages()));
+        if (state.getBlock() == WNBlocks.MAGNOLIA_LEAVES || state.getBlock() == WNBlocks.FORSYTHIA_LEAVES || Utilities.rint(0, 10) == 0) {
+            if (state.getBlock() instanceof FloweringLeaves) {
+                state = state.with(FloweringLeaves.FLOWERING, true);
+            } else if (state.getBlock() instanceof FruitableLeaves) {
+                state = state.with((((FruitableLeaves) state.getBlock()).getStage()), Utilities.rint(1, ((FruitableLeaves) state.getBlock()).getMaxStages()));
             }
         }
-        if(!virtualPlace) {
-            if((isLeaf(state.getBlock()) && !world.getBlockState(pos).isSolid()) || !isLeaf(state.getBlock())) {
+        if (!virtualPlace) {
+            if ((isLeaf(state.getBlock()) && !world.getBlockState(pos).isSolid()) || !isLeaf(state.getBlock())) {
                 world.setBlockState(pos, state, 19);
             }
         }
-        if((isLeaf(state.getBlock()) && !world.getBlockState(pos).isSolid()) || !isLeaf(state.getBlock())) {
+        if ((isLeaf(state.getBlock()) && !world.getBlockState(pos).isSolid()) || !isLeaf(state.getBlock())) {
             addedBlocks.add(pos);
         }
 
     }
 
 
-
-    public void Block(int x, int y, int z, String s){
+    public void Block(int x, int y, int z, String s) {
         try {
             BlockState bs = BlockStateArgument.blockState().parse(new StringReader(s)).getState();
-            Block(x,y,z,bs);
+            Block(x, y, z, bs);
 
             return;
         } catch (CommandSyntaxException e) {
-
         }
     }
 
-    public void workWithTerrain(){
-        if(bottomBlocks==null){
+    public void workWithTerrain() {
+        if (bottomBlocks == null) {
             return;
         }
 
         int x = 0;
         BlockPos down = null;
-        while(x<addedBlocks.size()){
-            if(down==null){
+        while (x < addedBlocks.size()) {
+            if (down == null) {
                 down = addedBlocks.get(x);
             }
-            if(addedBlocks.get(x).getY()<down.getY()){
+            if (addedBlocks.get(x).getY() < down.getY()) {
                 down = addedBlocks.get(x);
             }
             x++;
         }
 
         x = 0;
-        while(x<addedBlocks.size()){
-            if(addedBlocks.get(x).getY()==down.getY()+1){
-                bottomBlocks.add(downBlock(addedBlocks.get(x),1));
+        while (x < addedBlocks.size()) {
+            if (addedBlocks.get(x).getY() == down.getY() + 1) {
+                bottomBlocks.add(downBlock(addedBlocks.get(x), 1));
             }
             x++;
         }
 
-        //Main.LOGGER.debug("BottomBlocks: " + bottomBlocks.size() + " \n " + bottomBlocks.toString());
-
-        if(bottomBlocks.size()!=0 && bottomBlocks.size()!=1) {
+        if (bottomBlocks.size() != 0 && bottomBlocks.size() != 1) {
             for (int i = 0; i < 10; i++) {
                 boolean allSolid = true;
                 for (int a = 0; a < bottomBlocks.size(); a++) {
@@ -224,16 +223,21 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
         bottomBlocks.clear();
     }
 
-    private BlockPos downBlock(BlockPos blockPos, int down){
-        return new BlockPos(blockPos.getX(),blockPos.getY()-down,blockPos.getZ());
+    private BlockPos downBlock(BlockPos blockPos, int down) {
+        return new BlockPos(blockPos.getX(), blockPos.getY() - down, blockPos.getZ());
     }
 
-    public static class BlockStatePos{
+    private boolean isLeaf(Block b) {
+        return b instanceof LeavesBlock;
+    }
+
+    public static class BlockStatePos {
         private BlockState state;
         private BlockPos pos;
-        public BlockStatePos(BlockState state, BlockPos pos){
-            this.state=state;
-            this.pos=pos;
+
+        public BlockStatePos(BlockState state, BlockPos pos) {
+            this.state = state;
+            this.pos = pos;
         }
 
         public BlockPos getPos() {
@@ -243,10 +247,6 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
         public BlockState getState() {
             return state;
         }
-    }
-
-    private boolean isLeaf(Block b){
-        return b instanceof LeavesBlock;
     }
 
 }

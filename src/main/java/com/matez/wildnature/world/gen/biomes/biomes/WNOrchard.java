@@ -1,26 +1,28 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
+import com.matez.wildnature.Main;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
+import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.feature.CaveVineFeature;
-import com.matez.wildnature.world.gen.feature.WNTreeVinesFeature;
-import com.matez.wildnature.world.gen.feature.WNVinesFeature;
+import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
+import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
+import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.feature.features.WNTreeVinesFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak1;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak2;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak3;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak5;
-import com.matez.wildnature.Main;
-import com.matez.wildnature.blocks.FloweringBushBase;
-import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
-import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
-import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.orchard.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.BushConfig;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.placement.CountRangeConfig;
@@ -64,42 +66,31 @@ public class WNOrchard extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        //this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new VinesFeature(BushConfig::deserialize),new BushConfig(WNBlocks.GRAPE_VINE_PURPLE.getDefaultState()), Placement.COUNT_HEIGHT_64, new FrequencyConfig(10)));
-        //this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new VinesFeature(BushConfig::deserialize),new BushConfig(WNBlocks.GRAPE_VINE_YELLOW.getDefaultState()), Placement.COUNT_HEIGHT_64, new FrequencyConfig(20)));
 
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_purple").getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:pasque_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GERANIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GERANIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GERANIUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.MARIGOLD_ORANGE.getDefaultState(),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.HOLLYHOCK_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
 
 
-        //WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:apple_leaves"))),2);
-        //WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pear_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new oak1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oak2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oak3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new tree_oak5(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:oak_leaves"))),4);
-        WNBiomeFeatures.addTree(this,new apple1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new apple2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new apple3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pear1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pear2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pear3(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new oak1(),1);
+        WNBiomeFeatures.addTree(this,new oak2(),1);
+        WNBiomeFeatures.addTree(this,new oak3(),1);
+        WNBiomeFeatures.addTree(this,new tree_oak5().setCustomLog(Main.getBlockByID("minecraft:oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:oak_leaves"))),4);
+        WNBiomeFeatures.addTree(this,new apple1(),1);
+        WNBiomeFeatures.addTree(this,new apple2(),1);
+        WNBiomeFeatures.addTree(this,new apple3(),1);
+        WNBiomeFeatures.addTree(this,new pear1(),1);
+        WNBiomeFeatures.addTree(this,new pear2(),1);
+        WNBiomeFeatures.addTree(this,new pear3(),1);
 
-        this.addFeature(GenerationStage.Decoration.TOP_LAYER_MODIFICATION, Biome.createDecoratedFeature(new WNTreeVinesFeature(BushConfig::deserialize), new BushConfig(WNBlocks.GRAPE_VINE_YELLOW.getDefaultState()), Placement.COUNT_RANGE, new CountRangeConfig(1, 65, 0, 80)));
+        WNBiomeFeatures.addTreeVines(this,WNBlocks.GRAPE_VINE_YELLOW.getDefaultState(),1,80);
 
 
-        /*
-         WNBiomeFeatures.addTree(this,new tree_oak2(NoFeatureConfig::deserialize,true,Crack.getBlockByID("wildnature:apple_log").getDefaultState(),tree_birch1.notDecayingLeaf(Crack.getBlockByID("wildnature:apple_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_oak5(NoFeatureConfig::deserialize,true,Crack.getBlockByID("wildnature:apple_log").getDefaultState(),tree_birch1.notDecayingLeaf(Crack.getBlockByID("wildnature:apple_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_oak4(NoFeatureConfig::deserialize,true,Crack.getBlockByID("wildnature:pear_log").getDefaultState(),tree_birch1.notDecayingLeaf(Crack.getBlockByID("wildnature:pear_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_oak5(NoFeatureConfig::deserialize,true,Crack.getBlockByID("minecraft:oak_log").getDefaultState(),tree_birch1.notDecayingLeaf(Crack.getBlockByID("minecraft:oak_leaves"))),1);
-
-         */
         treeRate=5;
 
-        //applyPlants();
+        applyPlants();
         applyTrees();
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));

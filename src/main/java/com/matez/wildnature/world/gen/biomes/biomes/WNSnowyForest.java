@@ -1,9 +1,10 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.CustomSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -18,7 +19,9 @@ import com.matez.wildnature.world.gen.structures.nature.woods.pine.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga17;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga5;
-import com.matez.wildnature.world.gen.structures.nature.woods.pine.*;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.CustomSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.configs.CustomSurfaceBuilderConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -26,7 +29,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
@@ -36,7 +38,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNSnowyForest extends WNBiome {
     public WNSnowyForest(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new CustomSurfaceBuilder(new CustomSurfaceBuilder.BlockCfg(WNSurfaceBuilders.BROWN_CONFIG,3),new CustomSurfaceBuilder.BlockCfg(WNSurfaceBuilders.BROWN_PODZOL_CONFIG,1)), SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_CONFIG,3),new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_PODZOL_CONFIG,1)))
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -68,33 +70,33 @@ public class WNSnowyForest extends WNBiome {
         WNBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.addFreezeTopLayer(this);
 
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:heather_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:yew_bush").getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:pasque_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:clover").getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:leaf_pile").getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.YEW_BUSH.getDefaultState(),4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
 
 
-        WNBiomeFeatures.addTree(this,new tree_pine1(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:spruce_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_pine2(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:spruce_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_pine3(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:spruce_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_pine4(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:spruce_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_pine5(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:spruce_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_pine6(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:spruce_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_pine1(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:spruce_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_birch1(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:oak_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:poplar_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_birch10(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:birch_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:aspen_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_birch3(NoFeatureConfig::deserialize,true, Blocks.BIRCH_LOG.getDefaultState(),tree_birch1.notDecayingLeaf(Blocks.BIRCH_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new tree_birch4(NoFeatureConfig::deserialize,true, Blocks.BIRCH_LOG.getDefaultState(),tree_birch1.notDecayingLeaf(Blocks.BIRCH_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new tree_taiga5(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:spruce_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:fir_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_taiga17(NoFeatureConfig::deserialize,true,Main.getBlockByID("minecraft:spruce_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:fir_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_oak15(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(),tree_birch1.notDecayingLeaf(Blocks.OAK_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new tree_oak24(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(),tree_birch1.notDecayingLeaf(Blocks.OAK_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new tree_oak28(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(),tree_birch1.notDecayingLeaf(Blocks.OAK_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new tree_pine1().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new tree_pine2().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new tree_pine3().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new tree_pine4().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new tree_pine5().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new tree_pine6().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new tree_pine1().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new tree_birch1().setCustomLog(Main.getBlockByID("minecraft:oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:poplar_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new tree_birch10().setCustomLog(Main.getBlockByID("minecraft:birch_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:aspen_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new tree_birch3().setCustomLog( Blocks.BIRCH_LOG.getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Blocks.BIRCH_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new tree_birch4().setCustomLog( Blocks.BIRCH_LOG.getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Blocks.BIRCH_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new tree_taiga5().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:fir_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new tree_taiga17().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:fir_leaves"))),2);
+        WNBiomeFeatures.addTree(this,new tree_oak15().setCustomLog( Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Blocks.OAK_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new tree_oak24().setCustomLog( Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Blocks.OAK_LEAVES)),1);
+        WNBiomeFeatures.addTree(this,new tree_oak28().setCustomLog( Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Blocks.OAK_LEAVES)),1);
 
 
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),10);
+        WNBiomeFeatures.addTree(this,new shrub1(),10);
 
         treeRate=18;
 

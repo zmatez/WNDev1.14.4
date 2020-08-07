@@ -65,379 +65,379 @@ public class SaplingRegistry {
 
     public SaplingRegistry(){
         TreeWeighList weighList = new TreeWeighList();
-        weighList.add(new apple1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new apple2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new apple3(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new apple1(),10);
+        weighList.add(new apple2(),10);
+        weighList.add(new apple3(),10);
         Tree appleTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new oak1(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PARADISE_APPLE_LEAVES)),10);
-        weighList.add(new oak2(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PARADISE_APPLE_LEAVES)),10);
-        weighList.add(new oak3(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PARADISE_APPLE_LEAVES)),10);
+        weighList.add(new oak1().setCustomLog(Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PARADISE_APPLE_LEAVES)),10);
+        weighList.add(new oak2().setCustomLog(Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PARADISE_APPLE_LEAVES)),10);
+        weighList.add(new oak3().setCustomLog(Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PARADISE_APPLE_LEAVES)),10);
         Tree paradiseAppleTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new tree_birch11(NoFeatureConfig::deserialize,false,Blocks.BIRCH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.ASPEN_LEAVES)),10);
-        weighList.add(new tree_birch12(NoFeatureConfig::deserialize,false,Blocks.BIRCH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.ASPEN_LEAVES)),10);
-        weighList.add(new tree_birch10(NoFeatureConfig::deserialize,false,Blocks.BIRCH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.ASPEN_LEAVES)),5);
+        weighList.add(new tree_birch11().setCustomLog(Blocks.BIRCH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.ASPEN_LEAVES)),10);
+        weighList.add(new tree_birch12().setCustomLog(Blocks.BIRCH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.ASPEN_LEAVES)),10);
+        weighList.add(new tree_birch10().setCustomLog(Blocks.BIRCH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.ASPEN_LEAVES)),5);
 
         Tree aspenTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new baobab1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new baobab2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new baobab3(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new baobab4(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new baobab5(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new baobab1(),10);
+        weighList.add(new baobab2(),10);
+        weighList.add(new baobab3(),10);
+        weighList.add(new baobab4(),10);
+        weighList.add(new baobab5(),10);
 
 
         Tree baobabTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new beech1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new beech2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new beech3(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new beech4(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new beech5(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new beech6(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new beech7(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new beech8(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new beech9(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new beech10(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new beech11(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new beech12(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new beech1(),10);
+        weighList.add(new beech2(),10);
+        weighList.add(new beech3(),10);
+        weighList.add(new beech4(),10);
+        weighList.add(new beech5(),10);
+        weighList.add(new beech6(),10);
+        weighList.add(new beech7(),10);
+        weighList.add(new beech8(),10);
+        weighList.add(new beech9(),10);
+        weighList.add(new beech10(),10);
+        weighList.add(new beech11(),10);
+        weighList.add(new beech12(),10);
         Tree beechTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new leafy_beech_1(NoFeatureConfig::deserialize,true,null,SchemFeature.notDecayingLeaf(WNBlocks.PURPLE_BEECH_LEAVES)),10);
-        weighList.add(new leafy_beech_2(NoFeatureConfig::deserialize,true,null,SchemFeature.notDecayingLeaf(WNBlocks.PURPLE_BEECH_LEAVES)),10);
-        weighList.add(new leafy_beech_3(NoFeatureConfig::deserialize,true,null,SchemFeature.notDecayingLeaf(WNBlocks.PURPLE_BEECH_LEAVES)),10);
+        weighList.add(new leafy_beech_1().setCustomLog(WNBlocks.BEECH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PURPLE_BEECH_LEAVES)),10);
+        weighList.add(new leafy_beech_2().setCustomLog(WNBlocks.BEECH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PURPLE_BEECH_LEAVES)),10);
+        weighList.add(new leafy_beech_3().setCustomLog(WNBlocks.BEECH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PURPLE_BEECH_LEAVES)),10);
         Tree purpleBeechTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new cedar1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new cedar2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new cedar3(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new cedar4(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new cedar5(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new cedar6(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new cedar7(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new cedar8(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new cedar1(),10);
+        weighList.add(new cedar2(),10);
+        weighList.add(new cedar3(),10);
+        weighList.add(new cedar4(),10);
+        weighList.add(new cedar5(),10);
+        weighList.add(new cedar6(),10);
+        weighList.add(new cedar7(),10);
+        weighList.add(new cedar8(),10);
 
 
         Tree cedarTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new cherry1(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_LEAVES)),10);
-        weighList.add(new cherry2(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_LEAVES)),10);
-        weighList.add(new cherry3(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_LEAVES)),10);
-        weighList.add(new cherry4(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_LEAVES)),10);
-        weighList.add(new tree_oak2(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_LEAVES)),10);
-        weighList.add(new tree_oak5(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_LEAVES)),10);
+        weighList.add(new cherry1().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_LEAVES)),10);
+        weighList.add(new cherry2().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_LEAVES)),10);
+        weighList.add(new cherry3().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_LEAVES)),10);
+        weighList.add(new cherry4().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_LEAVES)),10);
+        weighList.add(new tree_oak2().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_LEAVES)),10);
+        weighList.add(new tree_oak5().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_LEAVES)),10);
         Tree cherryTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new cherry1(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_PINK_LEAVES)),10);
-        weighList.add(new cherry2(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_PINK_LEAVES)),10);
-        weighList.add(new cherry3(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_PINK_LEAVES)),10);
-        weighList.add(new cherry4(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_PINK_LEAVES)),10);
-        weighList.add(new tree_oak2(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_PINK_LEAVES)),10);
-        weighList.add(new tree_oak5(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_PINK_LEAVES)),10);
+        weighList.add(new cherry1().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_PINK_LEAVES)),10);
+        weighList.add(new cherry2().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_PINK_LEAVES)),10);
+        weighList.add(new cherry3().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_PINK_LEAVES)),10);
+        weighList.add(new cherry4().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_PINK_LEAVES)),10);
+        weighList.add(new tree_oak2().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_PINK_LEAVES)),10);
+        weighList.add(new tree_oak5().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_PINK_LEAVES)),10);
         Tree cherryPinkTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new cherry1(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_WHITE_LEAVES)),10);
-        weighList.add(new cherry2(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_WHITE_LEAVES)),10);
-        weighList.add(new cherry3(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_WHITE_LEAVES)),10);
-        weighList.add(new cherry4(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_WHITE_LEAVES)),10);
-        weighList.add(new tree_oak2(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_WHITE_LEAVES)),10);
-        weighList.add(new tree_oak5(NoFeatureConfig::deserialize,false, WNBlocks.CHERRY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_WHITE_LEAVES)),10);
+        weighList.add(new cherry1().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_WHITE_LEAVES)),10);
+        weighList.add(new cherry2().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_WHITE_LEAVES)),10);
+        weighList.add(new cherry3().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_WHITE_LEAVES)),10);
+        weighList.add(new cherry4().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_WHITE_LEAVES)),10);
+        weighList.add(new tree_oak2().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_WHITE_LEAVES)),10);
+        weighList.add(new tree_oak5().setCustomLog( WNBlocks.CHERRY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.CHERRY_WHITE_LEAVES)),10);
 
         Tree cherryWhiteTrees = new SchemTree(weighList);
 
         weighList = new TreeWeighList();
 
-        weighList.add(new ebony1(NoFeatureConfig::deserialize,false, WNBlocks.EBONY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.EBONY_LEAVES)),10);
-        weighList.add(new ebony2(NoFeatureConfig::deserialize,false, WNBlocks.EBONY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.EBONY_LEAVES)),10);
-        weighList.add(new ebony3(NoFeatureConfig::deserialize,false, WNBlocks.EBONY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.EBONY_LEAVES)),10);
-        weighList.add(new ebony4(NoFeatureConfig::deserialize,false, WNBlocks.EBONY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.EBONY_LEAVES)),10);
+        weighList.add(new ebony1().setCustomLog( WNBlocks.EBONY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.EBONY_LEAVES)),10);
+        weighList.add(new ebony2().setCustomLog( WNBlocks.EBONY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.EBONY_LEAVES)),10);
+        weighList.add(new ebony3().setCustomLog( WNBlocks.EBONY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.EBONY_LEAVES)),10);
+        weighList.add(new ebony4().setCustomLog( WNBlocks.EBONY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.EBONY_LEAVES)),10);
 
         Tree ebonyTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new eucalyptus_1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new eucalyptus_2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new eucalyptus_3(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new eucalyptus_4(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new eucalyptus_5(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new eucalyptus_6(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new eucalyptus_7(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new eucalyptus_8(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new eucalyptus_9(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new eucalyptus_10(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new eucalyptus_1(),10);
+        weighList.add(new eucalyptus_2(),10);
+        weighList.add(new eucalyptus_3(),10);
+        weighList.add(new eucalyptus_4(),10);
+        weighList.add(new eucalyptus_5(),10);
+        weighList.add(new eucalyptus_6(),10);
+        weighList.add(new eucalyptus_7(),10);
+        weighList.add(new eucalyptus_8(),10);
+        weighList.add(new eucalyptus_9(),10);
+        weighList.add(new eucalyptus_10(),10);
 
 
         Tree eucalyptusTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_taiga14(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
-        weighList.add(new tree_taiga15(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
-        weighList.add(new tree_taiga16(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
-        weighList.add(new tree_taiga17(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
-        weighList.add(new tree_taiga18(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
-        weighList.add(new tree_fir1(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
-        weighList.add(new tree_fir9(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
-        weighList.add(new tree_fir18(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),2);
+        weighList.add(new tree_taiga14().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
+        weighList.add(new tree_taiga15().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
+        weighList.add(new tree_taiga16().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
+        weighList.add(new tree_taiga17().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
+        weighList.add(new tree_taiga18().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
+        weighList.add(new tree_fir1().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
+        weighList.add(new tree_fir9().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),10);
+        weighList.add(new tree_fir18().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.FIR_LEAVES)),2);
 
 
         Tree firTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new silver_fir1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new silver_fir2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new silver_fir3(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new silver_fir4(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new silver_fir1(),10);
+        weighList.add(new silver_fir2(),10);
+        weighList.add(new silver_fir3(),10);
+        weighList.add(new silver_fir4(),10);
 
 
         Tree firSilverTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new hazel1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new hazel2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new hazel3(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new hazel4(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new hazel1(),10);
+        weighList.add(new hazel2(),10);
+        weighList.add(new hazel3(),10);
+        weighList.add(new hazel4(),10);
 
 
         Tree hazelTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_hornbeam1(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),10);
-        weighList.add(new tree_hornbeam3(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),10);
-        weighList.add(new tree_hornbeam5(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),10);
-        weighList.add(new tree_hornbeam7(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),10);
+        weighList.add(new tree_hornbeam1().setCustomLog(Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),10);
+        weighList.add(new tree_hornbeam3().setCustomLog(Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),10);
+        weighList.add(new tree_hornbeam5().setCustomLog(Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),10);
+        weighList.add(new tree_hornbeam7().setCustomLog(Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),10);
         Tree hornbeamTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new jacaranda1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new jacaranda2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new jacaranda3(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new jacaranda4(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new jacaranda1(),10);
+        weighList.add(new jacaranda2(),10);
+        weighList.add(new jacaranda3(),10);
+        weighList.add(new jacaranda4(),10);
         Tree jacarandaTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_larch1(NoFeatureConfig::deserialize,false, WNBlocks.LARCH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
-        weighList.add(new tree_larch2(NoFeatureConfig::deserialize,false, WNBlocks.LARCH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
-        weighList.add(new tree_larch3(NoFeatureConfig::deserialize,false, WNBlocks.LARCH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
-        weighList.add(new tree_larch5(NoFeatureConfig::deserialize,false, WNBlocks.LARCH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
-        weighList.add(new tree_larch6(NoFeatureConfig::deserialize,false, WNBlocks.LARCH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
-        weighList.add(new tree_larch7(NoFeatureConfig::deserialize,false, WNBlocks.LARCH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
-        weighList.add(new tree_larch8(NoFeatureConfig::deserialize,false, WNBlocks.LARCH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
-        weighList.add(new tree_larch9(NoFeatureConfig::deserialize,false, WNBlocks.LARCH_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
+        weighList.add(new tree_larch1().setCustomLog( WNBlocks.LARCH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
+        weighList.add(new tree_larch2().setCustomLog( WNBlocks.LARCH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
+        weighList.add(new tree_larch3().setCustomLog( WNBlocks.LARCH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
+        weighList.add(new tree_larch5().setCustomLog( WNBlocks.LARCH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
+        weighList.add(new tree_larch6().setCustomLog( WNBlocks.LARCH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
+        weighList.add(new tree_larch7().setCustomLog( WNBlocks.LARCH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
+        weighList.add(new tree_larch8().setCustomLog( WNBlocks.LARCH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
+        weighList.add(new tree_larch9().setCustomLog( WNBlocks.LARCH_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.LARCH_LEAVES)),10);
 
 
         Tree larchTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new mahogany1(NoFeatureConfig::deserialize,true, WNBlocks.MAHOGANY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAHOGANY_LEAVES)),10);
-        weighList.add(new mahogany2(NoFeatureConfig::deserialize,true, WNBlocks.MAHOGANY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAHOGANY_LEAVES)),10);
-        weighList.add(new mahogany3(NoFeatureConfig::deserialize,true, WNBlocks.MAHOGANY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAHOGANY_LEAVES)),10);
-        weighList.add(new mahogany4(NoFeatureConfig::deserialize,true, WNBlocks.MAHOGANY_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAHOGANY_LEAVES)),10);
+        weighList.add(new mahogany1().setCustomLog(WNBlocks.MAHOGANY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAHOGANY_LEAVES)),10);
+        weighList.add(new mahogany2().setCustomLog(WNBlocks.MAHOGANY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAHOGANY_LEAVES)),10);
+        weighList.add(new mahogany3().setCustomLog(WNBlocks.MAHOGANY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAHOGANY_LEAVES)),10);
+        weighList.add(new mahogany4().setCustomLog(WNBlocks.MAHOGANY_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAHOGANY_LEAVES)),10);
 
         Tree mahoganyTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new mangrove1(NoFeatureConfig::deserialize,false, WNBlocks.MANGROVE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MANGROVE_LEAVES)),10);
-        weighList.add(new mangrove2(NoFeatureConfig::deserialize,false, WNBlocks.MANGROVE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MANGROVE_LEAVES)),10);
-        weighList.add(new mangrove3(NoFeatureConfig::deserialize,false, WNBlocks.MANGROVE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MANGROVE_LEAVES)),10);
-        weighList.add(new mangrove4(NoFeatureConfig::deserialize,false, WNBlocks.MANGROVE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MANGROVE_LEAVES)),10);
-        weighList.add(new mangrove5(NoFeatureConfig::deserialize,false, WNBlocks.MANGROVE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MANGROVE_LEAVES)),10);
+        weighList.add(new mangrove1().setCustomLog( WNBlocks.MANGROVE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MANGROVE_LEAVES)),10);
+        weighList.add(new mangrove2().setCustomLog( WNBlocks.MANGROVE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MANGROVE_LEAVES)),10);
+        weighList.add(new mangrove3().setCustomLog( WNBlocks.MANGROVE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MANGROVE_LEAVES)),10);
+        weighList.add(new mangrove4().setCustomLog( WNBlocks.MANGROVE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MANGROVE_LEAVES)),10);
+        weighList.add(new mangrove5().setCustomLog( WNBlocks.MANGROVE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MANGROVE_LEAVES)),10);
 
         Tree mangroveTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_oak8(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_LEAVES)),10);
-        weighList.add(new tree_oak9(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_LEAVES)),10);
-        weighList.add(new tree_oak10(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_LEAVES)),10);
-        weighList.add(new tree_oak11(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_LEAVES)),10);
+        weighList.add(new tree_oak8().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_LEAVES)),10);
+        weighList.add(new tree_oak9().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_LEAVES)),10);
+        weighList.add(new tree_oak10().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_LEAVES)),10);
+        weighList.add(new tree_oak11().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_LEAVES)),10);
 
 
         Tree mapleTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_oak8(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_RED_LEAVES)),10);
-        weighList.add(new tree_oak9(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_RED_LEAVES)),10);
-        weighList.add(new tree_oak10(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_RED_LEAVES)),10);
-        weighList.add(new tree_oak11(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_RED_LEAVES)),10);
+        weighList.add(new tree_oak8().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_RED_LEAVES)),10);
+        weighList.add(new tree_oak9().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_RED_LEAVES)),10);
+        weighList.add(new tree_oak10().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_RED_LEAVES)),10);
+        weighList.add(new tree_oak11().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_RED_LEAVES)),10);
 
 
         Tree mapleRedTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_oak8(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_ORANGE_LEAVES)),10);
-        weighList.add(new tree_oak9(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_ORANGE_LEAVES)),10);
-        weighList.add(new tree_oak10(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_ORANGE_LEAVES)),10);
-        weighList.add(new tree_oak11(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_ORANGE_LEAVES)),10);
+        weighList.add(new tree_oak8().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_ORANGE_LEAVES)),10);
+        weighList.add(new tree_oak9().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_ORANGE_LEAVES)),10);
+        weighList.add(new tree_oak10().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_ORANGE_LEAVES)),10);
+        weighList.add(new tree_oak11().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_ORANGE_LEAVES)),10);
 
 
         Tree mapleOrangeTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_oak8(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_YELLOW_LEAVES)),10);
-        weighList.add(new tree_oak9(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_YELLOW_LEAVES)),10);
-        weighList.add(new tree_oak10(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_YELLOW_LEAVES)),10);
-        weighList.add(new tree_oak11(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_YELLOW_LEAVES)),10);
+        weighList.add(new tree_oak8().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_YELLOW_LEAVES)),10);
+        weighList.add(new tree_oak9().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_YELLOW_LEAVES)),10);
+        weighList.add(new tree_oak10().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_YELLOW_LEAVES)),10);
+        weighList.add(new tree_oak11().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_YELLOW_LEAVES)),10);
 
 
         Tree mapleYellowTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_oak8(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_BROWN_LEAVES)),10);
-        weighList.add(new tree_oak9(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_BROWN_LEAVES)),10);
-        weighList.add(new tree_oak10(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_BROWN_LEAVES)),10);
-        weighList.add(new tree_oak11(NoFeatureConfig::deserialize,false, WNBlocks.MAPLE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_BROWN_LEAVES)),10);
+        weighList.add(new tree_oak8().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_BROWN_LEAVES)),10);
+        weighList.add(new tree_oak9().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_BROWN_LEAVES)),10);
+        weighList.add(new tree_oak10().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_BROWN_LEAVES)),10);
+        weighList.add(new tree_oak11().setCustomLog( WNBlocks.MAPLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MAPLE_BROWN_LEAVES)),10);
 
 
         Tree mapleBrownTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_palm1(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm2(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm3(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm4(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm5(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm6(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm7(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm8(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm9(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm10(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm11(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm12(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm13(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm14(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm15(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm16(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
-        weighList.add(new tree_palm17(NoFeatureConfig::deserialize,false, WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm1().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm2().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm3().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm4().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm5().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm6().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm7().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm8().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm9().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm10().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm11().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm12().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm13().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm14().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm15().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm16().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
+        weighList.add(new tree_palm17().setCustomLog( WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PALM_LEAVES)),10);
 
         Tree palmTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new pear1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new pear2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new pear3(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new pear1(),10);
+        weighList.add(new pear2(),10);
+        weighList.add(new pear3(),10);
         Tree pearTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_pine1(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),10);
-        weighList.add(new tree_pine2(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),10);
-        weighList.add(new tree_pine3(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),10);
-        weighList.add(new tree_pine4(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),10);
-        weighList.add(new tree_pine5(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),10);
-        weighList.add(new tree_pine6(NoFeatureConfig::deserialize,false,Blocks.SPRUCE_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),10);
+        weighList.add(new tree_pine1().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),10);
+        weighList.add(new tree_pine2().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),10);
+        weighList.add(new tree_pine3().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),10);
+        weighList.add(new tree_pine4().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),10);
+        weighList.add(new tree_pine5().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),10);
+        weighList.add(new tree_pine6().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),10);
 
         Tree pineTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_oak22(NoFeatureConfig::deserialize,false, WNBlocks.PLUM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PLUM_LEAVES)),10);
-        weighList.add(new tree_oak5(NoFeatureConfig::deserialize,false, WNBlocks.PLUM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PLUM_LEAVES)),10);
+        weighList.add(new tree_oak22().setCustomLog( WNBlocks.PLUM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PLUM_LEAVES)),10);
+        weighList.add(new tree_oak5().setCustomLog( WNBlocks.PLUM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PLUM_LEAVES)),10);
 
         Tree plumTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_oak22(NoFeatureConfig::deserialize,false, WNBlocks.PLUM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MIRABELLE_PLUM_LEAVES)),10);
-        weighList.add(new tree_oak5(NoFeatureConfig::deserialize,false, WNBlocks.PLUM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MIRABELLE_PLUM_LEAVES)),10);
+        weighList.add(new tree_oak22().setCustomLog( WNBlocks.PLUM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MIRABELLE_PLUM_LEAVES)),10);
+        weighList.add(new tree_oak5().setCustomLog( WNBlocks.PLUM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MIRABELLE_PLUM_LEAVES)),10);
 
         Tree mirabellePlumTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_birch10(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.POPLAR_LEAVES)),10);
+        weighList.add(new tree_birch10().setCustomLog(Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.POPLAR_LEAVES)),10);
 
         Tree poplarTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_redwood1(NoFeatureConfig::deserialize,false, WNBlocks.REDWOOD_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.REDWOOD_LEAVES)),10);
-        weighList.add(new tree_redwood2(NoFeatureConfig::deserialize,false, WNBlocks.REDWOOD_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.REDWOOD_LEAVES)),10);
-        weighList.add(new tree_redwood3(NoFeatureConfig::deserialize,false, WNBlocks.REDWOOD_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.REDWOOD_LEAVES)),10);
-        weighList.add(new tree_redwood4(NoFeatureConfig::deserialize,false, WNBlocks.REDWOOD_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.REDWOOD_LEAVES)),10);
+        weighList.add(new tree_redwood1().setCustomLog( WNBlocks.REDWOOD_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.REDWOOD_LEAVES)),10);
+        weighList.add(new tree_redwood2().setCustomLog( WNBlocks.REDWOOD_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.REDWOOD_LEAVES)),10);
+        weighList.add(new tree_redwood3().setCustomLog( WNBlocks.REDWOOD_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.REDWOOD_LEAVES)),10);
+        weighList.add(new tree_redwood4().setCustomLog( WNBlocks.REDWOOD_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.REDWOOD_LEAVES)),10);
 
         Tree redwoodTrees = new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new tree_oak18(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.ROWAN_LEAVES_RED)),10);
-        weighList.add(new tree_oak19(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.ROWAN_LEAVES_RED)),10);
+        weighList.add(new tree_oak18().setCustomLog(Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.ROWAN_LEAVES_RED)),10);
+        weighList.add(new tree_oak19().setCustomLog(Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.ROWAN_LEAVES_RED)),10);
         Tree rowanTreesRed = new SchemTree(weighList);
 
-        weighList.add(new tree_oak18(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.ROWAN_LEAVES_ORANGE)),10);
-        weighList.add(new tree_oak19(NoFeatureConfig::deserialize,false,Blocks.OAK_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.ROWAN_LEAVES_ORANGE)),10);
+        weighList.add(new tree_oak18().setCustomLog(Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.ROWAN_LEAVES_ORANGE)),10);
+        weighList.add(new tree_oak19().setCustomLog(Blocks.OAK_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.ROWAN_LEAVES_ORANGE)),10);
         Tree rowanTreesOrange = new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new tree_willow1(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
-        weighList.add(new tree_willow2(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
-        weighList.add(new tree_willow3(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
-        weighList.add(new tree_willow4(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
-        weighList.add(new tree_willow5(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
-        weighList.add(new tree_willow6(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
-        weighList.add(new tree_willow7(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
-        weighList.add(new tree_willow8(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
-        weighList.add(new tree_willow9(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
-        weighList.add(new tree_willow10(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
-        weighList.add(new tree_willow11(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
-        weighList.add(new tree_willow12(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
-        weighList.add(new tree_willow13(NoFeatureConfig::deserialize,false,WNBlocks.WILLOW_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow1().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow2().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow3().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow4().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow5().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow6().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow7().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow8().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow9().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow10().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow11().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow12().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
+        weighList.add(new tree_willow13().setCustomLog(WNBlocks.WILLOW_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.WILLOW_LEAVES)),10);
         Tree willowTrees = new SchemTree(weighList);
 
         //CITRUS
         weighList = new TreeWeighList();
-        weighList.add(new citrus1(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LEMON_LEAVES)),10);
-        weighList.add(new citrus2(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LEMON_LEAVES)),10);
+        weighList.add(new citrus1().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.LEMON_LEAVES)),10);
+        weighList.add(new citrus2().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.LEMON_LEAVES)),10);
         Tree lemonTrees= new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new citrus1(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.ORANGE_LEAVES)),10);
-        weighList.add(new citrus3(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.ORANGE_LEAVES)),10);
+        weighList.add(new citrus1().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.ORANGE_LEAVES)),10);
+        weighList.add(new citrus3().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.ORANGE_LEAVES)),10);
 
         Tree orangeTrees= new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new citrus2(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
-        weighList.add(new citrus4(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new citrus2().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
+        weighList.add(new citrus4().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),10);
         Tree grapefruitTrees= new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new banana1(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.BANANA_LEAVES)),10);
-        weighList.add(new banana2(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.BANANA_LEAVES)),10);
-        weighList.add(new banana3(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.BANANA_LEAVES)),10);
-        weighList.add(new banana4(NoFeatureConfig::deserialize,false,WNBlocks.PALM_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.BANANA_LEAVES)),10);
+        weighList.add(new banana1().setCustomLog(WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.BANANA_LEAVES)),10);
+        weighList.add(new banana2().setCustomLog(WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.BANANA_LEAVES)),10);
+        weighList.add(new banana3().setCustomLog(WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.BANANA_LEAVES)),10);
+        weighList.add(new banana4().setCustomLog(WNBlocks.PALM_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.BANANA_LEAVES)),10);
 
         Tree bananaTrees= new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new citrus1(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LIME_LEAVES)),10);
-        weighList.add(new citrus2(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.LIME_LEAVES)),10);
+        weighList.add(new citrus1().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.LIME_LEAVES)),10);
+        weighList.add(new citrus2().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.LIME_LEAVES)),10);
 
         Tree limeTrees= new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new olive1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new olive2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new olive3(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new olive4(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new olive1(),10);
+        weighList.add(new olive2(),10);
+        weighList.add(new olive3(),10);
+        weighList.add(new olive4(),10);
         Tree oliveTrees= new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new citrus1(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PEACH_LEAVES)),10);
-        weighList.add(new citrus3(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.PEACH_LEAVES)),10);
+        weighList.add(new citrus1().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PEACH_LEAVES)),10);
+        weighList.add(new citrus3().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PEACH_LEAVES)),10);
 
         Tree peachTrees= new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new citrus3(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)),10);
-        weighList.add(new citrus4(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)),10);
+        weighList.add(new citrus3().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)),10);
+        weighList.add(new citrus4().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)),10);
 
         Tree pomegranateTrees= new SchemTree(weighList);
         weighList = new TreeWeighList();
 
-        weighList.add(new citrus1(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MANGO_LEAVES)),10);
-        weighList.add(new citrus2(NoFeatureConfig::deserialize,false,WNBlocks.CITRUS_LOG.getDefaultState(),SchemFeature.notDecayingLeaf(WNBlocks.MANGO_LEAVES)),10);
+        weighList.add(new citrus1().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MANGO_LEAVES)),10);
+        weighList.add(new citrus2().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.MANGO_LEAVES)),10);
 
         Tree mangoTrees= new SchemTree(weighList);
 
-        weighList.add(new nuytsia1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new nuytsia2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new nuytsia3(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new nuytsia4(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new nuytsia5(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new nuytsia6(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new nuytsia1(),10);
+        weighList.add(new nuytsia2(),10);
+        weighList.add(new nuytsia3(),10);
+        weighList.add(new nuytsia4(),10);
+        weighList.add(new nuytsia5(),10);
+        weighList.add(new nuytsia6(),10);
         Tree nuytsiaTrees= new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new magnolia1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new magnolia2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new magnolia3(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new magnolia4(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new magnolia5(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new magnolia1(),10);
+        weighList.add(new magnolia2(),10);
+        weighList.add(new magnolia3(),10);
+        weighList.add(new magnolia4(),10);
+        weighList.add(new magnolia5(),10);
         Tree magnoliaTrees= new SchemTree(weighList);
         weighList = new TreeWeighList();
-        weighList.add(new forsythia1(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new forsythia2(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new forsythia3(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new forsythia4(NoFeatureConfig::deserialize,false),10);
-        weighList.add(new forsythia5(NoFeatureConfig::deserialize,false),10);
+        weighList.add(new forsythia1(),10);
+        weighList.add(new forsythia2(),10);
+        weighList.add(new forsythia3(),10);
+        weighList.add(new forsythia4(),10);
+        weighList.add(new forsythia5(),10);
         Tree forsythiaTrees= new SchemTree(weighList);
         saplings = new Block[]{
                 WNBlocks.APPLE_SAPLING = new SaplingBase(appleTrees, Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement(), new Item.Properties().group(Main.WILDNATURE_GROUP), Main.RegistryEvents.location("apple_sapling")),

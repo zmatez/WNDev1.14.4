@@ -1,22 +1,22 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
+import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.fir.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.*;
-import com.matez.wildnature.blocks.FloweringBushBase;
-import com.matez.wildnature.world.gen.structures.nature.woods.spruce.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.fir.*;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
@@ -26,7 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNGiantConiferousForest extends WNBiome {
     public WNGiantConiferousForest(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(WNSurfaceBuilders.BROWN_PODZOL_GRAVEL, WNSurfaceBuilders.BROWN_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, SurfaceRegistry.BROWN_PODZOL_GRAVEL)
                 .precipitation(RainType.RAIN)
                 .category(Category.TAIGA)
                 .topography(WNBiomeBuilder.Topography.HIGHLANDS)
@@ -59,10 +59,10 @@ public class WNGiantConiferousForest extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:heather_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_purple").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:bluebell").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
 
         BlockState pineLog = Main.getBlockByID("minecraft:spruce_log").getDefaultState();
         BlockState pineLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"));
@@ -70,10 +70,6 @@ public class WNGiantConiferousForest extends WNBiome {
         BlockState firLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("wildnature:fir_leaves"));
         BlockState spruceLog = Main.getBlockByID("minecraft:spruce_log").getDefaultState();
         BlockState spruceLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"));
-        BlockState oakLog = Main.getBlockByID("minecraft:oak_log").getDefaultState();
-        BlockState oakLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("minecraft:oak_leaves"));
-        BlockState darkOakLog = Main.getBlockByID("minecraft:dark_oak_log").getDefaultState();
-        BlockState darkOakLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("minecraft:dark_oak_leaves"));
 
 
         int x = 0;
@@ -90,27 +86,27 @@ public class WNGiantConiferousForest extends WNBiome {
                 LOG = spruceLog;
                 LEAVES = spruceLeaves;
             }
-            WNBiomeFeatures.addTree(this,new tree_taiga2(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga4(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga5(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga7(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga10(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga11(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga12(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga13(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga14(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga15(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir18(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir6(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir22(NoFeatureConfig::deserialize,true,LOG,LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_taiga2().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_taiga4().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_taiga5().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_taiga7().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_taiga10().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_taiga11().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_taiga12().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_taiga13().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_taiga14().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_taiga15().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_fir18().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_fir6().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this,new tree_fir22().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
 
-            WNBiomeFeatures.addTree(this,new tree_taiga25(NoFeatureConfig::deserialize,true,LOG,LEAVES),10);
-            WNBiomeFeatures.addTree(this,new tree_taiga21(NoFeatureConfig::deserialize,true,LOG,LEAVES),7);
-            WNBiomeFeatures.addTree(this,new tree_fir17(NoFeatureConfig::deserialize,true,LOG,LEAVES),10);
-            WNBiomeFeatures.addTree(this,new tree_fir16(NoFeatureConfig::deserialize,true,LOG,LEAVES),7);
-            WNBiomeFeatures.addTree(this,new tree_fir31(NoFeatureConfig::deserialize,true,LOG,LEAVES),7);
-            WNBiomeFeatures.addTree(this,new tree_fir20(NoFeatureConfig::deserialize,true,LOG,LEAVES),7);
-            WNBiomeFeatures.addTree(this,new tree_fir29(NoFeatureConfig::deserialize,true,LOG,LEAVES),5);
+            WNBiomeFeatures.addTree(this,new tree_taiga25().setCustomLog(LOG).setCustomLeaf(LEAVES),10);
+            WNBiomeFeatures.addTree(this,new tree_taiga21().setCustomLog(LOG).setCustomLeaf(LEAVES),7);
+            WNBiomeFeatures.addTree(this,new tree_fir17().setCustomLog(LOG).setCustomLeaf(LEAVES),10);
+            WNBiomeFeatures.addTree(this,new tree_fir16().setCustomLog(LOG).setCustomLeaf(LEAVES),7);
+            WNBiomeFeatures.addTree(this,new tree_fir31().setCustomLog(LOG).setCustomLeaf(LEAVES),7);
+            WNBiomeFeatures.addTree(this,new tree_fir20().setCustomLog(LOG).setCustomLeaf(LEAVES),7);
+            WNBiomeFeatures.addTree(this,new tree_fir29().setCustomLog(LOG).setCustomLeaf(LEAVES),5);
             x++;
         }
 

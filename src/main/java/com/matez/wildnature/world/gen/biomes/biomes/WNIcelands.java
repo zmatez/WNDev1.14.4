@@ -1,24 +1,20 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.world.gen.biomes.biomes.surface.GrandCanyonSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.IcelandsSurfaceBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.GrandCanyonSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.builders.IcelandsSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.configs.CanyonSurfaceBuilderConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.surfacebuilders.BadlandsSurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -26,7 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNIcelands extends WNBiome {
     public WNIcelands(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new GrandCanyonSurfaceBuilder(SurfaceBuilderConfig::deserialize, new IcelandsSurfaceBuilder(SurfaceBuilderConfig::deserialize)), new SurfaceBuilderConfig(Blocks.SNOW_BLOCK.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.GRAVEL.getDefaultState()))
+                .surfaceBuilder(SurfaceRegistry.GRAND_CANYON_SURFACE_BUILDER, new CanyonSurfaceBuilderConfig(Blocks.SNOW_BLOCK.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.GRAVEL.getDefaultState(), SurfaceRegistry.ICELANDS_SURFACE_BUILDER))
                 .precipitation(RainType.RAIN)
                 .category(Category.ICY)
                 .topography(WNBiomeBuilder.Topography.HIGHLANDS)
@@ -37,7 +33,7 @@ public class WNIcelands extends WNBiome {
                 .downfall(1F)
                 .waterColor(4159204)
                 .waterFogColor(329011)
-                .parent(null));//-7052122241400916496 -346 101 943
+                .parent(null));
 
 
 

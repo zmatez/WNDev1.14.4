@@ -10,18 +10,6 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import java.util.Set;
 import java.util.function.Function;
 public class estatue7 extends SchemFeature {
-    public estatue7(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace) {
-        super(config, doBlockNofityOnPlace);
-        Main.treesList.add(this);
-    }
-
-    public estatue7(Function<Dynamic<?>, ? extends NoFeatureConfig> config, boolean doBlockNofityOnPlace, BlockState log, BlockState leaves) {
-        super(config, doBlockNofityOnPlace);
-        Main.treesList.add(this);
-        LOG = log;
-        LEAVES =leaves;
-    }
-
     @Override
     public Set<BlockPos> setBlocks() {
 

@@ -33,21 +33,36 @@ public class BlockWeighList {
         return states;
     }
 
+    public static BlockWeighList parseFromNormalArrayList(ArrayList<BlockState> states){
+        BlockWeighList list = new BlockWeighList();
+        for (BlockState state : states) {
+            if(list.getBlockList().contains(state)){
+                int oldRarity = list.getRarityFor(state);
+                list.remove(state);
+                list.add(state,oldRarity+1);
+            }
+        }
+
+        return list;
+    }
+
     public void add(BlockState block, Integer iWeigh){
-
-
         blocks.add(block);
         weigh.add(iWeigh);
     }
 
-    public void remove(Block block, Integer iWeigh){
+    public void remove(BlockState block, Integer iWeigh){
         blocks.remove(block);
         weigh.remove(iWeigh);
     }
 
-    public void remove(Block block){
+    public void remove(BlockState block){
         weigh.remove(weigh.get(blocks.indexOf(block)));
         blocks.remove(block);
+    }
+
+    public int getRarityFor(BlockState block){
+        return (weigh.get(blocks.indexOf(block)));
     }
 
     public void clear(){

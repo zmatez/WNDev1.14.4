@@ -1,11 +1,13 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.feature.features.LavenderFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
-import com.matez.wildnature.world.gen.feature.LavenderFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.jacaranda.jacaranda1;
 import com.matez.wildnature.world.gen.structures.nature.woods.jacaranda.jacaranda2;
 import com.matez.wildnature.world.gen.structures.nature.woods.jacaranda.jacaranda3;
@@ -47,9 +49,6 @@ public class WNLavenderGarden extends WNBiome {
         this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
         this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        //this.addStructure(Feature.VILLAGE, new VillageConfig("village/plains/town_centers", 6));
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new LavenderFeature(NoFeatureConfig::deserialize), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(77)));
-
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -63,11 +62,13 @@ public class WNLavenderGarden extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
+        WNBiomeFeatures.addLavender(this);
 
-        WNBiomeFeatures.addTree(this,new jacaranda1(NoFeatureConfig::deserialize,true, Main.getBlockByID("wildnature:jacaranda_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new jacaranda2(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:jacaranda_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new jacaranda3(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:jacaranda_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new jacaranda4(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:jacaranda_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))),1);
+
+        WNBiomeFeatures.addTree(this,new jacaranda1().setCustomLog( Main.getBlockByID("wildnature:jacaranda_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new jacaranda2().setCustomLog(Main.getBlockByID("wildnature:jacaranda_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new jacaranda3().setCustomLog(Main.getBlockByID("wildnature:jacaranda_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))),1);
+        WNBiomeFeatures.addTree(this,new jacaranda4().setCustomLog(Main.getBlockByID("wildnature:jacaranda_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))),1);
 
 
         plantRate=4;

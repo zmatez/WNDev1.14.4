@@ -1,16 +1,20 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.CustomSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
+import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
-import com.matez.wildnature.world.gen.structures.nature.woods.citrus.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.citrus.banana1;
+import com.matez.wildnature.world.gen.structures.nature.woods.citrus.banana2;
+import com.matez.wildnature.world.gen.structures.nature.woods.citrus.banana3;
+import com.matez.wildnature.world.gen.structures.nature.woods.citrus.banana4;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -25,7 +29,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNBananaThicket extends WNBiome {
     public WNBananaThicket(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, WNSurfaceBuilders.TROPICAL_CONFIG)
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.TROPICAL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.JUNGLE)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -56,19 +60,19 @@ public class WNBananaThicket extends WNBiome {
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:anthurium_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:anthurium_red").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("minecraft:blue_orchid").getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this, Blocks.BLUE_ORCHID.getDefaultState(),3);
 
 
-        WNBiomeFeatures.addTree(this,new banana1(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new banana2(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new banana3(NoFeatureConfig::deserialize,true),3);
-        WNBiomeFeatures.addTree(this,new banana4(NoFeatureConfig::deserialize,true),3);
+        WNBiomeFeatures.addTree(this,new banana1(),3);
+        WNBiomeFeatures.addTree(this,new banana2(),3);
+        WNBiomeFeatures.addTree(this,new banana3(),3);
+        WNBiomeFeatures.addTree(this,new banana4(),3);
 
-        WNBiomeFeatures.addTree(this,new JungleTreeFeature(NoFeatureConfig::deserialize, false, 4, Blocks.JUNGLE_LOG.getDefaultState(), Blocks.JUNGLE_LEAVES.getDefaultState(), true),6);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize, false, Blocks.JUNGLE_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(Blocks.JUNGLE_LEAVES)),14);
-        WNBiomeFeatures.addTree(this, new MegaJungleFeature(NoFeatureConfig::deserialize, false, 10, 20, Blocks.JUNGLE_LOG.getDefaultState(), Blocks.JUNGLE_LEAVES.getDefaultState()),2);
+        WNBiomeFeatures.addTree(this,new JungleTreeFeature(NoFeatureConfig::deserialize,true,4,Blocks.JUNGLE_LOG.getDefaultState(),Blocks.JUNGLE_LEAVES.getDefaultState(),true),6);
+        WNBiomeFeatures.addTree(this,new shrub1().setCustomLog( Blocks.JUNGLE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Blocks.JUNGLE_LEAVES)),14);
+        WNBiomeFeatures.addTree(this, new MegaJungleFeature(NoFeatureConfig::deserialize,true,10,20,Blocks.JUNGLE_LOG.getDefaultState(),Blocks.JUNGLE_LEAVES.getDefaultState()),2);
 
         treeRate=13;
 

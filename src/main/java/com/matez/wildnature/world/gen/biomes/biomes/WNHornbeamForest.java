@@ -1,36 +1,38 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.CustomSurfaceBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.WNBlobConfig;
-import com.matez.wildnature.world.gen.feature.WNBlobFeature;
+import com.matez.wildnature.world.gen.feature.configs.WNBlobConfig;
+import com.matez.wildnature.world.gen.feature.features.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
-import com.matez.wildnature.world.gen.structures.nature.woods.beech.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.cedar.weeping_cedar_1;
 import com.matez.wildnature.world.gen.structures.nature.woods.cedar.weeping_cedar_2;
 import com.matez.wildnature.world.gen.structures.nature.woods.cedar.weeping_cedar_3;
 import com.matez.wildnature.world.gen.structures.nature.woods.cedar.weeping_cedar_4;
-import com.matez.wildnature.world.gen.structures.nature.woods.deco.*;
+import com.matez.wildnature.world.gen.structures.nature.woods.deco.forsythia3;
+import com.matez.wildnature.world.gen.structures.nature.woods.deco.forsythia4;
+import com.matez.wildnature.world.gen.structures.nature.woods.deco.forsythia5;
+import com.matez.wildnature.world.gen.structures.nature.woods.deco.magnolia3;
 import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel1;
 import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel2;
 import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel3;
 import com.matez.wildnature.world.gen.structures.nature.woods.hazel.hazel4;
 import com.matez.wildnature.world.gen.structures.nature.woods.hornbeam.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.oak.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.oaklands.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.orchard.apple1;
-import com.matez.wildnature.world.gen.structures.nature.woods.orchard.apple2;
 import com.matez.wildnature.world.gen.structures.nature.woods.rowan.rowan1;
 import com.matez.wildnature.world.gen.structures.nature.woods.rowan.rowan2;
 import com.matez.wildnature.world.gen.structures.nature.woods.rowan.rowan3;
 import com.matez.wildnature.world.gen.structures.nature.woods.rowan.rowan4;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
+import com.matez.wildnature.world.gen.surface.builders.CustomSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.configs.CustomSurfaceBuilderConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -39,7 +41,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.placement.FrequencyConfig;
@@ -51,7 +52,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNHornbeamForest extends WNBiome {
     public WNHornbeamForest(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new CustomSurfaceBuilder(new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG,4),new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG,1)), SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG,4),new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG,1)))
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -89,59 +90,59 @@ public class WNHornbeamForest extends WNBiome {
         WNBiomeFeatures.addPlant(this,WNBlocks.HYACINTH_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         WNBiomeFeatures.addPlant(this,WNBlocks.MARIGOLD_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
         WNBiomeFeatures.addPlant(this,WNBlocks.MARIGOLD_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:yew_bush").getDefaultState(),5);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:clover").getDefaultState(),5);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:leaf_pile").getDefaultState(),5);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_wheat").getDefaultState().with(FloweringBushBase.FLOWERING,true),6);
+        WNBiomeFeatures.addPlant(this,WNBlocks.YEW_BUSH.getDefaultState(),5);
+        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),5);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),5);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),6);
 
 
-        WNBiomeFeatures.addTree(this,new tree_hornbeam1(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),8);
-        WNBiomeFeatures.addTree(this,new tree_hornbeam2(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),8);
-        WNBiomeFeatures.addTree(this,new tree_hornbeam4(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),7);
-        WNBiomeFeatures.addTree(this,new tree_hornbeam5(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),7);
-        WNBiomeFeatures.addTree(this,new tree_hornbeam7(NoFeatureConfig::deserialize,true, Blocks.OAK_LOG.getDefaultState(), SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),7);
-        WNBiomeFeatures.addTree(this,new big_birch_1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new big_birch_2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new big_birch_3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new big_birch_4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new big_birch_5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new big_birch_6(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new tree_hornbeam1().setCustomLog( Blocks.OAK_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),8);
+        WNBiomeFeatures.addTree(this,new tree_hornbeam2().setCustomLog( Blocks.OAK_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),8);
+        WNBiomeFeatures.addTree(this,new tree_hornbeam4().setCustomLog( Blocks.OAK_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),7);
+        WNBiomeFeatures.addTree(this,new tree_hornbeam5().setCustomLog( Blocks.OAK_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),7);
+        WNBiomeFeatures.addTree(this,new tree_hornbeam7().setCustomLog( Blocks.OAK_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.HORNBEAM_LEAVES)),7);
+        WNBiomeFeatures.addTree(this,new big_birch_1(),1);
+        WNBiomeFeatures.addTree(this,new big_birch_2(),1);
+        WNBiomeFeatures.addTree(this,new big_birch_3(),1);
+        WNBiomeFeatures.addTree(this,new big_birch_4(),1);
+        WNBiomeFeatures.addTree(this,new big_birch_5(),1);
+        WNBiomeFeatures.addTree(this,new big_birch_6(),1);
 
-        WNBiomeFeatures.addTree(this,new rowan1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new rowan2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new rowan3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new rowan4(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new rowan1(),1);
+        WNBiomeFeatures.addTree(this,new rowan2(),1);
+        WNBiomeFeatures.addTree(this,new rowan3(),1);
+        WNBiomeFeatures.addTree(this,new rowan4(),1);
 
-        WNBiomeFeatures.addTree(this,new hazel1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new hazel2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new hazel3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new hazel4(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new hazel1(),1);
+        WNBiomeFeatures.addTree(this,new hazel2(),1);
+        WNBiomeFeatures.addTree(this,new hazel3(),1);
+        WNBiomeFeatures.addTree(this,new hazel4(),1);
 
-        WNBiomeFeatures.addTree(this,new pointy_birch1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch4(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new pointy_birch1(),1);
+        WNBiomeFeatures.addTree(this,new pointy_birch2(),1);
+        WNBiomeFeatures.addTree(this,new pointy_birch3(),1);
+        WNBiomeFeatures.addTree(this,new pointy_birch4(),1);
 
 
-        WNBiomeFeatures.addTree(this,new oaklands_smallshrub1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_smallshrub2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_smallshrub3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_shrub1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_shrub2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new oaklands_shrub5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),10);
+        WNBiomeFeatures.addTree(this,new oaklands_smallshrub1(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_smallshrub2(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_smallshrub3(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_shrub1(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_shrub2(),1);
+        WNBiomeFeatures.addTree(this,new oaklands_shrub5(),1);
+        WNBiomeFeatures.addTree(this,new shrub1(),10);
 
-        WNBiomeFeatures.addTree(this,new weeping_cedar_1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new weeping_cedar_2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new weeping_cedar_3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new weeping_cedar_4(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new weeping_cedar_1(),1);
+        WNBiomeFeatures.addTree(this,new weeping_cedar_2(),1);
+        WNBiomeFeatures.addTree(this,new weeping_cedar_3(),1);
+        WNBiomeFeatures.addTree(this,new weeping_cedar_4(),1);
 
-        WNBiomeFeatures.addTree(this,new magnolia3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new forsythia3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new forsythia4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new forsythia5(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new magnolia3(),1);
+        WNBiomeFeatures.addTree(this,new forsythia3(),1);
+        WNBiomeFeatures.addTree(this,new forsythia4(),1);
+        WNBiomeFeatures.addTree(this,new forsythia5(),1);
 
-        this.addFeature(GenerationStage.Decoration.LOCAL_MODIFICATIONS, Biome.createDecoratedFeature(new WNBlobFeature(WNBlobConfig::deserialize), new WNBlobConfig(Blocks.PODZOL.getDefaultState(),2,true,false), Placement.FOREST_ROCK, new FrequencyConfig(3)));
+        WNBiomeFeatures.addBlob(this,Blocks.PODZOL.getDefaultState(),2,true,false,3);
 
         plantRate=2;
         treeRate=4;

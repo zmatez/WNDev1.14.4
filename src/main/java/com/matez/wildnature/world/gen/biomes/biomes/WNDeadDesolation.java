@@ -1,26 +1,23 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.blocks.FloweringBushBase;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.DeadSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.OutbackSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.dead.*;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.DeadSurfaceBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.SavannaTreeFeature;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -28,7 +25,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNDeadDesolation extends WNBiome {
     public WNDeadDesolation(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new DeadSurfaceBuilder(SurfaceBuilderConfig::deserialize), WNSurfaceBuilders.DESERT_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.DEAD_SURFACE_BUILDER, SurfaceRegistry.DESERT_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.DESERT)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -65,12 +62,12 @@ public class WNDeadDesolation extends WNBiome {
         WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:desert_grass").getDefaultState(),1);
         WNBiomeFeatures.addPlant(this, Main.getBlockByID("minecraft:dead_short_grass").getDefaultState(),5);
 
-        WNBiomeFeatures.addTree(this,new dead1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new dead2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new dead3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new dead4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new dead5(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new dead6(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new dead1(),1);
+        WNBiomeFeatures.addTree(this,new dead2(),1);
+        WNBiomeFeatures.addTree(this,new dead3(),1);
+        WNBiomeFeatures.addTree(this,new dead4(),1);
+        WNBiomeFeatures.addTree(this,new dead5(),1);
+        WNBiomeFeatures.addTree(this,new dead6(),1);
 
         plantRate=1;
         treeRate=3;

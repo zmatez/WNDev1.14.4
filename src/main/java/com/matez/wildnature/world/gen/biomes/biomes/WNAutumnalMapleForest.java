@@ -1,7 +1,13 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.world.gen.biomes.biomes.surface.PodzolSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
+import com.matez.wildnature.Main;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
+import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
+import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
+import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
 import com.matez.wildnature.world.gen.structures.nature.woods.def.BigTree;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak10;
@@ -9,27 +15,21 @@ import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak11;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak8;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak9;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
-import com.matez.wildnature.Main;
-import com.matez.wildnature.blocks.FloweringBushBase;
-import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
-import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
-import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNAutumnalMapleForest extends WNBiome {
     public WNAutumnalMapleForest(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new PodzolSurfaceBuilder(SurfaceBuilderConfig::deserialize), WNSurfaceBuilders.BROWN_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.PODZOL_SURFACE_BUILDER, SurfaceRegistry.BROWN_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -59,10 +59,10 @@ public class WNAutumnalMapleForest extends WNBiome {
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_yellow").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:heather_white").getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:yew_bush").getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:leaf_pile").getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this,WNBlocks.YEW_BUSH.getDefaultState(),4);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
 
 
         addTree("wildnature:maple","wildnature:maple");
@@ -70,7 +70,7 @@ public class WNAutumnalMapleForest extends WNBiome {
         addTree("wildnature:maple","wildnature:maple_brown");
         addTree("wildnature:maple","wildnature:maple_yellow");
         addTree("wildnature:maple","wildnature:maple_orange");
-        WNBiomeFeatures.addTree(this,new shrub1(NoFeatureConfig::deserialize,true),15);
+        WNBiomeFeatures.addTree(this,new shrub1(),15);
 
         treeRate=8;
 
@@ -92,11 +92,11 @@ public class WNAutumnalMapleForest extends WNBiome {
     }
     
     private void addTree(String idLog,String idLeaf){
-        WNBiomeFeatures.addTree(this,new tree_oak8(NoFeatureConfig::deserialize,true,Main.getBlockByID(idLog+"_log").getDefaultState(), tree_birch1.notDecayingLeaf(Main.getBlockByID(idLeaf+"_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_oak9(NoFeatureConfig::deserialize,true,Main.getBlockByID(idLog+"_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID(idLeaf+"_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_oak10(NoFeatureConfig::deserialize,true,Main.getBlockByID(idLog+"_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID(idLeaf+"_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_oak11(NoFeatureConfig::deserialize,true,Main.getBlockByID(idLog+"_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID(idLeaf+"_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new BigTree(NoFeatureConfig::deserialize,true,Main.getBlockByID(idLog+"_log").getDefaultState(),tree_birch1.notDecayingLeaf(Main.getBlockByID(idLeaf+"_leaves"))),16);
+        WNBiomeFeatures.addTree(this,new tree_oak8().setCustomLog(Main.getBlockByID(idLog+"_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID(idLeaf+"_leaves"))),2);
+        WNBiomeFeatures.addTree(this,new tree_oak9().setCustomLog(Main.getBlockByID(idLog+"_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID(idLeaf+"_leaves"))),2);
+        WNBiomeFeatures.addTree(this,new tree_oak10().setCustomLog(Main.getBlockByID(idLog+"_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID(idLeaf+"_leaves"))),2);
+        WNBiomeFeatures.addTree(this,new tree_oak11().setCustomLog(Main.getBlockByID(idLog+"_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID(idLeaf+"_leaves"))),2);
+        WNBiomeFeatures.addTree(this,new BigTree().setCustomLog(Main.getBlockByID(idLog+"_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID(idLeaf+"_leaves"))),16);
 
     }
 

@@ -1,10 +1,11 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.world.gen.biomes.biomes.surface.CanyonSurfaceBuilder;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.GrandCanyonSurfaceBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.surface.builders.GrandCanyonSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.configs.CanyonSurfaceBuilderConfig;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -25,7 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WNGrandCanyon extends WNBiome {
     public WNGrandCanyon(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(new GrandCanyonSurfaceBuilder(SurfaceBuilderConfig::deserialize, new BadlandsSurfaceBuilder(SurfaceBuilderConfig::deserialize)), SurfaceBuilder.RED_SAND_WHITE_TERRACOTTA_GRAVEL_CONFIG)
+                .surfaceBuilder(SurfaceRegistry.GRAND_CANYON_SURFACE_BUILDER, new CanyonSurfaceBuilderConfig(SurfaceBuilder.RED_SAND_WHITE_TERRACOTTA_GRAVEL_CONFIG, SurfaceBuilder.BADLANDS))
                 .precipitation(RainType.RAIN)
                 .category(Category.MESA)
                 .topography(WNBiomeBuilder.Topography.HIGHLANDS)
@@ -36,7 +37,7 @@ public class WNGrandCanyon extends WNBiome {
                 .downfall(0.1F)
                 .waterColor(4159204)
                 .waterFogColor(329011)
-                .parent(null));//-7052122241400916496 -346 101 943
+                .parent(null));
 
 
 
@@ -49,17 +50,10 @@ public class WNGrandCanyon extends WNBiome {
         WNBiomeFeatures.addStoneVariants(this);
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
-        WNBiomeFeatures.addGrass(this,3);
         WNBiomeFeatures.addSprings(this);
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.CACTUS, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(10)));
-        this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.DEAD_BUSH, IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_HEIGHTMAP_DOUBLE, new FrequencyConfig(20)));
+        WNBiomeFeatures.addCactus(this,10);
+        WNBiomeFeatures.addDeadBushes(this,20);
 
-
-
-        plantRate=4;
-        treeRate=0;
-
-        applyPlants();
 
         this.addSpawn(EntityClassification.AMBIENT, new Biome.SpawnListEntry(EntityType.BAT, 10, 8, 8));
         this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.SPIDER, 100, 4, 4));

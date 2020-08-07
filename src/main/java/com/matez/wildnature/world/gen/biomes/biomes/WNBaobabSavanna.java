@@ -1,18 +1,18 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.blocks.DoubleBushBaseFlowering;
+import com.matez.wildnature.lists.WNBlocks;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
-import com.matez.wildnature.world.gen.biomes.biomes.surface.WNSurfaceBuilders;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.acacia.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.baobab.*;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.SavannaBiome;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -22,13 +22,11 @@ import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.PillagerOutpostConfig;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNBaobabSavanna extends WNBiome {
     public WNBaobabSavanna(String name) {
         super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, WNSurfaceBuilders.DRIED_CONFIG)
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.DRIED_CONFIG)
                 .precipitation(RainType.NONE)
                 .category(Category.SAVANNA)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -61,23 +59,23 @@ public class WNBaobabSavanna extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:lupine_pink").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:lupine_red").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:lupine_blue").getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,Main.getBlockByID("wildnature:grass_flower").getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LUPINE_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LUPINE_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.LUPINE_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
 
 
         WNBiomeFeatures.addTree(this,new SavannaTreeFeature(NoFeatureConfig::deserialize,true),4);
-        WNBiomeFeatures.addTree(this,new acacia1(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new acacia2(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new acacia3(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new acacia4(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new acacia5(NoFeatureConfig::deserialize,true),2);
-        WNBiomeFeatures.addTree(this,new baobab1(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new baobab2(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new baobab3(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new baobab4(NoFeatureConfig::deserialize,true),1);
-        WNBiomeFeatures.addTree(this,new baobab5(NoFeatureConfig::deserialize,true),1);
+        WNBiomeFeatures.addTree(this,new acacia1(),2);
+        WNBiomeFeatures.addTree(this,new acacia2(),2);
+        WNBiomeFeatures.addTree(this,new acacia3(),2);
+        WNBiomeFeatures.addTree(this,new acacia4(),2);
+        WNBiomeFeatures.addTree(this,new acacia5(),2);
+        WNBiomeFeatures.addTree(this,new baobab1(),1);
+        WNBiomeFeatures.addTree(this,new baobab2(),1);
+        WNBiomeFeatures.addTree(this,new baobab3(),1);
+        WNBiomeFeatures.addTree(this,new baobab4(),1);
+        WNBiomeFeatures.addTree(this,new baobab5(),1);
 
         plantRate=1;
         treeRate=5;
