@@ -9,9 +9,7 @@ import java.util.Set;
 public class scrubland_shrub1 extends SchemFeature {
     public scrubland_shrub1() {
         super();
-
     }
-
 
     @Override
     public Set<BlockPos> setBlocks() {

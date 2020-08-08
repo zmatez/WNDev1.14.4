@@ -1,14 +1,11 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.dead.*;
 import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.surface.builders.DeadSurfaceBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -18,13 +15,12 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNDeadDesolation extends WNBiome {
     public WNDeadDesolation(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceRegistry.DEAD_SURFACE_BUILDER, SurfaceRegistry.DESERT_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.DESERT)
@@ -39,11 +35,9 @@ public class WNDeadDesolation extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/savanna/town_centers", 8));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/savanna/town_centers", 8);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -52,25 +46,25 @@ public class WNDeadDesolation extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,3, Blocks.DEAD_BUSH.getDefaultState());
+        WNBiomeFeatures.addGrass(this, 3, Blocks.DEAD_BUSH.getDefaultState());
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("minecraft:grass").getDefaultState(),2);
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:small_cacti").getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:desert_grass").getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this, Main.getBlockByID("minecraft:dead_short_grass").getDefaultState(),5);
+        WNBiomeFeatures.addPlant(this, Main.getBlockByID("minecraft:grass").getDefaultState(), 2);
+        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:small_cacti").getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, Main.getBlockByID("wildnature:desert_grass").getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, Main.getBlockByID("minecraft:dead_short_grass").getDefaultState(), 5);
 
-        WNBiomeFeatures.addTree(this,new dead1(),1);
-        WNBiomeFeatures.addTree(this,new dead2(),1);
-        WNBiomeFeatures.addTree(this,new dead3(),1);
-        WNBiomeFeatures.addTree(this,new dead4(),1);
-        WNBiomeFeatures.addTree(this,new dead5(),1);
-        WNBiomeFeatures.addTree(this,new dead6(),1);
+        WNBiomeFeatures.addTree(this, new dead1(), 1);
+        WNBiomeFeatures.addTree(this, new dead2(), 1);
+        WNBiomeFeatures.addTree(this, new dead3(), 1);
+        WNBiomeFeatures.addTree(this, new dead4(), 1);
+        WNBiomeFeatures.addTree(this, new dead5(), 1);
+        WNBiomeFeatures.addTree(this, new dead6(), 1);
 
-        plantRate=1;
-        treeRate=3;
+        plantRate = 1;
+        treeRate = 3;
 
         applyPlants();
         applyTrees();
@@ -90,14 +84,12 @@ public class WNDeadDesolation extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 0xB4A85A;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
+    public int getFoliageColor(BlockPos pos) {
         return 0xA8EB5E;
     }
 }

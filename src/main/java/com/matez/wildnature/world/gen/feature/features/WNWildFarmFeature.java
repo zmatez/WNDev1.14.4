@@ -36,7 +36,7 @@ public class WNWildFarmFeature extends Feature<BushConfig> {
            return false;
        }
        if(worldIn.getBlockState(pos).canSustainPlant(worldIn,pos.down(), Direction.UP,(IPlantable)Blocks.OAK_SAPLING)) {
-            WNBlobFeature feature = new WNBlobFeature(WNBlobConfig::deserialize);
+            WNBlobFeature feature = (WNBlobFeature) FeatureRegistry.BLOB_FEATURE;
             feature.place(worldIn,generator,rand,pos,new WNBlobConfig(Blocks.FARMLAND.getDefaultState().with(FarmlandBlock.MOISTURE,7),Utilities.rint(1,2),true,false));
 
             feature.getFilledBlocks().forEach(blockPos -> {

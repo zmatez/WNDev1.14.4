@@ -1,8 +1,5 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
@@ -26,7 +23,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNWoodedMeadow extends WNBiome {
     public WNWoodedMeadow(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
@@ -41,11 +38,9 @@ public class WNWoodedMeadow extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/plains/town_centers", 6));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/plains/town_centers", 6);
 
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
@@ -55,41 +50,41 @@ public class WNWoodedMeadow extends WNBiome {
         WNBiomeFeatures.addStoneVariants(this);
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
-        WNBiomeFeatures.addGrass(this,18);
+        WNBiomeFeatures.addGrass(this, 18);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.removeAllDefaultFlowers(this);
 
-        WNBiomeFeatures.addPlant(this,WNBlocks.CARNATION_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CARNATION_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.MARIGOLD_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.MARIGOLD_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.MARIGOLD_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GERANIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GERANIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.MATTHIOLA_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.ANEMONE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HOLLYHOCK_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GLADIOLUS_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CARNATION_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CARNATION_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.MARIGOLD_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.MARIGOLD_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.MARIGOLD_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GERANIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GERANIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.MATTHIOLA_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ANEMONE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HOLLYHOCK_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GLADIOLUS_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
 
-        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.WILD_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.WILD_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
 
-        WNBiomeFeatures.addTree(this,new pointy_oak_1(),1);
-        WNBiomeFeatures.addTree(this,new pointy_oak_2(),1);
-        WNBiomeFeatures.addTree(this,new pointy_oak_3(),1);
-        WNBiomeFeatures.addTree(this,new apple1(),1);
-        WNBiomeFeatures.addTree(this,new pear2(),1);
-        WNBiomeFeatures.addTree(this,new tree_oak5(),7);
-        WNBiomeFeatures.addTree(this,new tree_oak21(),7);
-        WNBiomeFeatures.addTree(this,new shrub1(),3);
-        WNBiomeFeatures.addTree(this,new oak1(),1);
-        WNBiomeFeatures.addTree(this,new oak2(),1);
-        WNBiomeFeatures.addTree(this,new oak3(),1);
-        plantRate=3;
-        treeRate=4;
+        WNBiomeFeatures.addTree(this, new pointy_oak_1(), 1);
+        WNBiomeFeatures.addTree(this, new pointy_oak_2(), 1);
+        WNBiomeFeatures.addTree(this, new pointy_oak_3(), 1);
+        WNBiomeFeatures.addTree(this, new apple1(), 1);
+        WNBiomeFeatures.addTree(this, new pear2(), 1);
+        WNBiomeFeatures.addTree(this, new tree_oak5(), 7);
+        WNBiomeFeatures.addTree(this, new tree_oak21(), 7);
+        WNBiomeFeatures.addTree(this, new shrub1(), 3);
+        WNBiomeFeatures.addTree(this, new oak1(), 1);
+        WNBiomeFeatures.addTree(this, new oak2(), 1);
+        WNBiomeFeatures.addTree(this, new oak3(), 1);
+        plantRate = 3;
+        treeRate = 4;
 
         applyPlants();
         applyTrees();
@@ -112,17 +107,15 @@ public class WNWoodedMeadow extends WNBiome {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x78D751,0x92D73E);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x78D751, 0x92D73E);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x94D763, 0x87C739);
+    public int getFoliageColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x94D763, 0x87C739);
     }
 
 

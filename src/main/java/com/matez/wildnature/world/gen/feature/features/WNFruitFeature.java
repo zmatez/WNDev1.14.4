@@ -7,6 +7,7 @@ import com.matez.wildnature.customizable.CommonConfig;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.other.WeightedList;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.mojang.datafixers.Dynamic;
@@ -45,8 +46,6 @@ public class WNFruitFeature extends Feature<NoFeatureConfig> {
             }
         });
 
-        //biomeIn.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(new shrub1(NoFeatureConfig::deserialize,true,Main.getBlockByID("wildnature:bush_raspberry").getDefaultState(), SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:bush_raspberry")).with(FruitableLeaves.STAGE, Utilities.rint(0,1))), IFeatureConfig.NO_FEATURE_CONFIG, Placement.COUNT_RANGE, new CountRangeConfig(2,64,0,100)));
-
         if(!available.isEmpty()) {
             BushEntry b = (BushEntry) Utilities.getWeightedEntry(available, rand);
             assert b != null;
@@ -54,9 +53,9 @@ public class WNFruitFeature extends Feature<NoFeatureConfig> {
                 new shrub1().setCustomLog(b.getBush()).setCustomLeaf(SchemFeature.notDecayingLeaf(b.getBush().getBlock()).with(BushBerryBase.STAGE,Utilities.rint(0,1,rand))).place(worldIn, generator, rand, pos, config);
             }else {
                 if (b.getBush().getBlock() instanceof BelladonnaBlock) {
-                    new WNBushFeature(BushConfig::deserialize).place(worldIn, generator, rand, pos, new BushConfig(b.getBush()));
+                    FeatureRegistry.BUSH_FEATURE.place(worldIn, generator, rand, pos, new BushConfig(b.getBush()));
                 } else {
-                    new WNBushFeature(BushConfig::deserialize).place(worldIn, generator, rand, pos, new BushConfig(b.getBush().with(((CropBase) b.getBush().getBlock()).getAge(), Utilities.rint(((CropBase) b.getBush().getBlock()).getMaxAge() - 1, ((CropBase) b.getBush().getBlock()).getMaxAge()))));
+                    FeatureRegistry.BUSH_FEATURE.place(worldIn, generator, rand, pos, new BushConfig(b.getBush().with(((CropBase) b.getBush().getBlock()).getAge(), Utilities.rint(((CropBase) b.getBush().getBlock()).getMaxAge() - 1, ((CropBase) b.getBush().getBlock()).getMaxAge()))));
                 }
             }
 

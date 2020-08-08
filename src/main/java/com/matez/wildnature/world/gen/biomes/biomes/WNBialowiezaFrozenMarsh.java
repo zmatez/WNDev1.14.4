@@ -1,8 +1,6 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -24,7 +22,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNBialowiezaFrozenMarsh extends WNBiome {
     public WNBialowiezaFrozenMarsh(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.BROWN_CONFIG)
                 .precipitation(RainType.SNOW)
                 .category(Category.SWAMP)
@@ -39,10 +37,8 @@ public class WNBialowiezaFrozenMarsh extends WNBiome {
                 .parent("wildnature:snowy_bialowieza_forest"));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -53,20 +49,20 @@ public class WNBialowiezaFrozenMarsh extends WNBiome {
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this, Blocks.BLUE_ORCHID.getDefaultState(),1);
+        WNBiomeFeatures.addPlant(this, Blocks.BLUE_ORCHID.getDefaultState(), 1);
         WNBiomeFeatures.addFreezeTopLayer(this);
 
-        WNBiomeFeatures.addTree(this,new tree_willow9().setCustomLog(Main.getBlockByID("wildnature:willow_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:willow_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_willow10().setCustomLog(Main.getBlockByID("wildnature:willow_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:willow_leaves"))),1);
+        WNBiomeFeatures.addTree(this, new tree_willow9().setCustomLog(Main.getBlockByID("wildnature:willow_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:willow_leaves"))), 1);
+        WNBiomeFeatures.addTree(this, new tree_willow10().setCustomLog(Main.getBlockByID("wildnature:willow_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:willow_leaves"))), 1);
 
-        plantRate=1;
-        treeRate=1;
+        plantRate = 1;
+        treeRate = 1;
 
 
         applyPlants();
         applyTrees();
 
-        WNBiomeFeatures.addWater(this,32);
+        WNBiomeFeatures.addWater(this, 32);
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.PIG, 10, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.CHICKEN, 10, 4, 4));
@@ -81,9 +77,10 @@ public class WNBialowiezaFrozenMarsh extends WNBiome {
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH, 5, 1, 1));
 
     }
+
     @OnlyIn(Dist.CLIENT)
     public int getGrassColor(BlockPos pos) {
-        double d0 = INFO_NOISE.getValue((double)pos.getX() * 0.05D, (double)pos.getZ() * 0.05D);
+        double d0 = INFO_NOISE.getValue((double) pos.getX() * 0.05D, (double) pos.getZ() * 0.05D);
         return d0 < -0.1D ? 0x518744 : 0x6F7E41;
     }
 

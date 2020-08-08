@@ -1,10 +1,7 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.blocks.DoubleBushBaseFlowering;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.BelladonnaBlock;
+import com.matez.wildnature.blocks.DoubleBushBaseFlowering;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
@@ -24,20 +21,19 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.JungleTreeFeature;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNSakuraJungle extends WNBiome {
     public WNSakuraJungle(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.TROPICAL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
@@ -52,10 +48,8 @@ public class WNSakuraJungle extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -65,45 +59,45 @@ public class WNSakuraJungle extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,16);
+        WNBiomeFeatures.addGrass(this, 16);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this, WNBlocks.TAMARISK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.TAMARISK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
 
-        WNBiomeFeatures.addPlant(this, WNBlocks.GERANIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.GERANIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.CHERRY_FLOWER.getDefaultState(),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.SCOTCHBROOM_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.CHRYSANTHEMUM_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.CHRYSANTHEMUM_LIGHT_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.GERANIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.CHINESE_LANTERN_FLOWER.getDefaultState().with(BelladonnaBlock.STAGE,3),1);
-        WNBiomeFeatures.addPlant(this, Blocks.BLUE_ORCHID.getDefaultState(),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.ORCHIS_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.PEACE_LILY.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.BIRD_OF_PARADISE.getDefaultState().with(DoubleBushBaseFlowering.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GERANIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GERANIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CHERRY_FLOWER.getDefaultState(), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.SCOTCHBROOM_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CHRYSANTHEMUM_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CHRYSANTHEMUM_LIGHT_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GERANIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CHINESE_LANTERN_FLOWER.getDefaultState().with(BelladonnaBlock.STAGE, 3), 1);
+        WNBiomeFeatures.addPlant(this, Blocks.BLUE_ORCHID.getDefaultState(), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ORCHIS_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PEACE_LILY.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BIRD_OF_PARADISE.getDefaultState().with(DoubleBushBaseFlowering.FLOWERING, true), 2);
 
 
-        WNBiomeFeatures.addTree(this,new jungle1(),5);
-        WNBiomeFeatures.addTree(this,new jungle2(),5);
-        WNBiomeFeatures.addTree(this,new jungle3(),5);
-        WNBiomeFeatures.addTree(this,new jungle4(),5);
-        WNBiomeFeatures.addTree(this,new JungleTreeFeature(NoFeatureConfig::deserialize,true,4,Blocks.JUNGLE_LOG.getDefaultState(),Blocks.JUNGLE_LEAVES.getDefaultState(),true),8);
-        WNBiomeFeatures.addTree(this,new shrub1().setCustomLog( Blocks.JUNGLE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Blocks.JUNGLE_LEAVES)),15);
-        WNBiomeFeatures.addTree(this,new citrus1().setCustomLog( WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new citrus2().setCustomLog( WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new sakura1(),2);
-        WNBiomeFeatures.addTree(this,new sakura2(),2);
-        WNBiomeFeatures.addTree(this,new sakura3(),2);
-        WNBiomeFeatures.addTree(this,new sakura4(),2);
-        WNBiomeFeatures.addTree(this,new sakura5(),2);
-        WNBiomeFeatures.addTree(this,new sakura6(),2);
-        WNBiomeFeatures.addTree(this,new sakura7(),3);
-        plantRate=2;
-        treeRate=10;
+        WNBiomeFeatures.addTree(this, new jungle1(), 5);
+        WNBiomeFeatures.addTree(this, new jungle2(), 5);
+        WNBiomeFeatures.addTree(this, new jungle3(), 5);
+        WNBiomeFeatures.addTree(this, new jungle4(), 5);
+        WNBiomeFeatures.addTree(this, new JungleTreeFeature(NoFeatureConfig::deserialize, true, 4, Blocks.JUNGLE_LOG.getDefaultState(), Blocks.JUNGLE_LEAVES.getDefaultState(), true), 8);
+        WNBiomeFeatures.addTree(this, new shrub1().setCustomLog(Blocks.JUNGLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Blocks.JUNGLE_LEAVES)), 15);
+        WNBiomeFeatures.addTree(this, new citrus1().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)), 1);
+        WNBiomeFeatures.addTree(this, new citrus2().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.POMEGRANATE_LEAVES)), 1);
+        WNBiomeFeatures.addTree(this, new sakura1(), 2);
+        WNBiomeFeatures.addTree(this, new sakura2(), 2);
+        WNBiomeFeatures.addTree(this, new sakura3(), 2);
+        WNBiomeFeatures.addTree(this, new sakura4(), 2);
+        WNBiomeFeatures.addTree(this, new sakura5(), 2);
+        WNBiomeFeatures.addTree(this, new sakura6(), 2);
+        WNBiomeFeatures.addTree(this, new sakura7(), 3);
+        plantRate = 2;
+        treeRate = 10;
 
         applyPlants();
         applyTrees();
@@ -129,17 +123,15 @@ public class WNSakuraJungle extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0125D, (double)pos.getZ() * 0.0125D);
-        return customColor(noise,-0.1D,0x3CB45A,0x74C41F);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0125D, (double) pos.getZ() * 0.0125D);
+        return customColor(noise, -0.1D, 0x3CB45A, 0x74C41F);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0125D, (double)pos.getZ() * 0.0125D);
-        return customColor(noise,-0.1D,0x71CB00, 0x75CB35);
+    public int getFoliageColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0125D, (double) pos.getZ() * 0.0125D);
+        return customColor(noise, -0.1D, 0x71CB00, 0x75CB35);
     }
 
 }

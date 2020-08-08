@@ -1,8 +1,6 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
@@ -29,7 +27,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNHyacinthFields extends WNBiome {
     public WNHyacinthFields(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.PLAINS)
@@ -44,11 +42,9 @@ public class WNHyacinthFields extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/plains/town_centers", 6));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/plains/town_centers", 6);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -56,31 +52,31 @@ public class WNHyacinthFields extends WNBiome {
         WNBiomeFeatures.addStoneVariants(this);
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
-        WNBiomeFeatures.addGrass(this,6);
+        WNBiomeFeatures.addGrass(this, 6);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_RED.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_DARK_BLUE.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_PINK.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_PURPLE.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_WHITE.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_LIGHT_BLUE.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_RED.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_DARK_BLUE.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_PINK.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_PURPLE.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_WHITE.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_LIGHT_BLUE.getDefaultState(), 3);
 
-        WNBiomeFeatures.addTree(this,new oak1(),1);
-        WNBiomeFeatures.addTree(this,new oak2(),1);
-        WNBiomeFeatures.addTree(this,new oak3(),1);
-        WNBiomeFeatures.addTree(this,new jacaranda1().setCustomLog( Main.getBlockByID("wildnature:jacaranda_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new jacaranda2().setCustomLog(Main.getBlockByID("wildnature:jacaranda_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new jacaranda3().setCustomLog(Main.getBlockByID("wildnature:jacaranda_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new jacaranda4().setCustomLog(Main.getBlockByID("wildnature:jacaranda_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))),1);
+        WNBiomeFeatures.addTree(this, new oak1(), 1);
+        WNBiomeFeatures.addTree(this, new oak2(), 1);
+        WNBiomeFeatures.addTree(this, new oak3(), 1);
+        WNBiomeFeatures.addTree(this, new jacaranda1().setCustomLog(Main.getBlockByID("wildnature:jacaranda_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))), 1);
+        WNBiomeFeatures.addTree(this, new jacaranda2().setCustomLog(Main.getBlockByID("wildnature:jacaranda_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))), 1);
+        WNBiomeFeatures.addTree(this, new jacaranda3().setCustomLog(Main.getBlockByID("wildnature:jacaranda_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))), 1);
+        WNBiomeFeatures.addTree(this, new jacaranda4().setCustomLog(Main.getBlockByID("wildnature:jacaranda_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:jacaranda_leaves"))), 1);
 
         WNBiomeFeatures.removeAllDefaultFlowers(this);
 
-        plantRate=18;
-        treeRate=0;
-        treeExtraChance=0.01F;
+        plantRate = 18;
+        treeRate = 0;
+        treeExtraChance = 0.01F;
         applyPlants();
         applyTrees();
 
@@ -103,8 +99,7 @@ public class WNHyacinthFields extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 0xA8E434;
     }
 

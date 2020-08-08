@@ -28,7 +28,7 @@ import java.util.function.Function;
 public class PlantFeature extends Feature<BlockWeightListConfig> {
     public PlantFeature(Function<Dynamic<?>, ? extends BlockWeightListConfig> p_i49869_1_) {
         super(p_i49869_1_);
-        setRegistryName("wildnature","plant_feautre");
+        setRegistryName("wildnature","wn_plant_feature");
     }
 
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, BlockWeightListConfig config) {

@@ -1,8 +1,5 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
@@ -27,8 +24,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNOliveHills extends WNBiome {
     public WNOliveHills(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.OVERGROWN_STONE_CONFIG,10),new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG,1)))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.OVERGROWN_STONE_CONFIG, 10), new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG, 1)))
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -42,10 +39,8 @@ public class WNOliveHills extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -58,27 +53,27 @@ public class WNOliveHills extends WNBiome {
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CANA_BULB_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CANA_BULB_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CANA_BULB_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CANA_BULB_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CANA_BULB_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CANA_BULB_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CANA_BULB_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CANA_BULB_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
 
-        WNBiomeFeatures.addPlant(this,WNBlocks.YEW_BUSH.getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.YEW_BUSH.getDefaultState(), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CLOVER.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LEAF_PILE.getDefaultState(), 3);
 
 
-        WNBiomeFeatures.addTree(this,new olive1(),3);
-        WNBiomeFeatures.addTree(this,new olive2(),3);
-        WNBiomeFeatures.addTree(this,new olive3(),3);
-        WNBiomeFeatures.addTree(this,new olive4(),3);
+        WNBiomeFeatures.addTree(this, new olive1(), 3);
+        WNBiomeFeatures.addTree(this, new olive2(), 3);
+        WNBiomeFeatures.addTree(this, new olive3(), 3);
+        WNBiomeFeatures.addTree(this, new olive4(), 3);
 
-        WNBiomeFeatures.addTree(this,new shrub1(),6);
-        WNBiomeFeatures.addTree(this,new citrus3().setCustomLog( WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new citrus4().setCustomLog( WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)),1);
+        WNBiomeFeatures.addTree(this, new shrub1(), 6);
+        WNBiomeFeatures.addTree(this, new citrus3().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)), 1);
+        WNBiomeFeatures.addTree(this, new citrus4().setCustomLog(WNBlocks.CITRUS_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.GRAPE_FRUIT_LEAVES)), 1);
 
-        treeRate=7;
+        treeRate = 7;
 
         applyPlants();
         applyTrees();
@@ -103,17 +98,15 @@ public class WNOliveHills extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0xA5C712,0x86B30D);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0xA5C712, 0x86B30D);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x7DC400,0x9CCD00);
+    public int getFoliageColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x7DC400, 0x9CCD00);
     }
 
 }

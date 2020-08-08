@@ -1,10 +1,8 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -14,18 +12,16 @@ import com.matez.wildnature.world.gen.structures.nature.woods.another_spruce.tre
 import com.matez.wildnature.world.gen.structures.nature.woods.another_spruce.tree_spruce_big3;
 import com.matez.wildnature.world.gen.structures.nature.woods.another_spruce.tree_spruce_big4;
 import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.surface.builders.PodzolSurfaceBuilder;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 public class WNBorealForestHill extends WNBiome {
     public WNBorealForestHill(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceRegistry.PODZOL_SURFACE_BUILDER, SurfaceRegistry.BROWN_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.TAIGA)
@@ -40,10 +36,8 @@ public class WNBorealForestHill extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -53,29 +47,29 @@ public class WNBorealForestHill extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,10);
+        WNBiomeFeatures.addGrass(this, 10);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.PERENNIAL_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PERENNIAL_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PERENNIAL_VIOLET.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PERENNIAL_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PERENNIAL_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PERENNIAL_VIOLET.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
 
-        WNBiomeFeatures.addTree(this,new tree_spruce_big1().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_spruce_big2().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_spruce_big3().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_spruce_big4().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))),2);
+        WNBiomeFeatures.addTree(this, new tree_spruce_big1().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_spruce_big2().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_spruce_big3().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_spruce_big4().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"))), 2);
         WNBiomeFeatures.addTaigaLargeFerns(this);
         WNBiomeFeatures.addTaigaRocks(this);
         WNBiomeFeatures.addBerryBushes(this);
 
-        plantRate=1;
-        treeRate=15;
+        plantRate = 1;
+        treeRate = 15;
 
         applyPlants();
         applyTrees();
@@ -96,8 +90,6 @@ public class WNBorealForestHill extends WNBiome {
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH, 5, 1, 1));
 
     }
-
-
 
 
 }

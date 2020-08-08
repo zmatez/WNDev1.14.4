@@ -8,23 +8,16 @@ import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.SeaGrassConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.IPlacementConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
 public class WNWarmLake extends WNBiome {
     public WNWarmLake(String name) {
-        super(name,(new WNBiomeBuilder()).surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG).precipitation(RainType.RAIN).category(Category.RIVER).depth(ConfigSettings.riverDepth).scale(0.1F).temperature(0.5F).downfall(0.5F).waterColor(ConfigSettings.riverWaterColor).waterFogColor(ConfigSettings.muddyWaterFogColor).parent(null));
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
+        super(name, (new WNBiomeBuilder()).surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG).precipitation(RainType.RAIN).category(Category.RIVER).depth(ConfigSettings.riverDepth).scale(0.1F).temperature(0.5F).downfall(0.5F).waterColor(ConfigSettings.riverWaterColor).waterFogColor(ConfigSettings.muddyWaterFogColor).parent(null));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
         DefaultBiomeFeatures.addCarvers(this);
         DefaultBiomeFeatures.addStructures(this);
         DefaultBiomeFeatures.addLakes(this);
@@ -40,13 +33,14 @@ public class WNWarmLake extends WNBiome {
         DefaultBiomeFeatures.addSprings(this);
         DefaultBiomeFeatures.func_222320_ai(this);
         DefaultBiomeFeatures.func_222287_ah(this);
-        WNBiomeFeatures.addWaterlilies(this, Blocks.LILY_PAD,8);
-        WNBiomeFeatures.addWaterlilies(this, WNBlocks.DUCKWEED,8);
-        WNBiomeFeatures.addWaterlilies(this, WNBlocks.GREEN_WATERLILY,4);
-        WNBiomeFeatures.addWaterlilies(this, WNBlocks.WATER_LILY_WHITE,1);
-        WNBiomeFeatures.addWaterlilies(this, WNBlocks.WATER_LILY_YELLOW,1);
-        WNBiomeFeatures.addWaterlilies(this, WNBlocks.WATER_POPPY,1);
-        WNBiomeFeatures.addSeagrass(this,48); this.addSpawn(EntityClassification.WATER_CREATURE, new SpawnListEntry(EntityType.SQUID, 2, 1, 4));
+        WNBiomeFeatures.addWaterlilies(this, Blocks.LILY_PAD, 8);
+        WNBiomeFeatures.addWaterlilies(this, WNBlocks.DUCKWEED, 8);
+        WNBiomeFeatures.addWaterlilies(this, WNBlocks.GREEN_WATERLILY, 4);
+        WNBiomeFeatures.addWaterlilies(this, WNBlocks.WATER_LILY_WHITE, 1);
+        WNBiomeFeatures.addWaterlilies(this, WNBlocks.WATER_LILY_YELLOW, 1);
+        WNBiomeFeatures.addWaterlilies(this, WNBlocks.WATER_POPPY, 1);
+        WNBiomeFeatures.addSeagrass(this, 48);
+        this.addSpawn(EntityClassification.WATER_CREATURE, new SpawnListEntry(EntityType.SQUID, 2, 1, 4));
         this.addSpawn(EntityClassification.WATER_CREATURE, new SpawnListEntry(EntityType.SALMON, 5, 1, 5));
         this.addSpawn(EntityClassification.AMBIENT, new SpawnListEntry(EntityType.BAT, 10, 8, 8));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SPIDER, 100, 4, 4));
@@ -58,6 +52,6 @@ public class WNWarmLake extends WNBiome {
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SLIME, 100, 4, 4));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ENDERMAN, 10, 1, 4));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH, 5, 1, 1));
-        
+
     }
 }

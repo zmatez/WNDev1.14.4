@@ -1,10 +1,8 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -20,7 +18,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
 public class WNOvergrownCliffs extends WNBiome {
     public WNOvergrownCliffs(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.OVERGROWN_STONE_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.EXTREME_HILLS)
@@ -35,10 +33,8 @@ public class WNOvergrownCliffs extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -47,19 +43,19 @@ public class WNOvergrownCliffs extends WNBiome {
         WNBiomeFeatures.addStoneVariants(this);
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
-        WNBiomeFeatures.addGrass(this,7, Main.getBlockByID("wildnature:small_grass").getDefaultState());
-        WNBiomeFeatures.addGrass(this,7,Main.getBlockByID("wildnature:medium_grass").getDefaultState());
-        WNBiomeFeatures.addGrass(this,3);
+        WNBiomeFeatures.addGrass(this, 7, Main.getBlockByID("wildnature:small_grass").getDefaultState());
+        WNBiomeFeatures.addGrass(this, 7, Main.getBlockByID("wildnature:medium_grass").getDefaultState());
+        WNBiomeFeatures.addGrass(this, 3);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this, WNBlocks.BUTTERCUP_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.BUTTERCUP_YELLOW.getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
-        WNBiomeFeatures.addTree(this,new shrub1(),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BUTTERCUP_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BUTTERCUP_YELLOW.getDefaultState(), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CLOVER.getDefaultState(), 3);
+        WNBiomeFeatures.addTree(this, new shrub1(), 2);
 
-        treeRate=3;
+        treeRate = 3;
 
         applyPlants();
         applyTrees();
@@ -79,8 +75,6 @@ public class WNOvergrownCliffs extends WNBiome {
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH, 5, 1, 1));
 
     }
-
-
 
 
 }

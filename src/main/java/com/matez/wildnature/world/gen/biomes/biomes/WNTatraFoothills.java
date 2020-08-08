@@ -1,8 +1,5 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
@@ -24,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNTatraFoothills extends WNBiome {
     public WNTatraFoothills(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.BROWN_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.EXTREME_HILLS)
@@ -39,11 +36,9 @@ public class WNTatraFoothills extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/taiga/town_centers", 6));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/taiga/town_centers", 6);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -53,23 +48,22 @@ public class WNTatraFoothills extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,15);
-        WNBiomeFeatures.addGrass(this,5, WNBlocks.MEDIUM_GRASS.getDefaultState());
-        WNBiomeFeatures.addGrass(this,25, Blocks.TALL_GRASS.getDefaultState(), true);
+        WNBiomeFeatures.addGrass(this, 15);
+        WNBiomeFeatures.addGrass(this, 5, WNBlocks.MEDIUM_GRASS.getDefaultState());
+        WNBiomeFeatures.addGrass(this, 25, Blocks.TALL_GRASS.getDefaultState(), true);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this,WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.CROCUS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.PRIMROSE_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.FIRE_WEED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CROCUS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PRIMROSE_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.FIRE_WEED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
 
 
-
-        plantRate=4;
-        treeRate=4;
+        plantRate = 4;
+        treeRate = 4;
 
         applyPlants();
 
@@ -89,12 +83,10 @@ public class WNTatraFoothills extends WNBiome {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0065D, (double)pos.getZ() * 0.0065D);
-        return customColor(noise,-0.1D,0xB5DA62,0x9DD858);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0065D, (double) pos.getZ() * 0.0065D);
+        return customColor(noise, -0.1D, 0xB5DA62, 0x9DD858);
     }
-
 
 
 }

@@ -1,8 +1,6 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -21,8 +19,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNBadlands extends WNBiome {
     public WNBadlands(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(Blocks.SANDSTONE.getDefaultState(),Main.getBlockByID("wildnature:desert_dirt").getDefaultState(),Main.getBlockByID("wildnature:desert_dirt").getDefaultState()))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(Blocks.SANDSTONE.getDefaultState(), Main.getBlockByID("wildnature:desert_dirt").getDefaultState(), Main.getBlockByID("wildnature:desert_dirt").getDefaultState()))
                 .precipitation(RainType.NONE)
                 .category(Category.MESA)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -34,9 +32,9 @@ public class WNBadlands extends WNBiome {
                 .waterColor(4159204)
                 .waterFogColor(329011)
                 .parent(null));
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.MESA));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.MESA);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addPillagerOutposts(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -53,7 +51,6 @@ public class WNBadlands extends WNBiome {
         WNBiomeFeatures.addDesertFeatures(this);
 
 
-
         this.addSpawn(EntityClassification.AMBIENT, new SpawnListEntry(EntityType.BAT, 10, 8, 8));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.SPIDER, 100, 4, 4));
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.ZOMBIE, 95, 4, 4));
@@ -68,14 +65,12 @@ public class WNBadlands extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 0xB49D5D;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
+    public int getFoliageColor(BlockPos pos) {
         return 0xBFEB60;
     }
 }

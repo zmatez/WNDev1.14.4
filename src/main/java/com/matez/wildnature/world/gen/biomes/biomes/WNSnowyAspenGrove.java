@@ -1,21 +1,20 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
+import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
+import com.matez.wildnature.world.gen.structures.nature.woods.aspen.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
-import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch10;
-import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch11;
-import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch12;
 import com.matez.wildnature.world.gen.structures.nature.woods.fir.tree_fir2;
+import com.matez.wildnature.world.gen.structures.nature.woods.pine.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga1;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga16;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -29,7 +28,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNSnowyAspenGrove extends WNBiome {
     public WNSnowyAspenGrove(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
@@ -44,10 +43,8 @@ public class WNSnowyAspenGrove extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -64,23 +61,33 @@ public class WNSnowyAspenGrove extends WNBiome {
         WNBiomeFeatures.addFreezeTopLayer(this);
 
 
-        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PURPLE.getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PURPLE.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATH_PURPLE.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATH_PINK.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PERENNIAL_PINK.getDefaultState(), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CLOVER.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LEAF_PILE.getDefaultState(), 3);
 
-        WNBiomeFeatures.addTree(this,new tree_birch10().setCustomLog(Main.getBlockByID("minecraft:birch_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:aspen_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_birch11().setCustomLog(Main.getBlockByID("minecraft:birch_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:aspen_leaves"))),4);
-        WNBiomeFeatures.addTree(this,new tree_birch12().setCustomLog(Main.getBlockByID("minecraft:birch_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:aspen_leaves"))),4);
-        WNBiomeFeatures.addTree(this,new tree_fir2().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:fir_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_taiga16().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:fir_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_taiga1().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new shrub1().setCustomLog(Main.getBlockByID("minecraft:birch_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:aspen_leaves"))),15);
+        WNBiomeFeatures.addTree(this, new aspen1(), 6);
+        WNBiomeFeatures.addTree(this, new aspen2(), 6);
+        WNBiomeFeatures.addTree(this, new aspen3(), 6);
+        WNBiomeFeatures.addTree(this, new aspen4(), 6);
+        WNBiomeFeatures.addTree(this, new aspen5(), 6);
+        WNBiomeFeatures.addTree(this, new tree_fir2().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:fir_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_taiga16().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:fir_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_taiga1().setCustomLog(Main.getBlockByID("minecraft:spruce_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))), 1);
+        WNBiomeFeatures.addTree(this, new shrub1().setCustomLog(Main.getBlockByID("minecraft:birch_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("wildnature:aspen_leaves"))), 15);
+        WNBiomeFeatures.addTree(this, new tree_pine1().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 1);
+        WNBiomeFeatures.addTree(this, new tree_pine2().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 1);
+        WNBiomeFeatures.addTree(this, new tree_pine3().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 1);
+        WNBiomeFeatures.addTree(this, new tree_pine4().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 1);
+        WNBiomeFeatures.addTree(this, new tree_pine5().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 1);
+        WNBiomeFeatures.addTree(this, new tree_pine6().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 1);
 
-        treeRate=18;
+        treeRate = 18;
 
         applyPlants();
         applyTrees();
@@ -101,17 +108,15 @@ public class WNSnowyAspenGrove extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0xA1C720,0x74BD20);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0xA1C720, 0x74BD20);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0xFFF005,0xFFEB00);
+    public int getFoliageColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0xFBFF00, 0xFFEA00);
     }
 
 }

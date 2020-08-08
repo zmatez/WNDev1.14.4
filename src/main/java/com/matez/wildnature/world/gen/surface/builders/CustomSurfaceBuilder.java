@@ -17,30 +17,30 @@ import java.util.function.Function;
 public class CustomSurfaceBuilder extends SurfaceBuilder<CustomSurfaceBuilderConfig> {
     public CustomSurfaceBuilder(Function<Dynamic<?>, ? extends CustomSurfaceBuilderConfig> p_i51312_1_) {
         super(p_i51312_1_);
-        setRegistryName("wildnature","custom_surface_builder");
+        setRegistryName("wildnature", "custom_surface_builder");
     }
 
     @Override
     public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, CustomSurfaceBuilderConfig config) {
-        SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, getConfig(random,(ArrayList<BlockCfg>)Arrays.asList(config.getCfgs())));
+        SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, getConfig(random, new ArrayList<BlockCfg>(Arrays.asList(config.getCfgs()))));
 
     }
 
-    private SurfaceBuilderConfig getConfig(Random rand, ArrayList<BlockCfg> cfgs){
+    private SurfaceBuilderConfig getConfig(Random rand, ArrayList<BlockCfg> cfgs) {
         ArrayList<SurfaceBuilderConfig> states = new ArrayList<>();
         int x = 0;
-        while(x<cfgs.size()){
+        while (x < cfgs.size()) {
             int a = cfgs.get(x).chance;
             int z = 0;
-            while(z<a){
+            while (z < a) {
                 states.add(cfgs.get(x).config);
                 z++;
             }
             x++;
         }
 
-        if(!(states.size()==0)){
-            int block = Utilities.rint(0,states.size()-1,rand);
+        if (!(states.size() == 0)) {
+            int block = Utilities.rint(0, states.size() - 1, rand);
 
             return states.get(block);
 
@@ -51,13 +51,14 @@ public class CustomSurfaceBuilder extends SurfaceBuilder<CustomSurfaceBuilderCon
         return GRASS_DIRT_GRAVEL_CONFIG;
     }
 
-    public static class BlockCfg{
+    public static class BlockCfg {
 
         private int chance;
         private SurfaceBuilderConfig config;
-        public BlockCfg(SurfaceBuilderConfig config, int chance){
-            this.chance=chance;
-            this.config=config;
+
+        public BlockCfg(SurfaceBuilderConfig config, int chance) {
+            this.chance = chance;
+            this.config = config;
         }
 
         public int getChance() {

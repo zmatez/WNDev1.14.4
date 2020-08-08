@@ -3,6 +3,7 @@ package com.matez.wildnature.world.gen.feature.features;
 import com.matez.wildnature.blocks.CornPlant;
 import com.matez.wildnature.blocks.GreenBeansBush;
 import com.matez.wildnature.other.BlockWeighList;
+import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.world.gen.feature.configs.BlockWeightListConfig;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.BlockState;
@@ -21,7 +22,7 @@ import java.util.function.Function;
 public class WNBushFeature extends Feature<BushConfig> {
    public WNBushFeature(Function<Dynamic<?>, ? extends BushConfig> p_i49908_1_) {
       super(p_i49908_1_);
-      setRegistryName("wildnature","bush_feature");
+      setRegistryName("wildnature","wn_bush_feature");
    }
 
    public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, BushConfig config) {
@@ -29,14 +30,14 @@ public class WNBushFeature extends Feature<BushConfig> {
       BlockState blockstate = config.state;
 
       if(config.state.getBlock() instanceof GreenBeansBush){
-         return new GreenBeanFeature(NoFeatureConfig::deserialize).place(worldIn,generator,rand,pos,new NoFeatureConfig());
+         return FeatureRegistry.GREEN_BEAN_FEATURE.place(worldIn,generator,rand,pos,new NoFeatureConfig());
       }
       else if(config.state.getBlock() instanceof CornPlant){
-         return new CornFeature(NoFeatureConfig::deserialize).place(worldIn,generator,rand,pos,new NoFeatureConfig());
+         return FeatureRegistry.CORN_FEATURE.place(worldIn,generator,rand,pos,new NoFeatureConfig());
       }else if(config.state.getBlock() instanceof DoublePlantBlock){
          BlockWeighList l = new BlockWeighList();
          l.add(config.state,1);
-         return new PlantFeature(BlockWeightListConfig::deserialize).place(worldIn,generator,rand,pos,new BlockWeightListConfig(l));
+         return FeatureRegistry.PLANT_FEATURE.place(worldIn,generator,rand,pos,new BlockWeightListConfig(l));
       }else {
          for (int j = 0; j < 64; ++j) {
             BlockPos blockpos = pos.add(rand.nextInt(8) - rand.nextInt(8), rand.nextInt(4) - rand.nextInt(4), rand.nextInt(8) - rand.nextInt(8));

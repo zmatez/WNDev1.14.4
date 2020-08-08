@@ -4,26 +4,20 @@ import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.surface.builders.TintedDesertSurfaceBuilder;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNTintedDesert extends WNBiome {
     public WNTintedDesert(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceRegistry.TINTED_DESERT_SURFACE_BUILDER, SurfaceBuilder.SAND_CONFIG)
                 .precipitation(RainType.NONE)
                 .category(Category.DESERT)
@@ -38,10 +32,8 @@ public class WNTintedDesert extends WNBiome {
                 .parent(null));//-7052122241400916496 -346 101 943
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addMonsterRooms(this);
@@ -49,12 +41,12 @@ public class WNTintedDesert extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addCactus(this,7);
-        WNBiomeFeatures.addDeadBushes(this,20);
+        WNBiomeFeatures.addCactus(this, 7);
+        WNBiomeFeatures.addDeadBushes(this, 20);
 
 
-        plantRate=4;
-        treeRate=0;
+        plantRate = 4;
+        treeRate = 0;
 
         applyPlants();
 
@@ -76,14 +68,12 @@ public class WNTintedDesert extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 0xC6B653;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
+    public int getFoliageColor(BlockPos pos) {
         return 0x98B072;
     }
 }

@@ -1,10 +1,7 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -25,8 +22,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNEucalyptusForest extends WNBiome {
     public WNEucalyptusForest(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.TROPICAL_CONFIG,2),new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG,3)))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.TROPICAL_CONFIG, 2), new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG, 3)))
                 .precipitation(RainType.RAIN)
                 .category(Category.JUNGLE)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -40,10 +37,8 @@ public class WNEucalyptusForest extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -56,32 +51,32 @@ public class WNEucalyptusForest extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addBambooJungleVegetation(this);
-        WNBiomeFeatures.addPlant(this,WNBlocks.ORCHIS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.ANTHURIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.ANTHURIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.CLOVER.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ORCHIS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CLOVER.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LEAF_PILE.getDefaultState(), 3);
 
-        WNBiomeFeatures.addTree(this,new eucalyptus_1(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_2(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_3(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_4(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_5(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_6(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_7(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_8(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_9(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_10(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub1(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub2(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub3(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub4(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub5(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub6(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub7(),1);
-        WNBiomeFeatures.addTree(this,new eucalyptus_shrub8(),1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_1(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_2(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_3(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_4(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_5(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_6(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_7(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_8(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_9(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_10(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_shrub1(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_shrub2(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_shrub3(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_shrub4(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_shrub5(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_shrub6(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_shrub7(), 1);
+        WNBiomeFeatures.addTree(this, new eucalyptus_shrub8(), 1);
 
-        treeRate=12;
+        treeRate = 12;
 
         applyPlants();
         applyTrees();
@@ -107,10 +102,9 @@ public class WNEucalyptusForest extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x7DD822,0x7ED92E);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x7DD822, 0x7ED92E);
     }
 
 }

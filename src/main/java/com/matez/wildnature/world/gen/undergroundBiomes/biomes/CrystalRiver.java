@@ -1,4 +1,4 @@
-package com.matez.wildnature.world.gen.undergroundBiomes;
+package com.matez.wildnature.world.gen.undergroundBiomes.biomes;
 
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;

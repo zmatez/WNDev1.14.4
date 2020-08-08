@@ -1,10 +1,8 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -25,7 +23,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNSnowyBialowiezaForest extends WNBiome {
     public WNSnowyBialowiezaForest(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.BROWN_CONFIG)
                 .precipitation(RainType.SNOW)
                 .category(Category.TAIGA)
@@ -40,10 +38,8 @@ public class WNSnowyBialowiezaForest extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -55,23 +51,23 @@ public class WNSnowyBialowiezaForest extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addFreezeTopLayer(this);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
 
-        WNBiomeFeatures.addTree(this,new tree_bialowiezaTree1().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf( tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_bialowiezaTree2().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_bialowiezaTree3().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_bialowiezaTree4().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_bialowiezaTree5().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new tree_bialowiezaTree6().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))),1);
-        WNBiomeFeatures.addTree(this,new shrub1().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))),5);
+        WNBiomeFeatures.addTree(this, new tree_bialowiezaTree1().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))), 1);
+        WNBiomeFeatures.addTree(this, new tree_bialowiezaTree2().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))), 1);
+        WNBiomeFeatures.addTree(this, new tree_bialowiezaTree3().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))), 1);
+        WNBiomeFeatures.addTree(this, new tree_bialowiezaTree4().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))), 1);
+        WNBiomeFeatures.addTree(this, new tree_bialowiezaTree5().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))), 1);
+        WNBiomeFeatures.addTree(this, new tree_bialowiezaTree6().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))), 1);
+        WNBiomeFeatures.addTree(this, new shrub1().setCustomLog(Main.getBlockByID("minecraft:dark_oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"))), 5);
         WNBiomeFeatures.addFreezeTopLayer(this);
 
         WNBiomeFeatures.addWater(this);
 
-        treeRate=9;
+        treeRate = 9;
 
         applyPlants();
         applyTrees();
@@ -93,10 +89,10 @@ public class WNSnowyBialowiezaForest extends WNBiome {
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH, 5, 1, 1));
 
     }
+
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x458547, 0x539855);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x458547, 0x539855);
     }
 }

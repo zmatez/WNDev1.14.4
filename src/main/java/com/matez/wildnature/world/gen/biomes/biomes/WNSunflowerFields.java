@@ -1,8 +1,5 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
@@ -13,22 +10,18 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.DoublePlantConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNSunflowerFields extends WNBiome {
     public WNSunflowerFields(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
@@ -43,11 +36,9 @@ public class WNSunflowerFields extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/plains/town_centers", 6));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/plains/town_centers", 6);
 
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
@@ -58,34 +49,34 @@ public class WNSunflowerFields extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,110, Blocks.TALL_GRASS.getDefaultState(),true);
-        WNBiomeFeatures.addGrass(this,10);
+        WNBiomeFeatures.addGrass(this, 110, Blocks.TALL_GRASS.getDefaultState(), true);
+        WNBiomeFeatures.addGrass(this, 10);
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addSunflowers(this);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.CATNIP.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.VIOLET_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,Blocks.POPPY.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,Blocks.CORNFLOWER.getDefaultState(),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CATNIP.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.VIOLET_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
+        WNBiomeFeatures.addPlant(this, Blocks.POPPY.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, Blocks.CORNFLOWER.getDefaultState(), 1);
 
-        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.WILD_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING, true), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.WILD_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING, true), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING, true), 4);
 
-        WNBiomeFeatures.addTree(this,new pointy_birch1(),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch2(),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch3(),1);
-        WNBiomeFeatures.addTree(this,new pointy_birch4(),1);
+        WNBiomeFeatures.addTree(this, new pointy_birch1(), 1);
+        WNBiomeFeatures.addTree(this, new pointy_birch2(), 1);
+        WNBiomeFeatures.addTree(this, new pointy_birch3(), 1);
+        WNBiomeFeatures.addTree(this, new pointy_birch4(), 1);
 
-        WNBiomeFeatures.addTree(this,new thin_birch1(),4);
-        WNBiomeFeatures.addTree(this,new thin_birch2(),4);
-        WNBiomeFeatures.addTree(this,new thin_birch3(),4);
-        WNBiomeFeatures.addTree(this,new thin_birch4(),4);
+        WNBiomeFeatures.addTree(this, new thin_birch1(), 4);
+        WNBiomeFeatures.addTree(this, new thin_birch2(), 4);
+        WNBiomeFeatures.addTree(this, new thin_birch3(), 4);
+        WNBiomeFeatures.addTree(this, new thin_birch4(), 4);
 
-        plantRate=2;
-        treeRate=0;
+        plantRate = 2;
+        treeRate = 0;
 
         applyPlants();
         applyTrees();
@@ -109,8 +100,7 @@ public class WNSunflowerFields extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 0xA9D772;
     }
 

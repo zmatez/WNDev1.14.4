@@ -1,14 +1,12 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.spooky.*;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import com.matez.wildnature.world.gen.surface.builders.CustomSurfaceBuilder;
 import com.matez.wildnature.world.gen.surface.configs.CustomSurfaceBuilderConfig;
 import net.minecraft.entity.EntityClassification;
@@ -24,8 +22,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNDarkMirkwood extends WNBiome {
     public WNDarkMirkwood(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG,10),new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG,1)))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG, 10), new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG, 1)))
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -39,11 +37,9 @@ public class WNDarkMirkwood extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.SWAMP_HUT, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addSwampHuts(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -56,44 +52,44 @@ public class WNDarkMirkwood extends WNBiome {
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this, WNBlocks.RADISSIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.RADISSIUM_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.RADISSIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.YEW_BUSH.getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.VIBURNUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.SPIDERGRASS.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.LAMPGRASS.getDefaultState().with(FloweringBushBase.FLOWERING,true),6);
+        WNBiomeFeatures.addPlant(this, WNBlocks.RADISSIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.RADISSIUM_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.RADISSIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.YEW_BUSH.getDefaultState(), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.VIBURNUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CLOVER.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LEAF_PILE.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.SPIDERGRASS.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LAMPGRASS.getDefaultState().with(FloweringBushBase.FLOWERING, true), 6);
 
 
-        WNBiomeFeatures.addTree(this,new spooky_big1(),3);
-        WNBiomeFeatures.addTree(this,new spooky_big2(),3);
-        WNBiomeFeatures.addTree(this,new spooky_big3(),3);
-        WNBiomeFeatures.addTree(this,new spooky_big4(),3);
-        WNBiomeFeatures.addTree(this,new spooky_big5(),3);
-        WNBiomeFeatures.addTree(this,new spooky_big6(),3);
-        WNBiomeFeatures.addTree(this,new spooky_big7(),3);
-        WNBiomeFeatures.addTree(this,new spooky_big8(),3);
+        WNBiomeFeatures.addTree(this, new spooky_big1(), 3);
+        WNBiomeFeatures.addTree(this, new spooky_big2(), 3);
+        WNBiomeFeatures.addTree(this, new spooky_big3(), 3);
+        WNBiomeFeatures.addTree(this, new spooky_big4(), 3);
+        WNBiomeFeatures.addTree(this, new spooky_big5(), 3);
+        WNBiomeFeatures.addTree(this, new spooky_big6(), 3);
+        WNBiomeFeatures.addTree(this, new spooky_big7(), 3);
+        WNBiomeFeatures.addTree(this, new spooky_big8(), 3);
 
-        WNBiomeFeatures.addTree(this,new spooky1(),1);
-        WNBiomeFeatures.addTree(this,new spooky2(),1);
-        WNBiomeFeatures.addTree(this,new spooky3(),1);
-        WNBiomeFeatures.addTree(this,new spooky4(),1);
-        WNBiomeFeatures.addTree(this,new spooky5(),1);
-        WNBiomeFeatures.addTree(this,new spooky6(),1);
-        WNBiomeFeatures.addTree(this,new spooky7(),1);
-        WNBiomeFeatures.addTree(this,new spooky8(),1);
-        WNBiomeFeatures.addTree(this,new spooky9(),1);
-        WNBiomeFeatures.addTree(this,new spooky10(),1);
-        WNBiomeFeatures.addTree(this,new spooky11(),1);
-        WNBiomeFeatures.addTree(this,new spooky12(),1);
-        WNBiomeFeatures.addTree(this,new spooky13(),1);
-        WNBiomeFeatures.addTree(this,new spooky14(),3);
-        WNBiomeFeatures.addTree(this,new spooky15(),3);
+        WNBiomeFeatures.addTree(this, new spooky1(), 1);
+        WNBiomeFeatures.addTree(this, new spooky2(), 1);
+        WNBiomeFeatures.addTree(this, new spooky3(), 1);
+        WNBiomeFeatures.addTree(this, new spooky4(), 1);
+        WNBiomeFeatures.addTree(this, new spooky5(), 1);
+        WNBiomeFeatures.addTree(this, new spooky6(), 1);
+        WNBiomeFeatures.addTree(this, new spooky7(), 1);
+        WNBiomeFeatures.addTree(this, new spooky8(), 1);
+        WNBiomeFeatures.addTree(this, new spooky9(), 1);
+        WNBiomeFeatures.addTree(this, new spooky10(), 1);
+        WNBiomeFeatures.addTree(this, new spooky11(), 1);
+        WNBiomeFeatures.addTree(this, new spooky12(), 1);
+        WNBiomeFeatures.addTree(this, new spooky13(), 1);
+        WNBiomeFeatures.addTree(this, new spooky14(), 3);
+        WNBiomeFeatures.addTree(this, new spooky15(), 3);
 
-        treeRate=22;
+        treeRate = 22;
 
         applyPlants();
         applyTrees();
@@ -117,10 +113,9 @@ public class WNDarkMirkwood extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x406E28,0x276B27);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x406E28, 0x276B27);
     }
 
 

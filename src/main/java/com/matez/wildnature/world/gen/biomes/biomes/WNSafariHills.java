@@ -1,16 +1,12 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.acacia.*;
 import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.surface.builders.NoiseSurfaceBuilder;
 import com.matez.wildnature.world.gen.surface.configs.Noise2SurfaceBuilderConfig;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -22,14 +18,13 @@ import net.minecraft.world.gen.feature.SavannaTreeFeature;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNSafariHills extends WNBiome {
     public WNSafariHills(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceRegistry.NOISE_SURFACE_BUILDER, new Noise2SurfaceBuilderConfig( SurfaceRegistry.DESERT_CONFIG,SurfaceBuilder.SAND_SAND_GRAVEL_CONFIG))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceRegistry.NOISE_SURFACE_BUILDER, new Noise2SurfaceBuilderConfig(SurfaceRegistry.DESERT_CONFIG, SurfaceBuilder.SAND_SAND_GRAVEL_CONFIG))
                 .precipitation(RainType.RAIN)
                 .category(Category.SAVANNA)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -44,9 +39,9 @@ public class WNSafariHills extends WNBiome {
 
 
         WNBiomeFeatures.removeAllDefaultFlowers(this);
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addPillagerOutposts(this);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -56,26 +51,25 @@ public class WNSafariHills extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,12);
+        WNBiomeFeatures.addGrass(this, 12);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this,WNBlocks.LUPINE_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.LUPINE_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.LUPINE_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LUPINE_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LUPINE_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LUPINE_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING, true), 4);
 
 
-
-        WNBiomeFeatures.addTree(this,new SavannaTreeFeature(NoFeatureConfig::deserialize,false),5);
-        WNBiomeFeatures.addTree(this,new acacia1(),3);
-        WNBiomeFeatures.addTree(this,new acacia2(),3);
-        WNBiomeFeatures.addTree(this,new acacia3(),3);
-        WNBiomeFeatures.addTree(this,new acacia4(),3);
-        WNBiomeFeatures.addTree(this,new acacia5(),3);
-        plantRate=1;
-        treeRate=4;
+        WNBiomeFeatures.addTree(this, new SavannaTreeFeature(NoFeatureConfig::deserialize, false), 5);
+        WNBiomeFeatures.addTree(this, new acacia1(), 3);
+        WNBiomeFeatures.addTree(this, new acacia2(), 3);
+        WNBiomeFeatures.addTree(this, new acacia3(), 3);
+        WNBiomeFeatures.addTree(this, new acacia4(), 3);
+        WNBiomeFeatures.addTree(this, new acacia5(), 3);
+        plantRate = 1;
+        treeRate = 4;
 
         applyPlants();
         applyTrees();
@@ -100,14 +94,12 @@ public class WNSafariHills extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 0xC8EB60;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
+    public int getFoliageColor(BlockPos pos) {
         return 0xBFEB60;
     }
 

@@ -1,8 +1,5 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
@@ -24,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNScrublands extends WNBiome {
     public WNScrublands(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.OVERGROWN_STONE_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.PLAINS)
@@ -39,12 +36,10 @@ public class WNScrublands extends WNBiome {
                 .parent(null));
 
 
-
         WNBiomeFeatures.removeAllDefaultFlowers(this);
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/plains/town_centers", 1));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/plains/town_centers", 1);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -54,35 +49,35 @@ public class WNScrublands extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,15, WNBlocks.SMALL_GRASS.getDefaultState());
-        WNBiomeFeatures.addGrass(this,7, WNBlocks.MEDIUM_GRASS.getDefaultState());
-        WNBiomeFeatures.addGrass(this,3);
+        WNBiomeFeatures.addGrass(this, 15, WNBlocks.SMALL_GRASS.getDefaultState());
+        WNBiomeFeatures.addGrass(this, 7, WNBlocks.MEDIUM_GRASS.getDefaultState());
+        WNBiomeFeatures.addGrass(this, 3);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),5);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),5);
-        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.AZALEA_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CANA_BULB_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CANA_BULB_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_DARK_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.YEW_BUSH.getDefaultState(),7);
-        WNBiomeFeatures.addPlant(this, WNBlocks.SHRUB_TALL.getDefaultState(),10);
-        WNBiomeFeatures.addPlant(this, WNBlocks.SHRUB.getDefaultState(),10);
-        WNBiomeFeatures.addPlant(this, WNBlocks.BOXWOOD.getDefaultState(),5);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING, true), 5);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING, true), 5);
+        WNBiomeFeatures.addPlant(this, WNBlocks.AZALEA_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.AZALEA_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.AZALEA_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CANA_BULB_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CANA_BULB_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HYACINTH_DARK_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.YEW_BUSH.getDefaultState(), 7);
+        WNBiomeFeatures.addPlant(this, WNBlocks.SHRUB_TALL.getDefaultState(), 10);
+        WNBiomeFeatures.addPlant(this, WNBlocks.SHRUB.getDefaultState(), 10);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BOXWOOD.getDefaultState(), 5);
 
-        WNBiomeFeatures.addTree(this,new scrubland_shrub1(),1);
-        WNBiomeFeatures.addTree(this,new scrubland_shrub2(),1);
-        WNBiomeFeatures.addTree(this,new scrubland_shrub3(),1);
-        WNBiomeFeatures.addTree(this,new scrubland_shrub4(),1);
-        WNBiomeFeatures.addTree(this,new shrub1(),1);
+        WNBiomeFeatures.addTree(this, new scrubland_shrub1(), 1);
+        WNBiomeFeatures.addTree(this, new scrubland_shrub2(), 1);
+        WNBiomeFeatures.addTree(this, new scrubland_shrub3(), 1);
+        WNBiomeFeatures.addTree(this, new scrubland_shrub4(), 1);
+        WNBiomeFeatures.addTree(this, new shrub1(), 1);
 
 
-        plantRate=4;
-        treeRate=2;
+        plantRate = 4;
+        treeRate = 2;
 
         applyPlants();
         applyTrees();
@@ -102,17 +97,15 @@ public class WNScrublands extends WNBiome {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.005D, (double)pos.getZ() * 0.005D);
-        return customColor(noise,-0.1D,0x5AD568,0x95D55F);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.005D, (double) pos.getZ() * 0.005D);
+        return customColor(noise, -0.1D, 0x5AD568, 0x95D55F);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.005D, (double)pos.getZ() * 0.005D);
-        return customColor(noise,-0.1D,0x76C831,0x60CB49);
+    public int getFoliageColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.005D, (double) pos.getZ() * 0.005D);
+        return customColor(noise, -0.1D, 0x76C831, 0x60CB49);
     }
 
 

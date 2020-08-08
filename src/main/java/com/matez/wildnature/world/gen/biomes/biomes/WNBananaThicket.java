@@ -1,10 +1,7 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -28,7 +25,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNBananaThicket extends WNBiome {
     public WNBananaThicket(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.TROPICAL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.JUNGLE)
@@ -43,11 +40,9 @@ public class WNBananaThicket extends WNBiome {
                 .parent(null));
 
 
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
 
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -60,21 +55,21 @@ public class WNBananaThicket extends WNBiome {
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, Blocks.BLUE_ORCHID.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ANTHURIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, Blocks.BLUE_ORCHID.getDefaultState(), 3);
 
 
-        WNBiomeFeatures.addTree(this,new banana1(),3);
-        WNBiomeFeatures.addTree(this,new banana2(),3);
-        WNBiomeFeatures.addTree(this,new banana3(),3);
-        WNBiomeFeatures.addTree(this,new banana4(),3);
+        WNBiomeFeatures.addTree(this, new banana1(), 3);
+        WNBiomeFeatures.addTree(this, new banana2(), 3);
+        WNBiomeFeatures.addTree(this, new banana3(), 3);
+        WNBiomeFeatures.addTree(this, new banana4(), 3);
 
-        WNBiomeFeatures.addTree(this,new JungleTreeFeature(NoFeatureConfig::deserialize,true,4,Blocks.JUNGLE_LOG.getDefaultState(),Blocks.JUNGLE_LEAVES.getDefaultState(),true),6);
-        WNBiomeFeatures.addTree(this,new shrub1().setCustomLog( Blocks.JUNGLE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Blocks.JUNGLE_LEAVES)),14);
-        WNBiomeFeatures.addTree(this, new MegaJungleFeature(NoFeatureConfig::deserialize,true,10,20,Blocks.JUNGLE_LOG.getDefaultState(),Blocks.JUNGLE_LEAVES.getDefaultState()),2);
+        WNBiomeFeatures.addTree(this, new JungleTreeFeature(NoFeatureConfig::deserialize, true, 4, Blocks.JUNGLE_LOG.getDefaultState(), Blocks.JUNGLE_LEAVES.getDefaultState(), true), 6);
+        WNBiomeFeatures.addTree(this, new shrub1().setCustomLog(Blocks.JUNGLE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Blocks.JUNGLE_LEAVES)), 14);
+        WNBiomeFeatures.addTree(this, new MegaJungleFeature(NoFeatureConfig::deserialize, true, 10, 20, Blocks.JUNGLE_LOG.getDefaultState(), Blocks.JUNGLE_LEAVES.getDefaultState()), 2);
 
-        treeRate=13;
+        treeRate = 13;
 
         applyPlants();
         applyTrees();
@@ -103,17 +98,15 @@ public class WNBananaThicket extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x73E028,0x51DD11);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x73E028, 0x51DD11);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x7DC400,0x9CCD00);
+    public int getFoliageColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x7DC400, 0x9CCD00);
     }
 
 }

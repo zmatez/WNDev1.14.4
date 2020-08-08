@@ -1,15 +1,10 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.configs.WNBlobConfig;
-import com.matez.wildnature.world.gen.feature.features.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.beech.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
@@ -19,21 +14,17 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNBeechValley extends WNBiome {
     public WNBeechValley(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_CONFIG,3),new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_PODZOL_CONFIG,1)))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_CONFIG, 3), new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_PODZOL_CONFIG, 1)))
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -47,10 +38,8 @@ public class WNBeechValley extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -63,42 +52,42 @@ public class WNBeechValley extends WNBiome {
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.YEW_BUSH.getDefaultState(),10);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PASQUE_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.IRIS_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.IRIS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.IRIS_VIOLET.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.YEW_BUSH.getDefaultState(), 10);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.IRIS_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.IRIS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.IRIS_VIOLET.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CLOVER.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LEAF_PILE.getDefaultState(), 3);
 
-        WNBiomeFeatures.addTree(this,new beech1(),3);
-        WNBiomeFeatures.addTree(this,new beech2(),3);
-        WNBiomeFeatures.addTree(this,new beech3(),3);
-        WNBiomeFeatures.addTree(this,new beech4(),3);
-        WNBiomeFeatures.addTree(this,new beech5(),3);
-        WNBiomeFeatures.addTree(this,new beech6(),3);
-        WNBiomeFeatures.addTree(this,new beech7(),3);
-        WNBiomeFeatures.addTree(this,new beech8(),3);
-        WNBiomeFeatures.addTree(this,new beech9(),3);
-        WNBiomeFeatures.addTree(this,new beech10(),3);
-        WNBiomeFeatures.addTree(this,new beech11(),3);
-        WNBiomeFeatures.addTree(this,new beech12(),3);
-        WNBiomeFeatures.addTree(this,new thick_beech1(),1);
-        WNBiomeFeatures.addTree(this,new thick_beech2(),1);
-        WNBiomeFeatures.addTree(this,new thick_beech3(),1);
-        WNBiomeFeatures.addTree(this,new thick_beech4(),1);
+        WNBiomeFeatures.addTree(this, new beech1(), 3);
+        WNBiomeFeatures.addTree(this, new beech2(), 3);
+        WNBiomeFeatures.addTree(this, new beech3(), 3);
+        WNBiomeFeatures.addTree(this, new beech4(), 3);
+        WNBiomeFeatures.addTree(this, new beech5(), 3);
+        WNBiomeFeatures.addTree(this, new beech6(), 3);
+        WNBiomeFeatures.addTree(this, new beech7(), 3);
+        WNBiomeFeatures.addTree(this, new beech8(), 3);
+        WNBiomeFeatures.addTree(this, new beech9(), 3);
+        WNBiomeFeatures.addTree(this, new beech10(), 3);
+        WNBiomeFeatures.addTree(this, new beech11(), 3);
+        WNBiomeFeatures.addTree(this, new beech12(), 3);
+        WNBiomeFeatures.addTree(this, new thick_beech1(), 1);
+        WNBiomeFeatures.addTree(this, new thick_beech2(), 1);
+        WNBiomeFeatures.addTree(this, new thick_beech3(), 1);
+        WNBiomeFeatures.addTree(this, new thick_beech4(), 1);
 
-        WNBiomeFeatures.addTree(this,new shrub1(),15);
+        WNBiomeFeatures.addTree(this, new shrub1(), 15);
 
-        treeRate=2;
+        treeRate = 2;
 
         applyPlants();
         applyTrees();
 
-        WNBiomeFeatures.addBlob(this,Blocks.PODZOL.getDefaultState(),1,true,false,1);
+        WNBiomeFeatures.addBlob(this, Blocks.PODZOL.getDefaultState(), 1, true, false, 1);
 
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
         this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.CHICKEN, 10, 4, 4));
@@ -119,17 +108,15 @@ public class WNBeechValley extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x95DF55,0x90D849);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x95DF55, 0x90D849);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x2ACC00,0x67D600);
+    public int getFoliageColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x2ACC00, 0x67D600);
     }
 
 }

@@ -1,8 +1,5 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
@@ -23,7 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNMeadow extends WNBiome {
     public WNMeadow(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
@@ -38,11 +35,9 @@ public class WNMeadow extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/plains/town_centers", 7));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/plains/town_centers", 7);
 
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
@@ -53,25 +48,25 @@ public class WNMeadow extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,15, Blocks.TALL_GRASS.getDefaultState(),true);
-        WNBiomeFeatures.addGrass(this,8);
+        WNBiomeFeatures.addGrass(this, 15, Blocks.TALL_GRASS.getDefaultState(), true);
+        WNBiomeFeatures.addGrass(this, 8);
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.removeAllDefaultFlowers(this);
 
-        WNBiomeFeatures.addPlant(this, WNBlocks.DAFFODIL.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.CATNIP.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.VIOLET_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,Blocks.POPPY.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,Blocks.CORNFLOWER.getDefaultState(),2);
-        WNBiomeFeatures.addPlant(this,Blocks.DANDELION.getDefaultState(),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CHAMOMILE_WHITE.getDefaultState(),5);
+        WNBiomeFeatures.addPlant(this, WNBlocks.DAFFODIL.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CATNIP.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.VIOLET_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, Blocks.POPPY.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, Blocks.CORNFLOWER.getDefaultState(), 2);
+        WNBiomeFeatures.addPlant(this, Blocks.DANDELION.getDefaultState(), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CHAMOMILE_WHITE.getDefaultState(), 5);
 
-        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.WILD_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.WILD_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
 
-        plantRate=10;
+        plantRate = 10;
 
         applyPlants();
 
@@ -93,8 +88,7 @@ public class WNMeadow extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 0x81D731;
     }
 

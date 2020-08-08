@@ -2,38 +2,28 @@ package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
 import com.matez.wildnature.blocks.DoubleBushBaseFlowering;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.palm.*;
 import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.surface.builders.NormalPodzolSurfaceBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.DoublePlantConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.ProbabilityConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNTropicalIsland extends WNBiome {
     public WNTropicalIsland(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceRegistry.NORMAL_PODZOL_SURFACE_BUILDER, SurfaceRegistry.TROPICAL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.JUNGLE)
@@ -48,10 +38,8 @@ public class WNTropicalIsland extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -61,42 +49,42 @@ public class WNTropicalIsland extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,20);
+        WNBiomeFeatures.addGrass(this, 20);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, Blocks.BLUE_ORCHID.getDefaultState(),5);
-        WNBiomeFeatures.addPlant(this, WNBlocks.PEACE_LILY.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.ORCHIS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.ORCHIS_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.CANA_BULB_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.BIRD_OF_PARADISE.getDefaultState().with(DoubleBushBaseFlowering.FLOWERING,true),3);
+        WNBiomeFeatures.addPlant(this, Blocks.BLUE_ORCHID.getDefaultState(), 5);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PEACE_LILY.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ORCHIS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.ORCHIS_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CANA_BULB_ORANGE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BIRD_OF_PARADISE.getDefaultState().with(DoubleBushBaseFlowering.FLOWERING, true), 3);
 
-        WNBiomeFeatures.addMelons(this,4);
+        WNBiomeFeatures.addMelons(this, 4);
 
-        WNBiomeFeatures.addTree(this,new tree_palm1().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm2().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm3().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm4().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm5().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm6().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm7().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm8().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm9().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm10().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm11().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm12().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm13().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm14().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm15().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm16().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
-        WNBiomeFeatures.addTree(this,new tree_palm17().setCustomLog( Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))),2);
+        WNBiomeFeatures.addTree(this, new tree_palm1().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm2().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm3().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm4().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm5().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm6().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm7().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm8().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm9().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm10().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm11().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm12().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm13().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm14().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm15().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm16().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
+        WNBiomeFeatures.addTree(this, new tree_palm17().setCustomLog(Main.getBlockByID("wildnature:palm_log").getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Main.getBlockByID("wildnature:palm_leaves"))), 2);
 
         WNBiomeFeatures.addBambooJungleVegetation(this);
 
-        plantRate=2;
-        treeRate=4;
+        plantRate = 2;
+        treeRate = 4;
 
         applyPlants();
         applyTrees();
@@ -118,17 +106,15 @@ public class WNTropicalIsland extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x7FC132, 0x4DCD2D);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x7FC132, 0x4DCD2D);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x59C236, 0x87DD34);
+    public int getFoliageColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x59C236, 0x87DD34);
     }
 
     @Override

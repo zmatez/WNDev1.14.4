@@ -1,17 +1,17 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.structures.nature.woods.oak.*;
-import com.matez.wildnature.world.gen.structures.nature.woods.orchard.*;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.tree_birch1;
-import com.matez.wildnature.world.gen.structures.nature.woods.def.BigTree;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak1;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak2;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak3;
+import com.matez.wildnature.world.gen.structures.nature.woods.oak.tree_oak5;
+import com.matez.wildnature.world.gen.structures.nature.woods.orchard.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -25,7 +25,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNOrchardPlum extends WNBiome {
     public WNOrchardPlum(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
@@ -40,10 +40,8 @@ public class WNOrchardPlum extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -53,30 +51,30 @@ public class WNOrchardPlum extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,16);
+        WNBiomeFeatures.addGrass(this, 16);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this,WNBlocks.GERANIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GERANIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GERANIUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.MARIGOLD_ORANGE.getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HOLLYHOCK_RED.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GERANIUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GERANIUM_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GERANIUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.MARIGOLD_ORANGE.getDefaultState(), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HOLLYHOCK_RED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
 
 
-        WNBiomeFeatures.addTree(this,new oak1(),1);
-        WNBiomeFeatures.addTree(this,new oak2(),1);
-        WNBiomeFeatures.addTree(this,new oak3(),1);
-        WNBiomeFeatures.addTree(this,new tree_oak5().setCustomLog(Main.getBlockByID("minecraft:oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:oak_leaves"))),4);
-        WNBiomeFeatures.addTree(this,new apple1(),1);
-        WNBiomeFeatures.addTree(this,new apple2(),1);
-        WNBiomeFeatures.addTree(this,new apple3(),1);
-        WNBiomeFeatures.addTree(this,new pear1(),1);
-        WNBiomeFeatures.addTree(this,new pear2(),1);
-        WNBiomeFeatures.addTree(this,new pear3(),1);
+        WNBiomeFeatures.addTree(this, new oak1(), 1);
+        WNBiomeFeatures.addTree(this, new oak2(), 1);
+        WNBiomeFeatures.addTree(this, new oak3(), 1);
+        WNBiomeFeatures.addTree(this, new tree_oak5().setCustomLog(Main.getBlockByID("minecraft:oak_log").getDefaultState()).setCustomLeaf(tree_birch1.notDecayingLeaf(Main.getBlockByID("minecraft:oak_leaves"))), 4);
+        WNBiomeFeatures.addTree(this, new apple1(), 1);
+        WNBiomeFeatures.addTree(this, new apple2(), 1);
+        WNBiomeFeatures.addTree(this, new apple3(), 1);
+        WNBiomeFeatures.addTree(this, new pear1(), 1);
+        WNBiomeFeatures.addTree(this, new pear2(), 1);
+        WNBiomeFeatures.addTree(this, new pear3(), 1);
 
-        treeRate=5;
+        treeRate = 5;
 
         applyPlants();
         applyTrees();
@@ -100,17 +98,15 @@ public class WNOrchardPlum extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,9039360,11721984);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 9039360, 11721984);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,9039360, 11721984);
+    public int getFoliageColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 9039360, 11721984);
     }
 
 }

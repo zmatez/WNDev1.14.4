@@ -1,17 +1,13 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.cedar.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.surface.builders.PodzolSurfaceBuilder;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -20,11 +16,10 @@ import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 public class WNSnowyCedarForest extends WNBiome {
     public WNSnowyCedarForest(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceRegistry.PODZOL_SURFACE_BUILDER, SurfaceRegistry.BROWN_CONFIG)
                 .precipitation(RainType.SNOW)
                 .category(Category.TAIGA)
@@ -39,11 +34,9 @@ public class WNSnowyCedarForest extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/taiga/town_centers", 6));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/taiga/town_centers", 6);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -53,36 +46,36 @@ public class WNSnowyCedarForest extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,10);
+        WNBiomeFeatures.addGrass(this, 10);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addFreezeTopLayer(this);
 
-        WNBiomeFeatures.addPlant(this,WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PERENNIAL_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this, WNBlocks.PERENNIAL_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PERENNIAL_VIOLET.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.YEW_BUSH.getDefaultState(),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FERNSPROUT.getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.VIBURNUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.VIBURNUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PERENNIAL_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PERENNIAL_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PERENNIAL_VIOLET.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.YEW_BUSH.getDefaultState(), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_FERNSPROUT.getDefaultState(), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.VIBURNUM_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.VIBURNUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
 
-        WNBiomeFeatures.addTree(this,new cedar1(),2);
-        WNBiomeFeatures.addTree(this,new cedar2(),2);
-        WNBiomeFeatures.addTree(this,new cedar3(),2);
-        WNBiomeFeatures.addTree(this,new cedar4(),2);
-        WNBiomeFeatures.addTree(this,new cedar5(),2);
-        WNBiomeFeatures.addTree(this,new cedar6(),2);
-        WNBiomeFeatures.addTree(this,new cedar7(),2);
-        WNBiomeFeatures.addTree(this,new cedar8(),2);
-        WNBiomeFeatures.addTree(this,new shrub1(),3);
+        WNBiomeFeatures.addTree(this, new cedar1(), 2);
+        WNBiomeFeatures.addTree(this, new cedar2(), 2);
+        WNBiomeFeatures.addTree(this, new cedar3(), 2);
+        WNBiomeFeatures.addTree(this, new cedar4(), 2);
+        WNBiomeFeatures.addTree(this, new cedar5(), 2);
+        WNBiomeFeatures.addTree(this, new cedar6(), 2);
+        WNBiomeFeatures.addTree(this, new cedar7(), 2);
+        WNBiomeFeatures.addTree(this, new cedar8(), 2);
+        WNBiomeFeatures.addTree(this, new shrub1(), 3);
 
         WNBiomeFeatures.addTaigaLargeFerns(this);
         WNBiomeFeatures.addTaigaRocks(this);
 
-        plantRate=1;
-        treeRate=10;
+        plantRate = 1;
+        treeRate = 10;
 
         applyPlants();
         applyTrees();

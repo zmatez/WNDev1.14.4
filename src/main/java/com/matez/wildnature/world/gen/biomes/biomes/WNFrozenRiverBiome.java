@@ -1,8 +1,6 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.config.ConfigSettings;
 import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.entity.EntityClassification;
@@ -16,8 +14,8 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
 public class WNFrozenRiverBiome extends Biome {
     public WNFrozenRiverBiome() {
-        super((new Biome.Builder()).surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.BROWN_CONFIG).precipitation(Biome.RainType.SNOW).category(Biome.Category.RIVER).depth(ConfigSettings.riverDepth).scale(0.0F).temperature(0.0F).downfall(0.5F).waterColor(ConfigSettings.riverWaterColor).waterFogColor(ConfigSettings.riverWaterFogColor).parent((String)null));
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
+        super((new Biome.Builder()).surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.BROWN_CONFIG).precipitation(Biome.RainType.SNOW).category(Biome.Category.RIVER).depth(ConfigSettings.riverDepth).scale(0.0F).temperature(0.0F).downfall(0.5F).waterColor(ConfigSettings.riverWaterColor).waterFogColor(ConfigSettings.riverWaterFogColor).parent(null));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
         DefaultBiomeFeatures.addCarvers(this);
         DefaultBiomeFeatures.addStructures(this);
         DefaultBiomeFeatures.addLakes(this);

@@ -1,12 +1,10 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.surface.builders.CrackedSurfaceBuilder;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
@@ -20,8 +18,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNCrackedDesert extends WNBiome {
     public WNCrackedDesert(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceRegistry.CRACKED_SURFACE_BUILDER, new SurfaceBuilderConfig(Main.getBlockByID("wildnature:cracked_sandstone").getDefaultState(),Main.getBlockByID("wildnature:cracked_sandstone").getDefaultState(),Main.getBlockByID("minecraft:sand").getDefaultState()))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceRegistry.CRACKED_SURFACE_BUILDER, new SurfaceBuilderConfig(Main.getBlockByID("wildnature:cracked_sandstone").getDefaultState(), Main.getBlockByID("wildnature:cracked_sandstone").getDefaultState(), Main.getBlockByID("minecraft:sand").getDefaultState()))
                 .precipitation(RainType.NONE)
                 .category(Category.DESERT)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -35,10 +33,8 @@ public class WNCrackedDesert extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -48,14 +44,14 @@ public class WNCrackedDesert extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,18);
+        WNBiomeFeatures.addGrass(this, 18);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
 
-        plantRate=4;
-        treeRate=0;
+        plantRate = 4;
+        treeRate = 0;
 
         applyPlants();
         applyTrees();
@@ -75,8 +71,7 @@ public class WNCrackedDesert extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 0xb2d709;
     }
 

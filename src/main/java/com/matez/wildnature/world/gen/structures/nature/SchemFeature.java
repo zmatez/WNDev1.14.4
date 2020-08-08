@@ -3,6 +3,7 @@ package com.matez.wildnature.world.gen.structures.nature;
 import com.google.common.collect.Sets;
 import com.matez.wildnature.blocks.FloweringLeaves;
 import com.matez.wildnature.blocks.FruitableLeaves;
+import com.matez.wildnature.blocks.LeavesBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.other.Utilities;
 import com.mojang.brigadier.StringReader;
@@ -29,6 +30,8 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
     public BlockState LEAVES = notDecayingLeaf(Blocks.OAK_LEAVES);
     public BlockState LOG = Blocks.OAK_LOG.getDefaultState();
+    public BlockState LEAVES_OVERRIDE = null;
+    public BlockState LOG_OVERRIDE = null;
     public BlockState DIRT = Blocks.DIRT.getDefaultState();
     public BlockState BRANCH = LEAVES;
     public IWorld world;
@@ -45,6 +48,8 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
         super(configFactoryIn, doBlockNotifyIn);
         LOG = Blocks.OAK_LOG.getDefaultState();
         LEAVES = notDecayingLeaf(Blocks.OAK_LEAVES);
+        LEAVES_OVERRIDE = null;
+        LOG_OVERRIDE = null;
         BRANCH = LEAVES;
     }
     public SchemFeature() {
@@ -65,6 +70,29 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
     public SchemFeature setCustomLeaf(BlockState leaf) {
         LEAVES = leaf;
+        BRANCH = LEAVES;
+        return this;
+    }
+
+    /**
+     * use it if LEAVES or LOG isnt defined in the log, just strings with leaves and log
+     * @param log
+     * @return
+     */
+    public SchemFeature setCustomLogOverride(BlockState log) {
+        LOG = log;
+        LOG_OVERRIDE = log;
+        return this;
+    }
+
+    /**
+     * use it if LEAVES or LOG isnt defined in the log, just strings with leaves and log
+     * @param leaf
+     * @return
+     */
+    public SchemFeature setCustomLeafOverride(BlockState leaf) {
+        LEAVES = leaf;
+        LEAVES_OVERRIDE = leaf;
         BRANCH = LEAVES;
         return this;
     }
@@ -120,6 +148,20 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
     }
 
     public void Block(int x, int y, int z, BlockState state) {
+        if(LOG_OVERRIDE!=null && state.getBlock() instanceof LogBlock){
+            state = LOG_OVERRIDE;
+        }
+        if(LEAVES_OVERRIDE!=null && state.getBlock() instanceof LeavesBlock){
+            state = LEAVES_OVERRIDE;
+        }
+        if (state.getBlock() == WNBlocks.MAGNOLIA_LEAVES || state.getBlock() == WNBlocks.FORSYTHIA_LEAVES || Utilities.rint(0, 10) == 0) {
+            if (state.getBlock() instanceof FloweringLeaves) {
+                state = state.with(FloweringLeaves.FLOWERING, true);
+            } else if (state.getBlock() instanceof FruitableLeaves) {
+                state = state.with((((FruitableLeaves) state.getBlock()).getStage()), Utilities.rint(1, ((FruitableLeaves) state.getBlock()).getMaxStages()));
+            }
+        }
+
         BlockPos pos = startBlockPos;
         int sx = startBlockPos.getX();
         int sy = startBlockPos.getY() - 1;
@@ -145,13 +187,7 @@ public class SchemFeature extends AbstractTreeFeature<NoFeatureConfig> {
         if (world.getBlockState(pos).getBlock() == Blocks.WATER && state.getBlock() instanceof IWaterLoggable) {
             state = state.with(BlockStateProperties.WATERLOGGED, true);
         }
-        if (state.getBlock() == WNBlocks.MAGNOLIA_LEAVES || state.getBlock() == WNBlocks.FORSYTHIA_LEAVES || Utilities.rint(0, 10) == 0) {
-            if (state.getBlock() instanceof FloweringLeaves) {
-                state = state.with(FloweringLeaves.FLOWERING, true);
-            } else if (state.getBlock() instanceof FruitableLeaves) {
-                state = state.with((((FruitableLeaves) state.getBlock()).getStage()), Utilities.rint(1, ((FruitableLeaves) state.getBlock()).getMaxStages()));
-            }
-        }
+
         if (!virtualPlace) {
             if ((isLeaf(state.getBlock()) && !world.getBlockState(pos).isSolid()) || !isLeaf(state.getBlock())) {
                 world.setBlockState(pos, state, 19);

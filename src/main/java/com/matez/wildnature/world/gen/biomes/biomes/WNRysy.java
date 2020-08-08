@@ -1,10 +1,8 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -12,7 +10,6 @@ import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.fir.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.*;
 import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.surface.builders.SnowyMountainSurfaceBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -20,11 +17,10 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 public class WNRysy extends WNBiome {
     public WNRysy(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceRegistry.SNOWY_MOUNTAIN_SURFACE_BUILDER, SurfaceRegistry.BROWN_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.EXTREME_HILLS)
@@ -39,10 +35,8 @@ public class WNRysy extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -52,15 +46,15 @@ public class WNRysy extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,18);
+        WNBiomeFeatures.addGrass(this, 18);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
 
         BlockState pineLog = Main.getBlockByID("wildnature:pine_log").getDefaultState();
         BlockState pineLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"));
@@ -71,47 +65,47 @@ public class WNRysy extends WNBiome {
         BlockState birchLog = Main.getBlockByID("minecraft:birch_log").getDefaultState();
         BlockState birchLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("minecraft:birch_leaves"));
         int x = 0;
-        while(x<3){
+        while (x < 3) {
             BlockState LOG = null;
             BlockState LEAVES = null;
-            if(x==0){
+            if (x == 0) {
                 LOG = pineLog;
                 LEAVES = pineLeaves;
-            }else if(x==1){
+            } else if (x == 1) {
                 LOG = firLog;
                 LEAVES = firLeaves;
-            }else if(x==2){
+            } else if (x == 2) {
                 LOG = spruceLog;
                 LEAVES = spruceLeaves;
             }
-            WNBiomeFeatures.addTree(this,new tree_taiga1().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga2().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga4().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga5().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga8().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga9().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga14().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga16().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga17().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga18().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir7().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir9().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir13().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir19().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir20().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this, new tree_taiga1().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga2().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga4().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga5().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga8().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga9().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga14().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga16().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga17().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga18().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_fir7().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_fir9().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_fir13().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_fir19().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_fir20().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
             x++;
         }
 
-        WNBiomeFeatures.addTree(this,new tree_birch1().setCustomLog(birchLog).setCustomLeaf(birchLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_birch2().setCustomLog(birchLog).setCustomLeaf(birchLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_birch7().setCustomLog(birchLog).setCustomLeaf(birchLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_birch10().setCustomLog(birchLog).setCustomLeaf(birchLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_birch11().setCustomLog(birchLog).setCustomLeaf(birchLeaves),1);
-        WNBiomeFeatures.addTree(this,new tree_birch12().setCustomLog(birchLog).setCustomLeaf(birchLeaves),1);
+        WNBiomeFeatures.addTree(this, new tree_birch1().setCustomLog(birchLog).setCustomLeaf(birchLeaves), 1);
+        WNBiomeFeatures.addTree(this, new tree_birch2().setCustomLog(birchLog).setCustomLeaf(birchLeaves), 1);
+        WNBiomeFeatures.addTree(this, new tree_birch7().setCustomLog(birchLog).setCustomLeaf(birchLeaves), 1);
+        WNBiomeFeatures.addTree(this, new tree_birch10().setCustomLog(birchLog).setCustomLeaf(birchLeaves), 1);
+        WNBiomeFeatures.addTree(this, new tree_birch11().setCustomLog(birchLog).setCustomLeaf(birchLeaves), 1);
+        WNBiomeFeatures.addTree(this, new tree_birch12().setCustomLog(birchLog).setCustomLeaf(birchLeaves), 1);
 
 
-        plantRate=4;
-        treeRate=4;
+        plantRate = 4;
+        treeRate = 4;
 
         applyPlants();
         applyTrees();
@@ -128,8 +122,6 @@ public class WNRysy extends WNBiome {
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH, 5, 1, 1));
 
     }
-
-
 
 
 }

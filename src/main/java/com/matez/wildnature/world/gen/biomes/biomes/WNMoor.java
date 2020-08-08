@@ -1,15 +1,10 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.configs.WNBlobConfig;
-import com.matez.wildnature.world.gen.feature.features.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.thin_birch1;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.thin_birch2;
@@ -29,22 +24,17 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNMoor extends WNBiome {
     public WNMoor(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_PODZOL_CONFIG,5),new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_CONFIG,1)))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_PODZOL_CONFIG, 5), new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_CONFIG, 1)))
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -58,10 +48,8 @@ public class WNMoor extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -71,60 +59,60 @@ public class WNMoor extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,8);
+        WNBiomeFeatures.addGrass(this, 8);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATH_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),7);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATH_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),7);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATH_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),7);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,Blocks.FERN.getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.FORGET_ME_NOT_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.THUJA.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.THUJA_LARGE.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PERENNIAL_BLUE.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PERENNIAL_VIOLET.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.VIBURNUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.IRIS_VIOLET.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATH_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 7);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATH_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 7);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATH_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 7);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 4);
+        WNBiomeFeatures.addPlant(this, Blocks.FERN.getDefaultState(), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.FORGET_ME_NOT_BLUE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.THUJA.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.THUJA_LARGE.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PERENNIAL_BLUE.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PERENNIAL_VIOLET.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CLOVER.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LEAF_PILE.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.VIBURNUM_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.IRIS_VIOLET.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
 
-        WNBiomeFeatures.addTree(this,new tree_pine1().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_pine2().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_pine3().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_pine4().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_pine5().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_pine6().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_bpine1().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_bpine2().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_bpine3().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_bpine4().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_bpine5().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
-        WNBiomeFeatures.addTree(this,new tree_bpine6().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this, new tree_pine1().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
+        WNBiomeFeatures.addTree(this, new tree_pine2().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
+        WNBiomeFeatures.addTree(this, new tree_pine3().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
+        WNBiomeFeatures.addTree(this, new tree_pine4().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
+        WNBiomeFeatures.addTree(this, new tree_pine5().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
+        WNBiomeFeatures.addTree(this, new tree_pine6().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
+        WNBiomeFeatures.addTree(this, new tree_bpine1().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
+        WNBiomeFeatures.addTree(this, new tree_bpine2().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
+        WNBiomeFeatures.addTree(this, new tree_bpine3().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
+        WNBiomeFeatures.addTree(this, new tree_bpine4().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
+        WNBiomeFeatures.addTree(this, new tree_bpine5().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
+        WNBiomeFeatures.addTree(this, new tree_bpine6().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
 
-        WNBiomeFeatures.addTree(this,new thin_birch1(),5);
-        WNBiomeFeatures.addTree(this,new thin_birch2(),5);
-        WNBiomeFeatures.addTree(this,new thin_birch3(),5);
-        WNBiomeFeatures.addTree(this,new thin_birch4(),5);
+        WNBiomeFeatures.addTree(this, new thin_birch1(), 5);
+        WNBiomeFeatures.addTree(this, new thin_birch2(), 5);
+        WNBiomeFeatures.addTree(this, new thin_birch3(), 5);
+        WNBiomeFeatures.addTree(this, new thin_birch4(), 5);
 
-        WNBiomeFeatures.addTree(this,new small_willow1(),2);
-        WNBiomeFeatures.addTree(this,new small_willow2(),2);
-        WNBiomeFeatures.addTree(this,new small_willow3(),2);
-        WNBiomeFeatures.addTree(this,new small_willow4(),2);
+        WNBiomeFeatures.addTree(this, new small_willow1(), 2);
+        WNBiomeFeatures.addTree(this, new small_willow2(), 2);
+        WNBiomeFeatures.addTree(this, new small_willow3(), 2);
+        WNBiomeFeatures.addTree(this, new small_willow4(), 2);
 
-        WNBiomeFeatures.addTree(this,new shrub1().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)),2);
+        WNBiomeFeatures.addTree(this, new shrub1().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(WNBlocks.PINE_LEAVES)), 2);
 
-        WNBiomeFeatures.addBlob(this,WNBlocks.BROWN_GRASS_BLOCK.getDefaultState(),2,true,false,3);
-        WNBiomeFeatures.addBlob(this,Blocks.COARSE_DIRT.getDefaultState(),2,true,false,1);
+        WNBiomeFeatures.addBlob(this, WNBlocks.BROWN_GRASS_BLOCK.getDefaultState(), 2, true, false, 3);
+        WNBiomeFeatures.addBlob(this, Blocks.COARSE_DIRT.getDefaultState(), 2, true, false, 1);
 
-        plantRate=10;
-        treeRate=0;
+        plantRate = 10;
+        treeRate = 0;
 
         applyPlants();
         applyTrees();
@@ -146,19 +134,16 @@ public class WNMoor extends WNBiome {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0xC4A28A,0xC4B78E);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0xC4A28A, 0xC4B78E);
     }//8536 83 13546
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0xA0C18D,0x9CC179);
+    public int getFoliageColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0xA0C18D, 0x9CC179);
     }
-
 
 
 }

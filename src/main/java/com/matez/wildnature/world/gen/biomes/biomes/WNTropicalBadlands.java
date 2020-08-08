@@ -5,7 +5,6 @@ import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
 import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.surface.builders.Noise3xSurfaceBuilder;
 import com.matez.wildnature.world.gen.surface.configs.Noise3SurfaceBuilderConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
@@ -14,15 +13,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNTropicalBadlands extends WNBiome {
     public WNTropicalBadlands(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceRegistry.NOISE3_SURFACE_BUILDER, new Noise3SurfaceBuilderConfig(new SurfaceBuilderConfig(Blocks.RED_TERRACOTTA.getDefaultState(),Blocks.RED_TERRACOTTA.getDefaultState(),Blocks.TERRACOTTA.getDefaultState()),new SurfaceBuilderConfig(Blocks.YELLOW_TERRACOTTA.getDefaultState(),Blocks.YELLOW_TERRACOTTA.getDefaultState(),Blocks.TERRACOTTA.getDefaultState()), SurfaceRegistry.TROPICAL_CONFIG))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceRegistry.NOISE3_SURFACE_BUILDER, new Noise3SurfaceBuilderConfig(new SurfaceBuilderConfig(Blocks.RED_TERRACOTTA.getDefaultState(), Blocks.RED_TERRACOTTA.getDefaultState(), Blocks.TERRACOTTA.getDefaultState()), new SurfaceBuilderConfig(Blocks.YELLOW_TERRACOTTA.getDefaultState(), Blocks.YELLOW_TERRACOTTA.getDefaultState(), Blocks.TERRACOTTA.getDefaultState()), SurfaceRegistry.TROPICAL_CONFIG))
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -36,10 +34,8 @@ public class WNTropicalBadlands extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -49,7 +45,7 @@ public class WNTropicalBadlands extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,15);
+        WNBiomeFeatures.addGrass(this, 15);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
@@ -58,13 +54,13 @@ public class WNTropicalBadlands extends WNBiome {
         WNBiomeFeatures.addBambooJungleVegetation(this);
 
 
-        WNBiomeFeatures.addTree(this,new JungleTreeFeature(NoFeatureConfig::deserialize,true,8,Blocks.JUNGLE_LOG.getDefaultState(),Blocks.JUNGLE_LEAVES.getDefaultState(),true),6);
-        WNBiomeFeatures.addTree(this,new shrub1(),3);
-        WNBiomeFeatures.addTree(this, new MegaJungleFeature(NoFeatureConfig::deserialize,true,10,20,Blocks.JUNGLE_LOG.getDefaultState(),Blocks.JUNGLE_LEAVES.getDefaultState()),2);
+        WNBiomeFeatures.addTree(this, new JungleTreeFeature(NoFeatureConfig::deserialize, true, 8, Blocks.JUNGLE_LOG.getDefaultState(), Blocks.JUNGLE_LEAVES.getDefaultState(), true), 6);
+        WNBiomeFeatures.addTree(this, new shrub1(), 3);
+        WNBiomeFeatures.addTree(this, new MegaJungleFeature(NoFeatureConfig::deserialize, true, 10, 20, Blocks.JUNGLE_LOG.getDefaultState(), Blocks.JUNGLE_LEAVES.getDefaultState()), 2);
 
 
-        plantRate=4;
-        treeRate=8;
+        plantRate = 4;
+        treeRate = 8;
 
         applyPlants();
         applyTrees();
@@ -88,14 +84,12 @@ public class WNTropicalBadlands extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 5949756;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
+    public int getFoliageColor(BlockPos pos) {
         return 3258892;
     }
 

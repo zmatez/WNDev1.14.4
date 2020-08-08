@@ -13,28 +13,29 @@ import java.util.Random;
 import java.util.function.Function;
 
 public class WetlandsSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
-   private double fRarity = -0.95D;
-   public WetlandsSurfaceBuilder(Function<Dynamic<?>, ? extends SurfaceBuilderConfig> p_i51312_1_) {
-      super(p_i51312_1_);
-      setRegistryName("wildnature","wetlands_surface_builder");
+    private double fRarity = -0.95D;
 
-   }
+    public WetlandsSurfaceBuilder(Function<Dynamic<?>, ? extends SurfaceBuilderConfig> p_i51312_1_) {
+        super(p_i51312_1_);
+        setRegistryName("wildnature", "wetlands_surface_builder");
+
+    }
 
 
-   public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-      if (noise > fRarity) {
-         if(Utilities.rint(0,10,random)==0 && startHeight<=seaLevel){
-            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, new SurfaceBuilderConfig(Blocks.WATER.getDefaultState(),config.getUnder(),config.getUnderWaterMaterial()));
-         }else {
-            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, config);
-         }
-      } else {
-         if (startHeight <= seaLevel) {
-            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, new SurfaceBuilderConfig(Blocks.WATER.getDefaultState(), config.getUnder(), config.getUnderWaterMaterial()));
-         }else{
-            SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, config);
-         }
-      }
+    public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
+        if (noise > fRarity) {
+            if (Utilities.rint(0, 10, random) == 0 && startHeight <= seaLevel) {
+                SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, new SurfaceBuilderConfig(Blocks.WATER.getDefaultState(), config.getUnder(), config.getUnderWaterMaterial()));
+            } else {
+                SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, config);
+            }
+        } else {
+            if (startHeight <= seaLevel) {
+                SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, new SurfaceBuilderConfig(Blocks.WATER.getDefaultState(), config.getUnder(), config.getUnderWaterMaterial()));
+            } else {
+                SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, config);
+            }
+        }
 
-   }
+    }
 }

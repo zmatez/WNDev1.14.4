@@ -1,37 +1,25 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.google.common.collect.Lists;
-import com.matez.wildnature.Main;
 import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.willow.*;
 import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.SeaGrassConfig;
-import net.minecraft.world.gen.feature.SphereReplaceConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.IPlacementConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNBackwaters extends WNBiome {
     public WNBackwaters(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.SWAMP, SurfaceRegistry.MOLD_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
@@ -46,10 +34,8 @@ public class WNBackwaters extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addMonsterRooms(this);
@@ -58,26 +44,26 @@ public class WNBackwaters extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,18);
+        WNBiomeFeatures.addGrass(this, 18);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addSwampVegetation(this);
         WNBiomeFeatures.func_222329_ae(this);
-        WNBiomeFeatures.addWaterlilies(this, WNBlocks.GREEN_WATERLILY,200);
+        WNBiomeFeatures.addWaterlilies(this, WNBlocks.GREEN_WATERLILY, 200);
         WNBiomeFeatures.addFloodedForestDecorations(this);
 
-        WNBiomeFeatures.addTree(this,new pointy_willow_1(),2);
-        WNBiomeFeatures.addTree(this,new pointy_willow_2(),2);
-        WNBiomeFeatures.addTree(this,new pointy_willow_3(),2);
-        WNBiomeFeatures.addTree(this,new pointy_willow_4(),2);
-        WNBiomeFeatures.addTree(this,new small_willow1(),1);
-        WNBiomeFeatures.addTree(this,new small_willow2(),1);
-        WNBiomeFeatures.addTree(this,new small_willow3(),1);
-        WNBiomeFeatures.addTree(this,new small_willow4(),1);
+        WNBiomeFeatures.addTree(this, new pointy_willow_1(), 2);
+        WNBiomeFeatures.addTree(this, new pointy_willow_2(), 2);
+        WNBiomeFeatures.addTree(this, new pointy_willow_3(), 2);
+        WNBiomeFeatures.addTree(this, new pointy_willow_4(), 2);
+        WNBiomeFeatures.addTree(this, new small_willow1(), 1);
+        WNBiomeFeatures.addTree(this, new small_willow2(), 1);
+        WNBiomeFeatures.addTree(this, new small_willow3(), 1);
+        WNBiomeFeatures.addTree(this, new small_willow4(), 1);
 
-        plantRate=4;
-        treeRate=10;
+        plantRate = 4;
+        treeRate = 10;
 
         applyPlants();
         applyTrees();
@@ -97,16 +83,14 @@ public class WNBackwaters extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x7DAD51,0x66AD47);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x7DAD51, 0x66AD47);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x9DDD66, 0x92DD6D);
+    public int getFoliageColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x9DDD66, 0x92DD6D);
     }
 }

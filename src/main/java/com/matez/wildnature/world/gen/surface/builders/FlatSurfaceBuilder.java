@@ -17,26 +17,25 @@ public class FlatSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
 
     public FlatSurfaceBuilder(Function<Dynamic<?>, ? extends SurfaceBuilderConfig> p_i51305_1_) {
         super(p_i51305_1_);
-        setRegistryName("wildnature","flat_surface_builder");
+        setRegistryName("wildnature", "flat_surface_builder");
     }
-
 
 
     @Override
     public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-        boolean tooBig = startHeight>seaLevel;
+        boolean tooBig = startHeight > seaLevel;
         int height = startHeight;
-        while((height>seaLevel||height<seaLevel)){
-            if(tooBig){
-                chunkIn.setBlockState(new BlockPos(x,height,z),Blocks.AIR.getDefaultState(),false);
+        while ((height > seaLevel || height < seaLevel)) {
+            if (tooBig) {
+                chunkIn.setBlockState(new BlockPos(x, height, z), Blocks.AIR.getDefaultState(), false);
                 height--;
-            }else{
-                chunkIn.setBlockState(new BlockPos(x,height,z),Blocks.AIR.getDefaultState(),false);
+            } else {
+                chunkIn.setBlockState(new BlockPos(x, height, z), Blocks.AIR.getDefaultState(), false);
                 height++;
             }
         }
 
-        SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, new SurfaceBuilderConfig(config.getTop(),config.getUnder(),config.getUnderWaterMaterial()));
+        SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, height, noise, defaultBlock, defaultFluid, seaLevel, seed, new SurfaceBuilderConfig(config.getTop(), config.getUnder(), config.getUnderWaterMaterial()));
 
     }
 }

@@ -249,12 +249,8 @@ public abstract class WNNoiseChunkGenerator<T extends GenerationSettings> extend
             double d1 = this.surfaceDepthNoise.func_215460_a((double)x * 0.0625D, (double)z * 0.0625D, 0.0625D, (double)relativeX * 0.0625D);
 
             Biome biome = abiome[relativeZ * 16 + relativeX];
-            try {
-               biome.buildSurface(sharedseedrandom, chunkIn, x, z, startHeight, d1, this.getSettings().getDefaultBlock(), this.getSettings().getDefaultFluid(), this.getSeaLevel(), this.world.getSeed());
-            }catch (Exception e){
-               Main.LOGGER.fatal("FATAL: " + e.getMessage() + " : " + biome.getRegistryName() + " / " + " " + biome.getSurfaceBuilder().getConfig());
-               e.printStackTrace();
-            }
+            biome.buildSurface(sharedseedrandom, chunkIn, x, z, startHeight, d1, this.getSettings().getDefaultBlock(), this.getSettings().getDefaultFluid(), this.getSeaLevel(), this.world.getSeed());
+
             if(CommonConfig.generatePaths.get()) {
                double[] noises = getPathNoise(x,z,0.005, 0.01, 0.001,50,1);
                double vnoise = noises[0];

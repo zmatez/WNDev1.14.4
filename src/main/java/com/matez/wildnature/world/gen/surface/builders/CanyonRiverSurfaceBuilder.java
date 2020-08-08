@@ -15,20 +15,20 @@ import java.util.function.Function;
 public class CanyonRiverSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
     public CanyonRiverSurfaceBuilder(Function<Dynamic<?>, ? extends SurfaceBuilderConfig> p_i51312_1_) {
         super(p_i51312_1_);
-        setRegistryName("wildnature","canyon_river_surface_builder");
+        setRegistryName("wildnature", "canyon_river_surface_builder");
     }
 
     public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
         int realHeight = startHeight;
-        while(realHeight>seaLevel-5){
-            if(realHeight>=seaLevel) {
+        while (realHeight > seaLevel - 5) {
+            if (realHeight >= seaLevel) {
                 chunkIn.setBlockState(new BlockPos(x, realHeight, z), Blocks.AIR.getDefaultState(), false);
-            }else{
+            } else {
                 chunkIn.setBlockState(new BlockPos(x, realHeight, z), Blocks.WATER.getDefaultState(), false);
 
             }
             realHeight--;
         }
-        SurfaceBuilder.DEFAULT.buildSurface(random,chunkIn,biomeIn,x,z,realHeight,noise,defaultBlock,defaultFluid,seaLevel,seed,config);
+        SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, realHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, config);
     }
 }

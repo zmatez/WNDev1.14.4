@@ -1,8 +1,5 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
@@ -19,14 +16,13 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNColdForest extends WNBiome {
     public WNColdForest(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_CONFIG,3),new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_PODZOL_CONFIG,1)))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_CONFIG, 3), new CustomSurfaceBuilder.BlockCfg(SurfaceRegistry.BROWN_PODZOL_CONFIG, 1)))
                 .precipitation(RainType.SNOW)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -40,10 +36,8 @@ public class WNColdForest extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addFreezeTopLayer(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
@@ -53,29 +47,29 @@ public class WNColdForest extends WNBiome {
         WNBiomeFeatures.addStoneVariants(this);
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
-        WNBiomeFeatures.addGrass(this,7);
-        WNBiomeFeatures.addGrass(this,5, WNBlocks.SNOWDROP.getDefaultState());
+        WNBiomeFeatures.addGrass(this, 7);
+        WNBiomeFeatures.addGrass(this, 5, WNBlocks.SNOWDROP.getDefaultState());
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this,WNBlocks.YEW_BUSH.getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.PASQUE_PURPLE.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEPATICA_VIOLET.getDefaultState(),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEPATICA_WHITE.getDefaultState(),2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.YEW_BUSH.getDefaultState(), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_PURPLE.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CLOVER.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LEAF_PILE.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEPATICA_VIOLET.getDefaultState(), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEPATICA_WHITE.getDefaultState(), 2);
 
-        WNBiomeFeatures.addTree(this,new bald_high_oak_1(),5);
-        WNBiomeFeatures.addTree(this,new bald_high_oak_2(),5);
-        WNBiomeFeatures.addTree(this,new bald_oak_1(),2);
-        WNBiomeFeatures.addTree(this,new bald_oak_2(),2);
-        WNBiomeFeatures.addTree(this,new bald_oak_3(),2);
-        WNBiomeFeatures.addTree(this,new bald_oak_4(),2);
+        WNBiomeFeatures.addTree(this, new bald_high_oak_1(), 5);
+        WNBiomeFeatures.addTree(this, new bald_high_oak_2(), 5);
+        WNBiomeFeatures.addTree(this, new bald_oak_1(), 2);
+        WNBiomeFeatures.addTree(this, new bald_oak_2(), 2);
+        WNBiomeFeatures.addTree(this, new bald_oak_3(), 2);
+        WNBiomeFeatures.addTree(this, new bald_oak_4(), 2);
 
 
-        WNBiomeFeatures.addTree(this,new shrub1(),5);
+        WNBiomeFeatures.addTree(this, new shrub1(), 5);
 
-        treeRate=10;
+        treeRate = 10;
 
         applyPlants();
         applyTrees();
@@ -98,10 +92,9 @@ public class WNColdForest extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x75B420,0x6DAE00);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x75B420, 0x6DAE00);
     }
 
 

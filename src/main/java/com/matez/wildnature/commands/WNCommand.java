@@ -78,7 +78,7 @@ public class WNCommand {
                                                                 .then(Commands.argument("fullJava", BoolArgumentType.bool())
                                                                         .then(Commands.argument("saveTileEntities", BoolArgumentType.bool())
                                                                         .executes((context -> {
-                                                                            return new ExportToFile().export(context, new MutableBoundingBox(BlockPosArgument.getLoadedBlockPos(context, "pos1"), BlockPosArgument.getLoadedBlockPos(context, "pos2")),StringArgumentType.getString(context,"name"),BlockStateArgument.getBlockState(context,"centerToBlock"),BoolArgumentType.getBool(context,"fullJava"),BoolArgumentType.getBool(context,"saveTileEntities"));
+                                                                            return new ExportToFile().export(context, new MutableBoundingBox(BlockPosArgument.getBlockPos(context, "pos1"), BlockPosArgument.getBlockPos(context, "pos2")),StringArgumentType.getString(context,"name"),BlockStateArgument.getBlockState(context,"centerToBlock"),BoolArgumentType.getBool(context,"fullJava"),BoolArgumentType.getBool(context,"saveTileEntities"));
                                                                         }))))))))).then(Commands.literal("test").requires((perm) -> {
                             return perm.hasPermissionLevel(2);
 

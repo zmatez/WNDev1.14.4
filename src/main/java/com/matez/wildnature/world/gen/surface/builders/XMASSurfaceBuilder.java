@@ -20,16 +20,15 @@ public class XMASSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig> {
 
     public XMASSurfaceBuilder(Function<Dynamic<?>, ? extends SurfaceBuilderConfig> p_i51305_1_) {
         super(p_i51305_1_);
-        setRegistryName("wildnature","christmas_surface_builder");
+        setRegistryName("wildnature", "christmas_surface_builder");
     }
-
 
 
     @Override
     public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise, BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) {
-        if(noise>1.6D){
+        if (noise > 1.6D) {
             SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, new SurfaceBuilderConfig(Blocks.SNOW.getDefaultState().with(SnowBlock.LAYERS, Utilities.rint(1, 3, new Random())), Blocks.SNOW_BLOCK.getDefaultState(), Main.getBlockByID("minecraft:gravel").getDefaultState()));
-        }else {
+        } else {
             SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, SurfaceRegistry.BROWN_CONFIG);
         }
     }

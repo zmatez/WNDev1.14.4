@@ -4,7 +4,6 @@ import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.features.MarigoldFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak1;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak2;
 import com.matez.wildnature.world.gen.structures.nature.woods.oak.oak3;
@@ -12,23 +11,18 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNMarigoldFields extends WNBiome {
     public WNMarigoldFields(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.PLAINS)
@@ -43,11 +37,9 @@ public class WNMarigoldFields extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/plains/town_centers", 6));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/plains/town_centers", 6);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -55,22 +47,22 @@ public class WNMarigoldFields extends WNBiome {
         WNBiomeFeatures.addStoneVariants(this);
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
-        WNBiomeFeatures.addGrass(this,4);
+        WNBiomeFeatures.addGrass(this, 4);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, WNBlocks.MARIGOLD_RED.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this, Blocks.GRASS.getDefaultState(),6);
+        WNBiomeFeatures.addPlant(this, WNBlocks.MARIGOLD_RED.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, Blocks.GRASS.getDefaultState(), 6);
 
-        WNBiomeFeatures.addTree(this,new oak1(),1);
-        WNBiomeFeatures.addTree(this,new oak2(),1);
-        WNBiomeFeatures.addTree(this,new oak3(),1);
+        WNBiomeFeatures.addTree(this, new oak1(), 1);
+        WNBiomeFeatures.addTree(this, new oak2(), 1);
+        WNBiomeFeatures.addTree(this, new oak3(), 1);
         WNBiomeFeatures.removeAllDefaultFlowers(this);
 
-        plantRate=1;
-        treeRate=0;
-        treeExtraChance=0.01F;
+        plantRate = 1;
+        treeRate = 0;
+        treeExtraChance = 0.01F;
         applyPlants();
         applyTrees();
 
@@ -95,8 +87,7 @@ public class WNMarigoldFields extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 0x9AD712;
     }
 

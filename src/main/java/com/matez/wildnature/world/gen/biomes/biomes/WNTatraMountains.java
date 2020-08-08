@@ -5,8 +5,6 @@ import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
-import com.matez.wildnature.world.gen.feature.configs.WNBlobConfig;
-import com.matez.wildnature.world.gen.feature.features.WNBlobFeature;
 import com.matez.wildnature.world.gen.structures.nature.SchemFeature;
 import com.matez.wildnature.world.gen.structures.nature.woods.mini_pine.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.spruce.tree_taiga11;
@@ -15,23 +13,18 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
-import net.minecraft.world.gen.placement.CountRangeConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNTatraMountains extends WNBiome {
     public WNTatraMountains(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.STONE_STONE_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.EXTREME_HILLS)
@@ -46,11 +39,9 @@ public class WNTatraMountains extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/taiga/town_centers", 1));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/taiga/town_centers", 1);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -63,31 +54,31 @@ public class WNTatraMountains extends WNBiome {
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, WNBlocks.FIRE_WEED.getDefaultState().with(FloweringBushBase.FLOWERING,true),5);
-        WNBiomeFeatures.addPlant(this, WNBlocks.CROCUS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this, WNBlocks.CROCUS_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.FIRE_WEED.getDefaultState().with(FloweringBushBase.FLOWERING, true), 5);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CROCUS_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CROCUS_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
 
-        WNBiomeFeatures.addGrass(this,8,WNBlocks.SMALL_GRASS.getDefaultState());
-        WNBiomeFeatures.addGrass(this,4,WNBlocks.MEDIUM_GRASS.getDefaultState());
-        WNBiomeFeatures.addGrass(this,3,WNBlocks.MOSS.getDefaultState());
-        WNBiomeFeatures.addBlobWithCountRangePlacement(this,WNBlocks.BROWN_PODZOL.getDefaultState(),3,true,false,2,60,90);
-        WNBiomeFeatures.addBlobWithCountRangePlacement(this,WNBlocks.BROWN_PODZOL.getDefaultState(),2,true,false,2,80,120);
-        WNBiomeFeatures.addBlobWithCountRangePlacement(this,WNBlocks.OVERGROWN_STONE.getDefaultState(),3,true,false,3,120,140);
+        WNBiomeFeatures.addGrass(this, 8, WNBlocks.SMALL_GRASS.getDefaultState());
+        WNBiomeFeatures.addGrass(this, 4, WNBlocks.MEDIUM_GRASS.getDefaultState());
+        WNBiomeFeatures.addGrass(this, 3, WNBlocks.MOSS.getDefaultState());
+        WNBiomeFeatures.addBlobWithCountRangePlacement(this, WNBlocks.BROWN_PODZOL.getDefaultState(), 3, true, false, 2, 60, 90);
+        WNBiomeFeatures.addBlobWithCountRangePlacement(this, WNBlocks.BROWN_PODZOL.getDefaultState(), 2, true, false, 2, 80, 120);
+        WNBiomeFeatures.addBlobWithCountRangePlacement(this, WNBlocks.OVERGROWN_STONE.getDefaultState(), 3, true, false, 3, 120, 140);
 
-        WNBiomeFeatures.addTree(this,new tree_taiga12().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Blocks.SPRUCE_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new tree_taiga11().setCustomLog( Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf( SchemFeature.notDecayingLeaf(Blocks.SPRUCE_LEAVES)),1);
-        WNBiomeFeatures.addTree(this,new mini_bald_pine3(),2);
-        WNBiomeFeatures.addTree(this,new mini_pine6(),2);
-        WNBiomeFeatures.addTree(this,new mini_pine5(),2);
-        WNBiomeFeatures.addTree(this,new mini_pine1(),3);
-        WNBiomeFeatures.addTree(this,new mini_pine2(),3);
-        WNBiomeFeatures.addTree(this,new mini_pine3(),3);
-        WNBiomeFeatures.addTree(this,new mini_pine4(),3);
-        WNBiomeFeatures.addTree(this,new mini_bald_pine1(),5);
-        WNBiomeFeatures.addTree(this,new mini_bald_pine2(),5);
+        WNBiomeFeatures.addTree(this, new tree_taiga12().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Blocks.SPRUCE_LEAVES)), 1);
+        WNBiomeFeatures.addTree(this, new tree_taiga11().setCustomLog(Blocks.SPRUCE_LOG.getDefaultState()).setCustomLeaf(SchemFeature.notDecayingLeaf(Blocks.SPRUCE_LEAVES)), 1);
+        WNBiomeFeatures.addTree(this, new mini_bald_pine3(), 2);
+        WNBiomeFeatures.addTree(this, new mini_pine6(), 2);
+        WNBiomeFeatures.addTree(this, new mini_pine5(), 2);
+        WNBiomeFeatures.addTree(this, new mini_pine1(), 3);
+        WNBiomeFeatures.addTree(this, new mini_pine2(), 3);
+        WNBiomeFeatures.addTree(this, new mini_pine3(), 3);
+        WNBiomeFeatures.addTree(this, new mini_pine4(), 3);
+        WNBiomeFeatures.addTree(this, new mini_bald_pine1(), 5);
+        WNBiomeFeatures.addTree(this, new mini_bald_pine2(), 5);
 
-        plantRate=1;
-        treeRate=2;
+        plantRate = 1;
+        treeRate = 2;
 
         applyPlants();
         applyTrees();
@@ -106,10 +97,9 @@ public class WNTatraMountains extends WNBiome {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0065D, (double)pos.getZ() * 0.0065D);
-        return customColor(noise,-0.1D,0x9ED96F,0xC7D975);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0065D, (double) pos.getZ() * 0.0065D);
+        return customColor(noise, -0.1D, 0x9ED96F, 0xC7D975);
     }
 
 

@@ -21,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNFlowerField extends WNBiome {
     public WNFlowerField(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.PLAINS)
@@ -36,11 +36,9 @@ public class WNFlowerField extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/plains/town_centers", 6));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/plains/town_centers", 6);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -50,25 +48,25 @@ public class WNFlowerField extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,6);
+        WNBiomeFeatures.addGrass(this, 6);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this,Blocks.ORANGE_TULIP.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,Blocks.RED_TULIP.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,Blocks.PINK_TULIP.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,Blocks.WHITE_TULIP.getDefaultState(),1);
-        WNBiomeFeatures.addPlant(this,Blocks.AZURE_BLUET.getDefaultState(),1);
+        WNBiomeFeatures.addPlant(this, Blocks.ORANGE_TULIP.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, Blocks.RED_TULIP.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, Blocks.PINK_TULIP.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, Blocks.WHITE_TULIP.getDefaultState(), 1);
+        WNBiomeFeatures.addPlant(this, Blocks.AZURE_BLUET.getDefaultState(), 1);
 
-        WNBiomeFeatures.addTree(this,new oak1(),1);
-        WNBiomeFeatures.addTree(this,new oak2(),1);
-        WNBiomeFeatures.addTree(this,new oak3(),1);
+        WNBiomeFeatures.addTree(this, new oak1(), 1);
+        WNBiomeFeatures.addTree(this, new oak2(), 1);
+        WNBiomeFeatures.addTree(this, new oak3(), 1);
         WNBiomeFeatures.removeAllDefaultFlowers(this);
 
-        plantRate=18;
-        treeRate=0;
-        treeExtraChance=0.01F;
+        plantRate = 18;
+        treeRate = 0;
+        treeExtraChance = 0.01F;
         applyPlants();
         applyTrees();
 
@@ -91,8 +89,7 @@ public class WNFlowerField extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 0xb2d709;
     }
 

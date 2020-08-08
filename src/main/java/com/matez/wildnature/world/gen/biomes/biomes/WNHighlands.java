@@ -1,10 +1,8 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -25,7 +23,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
 public class WNHighlands extends WNBiome {
     public WNHighlands(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.BROWN_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.TAIGA)
@@ -40,11 +38,9 @@ public class WNHighlands extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/taiga/town_centers", 6));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/taiga/town_centers", 6);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -54,15 +50,15 @@ public class WNHighlands extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,18);
+        WNBiomeFeatures.addGrass(this, 18);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this, WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PINK.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_PURPLE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.BLUEBELL.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
 
         BlockState pineLog = Main.getBlockByID("minecraft:spruce_log").getDefaultState();
         BlockState pineLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("wildnature:pine_leaves"));
@@ -72,38 +68,38 @@ public class WNHighlands extends WNBiome {
         BlockState spruceLeaves = tree_taiga1.notDecayingLeaf(Main.getBlockByID("minecraft:spruce_leaves"));
 
         int x = 0;
-        while(x<3){
+        while (x < 3) {
             BlockState LOG = null;
             BlockState LEAVES = null;
-            if(x==0){
+            if (x == 0) {
                 LOG = pineLog;
                 LEAVES = pineLeaves;
-            }else if(x==1){
+            } else if (x == 1) {
                 LOG = firLog;
                 LEAVES = firLeaves;
-            }else if(x==2){
+            } else if (x == 2) {
                 LOG = spruceLog;
                 LEAVES = spruceLeaves;
             }
-            WNBiomeFeatures.addTree(this,new tree_taiga1().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga2().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga4().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga5().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga7().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga10().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga11().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga12().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga13().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga14().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_taiga15().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir18().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir6().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
-            WNBiomeFeatures.addTree(this,new tree_fir22().setCustomLog(LOG).setCustomLeaf(LEAVES),1);
+            WNBiomeFeatures.addTree(this, new tree_taiga1().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga2().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga4().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga5().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga7().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga10().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga11().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga12().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga13().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga14().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_taiga15().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_fir18().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_fir6().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
+            WNBiomeFeatures.addTree(this, new tree_fir22().setCustomLog(LOG).setCustomLeaf(LEAVES), 1);
             x++;
         }
 
-        plantRate=2;
-        treeRate=0;
+        plantRate = 2;
+        treeRate = 0;
 
         applyPlants();
         applyTrees();

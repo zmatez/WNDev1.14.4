@@ -14,7 +14,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
 public class WNFrozenMorskieOko extends WNBiome {
     public WNFrozenMorskieOko(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceRegistry.BROWN_CONFIG)
                 .precipitation(RainType.SNOW)
                 .category(Category.EXTREME_HILLS)
@@ -30,9 +30,8 @@ public class WNFrozenMorskieOko extends WNBiome {
 
 
         WNBiomeFeatures.addFreezeTopLayer(this);
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addFreezeTopLayer(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
@@ -58,8 +57,6 @@ public class WNFrozenMorskieOko extends WNBiome {
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH, 5, 1, 1));
 
     }
-
-
 
 
 }

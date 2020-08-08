@@ -1,10 +1,7 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -27,7 +24,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNGoldenWoods extends WNBiome {
     public WNGoldenWoods(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG)
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
@@ -42,11 +39,9 @@ public class WNGoldenWoods extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.VILLAGE, new VillageConfig("village/plains/town_centers", 4));
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
+        WNBiomeFeatures.addVillages(this, "village/plains/town_centers", 4);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -56,30 +51,30 @@ public class WNGoldenWoods extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,18);
+        WNBiomeFeatures.addGrass(this, 18);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
-        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),1);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
-        WNBiomeFeatures.addPlant(this,WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING,true),4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 1);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_FLOWER.getDefaultState().with(FloweringBushBase.FLOWERING, true), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.GRASS_WHEAT.getDefaultState().with(FloweringBushBase.FLOWERING, true), 4);
 
-        WNBiomeFeatures.addTree(this,new oak1(),2);
-        WNBiomeFeatures.addTree(this,new oak2(),2);
-        WNBiomeFeatures.addTree(this,new oak3(),2);
-        WNBiomeFeatures.addTree(this,new pointy_oak_1(),1);
-        WNBiomeFeatures.addTree(this,new pointy_oak_2(),1);
-        WNBiomeFeatures.addTree(this,new pointy_oak_3(),1);
-        WNBiomeFeatures.addTree(this,new pointy_oak_4(),1);
-        WNBiomeFeatures.addTree(this,new pointy_oak_5(),1);
-        WNBiomeFeatures.addTree(this,new oaklands_oak1(),1);
-        WNBiomeFeatures.addTree(this,new oaklands_oak3(),1);
-        WNBiomeFeatures.addTree(this,new oaklands_oak5(),1);
-        WNBiomeFeatures.addTree(this,new shrub1(),4);
+        WNBiomeFeatures.addTree(this, new oak1(), 2);
+        WNBiomeFeatures.addTree(this, new oak2(), 2);
+        WNBiomeFeatures.addTree(this, new oak3(), 2);
+        WNBiomeFeatures.addTree(this, new pointy_oak_1(), 1);
+        WNBiomeFeatures.addTree(this, new pointy_oak_2(), 1);
+        WNBiomeFeatures.addTree(this, new pointy_oak_3(), 1);
+        WNBiomeFeatures.addTree(this, new pointy_oak_4(), 1);
+        WNBiomeFeatures.addTree(this, new pointy_oak_5(), 1);
+        WNBiomeFeatures.addTree(this, new oaklands_oak1(), 1);
+        WNBiomeFeatures.addTree(this, new oaklands_oak3(), 1);
+        WNBiomeFeatures.addTree(this, new oaklands_oak5(), 1);
+        WNBiomeFeatures.addTree(this, new shrub1(), 4);
 
-        plantRate=1;
-        treeRate=18;
+        plantRate = 1;
+        treeRate = 18;
 
         applyPlants();
         applyTrees();
@@ -102,17 +97,15 @@ public class WNGoldenWoods extends WNBiome {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0xBAEE00,0xCEE900);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0xBAEE00, 0xCEE900);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0xFFB800, 0xFBE800);
+    public int getFoliageColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0xFFB800, 0xFBE800);
     }
 
 

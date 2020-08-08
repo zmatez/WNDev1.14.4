@@ -28,12 +28,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SweetBerryBushBlock;
-import net.minecraft.world.biome.BeachBiome;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
-import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.structure.*;
 import net.minecraft.world.gen.placement.*;
 import net.minecraftforge.common.BiomeDictionary;
 
@@ -46,6 +44,50 @@ public class WNBiomeFeatures extends DefaultBiomeFeatures {
 
     public static void removeAllDefaultFlowers(Biome biomeIn){
         defaultPlantBlacklist.add(biomeIn);
+    }
+
+    public static void addMineshafts(Biome biomeIn, MineshaftStructure.Type type){
+        biomeIn.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, type));
+    }
+
+    public static void addStrongholds(Biome biomeIn){
+        biomeIn.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+    }
+
+    public static void addVillages(Biome biomeIn, String villageType, int size){
+        biomeIn.addStructure(Feature.VILLAGE, new VillageConfig(villageType, size));
+    }
+
+    public static void addPillagerOutposts(Biome biomeIn){
+        biomeIn.addStructure(Feature.PILLAGER_OUTPOST, new PillagerOutpostConfig(0.004D));
+    }
+
+    public static void addDesertPyramids(Biome biomeIn){
+        biomeIn.addStructure(Feature.DESERT_PYRAMID, IFeatureConfig.NO_FEATURE_CONFIG);
+    }
+
+    public static void addIgloos(Biome biomeIn){
+        biomeIn.addStructure(Feature.IGLOO, IFeatureConfig.NO_FEATURE_CONFIG);
+    }
+
+    public static void addJungleTemples(Biome biomeIn){
+        biomeIn.addStructure(Feature.JUNGLE_TEMPLE, IFeatureConfig.NO_FEATURE_CONFIG);
+    }
+
+    public static void addShipwrecks(Biome biomeIn){
+        biomeIn.addStructure(Feature.SHIPWRECK, new ShipwreckConfig(true));
+    }
+
+    public static void addBuriedTreasures(Biome biomeIn){
+        biomeIn.addStructure(Feature.BURIED_TREASURE, new BuriedTreasureConfig(0.01F));
+    }
+
+    public static void addWoodlandMansions(Biome biomeIn){
+        biomeIn.addStructure(Feature.WOODLAND_MANSION, IFeatureConfig.NO_FEATURE_CONFIG);
+    }
+
+    public static void addSwampHuts(Biome biomeIn){
+        biomeIn.addStructure(Feature.SWAMP_HUT, IFeatureConfig.NO_FEATURE_CONFIG);
     }
 
     public static void addBerryBushes(Biome biomeIn) {

@@ -2,8 +2,8 @@ package com.matez.wildnature.world.gen.undergroundBiomes.setup;
 
 import com.matez.wildnature.other.Utilities;
 import com.matez.wildnature.other.WeightedList;
-import com.matez.wildnature.world.gen.undergroundBiomes.*;
 import com.matez.wildnature.world.gen.noise.sponge.module.source.Voronoi;
+import com.matez.wildnature.world.gen.undergroundBiomes.biomes.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;

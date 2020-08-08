@@ -1,15 +1,13 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
-import com.matez.wildnature.Main;
-import com.matez.wildnature.lists.WNBlocks;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.blocks.FloweringBushBase;
+import com.matez.wildnature.lists.WNBlocks;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.structures.nature.woods.birch.*;
 import com.matez.wildnature.world.gen.structures.nature.woods.shrubs.shrub1;
+import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
 import com.matez.wildnature.world.gen.surface.builders.CustomSurfaceBuilder;
 import com.matez.wildnature.world.gen.surface.configs.CustomSurfaceBuilderConfig;
 import net.minecraft.entity.EntityClassification;
@@ -25,8 +23,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNWeepingBirchForest extends WNBiome {
     public WNWeepingBirchForest(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG,3),new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG,1)))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceRegistry.CUSTOM_SURFACE_BUILDER, new CustomSurfaceBuilderConfig(new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG, 3), new CustomSurfaceBuilder.BlockCfg(SurfaceBuilder.PODZOL_DIRT_GRAVEL_CONFIG, 1)))
                 .precipitation(RainType.RAIN)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -40,10 +38,8 @@ public class WNWeepingBirchForest extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -56,28 +52,28 @@ public class WNWeepingBirchForest extends WNBiome {
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
-        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),2);
-        WNBiomeFeatures.addPlant(this,WNBlocks.YEW_BUSH.getDefaultState(),4);
-        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING,true),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.CLOVER.getDefaultState(),3);
-        WNBiomeFeatures.addPlant(this,WNBlocks.LEAF_PILE.getDefaultState(),3);
-        WNBiomeFeatures.addTree(this,new pointy_birch1(),3);
-        WNBiomeFeatures.addTree(this,new pointy_birch2(),3);
-        WNBiomeFeatures.addTree(this,new pointy_birch3(),3);
-        WNBiomeFeatures.addTree(this,new pointy_birch4(),3);
-        WNBiomeFeatures.addTree(this,new birch1(),1);
-        WNBiomeFeatures.addTree(this,new birch2(),1);
-        WNBiomeFeatures.addTree(this,new birch3(),1);
-        WNBiomeFeatures.addTree(this,new birch4(),1);
-        WNBiomeFeatures.addTree(this,new birch5(),1);
-        WNBiomeFeatures.addTree(this,new birch6(),1);
-        WNBiomeFeatures.addTree(this,new birch7(),1);
-        WNBiomeFeatures.addTree(this,new birch8(),1);
-        WNBiomeFeatures.addTree(this,new shrub1(),4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_YELLOW.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.HEATHER_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 2);
+        WNBiomeFeatures.addPlant(this, WNBlocks.YEW_BUSH.getDefaultState(), 4);
+        WNBiomeFeatures.addPlant(this, WNBlocks.PASQUE_WHITE.getDefaultState().with(FloweringBushBase.FLOWERING, true), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.CLOVER.getDefaultState(), 3);
+        WNBiomeFeatures.addPlant(this, WNBlocks.LEAF_PILE.getDefaultState(), 3);
+        WNBiomeFeatures.addTree(this, new pointy_birch1(), 3);
+        WNBiomeFeatures.addTree(this, new pointy_birch2(), 3);
+        WNBiomeFeatures.addTree(this, new pointy_birch3(), 3);
+        WNBiomeFeatures.addTree(this, new pointy_birch4(), 3);
+        WNBiomeFeatures.addTree(this, new birch1(), 1);
+        WNBiomeFeatures.addTree(this, new birch2(), 1);
+        WNBiomeFeatures.addTree(this, new birch3(), 1);
+        WNBiomeFeatures.addTree(this, new birch4(), 1);
+        WNBiomeFeatures.addTree(this, new birch5(), 1);
+        WNBiomeFeatures.addTree(this, new birch6(), 1);
+        WNBiomeFeatures.addTree(this, new birch7(), 1);
+        WNBiomeFeatures.addTree(this, new birch8(), 1);
+        WNBiomeFeatures.addTree(this, new shrub1(), 4);
 
 
-        treeRate=15;
+        treeRate = 15;
 
         applyPlants();
         applyTrees();
@@ -100,10 +96,9 @@ public class WNWeepingBirchForest extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
-        double noise = INFO_NOISE.getValue((double)pos.getX() * 0.0225D, (double)pos.getZ() * 0.0225D);
-        return customColor(noise,-0.1D,0x51973D,0x47B847);
+    public int getGrassColor(BlockPos pos) {
+        double noise = INFO_NOISE.getValue((double) pos.getX() * 0.0225D, (double) pos.getZ() * 0.0225D);
+        return customColor(noise, -0.1D, 0x51973D, 0x47B847);
     }
 
 

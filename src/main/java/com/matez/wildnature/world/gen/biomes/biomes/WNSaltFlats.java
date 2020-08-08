@@ -1,8 +1,6 @@
 package com.matez.wildnature.world.gen.biomes.biomes;
 
 import com.matez.wildnature.Main;
-import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.feature.FeatureRegistry;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
@@ -20,8 +18,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNSaltFlats extends WNBiome {
     public WNSaltFlats(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(Main.getBlockByID("wildnature:salt_block").getDefaultState(),Main.getBlockByID("wildnature:salt_block").getDefaultState(),Main.getBlockByID("minecraft:gravel").getDefaultState()))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(Main.getBlockByID("wildnature:salt_block").getDefaultState(), Main.getBlockByID("wildnature:salt_block").getDefaultState(), Main.getBlockByID("minecraft:gravel").getDefaultState()))
                 .precipitation(RainType.NONE)
                 .category(Category.FOREST)
                 .topography(WNBiomeBuilder.Topography.LOWLANDS)
@@ -35,10 +33,8 @@ public class WNSaltFlats extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addMonsterRooms(this);
@@ -47,14 +43,14 @@ public class WNSaltFlats extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,18);
+        WNBiomeFeatures.addGrass(this, 18);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
 
 
-        plantRate=4;
-        treeRate=0;
+        plantRate = 4;
+        treeRate = 0;
 
         applyPlants();
         applyTrees();
@@ -73,8 +69,7 @@ public class WNSaltFlats extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 0xb2d709;
     }
 

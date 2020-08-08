@@ -4,8 +4,6 @@ import com.matez.wildnature.world.gen.biomes.setup.WNBiome;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeBuilder;
 import com.matez.wildnature.world.gen.biomes.setup.WNBiomeFeatures;
 import com.matez.wildnature.world.gen.surface.SurfaceRegistry;
-import com.matez.wildnature.world.gen.surface.builders.GrandCanyonSurfaceBuilder;
-import com.matez.wildnature.world.gen.surface.builders.IcelandsSurfaceBuilder;
 import com.matez.wildnature.world.gen.surface.configs.CanyonSurfaceBuilderConfig;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
@@ -15,13 +13,12 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class WNIcelands extends WNBiome {
     public WNIcelands(String name) {
-        super(name,(new WNBiomeBuilder())
+        super(name, (new WNBiomeBuilder())
                 .surfaceBuilder(SurfaceRegistry.GRAND_CANYON_SURFACE_BUILDER, new CanyonSurfaceBuilderConfig(Blocks.SNOW_BLOCK.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.GRAVEL.getDefaultState(), SurfaceRegistry.ICELANDS_SURFACE_BUILDER))
                 .precipitation(RainType.RAIN)
                 .category(Category.ICY)
@@ -36,10 +33,8 @@ public class WNIcelands extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.MESA));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.MESA);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addMonsterRooms(this);
@@ -48,7 +43,6 @@ public class WNIcelands extends WNBiome {
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addFreezeTopLayer(this);
-
 
 
         this.addSpawn(EntityClassification.AMBIENT, new SpawnListEntry(EntityType.BAT, 10, 8, 8));
@@ -65,14 +59,12 @@ public class WNIcelands extends WNBiome {
 
 
     @OnlyIn(Dist.CLIENT)
-    public int getGrassColor(BlockPos pos)
-    {
+    public int getGrassColor(BlockPos pos) {
         return 0x9EC6C5;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getFoliageColor(BlockPos pos)
-    {
+    public int getFoliageColor(BlockPos pos) {
         return 0x92CAD3;
     }
 }

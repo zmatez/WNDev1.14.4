@@ -15,8 +15,8 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 public class WNGlacier extends WNBiome {
     public WNGlacier(String name) {
-        super(name,(new WNBiomeBuilder())
-                .surfaceBuilder(SurfaceBuilder.DEFAULT,new SurfaceBuilderConfig(Blocks.ICE.getDefaultState(),Blocks.PACKED_ICE.getDefaultState(),Blocks.PACKED_ICE.getDefaultState()))
+        super(name, (new WNBiomeBuilder())
+                .surfaceBuilder(SurfaceBuilder.DEFAULT, new SurfaceBuilderConfig(Blocks.ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState(), Blocks.PACKED_ICE.getDefaultState()))
                 .precipitation(RainType.RAIN)
                 .category(Category.EXTREME_HILLS)
                 .topography(WNBiomeBuilder.Topography.HIGH_MOUNTAINS)
@@ -30,10 +30,8 @@ public class WNGlacier extends WNBiome {
                 .parent(null));
 
 
-
-        this.addStructure(Feature.MINESHAFT, new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL));
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addStructure(Feature.STRONGHOLD, IFeatureConfig.NO_FEATURE_CONFIG);
+        WNBiomeFeatures.addMineshafts(this, MineshaftStructure.Type.NORMAL);
+        WNBiomeFeatures.addStrongholds(this);
         WNBiomeFeatures.addCarvers(this);
         WNBiomeFeatures.addStructures(this);
         WNBiomeFeatures.addLakes(this);
@@ -43,12 +41,11 @@ public class WNGlacier extends WNBiome {
         WNBiomeFeatures.addOres(this);
         WNBiomeFeatures.addSedimentDisks(this);
         WNBiomeFeatures.addDefaultFlowers(this);
-        WNBiomeFeatures.addGrass(this,18);
+        WNBiomeFeatures.addGrass(this, 18);
 
         WNBiomeFeatures.addReedsAndPumpkins(this);
         WNBiomeFeatures.addSprings(this);
         WNBiomeFeatures.addFreezeTopLayer(this);
-
 
 
         applyPlants();
@@ -66,8 +63,6 @@ public class WNGlacier extends WNBiome {
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(EntityType.WITCH, 5, 1, 1));
 
     }
-
-
 
 
 }

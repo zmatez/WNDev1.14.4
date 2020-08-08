@@ -12,10 +12,8 @@ public class scrubland_shrub3 extends SchemFeature {
 
     }
 
-
     @Override
     public Set<BlockPos> setBlocks() {
-
         Block(0, 1, -3, "minecraft:oak_leaves[distance=3,persistent=true]");
         Block(0, 1, -2, "minecraft:oak_leaves[distance=2,persistent=true]");
         Block(1, 1, -2, "minecraft:oak_leaves[distance=3,persistent=true]");
