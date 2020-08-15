@@ -6,119 +6,112 @@
     32
   ],
   "textures": {
-    "1": "wildnature:items/tools/silver_sword",
-    "particle": "wildnature:items/tools/silver_sword"
+    "layer0": "wildnature:items/tools/silver_sword"
   },
   "display": {
     "thirdperson_righthand": {
       "rotation": [
-        -6,
-        85,
+        11,
+        -90,
         55
       ],
       "translation": [
         0,
-        1.5,
-        2
+        12.75,
+        2.25
       ],
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        1.5,
+        1.5,
+        1.5
       ]
     },
     "thirdperson_lefthand": {
       "rotation": [
-        -4,
-        -86,
+        11,
+        90,
         -55
       ],
       "translation": [
-        0,
-        1.25,
-        2
+        0.25,
+        13,
+        1.5
       ],
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        1.5,
+        1.5,
+        1.5
       ]
     },
     "firstperson_righthand": {
       "rotation": [
-        11,
-        90,
-        29
+        -6,
+        -90,
+        27
       ],
       "translation": [
-        3.25,
-        0.75,
-        -1
+        2,
+        11.25,
+        0.38
       ],
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        1.5,
+        1.5,
+        0.7
       ]
     },
     "firstperson_lefthand": {
       "rotation": [
-        12,
-        -83,
-        -31
+        -6,
+        91,
+        -27
       ],
       "translation": [
-        -0.25,
-        0.75,
-        -0.5
+        5.25,
+        11.5,
+        -1.25
       ],
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        1.5,
+        1.5,
+        0.7
       ]
     },
     "ground": {
+      "translation": [
+        0,
+        6.25,
+        0
+      ],
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        1.2,
+        1.2,
+        1.2
       ]
     },
     "gui": {
       "translation": [
-        -4,
-        -4,
+        4,
+        4.5,
         0
       ],
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        1.5,
+        1.5,
+        1.5
       ]
     },
     "fixed": {
       "translation": [
-        -3.25,
-        -4.75,
+        5,
+        4.25,
         0
       ],
       "scale": [
-        0.5,
-        0.5,
-        0.5
+        1.5,
+        1.5,
+        1.5
       ]
     }
-  },
-  "groups": [
-    {
-      "name": "diamond_sword",
-      "origin": [
-        8,
-        8,
-        8
-      ],
-      "children": []
-    }
-  ]
+  }
 }
